@@ -18,21 +18,26 @@ public class MainActivity extends Activity {
         setContentView(webView);
 
         WebSettings settings = webView.getSettings();
-
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
 
+        // Always request the newest GitHub Pages version.
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.clearCache(true);
+
         webView.setWebViewClient(new WebViewClient());
 
-        webView.loadUrl("https://littlemann766.github.io/MyBills/");
+        // Cache-busting query keeps the APK synced with the live website.
+        String url = "https://littlemann766.github.io/MyBills/?app=" + System.currentTimeMillis();
+        webView.loadUrl(url);
     }
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
+        if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();
