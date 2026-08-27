@@ -1,0 +1,51 @@
+name: Apply My Bills Update
+
+on:
+  push:
+    paths:
+      - 'MyBills_update.zip'
+      - '.github/workflows/apply-my-bills-update.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Apply uploaded My Bills package
+        shell: bash
+        run: |
+          if [ ! -f MyBills_update.zip ]; then
+            echo "No MyBills_update.zip found. Nothing to apply."
+            exit 0
+          fi
+
+          rm -rf .mybills_update_tmp
+          mkdir .mybills_update_tmp
+          unzip -o MyBills_update.zip -d .mybills_update_tmp
+
+          # Copy the package into the repository root.
+          cp -a .mybills_update_tmp/. .
+
+          rm -rf .mybills_update_tmp
+          rm -f MyBills_update.zip
+
+      - name: Commit applied update
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No repository changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Apply My Bills app update"
+          git push
