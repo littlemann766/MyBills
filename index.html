@@ -574,6 +574,13 @@ body.theme-dark{
 .category-option{width:100%;border:0;background:transparent;color:var(--text,#111827);text-align:left;padding:13px 14px;border-radius:11px;font:inherit;font-weight:650;cursor:pointer}
 .category-option:active,.category-option:hover{background:var(--surface-2,#f1f3f6)}
 </style>
+
+<style>
+/* v61: foreground notification sound/toast support for browser testing */
+.notify-toast-v61{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;width:min(92vw,520px);background:#111827;color:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 18px 48px #0006;font-weight:700;line-height:1.35}
+.notify-toast-v61 .subline{font-size:13px;font-weight:500;opacity:.85;margin-top:3px}
+.notify-toast-v61 button{float:right;margin-left:12px;padding:7px 10px;background:#fff;color:#111827;border-radius:10px}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2884,6 +2891,44 @@ function previewSelectedTheme(){
   applyTheme();
   appSettings.theme=oldTheme;
 }
+function playNotificationSound(kind='default'){
+  if(kind==='silent') return Promise.resolve(false);
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return Promise.resolve(false);
+    const ctx=new AC();
+    const patterns={
+      default:[[880,.11,0],[660,.12,.14]],
+      alarm:[[880,.18,0],[880,.18,.24],[880,.22,.48]],
+      ringtone:[[523,.14,0],[659,.14,.16],[784,.20,.32],[659,.14,.56]],
+      chime:[[660,.18,0],[880,.30,.18]],
+      bell:[[988,.12,0],[784,.30,.12]],
+      beep:[[740,.18,0]]
+    };
+    const seq=patterns[kind]||patterns.default;
+    seq.forEach(([freq,dur,delay])=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type=kind==='bell'?'sine':'triangle';o.frequency.value=freq;
+      g.gain.setValueAtTime(0.0001,ctx.currentTime+delay);
+      g.gain.exponentialRampToValueAtTime(.18,ctx.currentTime+delay+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+delay+dur);
+      o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+dur+.02);
+    });
+    const end=Math.max(...seq.map(x=>x[2]+x[1]))+.1;
+    return new Promise(r=>setTimeout(()=>{try{ctx.close()}catch(e){}r(true)},end*1000));
+  }catch(e){return Promise.resolve(false)}
+}
+function showForegroundNotification(title,text,sound='default',vibrate=true){
+  playNotificationSound(sound);
+  if(vibrate&&navigator.vibrate) navigator.vibrate([180,90,180]);
+  let t=document.querySelector('.notify-toast-v61');
+  if(t)t.remove();
+  t=document.createElement('div');t.className='notify-toast-v61';
+  t.innerHTML=`<button type="button">Close</button><div>${esc(title)}</div><div class="subline">${esc(text||'')}</div>`;
+  t.querySelector('button').onclick=()=>t.remove();document.body.appendChild(t);
+  setTimeout(()=>{if(t.isConnected)t.remove()},12000);
+  if('Notification' in window&&location.protocol==='https:'&&Notification.permission==='granted'){try{new Notification(title,{body:text})}catch(e){}}
+}
 function testNotification(){
   const payload={
     title:'My Bills test',
@@ -2891,18 +2936,19 @@ function testNotification(){
     vibrate:$('notificationVibrate').checked,
     sound:$('notificationSound').value||'default'
   };
+  // Always preview the selected sound in the page so browser/content:// testing is audible.
+  showForegroundNotification(payload.title,payload.text,payload.sound,payload.vibrate);
   if(window.AndroidBridge&&typeof window.AndroidBridge.testNotification==='function'){
     window.AndroidBridge.testNotification(JSON.stringify(payload));
-    setSettingsStatus('Test notification sent to Android.');
+    setSettingsStatus('Test sent. The selected sound should play here and through the Android notification channel.');
     return;
   }
   if('Notification' in window && location.protocol==='https:'){
-    const send=()=>new Notification(payload.title,{body:payload.text});
-    if(Notification.permission==='granted'){send();setSettingsStatus('Browser test notification sent.');return}
-    Notification.requestPermission().then(p=>{if(p==='granted'){send();setSettingsStatus('Browser test notification sent.')}else setSettingsStatus('Notification permission was not granted.')});
+    if(Notification.permission!=='granted') Notification.requestPermission().then(()=>{});
+    setSettingsStatus('Sound preview played. Browser notifications use the phone/browser notification sound.');
     return;
   }
-  setSettingsStatus('Test notifications are available in the installed Android app.');
+  setSettingsStatus('Sound preview played. Scheduled alerts can sound while this page is open; closed-app alerts require the installed Android app.');
 }
 
 function openSettings(){
@@ -2982,6 +3028,39 @@ function scheduleNativeNotifications(){
     window.AndroidBridge.scheduleNotifications(JSON.stringify(notificationPayload()));
   }
 }
+const FOREGROUND_FIRED_KEY='myBills_foreground_notifications_v1';
+function foregroundFired(){try{return JSON.parse(localStorage.getItem(FOREGROUND_FIRED_KEY)||'{}')}catch(e){return {}}}
+function markForegroundFired(key){const x=foregroundFired();x[key]=Date.now();const cutoff=Date.now()-14*86400000;Object.keys(x).forEach(k=>{if(x[k]<cutoff)delete x[k]});localStorage.setItem(FOREGROUND_FIRED_KEY,JSON.stringify(x))}
+function foregroundNotificationCheck(){
+  const now=new Date(),today=toISO(now),hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0'),fired=foregroundFired();
+  if(appSettings.notificationsEnabled){
+    bills.forEach(b=>{
+      if(!b.notify)return;
+      const days=Math.max(0,Number(b.notifyDaysBefore??appSettings.notificationDays)||0);
+      const due=new Date(now.getFullYear(),now.getMonth(),now.getDate()+days);
+      const dueIso=toISO(due);
+      if(!isRecurringOnDate(b,due))return;
+      if(billStatus(b,dueIso)==='paid')return;
+      const time=b.notifyTime||appSettings.notificationTime||'09:00';
+      if(hhmm<time)return;
+      const key=`bill|${b.id}|${dueIso}|${today}|${time}`;if(fired[key])return;
+      const when=days===0?'due today':days===1?'due tomorrow':`due in ${days} days`;
+      showForegroundNotification(b.name,`${money(b.amount)} • ${when}`,b.notifySound||appSettings.notificationSound||'default',b.notifyVibrate!==false);
+      markForegroundFired(key);
+    });
+  }
+  if(appSettings.reminderNotificationsEnabled!==false){
+    reminders.filter(r=>r.notify&&r.date===today).forEach(r=>{
+      const time=r.time||'09:00';if(hhmm<time)return;
+      const key=`reminder|${r.id}|${r.date}|${time}`;if(fired[key])return;
+      showForegroundNotification(r.name,r.notes||'Reminder',r.sound||appSettings.notificationSound||'default',r.vibrate!==false);
+      markForegroundFired(key);
+    });
+  }
+}
+setInterval(foregroundNotificationCheck,20000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)foregroundNotificationCheck()});
+window.addEventListener('focus',foregroundNotificationCheck);
 
 function setupSettingsUI(){
   const nd=$('notificationDays');
@@ -3016,7 +3095,7 @@ if(document.readyState==='loading'){
 }else{
   setupSettingsUI();
 }
-loadBillOverrides();loadPaychecks();loadWorkHours();loadBills().then(()=>{render();openCalendar();renderUpcomingReminderSummary();renderReminderList();scheduleNativeNotifications()});
+loadBillOverrides();loadPaychecks();loadWorkHours();loadBills().then(()=>{render();openCalendar();renderUpcomingReminderSummary();renderReminderList();scheduleNativeNotifications();setTimeout(foregroundNotificationCheck,800)});
 </script>
 <script>
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
@@ -3208,7 +3287,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 
       <div class="settings-help">
         Bill alerts can be scheduled from the due date itself up to 31 days early.
-        Reminder alerts use the date and time saved on each reminder.
+        Reminder alerts use the date and time saved on each reminder. Sound choices are previewed in the app and will fire while this page is open. When running as a normal browser/download page, Android controls notification sound and cannot wake this page after it is closed; exact closed-app alerts require the installed Android app notification bridge.
       </div>
 
       <button type="button" class="ghost settings-test" id="testNotificationBtn">Test Notification</button>
