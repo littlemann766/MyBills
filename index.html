@@ -6625,5 +6625,228 @@ function openAvailableNowSpendingV88(){
 })();
 </script>
 
+
+<script id="mb-v89-unified-data-and-actual">
+(function(){
+  /* v89
+     1) Actual Now = received income through viewed/current date
+                     - bill payments actually recorded
+                     - spending entered through date
+                     - savings entered through date.
+     2) Spending/budgets/savings/categories are included in one master app-state
+        snapshot so browser HTML and Android WebView use the same data model.
+  */
+
+  const MASTER_KEY='myBills_master_state_v89';
+
+  function cutoffFor(y,m){
+    const now=new Date();
+    const start=new Date(y,m,1), end=new Date(y,m+1,0);
+    if(start>now) return null;
+    return end<now ? end : new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  }
+
+  function incomeThroughDate(y,m){
+    const cutoff=cutoffFor(y,m);
+    if(!cutoff) return 0;
+    try{
+      return paycheckOccurrencesThrough(cutoff)
+        .filter(x=>{
+          const d=new Date(x.iso+'T00:00:00');
+          return d.getFullYear()===y && d.getMonth()===m &&
+            !(typeof paycheckOccurrenceDeleted==='function' && paycheckOccurrenceDeleted(x.p,x.iso));
+        })
+        .reduce((s,x)=>s+(Number(x.amount)||0),0);
+    }catch(e){ return 0; }
+  }
+
+  function spendingThroughDate(y,m){
+    const cutoff=cutoffFor(y,m);
+    if(!cutoff) return 0;
+    const cut=toISO(cutoff);
+    try{
+      return budgetSpendingFor(y,m)
+        .filter(x=>String(x.date||'')<=cut)
+        .reduce((s,x)=>s+(Number(x.amount)||0),0);
+    }catch(e){ return 0; }
+  }
+
+  function savingsThroughDate(y,m){
+    const cutoff=cutoffFor(y,m);
+    if(!cutoff) return 0;
+    const cut=toISO(cutoff);
+    let total=0;
+    try{
+      loadSavingsGoals().forEach(g=>(g.transactions||[]).forEach(t=>{
+        const d=new Date((t.date||'')+'T00:00:00');
+        if(d.getFullYear()===y && d.getMonth()===m && String(t.date||'')<=cut){
+          total+=Number(t.amount)||0;
+        }
+      }));
+    }catch(e){}
+    return total;
+  }
+
+  function paidBillsForViewedMonth(y,m){
+    try{ return Number(monthlyPaidFor(y,m))||0; }catch(e){ return 0; }
+  }
+
+  window.myBillsActualToDate=function(y,m){
+    const income=incomeThroughDate(y,m);
+    const bills=paidBillsForViewedMonth(y,m);
+    const spending=spendingThroughDate(y,m);
+    const savings=savingsThroughDate(y,m);
+    return {income,bills,spending,savings,left:income-bills-spending-savings};
+  };
+  window.myBillsActualNowV86=window.myBillsActualToDate;
+  window.myBillsActualNowV87=window.myBillsActualToDate;
+
+  function snapshot(){
+    const storage={};
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(k && (k==='myBills_v1' || k.startsWith('myBills_')) && k!==MASTER_KEY){
+        storage[k]=localStorage.getItem(k);
+      }
+    }
+    return {
+      version:89,
+      savedAt:new Date().toISOString(),
+      storage
+    };
+  }
+
+  function saveMaster(){
+    try{ localStorage.setItem(MASTER_KEY,JSON.stringify(snapshot())); }catch(e){}
+  }
+
+  function restoreMasterMissingKeys(){
+    try{
+      const snap=JSON.parse(localStorage.getItem(MASTER_KEY)||'null');
+      if(!snap || !snap.storage) return false;
+      let changed=false;
+      Object.entries(snap.storage).forEach(([k,v])=>{
+        // Restore only missing keys; never overwrite newer live changes.
+        if(localStorage.getItem(k)===null && v!==null && v!==undefined){
+          localStorage.setItem(k,v);
+          changed=true;
+        }
+      });
+      return changed;
+    }catch(e){ return false; }
+  }
+
+  // Upgrade JSON backup: include every My Bills data bucket, not only bills/checks/hours.
+  window.backupBills=function(){
+    saveMaster();
+    const snap=snapshot();
+    const payload={
+      app:'My Bills',
+      version:89,
+      exportedAt:new Date().toISOString(),
+      masterState:snap,
+      bills:Array.isArray(bills)?bills:[],
+      paychecks:Array.isArray(paychecks)?paychecks:[],
+      paycheckOverrides:paycheckOverrides||{},
+      billOverrides:billOverrides||{},
+      billPaidAmounts:billPaidAmounts||{},
+      workHours:Array.isArray(workHours)?workHours:[],
+      hourlyWage:Number(hourlyWage)||0,
+      reminders:Array.isArray(reminders)?reminders:[],
+      budgets:typeof loadBudgets==='function'?loadBudgets():{},
+      spending:typeof loadBudgetSpending==='function'?loadBudgetSpending():[],
+      savingsGoals:typeof loadSavingsGoals==='function'?loadSavingsGoals():[],
+      settings:typeof appSettings==='object'?appSettings:{}
+    };
+    const data=JSON.stringify(payload,null,2);
+    if(window.AndroidBridge && typeof window.AndroidBridge.saveBackup==='function'){
+      window.AndroidBridge.saveBackup(data); return;
+    }
+    const blob=new Blob([data],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='my-bills-backup-v89.json';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  };
+
+  // Wrap spending persistence so it instantly updates Available Now + master state.
+  const basePersistSpending=window.persistBudgetSpending;
+  if(typeof basePersistSpending==='function'){
+    window.persistBudgetSpending=function(rows){
+      const r=basePersistSpending(rows);
+      saveMaster();
+      queueRefresh();
+      return r;
+    };
+  }
+
+  // Same for savings and major ledgers.
+  for(const name of ['persistSavingsGoals','persistPaychecks','persistWorkHours','persistBillOverrides','persistReminders']){
+    const fn=window[name];
+    if(typeof fn==='function' && !fn.__v89){
+      const wrapped=function(){
+        const r=fn.apply(this,arguments);
+        saveMaster();
+        queueRefresh();
+        return r;
+      };
+      wrapped.__v89=true;
+      window[name]=wrapped;
+    }
+  }
+
+  const basePersistBills=window.persistBills;
+  if(typeof basePersistBills==='function' && !basePersistBills.__v89){
+    const wrapped=async function(){
+      const r=await basePersistBills.apply(this,arguments);
+      saveMaster();queueRefresh();return r;
+    };
+    wrapped.__v89=true;
+    window.persistBills=wrapped;
+  }
+
+  // Make Available Now open the tracked spending section.
+  window.openAvailableNowSpendingV88=function(){
+    try{
+      openBudgetDlg();
+      requestAnimationFrame(()=>{
+        const target=document.getElementById('budgetExpenseList') ||
+                     document.querySelector('.budget-expense-box') ||
+                     document.getElementById('budgetExpenseName');
+        if(target) target.scrollIntoView({block:'center',behavior:'smooth'});
+      });
+    }catch(e){}
+  };
+
+  let raf=0;
+  function refreshAvailable(){
+    try{
+      const meta=document.getElementById('netRemainingMeta');
+      const value=document.getElementById('netRemainingValue');
+      if(!meta||!value||!/Actual now/i.test(meta.textContent||'')) return;
+      const a=window.myBillsActualToDate(calDate.getFullYear(),calDate.getMonth());
+      value.textContent=money(a.left);
+    }catch(e){}
+  }
+  function queueRefresh(){
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(()=>{
+      try{ if(typeof renderBudgetTracking==='function' && document.getElementById('budgetDlg')?.open) renderBudgetTracking(); }catch(e){}
+      try{ if(typeof updateFinanceDashboard==='function') updateFinanceDashboard(); }catch(e){}
+      refreshAvailable();
+    });
+  }
+
+  // Migrate any already-present separate stores into master immediately.
+  restoreMasterMissingKeys();
+  saveMaster();
+
+  document.addEventListener('change',()=>{saveMaster();queueRefresh()},true);
+  window.addEventListener('pageshow',()=>{restoreMasterMissingKeys();queueRefresh()});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){restoreMasterMissingKeys();queueRefresh()}});
+  queueRefresh();
+})();
+</script>
+
 </body>
 </html>
