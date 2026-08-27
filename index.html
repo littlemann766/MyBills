@@ -3584,7 +3584,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
         <button class="ghost" id="saveBtn" type="button" onclick="manualSave()">Save</button>
         <span id="saveStatus" class="save-status saved">Saved</span>
         <button class="ghost" type="button" onclick="backupBills()">Backup JSON</button>
-        <button class="ghost" type="button" onclick="$('restoreFile').click()">Restore JSON</button>
+        <button class="ghost" type="button" onclick="requestRestoreBackupV89()">Restore JSON</button>
         <input id="restoreFile" type="file" accept=".json,application/json" style="display:none" onchange="restoreBills(event)">
       </div>
     </div>
@@ -6767,6 +6767,43 @@ function openAvailableNowSpendingV88(){
     a.href=url;a.download='my-bills-backup-v89.json';
     document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1000);
+  };
+
+  // Android-safe Restore JSON. Native Android opens the system picker, reads the
+  // selected file, then sends the JSON text back here. Browser/GitHub use the file input.
+  window.requestRestoreBackupV89=function(){
+    if(window.AndroidBridge && typeof window.AndroidBridge.restoreBackup==='function'){
+      window.AndroidBridge.restoreBackup();
+      return;
+    }
+    const input=document.getElementById('restoreFile');
+    if(input) input.click();
+  };
+
+  window.restoreBackupTextV89=function(text){
+    try{
+      const data=JSON.parse(String(text||''));
+      // v89 full-state backups restore every localStorage bucket, including spending,
+      // savings, settings, reminders, hours, paychecks, bills and overrides.
+      if(data && data.masterState && data.masterState.storage && typeof data.masterState.storage==='object'){
+        if(!confirm('Restore this My Bills backup? This will replace the current app data.')) return;
+        Object.entries(data.masterState.storage).forEach(([k,v])=>{
+          if(v===null || v===undefined) localStorage.removeItem(k);
+          else localStorage.setItem(k,String(v));
+        });
+        try{ localStorage.setItem(MASTER_KEY, JSON.stringify(data.masterState)); }catch(e){}
+        alert('Backup restored successfully.');
+        location.reload();
+        return;
+      }
+      // Compatibility with older My Bills JSON backups: feed the JSON through the
+      // existing restore routine so old backup files continue to work.
+      const blob=new Blob([String(text||'')],{type:'application/json'});
+      const file=new File([blob],'my-bills-backup.json',{type:'application/json'});
+      restoreBills({target:{files:[file],value:''}});
+    }catch(e){
+      alert('That file is not a valid My Bills backup.');
+    }
   };
 
   // Wrap spending persistence so it instantly updates Available Now + master state.
