@@ -853,9 +853,9 @@ dialog button.danger{
 </style>
 
 
-<link rel="icon" type="image/png" sizes="96x96" href="mybills-v124-favicon.png?v=124">
-<link rel="apple-touch-icon" sizes="192x192" href="mybills-v124-192.png?v=124">
-<link rel="manifest" href="manifest.webmanifest?v=124">
+<link rel="icon" type="image/png" sizes="96x96" href="mybills-v125-favicon.png?v=125">
+<link rel="apple-touch-icon" sizes="192x192" href="mybills-v125-192.png?v=125">
+<link rel="manifest" href="manifest.webmanifest?v=125">
 
 </head>
 <body>
@@ -1972,28 +1972,101 @@ function restoreBills(event){
   const file=event.target.files?.[0];
   event.target.value='';
   if(!file)return;
+
   const reader=new FileReader();
   reader.onload=()=>{
     try{
       const data=JSON.parse(reader.result);
+
+      // v125: Preferred path for full My Bills backups (including v89).
+      // Restore the exact saved localStorage snapshot instead of only rebuilding bills.
+      const storage=(data && data.masterState && data.masterState.storage && typeof data.masterState.storage==='object')
+        ? data.masterState.storage
+        : null;
+
+      if(storage){
+        const keys=Object.keys(storage).filter(k=>typeof k==='string' && k.startsWith('myBills_'));
+        if(!keys.length)throw new Error('No My Bills storage keys');
+
+        const billCount=(()=>{
+          try{
+            const raw=storage.myBills_v1;
+            const arr=typeof raw==='string'?JSON.parse(raw):raw;
+            return Array.isArray(arr)?arr.length:0;
+          }catch(e){return 0}
+        })();
+
+        const hourCount=(()=>{
+          try{
+            const raw=storage.myBills_work_hours_v1;
+            const arr=typeof raw==='string'?JSON.parse(raw):raw;
+            return Array.isArray(arr)?arr.length:0;
+          }catch(e){return 0}
+        })();
+
+        const spendingCount=(()=>{
+          try{
+            const raw=storage.myBills_budget_spending_v1;
+            const arr=typeof raw==='string'?JSON.parse(raw):raw;
+            return Array.isArray(arr)?arr.length:0;
+          }catch(e){return 0}
+        })();
+
+        const message=`Restore this full My Bills backup?\n\n${billCount} bills • ${hourCount} work-hour entries • ${spendingCount} spending entries\n\nThis replaces the current saved My Bills data.`;
+        if(!confirm(message))return;
+
+        // Preserve only the runtime build marker; restore every saved My Bills data/settings key exactly.
+        keys.forEach(key=>{
+          const value=storage[key];
+          if(value===null || typeof value==='undefined') localStorage.removeItem(key);
+          else localStorage.setItem(key, typeof value==='string' ? value : JSON.stringify(value));
+        });
+
+        localStorage.setItem('myBills_restore_source_v125', JSON.stringify({
+          restoredAt:new Date().toISOString(),
+          sourceVersion:data.version || data.masterState?.version || null,
+          exportedAt:data.exportedAt || data.masterState?.savedAt || null
+        }));
+
+        alert(`Full backup restored.\n\n${billCount} bills, ${hourCount} work-hour entries, and ${spendingCount} spending entries were loaded.\n\nMy Bills will reload now.`);
+        location.reload();
+        return;
+      }
+
+      // Compatibility path for simpler/older exports that do not include masterState.storage.
       const imported=Array.isArray(data)?data:data.bills;
-       if(!Array.isArray(data) && Array.isArray(data.paychecks)){
-          workHours=Array.isArray(data.workHours)?data.workHours:[];
-          hourlyWage=Number(data.hourlyWage)||0;
-          persistWorkHours();
-          paychecks=data.paychecks;
-          paycheckOverrides=(data.paycheckOverrides && typeof data.paycheckOverrides==='object')?data.paycheckOverrides:{};
-           billOverrides=(data.billOverrides && typeof data.billOverrides==='object')?data.billOverrides:{};
-           billPaidAmounts=(data.billPaidAmounts && typeof data.billPaidAmounts==='object')?data.billPaidAmounts:{};
-           reminders=Array.isArray(data.reminders)?data.reminders:[];
-           persistReminders();
-          persistPaychecks();
-        }
+
+      if(!Array.isArray(data) && Array.isArray(data.paychecks)){
+        workHours=Array.isArray(data.workHours)?data.workHours:[];
+        hourlyWage=Number(data.hourlyWage)||0;
+        persistWorkHours();
+
+        paychecks=data.paychecks;
+        paycheckOverrides=(data.paycheckOverrides && typeof data.paycheckOverrides==='object')?data.paycheckOverrides:{};
+        billOverrides=(data.billOverrides && typeof data.billOverrides==='object')?data.billOverrides:{};
+        billPaidAmounts=(data.billPaidAmounts && typeof data.billPaidAmounts==='object')?data.billPaidAmounts:{};
+        reminders=Array.isArray(data.reminders)?data.reminders:[];
+        persistReminders();
+        persistPaychecks();
+
+        try{
+          if(data.budgets && typeof data.budgets==='object')localStorage.setItem('myBills_monthly_budgets_v1',JSON.stringify(data.budgets));
+          if(Array.isArray(data.spending))localStorage.setItem('myBills_budget_spending_v1',JSON.stringify(data.spending));
+          if(data.paymentMeta && typeof data.paymentMeta==='object')localStorage.setItem('myBills_payment_meta_v1',JSON.stringify(data.paymentMeta));
+          if(data.settings && typeof data.settings==='object')localStorage.setItem('myBills_settings_v2',JSON.stringify(data.settings));
+        }catch(e){}
+      }
+
       if(!Array.isArray(imported))throw new Error('Invalid backup');
+
       const valid=imported.filter(b=>b && typeof b==='object' && b.id && b.name && b.due);
       if(imported.length && !valid.length)throw new Error('No valid bills');
+
       if(!confirm(`Restore ${valid.length} bill${valid.length===1?'':'s'} from this backup? This will replace the current bills.`))return;
+
+      // Preserve all fields present in each bill instead of dropping category/notes/notification settings.
       bills=valid.map(b=>({
+        ...b,
         id:String(b.id),
         name:String(b.name),
         amount:Number(b.amount)||0,
@@ -2003,9 +2076,14 @@ function restoreBills(event){
         paid:!!b.paid,
         color:b.color||defaultColor(b.name)
       }));
-      manualSave().then(()=>{render();renderCalendar();alert('Backup restored successfully.')});
+
+      manualSave().then(()=>{
+        try{render();renderCalendar();}catch(e){}
+        setTimeout(()=>location.reload(),100);
+      });
     }catch(e){
-      alert('That file is not a valid My Bills backup.');
+      console.error('Restore failed',e);
+      alert('That file is not a valid My Bills backup, or it could not be restored.');
     }
   };
   reader.readAsText(file);
@@ -9724,7 +9802,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>124 / 19.1-v124</strong>
+      <strong>125 / 19.1-v125</strong>
     </div>
   </section>
 </div>
@@ -9738,10 +9816,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='124 / 19.1-v124';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='125 / 19.1-v125';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=124, BUILD_NAME='19.1-v124', BUILD_LABEL='124 / 19.1-v124';
+  const BUILD_CODE=125, BUILD_NAME='19.1-v125', BUILD_LABEL='125 / 19.1-v125';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10053,7 +10131,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='124 / 19.1-v124';
+  const VERSION='125 / 19.1-v125';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10298,7 +10376,7 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='124 / 19.1-v124';
+  const VERSION='125 / 19.1-v125';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10390,6 +10468,15 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
     // the original long page can never render above/below the new tabs.
     document.body.classList.add('mb124-ready');
 
+    // v125: after a restore/reload, force every legacy calculation/render to populate
+    // the widgets before the old source container is hidden.
+    try{
+      if(typeof render==='function')render();
+      if(typeof renderCalendar==='function')renderCalendar();
+      if(typeof window.mbRefreshNow==='function')window.mbRefreshNow();
+    }catch(e){console.warn('v125 refresh',e)}
+
+
     // Home is the only initial page.
     document.querySelectorAll('.mb119-view').forEach(v=>v.classList.toggle('active',v.id==='mb119Home'));
     document.querySelectorAll('.mb119-nav').forEach(b=>b.classList.toggle('active',b.dataset.view==='home'));
@@ -10400,6 +10487,33 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',()=>setTimeout(finish,120),{once:true});
   }else setTimeout(finish,120);
+})();
+</script>
+
+
+<script id="mb-v125-restore-status">
+(function(){
+  function showRestoreStatus(){
+    let info=null;
+    try{info=JSON.parse(localStorage.getItem('myBills_restore_source_v125')||'null')}catch(e){}
+    if(!info)return;
+
+    const panel=document.getElementById('mb123SettingsPanel');
+    if(!panel)return;
+
+    const saveSection=[...panel.querySelectorAll('.settings-section')].find(x=>/Save & Backup/i.test(x.textContent||''));
+    if(!saveSection || document.getElementById('mb125RestoreStatus'))return;
+
+    const box=document.createElement('div');
+    box.id='mb125RestoreStatus';
+    box.style.cssText='margin-top:10px;padding:10px 12px;border:1px solid rgba(0,190,205,.45);border-radius:12px;font-size:12px;';
+    const when=info.restoredAt?new Date(info.restoredAt).toLocaleString():'recently';
+    box.textContent=`Last restore: backup v${info.sourceVersion||'?'} • ${when}`;
+    saveSection.appendChild(box);
+  }
+  document.addEventListener('click',e=>{
+    if(e.target?.matches?.('[data-mb123-settings="backup"]'))setTimeout(showRestoreStatus,60);
+  });
 })();
 </script>
 

@@ -1,5 +1,5 @@
-# My Bills v124
+# My Bills v125
 
-Build: **124 / 19.1-v124**
+Build: **125 / 19.1-v125**
 
-Simplified structure: one visible tab page at a time. The legacy long-page container is used only as a source for working widgets, then hidden completely. Light mode is truly light, tab headers stay sticky, Calendar is calendar-only, Bills uses the bill list, and Settings remains split into simpler sections.
+Restore now recognizes full My Bills backups such as v89 and restores the exact `masterState.storage` snapshot including bills, paychecks, spending, work hours, settings, paid amounts, categories, overrides, budgets, and related data. The app reloads after restore so calculations and tab content are rebuilt from the restored storage.
