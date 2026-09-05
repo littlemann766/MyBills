@@ -1,3 +1,3 @@
 My Bills
-Build: 123 / 19.1-v123
-v123: real light mode; sticky tab headers; bill colors moved to Appearance; split Settings; Android-safe Export Summary.
+Build: 124 / 19.1-v124
+v124 structure lock: one visible page at a time; legacy long page hidden after widgets mount.

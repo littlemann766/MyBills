@@ -853,9 +853,9 @@ dialog button.danger{
 </style>
 
 
-<link rel="icon" type="image/png" sizes="96x96" href="mybills-v123-favicon.png?v=123">
-<link rel="apple-touch-icon" sizes="192x192" href="mybills-v123-192.png?v=123">
-<link rel="manifest" href="manifest.webmanifest?v=123">
+<link rel="icon" type="image/png" sizes="96x96" href="mybills-v124-favicon.png?v=124">
+<link rel="apple-touch-icon" sizes="192x192" href="mybills-v124-192.png?v=124">
+<link rel="manifest" href="manifest.webmanifest?v=124">
 
 </head>
 <body>
@@ -9724,7 +9724,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>123 / 19.1-v123</strong>
+      <strong>124 / 19.1-v124</strong>
     </div>
   </section>
 </div>
@@ -9738,10 +9738,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='123 / 19.1-v123';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='124 / 19.1-v124';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=123, BUILD_NAME='19.1-v123', BUILD_LABEL='123 / 19.1-v123';
+  const BUILD_CODE=124, BUILD_NAME='19.1-v124', BUILD_LABEL='124 / 19.1-v124';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10053,7 +10053,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='123 / 19.1-v123';
+  const VERSION='124 / 19.1-v124';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10229,6 +10229,177 @@ body:not(.theme-dark) .mb119-nav.active{
     forceThemeRefresh();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+<style id="mb-v124-structure-lock">
+/* v124: original legacy container is only a source of working widgets.
+   Once widgets are moved into tabs, it must never render on screen. */
+body.mb124-ready > .app{display:none!important}
+
+/* Exactly one tab page visible. */
+#mb119Shell{display:block!important;min-height:100vh;padding-bottom:105px!important}
+.mb119-view{display:none!important}
+.mb119-view.active{display:block!important}
+
+/* Sticky tab headers stay on-screen while the page scrolls. */
+.mb123-sticky-header{
+  position:sticky!important;top:0!important;z-index:950!important;
+  border-bottom:1px solid rgba(0,190,205,.55)!important
+}
+
+/* True light mode */
+body:not(.theme-dark),
+body:not(.theme-dark) #mb119Shell,
+body:not(.theme-dark) .mb119-view{
+  background:#f7f9fc!important;color:#14213a!important
+}
+body:not(.theme-dark) .mb123-sticky-header{background:rgba(247,249,252,.98)!important}
+body:not(.theme-dark) .mb119-card,
+body:not(.theme-dark) #mb119Shell .card,
+body:not(.theme-dark) #mb119Shell .bill,
+body:not(.theme-dark) #mb119Shell .calendar-wrap,
+body:not(.theme-dark) #mb119Shell .calculator-card{
+  background:#fff!important;color:#14213a!important
+}
+body:not(.theme-dark) #mb119Shell .label,
+body:not(.theme-dark) #mb119Shell .meta,
+body:not(.theme-dark) #mb119Shell small{color:#64748b!important}
+body:not(.theme-dark) #mb119Shell .value,
+body:not(.theme-dark) #mb119Shell .name,
+body:not(.theme-dark) #mb119Shell .amount{color:#14213a!important}
+
+/* Calendar is calendar-only. No bill-color editor here. */
+#mb119Calendar #legendToggle,#mb119Calendar #legend{display:none!important}
+
+/* Readable bill categories. */
+body:not(.theme-dark) .bill-category-pill{
+  background:#e8f1ff!important;color:#14213a!important;border:1px solid #b8cbe7!important
+}
+body.theme-dark .bill-category-pill{
+  background:#24437d!important;color:#fff!important;border:1px solid #4a6cab!important
+}
+
+/* Settings section content */
+#mb123SettingsPanel{display:block}
+#mb123BillColors #legend{display:grid!important}
+#mb123BillColors .legend-item{opacity:1!important}
+#mb123BillColors .legend-item span,
+#mb123BillColors .legend-item label{opacity:1!important}
+body:not(.theme-dark) #mb123BillColors .legend-item span,
+body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!important}
+
+/* Keep only bottom-nav Settings. */
+#settingsBtn,.settings-fab,.floating-settings,.floating-gear,#floatingSettings,#settingsFab,.settings-float,.fab-settings{
+  display:none!important
+}
+</style>
+
+<script id="mb-v124-structure-lock-script">
+(function(){
+  const VERSION='124 / 19.1-v124';
+
+  function moveInto(mountId,node){
+    const mount=document.getElementById(mountId);
+    if(mount&&node&&node.parentElement!==mount)mount.appendChild(node);
+  }
+
+  function findDirectLegacyCard(test){
+    const app=document.querySelector('body > .app');
+    if(!app)return null;
+    return [...app.children].find(x=>test(x))||null;
+  }
+
+  function mountWorkingWidgets(){
+    // HOME
+    moveInto('mb119HomeMount',document.getElementById('dashboardCards'));
+    moveInto('mb119HomeMount',findDirectLegacyCard(x=>x.matches?.('.card[onclick*="showHoursWeeks"]')));
+    moveInto('mb119HomeMount',findDirectLegacyCard(x=>x.classList?.contains('quick-actions')));
+    moveInto('mb119HomeMount',document.getElementById('financeStatusCard'));
+
+    // CALENDAR
+    moveInto('mb119CalendarMount',document.getElementById('calendarWrap'));
+    const app=document.querySelector('body > .app');
+    if(app){
+      const reminderHead=[...app.children].find(x=>x.classList?.contains('section-head')&&/My Reminders/i.test(x.textContent||''));
+      moveInto('mb119CalendarMount',reminderHead);
+    }
+    moveInto('mb119CalendarMount',document.getElementById('reminderList'));
+
+    // BILLS
+    if(app){
+      const billHead=[...app.children].find(x=>x.classList?.contains('section-head')&&/^My Bills/i.test((x.textContent||'').trim()));
+      const filter=[...app.children].find(x=>x.classList?.contains('bill-filter-bar'));
+      const calc=[...app.children].find(x=>x.classList?.contains('calculator-card'));
+      moveInto('mb119BillsMount',billHead);
+      moveInto('mb119BillsMount',filter);
+      moveInto('mb119BillsMount',document.getElementById('list'));
+      moveInto('mb119BillsMount',calc);
+    }
+  }
+
+  function ensureHeaders(){
+    document.querySelectorAll('.mb119-view').forEach(view=>{
+      if(view.querySelector(':scope > .mb123-sticky-header'))return;
+      const title=view.querySelector(':scope > .mb119-title');
+      const sub=view.querySelector(':scope > .mb119-sub');
+      if(!title)return;
+      const head=document.createElement('div');
+      head.className='mb123-sticky-header';
+      view.insertBefore(head,title);
+      head.appendChild(title);
+      if(sub)head.appendChild(sub);
+    });
+  }
+
+  function lockOnePage(){
+    document.querySelectorAll('.mb119-nav').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const name=btn.dataset.view;
+        document.querySelectorAll('.mb119-view').forEach(v=>{
+          v.classList.toggle('active',v.id==='mb119'+name[0].toUpperCase()+name.slice(1));
+        });
+        document.querySelectorAll('.mb119-nav').forEach(b=>b.classList.toggle('active',b===btn));
+        window.scrollTo({top:0,behavior:'auto'});
+      },true);
+    });
+  }
+
+  function calendarOnly(){
+    const legend=document.getElementById('legend');
+    if(legend && legend.closest('#mb119Calendar')){
+      legend.style.display='none';
+    }
+    const toggle=document.getElementById('legendToggle');
+    if(toggle)toggle.style.display='none';
+  }
+
+  function version(){
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
+  }
+
+  function finish(){
+    mountWorkingWidgets();
+    ensureHeaders();
+    lockOnePage();
+    calendarOnly();
+    version();
+
+    // This is the critical fix: after the working widgets are moved,
+    // the original long page can never render above/below the new tabs.
+    document.body.classList.add('mb124-ready');
+
+    // Home is the only initial page.
+    document.querySelectorAll('.mb119-view').forEach(v=>v.classList.toggle('active',v.id==='mb119Home'));
+    document.querySelectorAll('.mb119-nav').forEach(b=>b.classList.toggle('active',b.dataset.view==='home'));
+
+    try{ if(typeof applyTheme==='function')applyTheme(); }catch(e){}
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(finish,120),{once:true});
+  }else setTimeout(finish,120);
 })();
 </script>
 

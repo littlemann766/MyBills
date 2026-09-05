@@ -1,5 +1,5 @@
-# My Bills v123
+# My Bills v124
 
-Build: **123 / 19.1-v123**
+Build: **124 / 19.1-v124**
 
-Light mode now uses a white/light background. Each main tab has a sticky header. Bill colors are managed under Settings → Appearance & Colors. Settings is split into Appearance & Colors, Bills & Reminders, Calendar & Defaults, and Backup & App. Export Summary uses the Android document picker in the APK.
+Simplified structure: one visible tab page at a time. The legacy long-page container is used only as a source for working widgets, then hidden completely. Light mode is truly light, tab headers stay sticky, Calendar is calendar-only, Bills uses the bill list, and Settings remains split into simpler sections.
