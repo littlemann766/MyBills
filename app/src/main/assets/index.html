@@ -9613,5 +9613,535 @@ body{overflow-x:hidden}
 })();
 </script>
 
+
+<!-- v109: exact neon dashboard layout + simple Available Now activity -->
+<style id="mb-v109-dashboard">
+:root{--mb109-bg:#f4f7fb;--mb109-navy:#172554;--mb109-navy2:#0b1c3d;--mb109-deep:#061328;--mb109-cyan:#00f5ff;--mb109-white:#fff;--mb109-muted:#b8c3d8}
+html,body{margin:0!important;padding:0!important;background:var(--mb109-bg)!important}
+body{overflow-x:hidden}
+.app{width:min(100%,1024px)!important;max-width:1024px!important;margin:0 auto!important;padding:0 28px calc(110px + env(safe-area-inset-bottom))!important;box-sizing:border-box!important}
+.top{margin:0 -28px 14px!important;padding:calc(18px + env(safe-area-inset-top)) 32px 18px!important;border:0!important;border-radius:0!important;color:#fff!important;background:radial-gradient(circle at 22% 0%,rgba(0,245,255,.12),transparent 30%),linear-gradient(135deg,#0e316a 0%,#081938 45%,#061328 100%)!important;box-shadow:0 5px 0 var(--mb109-cyan),0 12px 24px rgba(6,19,40,.18)!important;position:relative!important;overflow:hidden!important}
+.top::after{content:"";position:absolute;left:-4%;right:-4%;bottom:-2px;height:34px;border-top:4px solid rgba(0,245,255,.9);border-radius:50% 50% 0 0;transform:rotate(-1deg);opacity:.75;pointer-events:none}
+.mb109-header{position:relative;z-index:2;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px}
+.mb109-brand{display:flex;align-items:center;gap:14px;white-space:nowrap}
+.mb109-brand-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--mb109-cyan)}
+.mb109-brand-icon svg{width:45px;height:45px}.mb109-brand-title{margin:0;font-size:38px;line-height:1;font-weight:950;letter-spacing:-1.5px;color:#fff}
+.mb109-month-nav{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0}
+.mb109-headbtn{min-height:46px!important;height:46px!important;border:2px solid var(--mb109-cyan)!important;background:rgba(6,19,40,.58)!important;color:#fff!important;border-radius:16px!important;box-shadow:none!important;font-weight:900!important}
+.mb109-arrow{width:48px!important;padding:0!important;font-size:30px!important;line-height:1!important}
+#month.dashboard-month-button{min-width:210px!important;max-width:310px!important;height:46px!important;padding:8px 18px!important;border:2px solid var(--mb109-cyan)!important;background:rgba(15,39,78,.82)!important;color:#fff!important;border-radius:16px!important;font-size:18px!important;font-weight:900!important}
+.mb109-today{display:flex;align-items:center;gap:8px;padding:0 16px!important}.mb109-today svg{width:21px;height:21px;color:var(--mb109-cyan)}
+#dashboardCards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 14px!important;margin:0 0 10px!important}
+#dashboardCards .card,.card[onclick="showHoursWeeks()"],#healthStrip .health-cell,#healthStrip #netRemainingCard,.finance-tools button,.next.card{border:3px solid var(--mb109-cyan)!important;background:linear-gradient(145deg,#092853 0%,#142653 56%,#11224a 100%)!important;box-shadow:0 5px 12px rgba(6,19,40,.10)!important;color:#fff!important;box-sizing:border-box!important}
+#dashboardCards .card{min-height:114px!important;padding:14px 28px!important;border-radius:24px!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+#dashboardCards .label,.card[onclick="showHoursWeeks()"] .label{color:var(--mb109-muted)!important;font-size:16px!important;font-weight:850!important}
+#dashboardCards .value,.card[onclick="showHoursWeeks()"] .value{color:#fff!important;font-size:30px!important;font-weight:950!important;line-height:1.1!important;margin-top:6px!important}
+#dashboardCards .meta,.card[onclick="showHoursWeeks()"] .meta{color:var(--mb109-muted)!important;font-size:13px!important;line-height:1.25!important;margin-top:3px!important}
+.card[onclick="showHoursWeeks()"]{min-height:128px!important;margin:0 0 12px!important;padding:16px 30px!important;border-radius:25px!important}
+.card[onclick="showHoursWeeks()"] .meta:last-child{display:none!important}
+.quick-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:40px!important;margin:14px 16px 34px!important;padding-bottom:16px!important;border-bottom:1px solid rgba(0,178,196,.22)!important}
+.quick-actions button{width:100%!important;min-width:0!important;height:78px!important;min-height:78px!important;padding:0 16px!important;border-radius:18px!important;border:2px solid rgba(0,245,255,.58)!important;background:linear-gradient(145deg,#07182f,#091326)!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;font-size:17px!important;font-weight:900!important;white-space:nowrap!important;overflow:hidden!important}
+.quick-actions .mb109-quick-icon{display:flex;color:var(--mb109-cyan);flex:0 0 30px}.quick-actions .mb109-quick-icon svg{width:30px;height:30px}
+#financeStatusCard{display:none!important}
+#healthStrip{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 14px!important;margin:0 0 22px!important}
+#healthStrip .health-cell,#healthStrip #netRemainingCard{min-height:126px!important;padding:15px 30px!important;border-radius:24px!important;display:grid!important;grid-template-columns:58px minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;column-gap:16px!important;align-content:center!important}
+#healthStrip .health-cell[data-health-action="spending"],#healthStrip .health-cell[data-health-action="left"]{display:none!important}
+#healthStrip .mb109-fin-icon{grid-column:1;grid-row:1/4;align-self:center;justify-self:center;color:var(--mb109-cyan)}
+#healthStrip .mb109-fin-icon svg{width:48px;height:48px}
+#healthStrip .health-cell span,#healthStrip #netRemainingCard .label{grid-column:2;color:var(--mb109-muted)!important;font-size:15px!important;font-weight:850!important}
+#healthStrip .health-cell b,#healthStrip #netRemainingValue{grid-column:2;color:#fff!important;font-size:24px!important;font-weight:950!important;line-height:1.1!important;margin-top:4px!important}
+#healthStrip .health-cell .meta,#healthStrip #netRemainingCard .meta{grid-column:2;color:var(--mb109-muted)!important;font-size:12px!important;line-height:1.2!important;margin-top:5px!important}
+#healthStrip #netRemainingCard .v76-swipe-dots{grid-column:2!important}
+.finance-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px 14px!important;margin:0 0 26px!important}
+.finance-tools button{min-height:68px!important;height:68px!important;border-radius:17px!important;display:grid!important;grid-template-columns:54px 1fr 54px!important;align-items:center!important;padding:0 16px!important;font-size:17px!important;font-weight:900!important}
+.finance-tools .mb109-tool-icon{grid-column:1;display:flex;align-items:center;justify-content:center;color:var(--mb109-cyan)}.finance-tools .mb109-tool-icon svg{width:31px;height:31px}.finance-tools .mb109-tool-text{grid-column:2;text-align:center;white-space:nowrap}
+.next.card{min-height:110px!important;margin:0 0 14px!important;padding:18px 30px!important;border-radius:24px!important}.next.card .label{color:var(--mb109-muted)!important;font-size:15px!important;font-weight:850!important}.next.card .value{color:#fff!important;font-size:23px!important;font-weight:950!important;margin-top:5px!important}.next.card .meta{display:none!important}
+.calendar-wrap{border-radius:22px!important;border:1px solid rgba(23,37,84,.10)!important;box-shadow:0 8px 22px rgba(6,19,40,.07)!important;background:#fff!important}
+#mb109BottomNav{position:fixed!important;left:50%!important;bottom:0!important;transform:translateX(-50%)!important;width:min(100%,1024px)!important;min-height:84px!important;padding:10px 24px calc(10px + env(safe-area-inset-bottom))!important;box-sizing:border-box!important;background:linear-gradient(180deg,#071a36,#061328)!important;border-top:2px solid rgba(0,245,255,.50)!important;display:grid!important;grid-template-columns:repeat(6,1fr)!important;z-index:500!important;box-shadow:0 -8px 24px rgba(6,19,40,.18)!important}
+.mb109-navitem{border:0!important;background:transparent!important;box-shadow:none!important;min-height:60px!important;padding:4px 3px!important;color:#aebbd0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;font-size:12px!important;font-weight:800!important}.mb109-navitem svg{width:27px;height:27px}.mb109-navitem.active{color:var(--mb109-cyan)!important}
+#settingsBtn{position:fixed!important;right:max(18px,calc((100vw - min(100vw,1024px))/2 + 18px))!important;bottom:92px!important;width:66px!important;height:66px!important;min-width:66px!important;border-radius:50%!important;background:#07162c!important;color:#fff!important;border:1px solid rgba(0,245,255,.38)!important;box-shadow:0 10px 26px rgba(6,19,40,.25)!important;font-size:28px!important;z-index:520!important}
+
+/* Available Now activity modal */
+#mb109SpendModal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;background:rgba(3,10,22,.58);backdrop-filter:blur(6px)}
+#mb109SpendModal.open{display:flex}
+.mb109-spend-sheet{width:min(100%,720px);max-height:78vh;background:#f8fafc;border-radius:28px 28px 0 0;overflow:hidden;box-shadow:0 -18px 50px rgba(6,19,40,.28)}
+.mb109-spend-head{padding:18px 20px 12px;background:linear-gradient(135deg,#0b1c3d,#172554);color:#fff;border-bottom:3px solid var(--mb109-cyan)}
+.mb109-spend-headrow{display:flex;align-items:center;justify-content:space-between;gap:12px}.mb109-spend-head h2{margin:0;font-size:24px}.mb109-close{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.10);color:#fff;font-size:24px;font-weight:900}
+.mb109-range{display:flex;gap:8px;margin-top:14px}.mb109-range button{flex:1;min-height:40px;border-radius:14px;border:1px solid rgba(0,245,255,.45);background:rgba(255,255,255,.07);color:#c8d2e3;font-weight:850}.mb109-range button.active{background:var(--mb109-cyan);color:#061328}
+.mb109-spend-list{padding:12px 14px 18px;overflow:auto;max-height:calc(78vh - 120px)}
+.mb109-spend-item{display:grid;grid-template-columns:1fr auto;gap:8px 14px;padding:14px 10px;border-bottom:1px solid #dbe3ee}.mb109-spend-item:last-child{border-bottom:0}
+.mb109-spend-title{font-weight:850;color:#111827}.mb109-spend-amt{font-weight:950;color:#111827}.mb109-spend-time{grid-column:1/-1;color:#6b7280;font-size:12px}.mb109-empty{padding:30px 12px;text-align:center;color:#6b7280}
+
+@media(max-width:760px){
+  .app{padding-left:18px!important;padding-right:18px!important}.top{margin-left:-18px!important;margin-right:-18px!important;padding-left:20px!important;padding-right:20px!important}
+  .mb109-header{grid-template-columns:auto 1fr;gap:14px}.mb109-month-nav{grid-column:1/-1;justify-content:flex-start}.mb109-brand-title{font-size:32px}.mb109-brand-icon{width:42px;height:42px}.mb109-brand-icon svg{width:39px;height:39px}
+  #month.dashboard-month-button{flex:1;min-width:0!important;max-width:none!important}.mb109-today{margin-left:auto}
+  .quick-actions{gap:10px!important;margin-left:0!important;margin-right:0!important}.quick-actions button{height:66px!important;min-height:66px!important;font-size:14px!important;gap:8px!important}
+  #dashboardCards .card{padding-left:18px!important;padding-right:18px!important}
+  #healthStrip .health-cell,#healthStrip #netRemainingCard{padding-left:18px!important;padding-right:18px!important;grid-template-columns:42px minmax(0,1fr)!important}
+  #healthStrip .mb109-fin-icon svg{width:36px;height:36px}
+}
+@media(max-width:500px){
+  .app{padding-left:12px!important;padding-right:12px!important}.top{margin-left:-12px!important;margin-right:-12px!important;padding-left:14px!important;padding-right:14px!important}
+  .mb109-brand-title{font-size:28px}.mb109-brand-icon{width:38px;height:38px}.mb109-brand-icon svg{width:35px;height:35px}.mb109-month-nav{gap:7px}.mb109-arrow{width:42px!important;min-width:42px!important}
+  #month.dashboard-month-button{font-size:15px!important;padding-left:9px!important;padding-right:9px!important}.mb109-today{display:none!important}
+  #dashboardCards{gap:8px!important}#dashboardCards .card{min-height:104px!important;padding:13px 14px!important;border-radius:20px!important}
+  #dashboardCards .label,.card[onclick="showHoursWeeks()"] .label{font-size:13px!important}#dashboardCards .value,.card[onclick="showHoursWeeks()"] .value{font-size:25px!important}#dashboardCards .meta,.card[onclick="showHoursWeeks()"] .meta{font-size:11px!important}
+  .card[onclick="showHoursWeeks()"]{min-height:112px!important;padding:14px 17px!important}
+  .quick-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;margin-top:9px!important;margin-bottom:24px!important}.quick-actions button{height:58px!important;min-height:58px!important;font-size:11px!important;padding:0 5px!important;gap:4px!important}.quick-actions .mb109-quick-icon{display:none!important}
+  #healthStrip{gap:8px!important}#healthStrip .health-cell,#healthStrip #netRemainingCard{min-height:114px!important;padding:12px!important;grid-template-columns:32px minmax(0,1fr)!important;column-gap:8px!important}
+  #healthStrip .mb109-fin-icon svg{width:29px;height:29px}#healthStrip .health-cell span,#healthStrip #netRemainingCard .label{font-size:11px!important}#healthStrip .health-cell b,#healthStrip #netRemainingValue{font-size:18px!important}#healthStrip .health-cell .meta,#healthStrip #netRemainingCard .meta{font-size:9px!important}
+  .finance-tools{gap:7px!important}.finance-tools button{height:60px!important;min-height:60px!important;grid-template-columns:34px 1fr 10px!important;padding:0 7px!important;font-size:12px!important}.finance-tools .mb109-tool-icon svg{width:23px;height:23px}
+  .next.card{min-height:96px!important;padding:15px 18px!important}.next.card .value{font-size:19px!important}
+  #mb109BottomNav{padding-left:4px!important;padding-right:4px!important}.mb109-navitem{font-size:9px!important}.mb109-navitem svg{width:23px;height:23px}
+  #settingsBtn{width:58px!important;height:58px!important;min-width:58px!important;bottom:86px!important}
+}
+</style>
+
+<script id="mb-v109-dashboard-script">
+(function(){
+  const q=id=>document.getElementById(id);
+  const ico=name=>{
+    const I={
+      calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7 14h2M11 14h2M15 14h2"/></svg>',
+      clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+      doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></svg>',
+      bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>',
+      chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 17v-5M10 17V7M15 17v-3M20 17V4"/><path d="m4 8 5-4 5 3 6-5"/></svg>',
+      pie:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
+      pig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9c0-3-3-5-7-5S5 6 5 9c-2 1-3 3-3 5 0 3 3 5 7 5h6c4 0 7-2 7-5 0-2-1-4-3-5Z"/></svg>',
+      wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 13h5v4h-5a2 2 0 0 1 0-4Z"/></svg>',
+      target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>',
+      bars:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 17V9M10 17V5M15 17v-4M20 17V7"/></svg>',
+      tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 13-7 7L3 10V3h7z"/><circle cx="8" cy="8" r="1"/></svg>',
+      list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+      forecast:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 19h18M5 16l4-5 4 3 6-8"/><path d="M16 6h3v3"/></svg>',
+      home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9h-6v-6H9v6H3z"/></svg>',
+      bills:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+      card:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
+      gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>'
+    };return I[name]||I.chart;
+  };
+
+  function buildHeader(){
+    const top=document.querySelector('.top'), month=q('month');
+    if(!top||!month||top.dataset.mb109)return;
+    top.dataset.mb109='1';
+    const shell=document.createElement('div');shell.className='mb109-header';
+    shell.innerHTML=`<div class="mb109-brand"><div class="mb109-brand-icon">${ico('calendar')}</div><div class="mb109-brand-title">My Bills</div></div><div></div><div class="mb109-month-nav"><button class="mb109-headbtn mb109-arrow" data-prev>‹</button><span data-month></span><button class="mb109-headbtn mb109-arrow" data-next>›</button><button class="mb109-headbtn mb109-today">${ico('calendar')}<span>Today</span></button></div>`;
+    top.innerHTML='';top.appendChild(shell);shell.querySelector('[data-month]').replaceWith(month);
+    month.className='dashboard-month-button';month.onclick=()=>openMonthPicker();
+    shell.querySelector('[data-prev]').onclick=()=>changeMonth(-1);shell.querySelector('[data-next]').onclick=()=>changeMonth(1);shell.querySelector('.mb109-today').onclick=()=>goToday();
+  }
+
+  function quickActions(){
+    const btns=[...document.querySelectorAll('.quick-actions button')];
+    const defs=[['clock','+ Add Hours'],['doc','+ Add Bill'],['bell','+ Add Reminder']];
+    btns.slice(0,3).forEach((b,i)=>{if(!b.dataset.mb109){b.dataset.mb109='1';b.innerHTML=`<span class="mb109-quick-icon">${ico(defs[i][0])}</span><span>${defs[i][1]}</span>`}});
+  }
+
+  function budgetState(){
+    const y=calDate.getFullYear(),m=calDate.getMonth();
+    try{if(typeof myBillsBudgetStateV99==='function')return myBillsBudgetStateV99(y,m)}catch(e){}
+    let limit=0,spent=0;try{limit=Number(typeof viewedBudget==='function'?viewedBudget():0)||0}catch(e){}try{spent=Number(typeof totalBudgetSpent==='function'?totalBudgetSpent(y,m):0)||0}catch(e){}
+    return {limit,spent,left:limit-spent};
+  }
+
+  function healthCards(){
+    const strip=q('healthStrip');if(!strip)return;
+    const income=strip.querySelector('[data-health-action="income"]');
+    const bills=strip.querySelector('[data-health-action="bills"],[data-health-action="budget"]');
+    const savings=strip.querySelector('[data-health-action="savings"]');
+    const spending=strip.querySelector('[data-health-action="spending"]');
+    const left=strip.querySelector('[data-health-action="left"]');
+    const available=q('netRemainingCard');
+    if(spending)spending.style.display='none';if(left)left.style.display='none';
+    if(income){
+      const l=income.querySelector('span');if(l)l.textContent='Projected Monthly Income';
+      if(!income.querySelector('.mb109-fin-icon'))income.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('chart')}</div>`);
+      let m=income.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';income.appendChild(m)}m.textContent='Based on current checks & hours';
+    }
+    if(bills){
+      bills.dataset.healthAction='budget';bills.onclick=()=>openBudgetDlg();
+      const l=bills.querySelector('span');if(l)l.textContent='Monthly Budget';
+      if(!bills.querySelector('.mb109-fin-icon'))bills.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('pie')}</div>`);
+      const s=budgetState(),b=bills.querySelector('b');if(b)b.textContent=s.limit?`${money(s.spent)} / ${money(s.limit)}`:'Set budget';
+      let m=bills.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';bills.appendChild(m)}m.textContent=s.limit?`${Math.round((s.spent/s.limit)*100)}% used • Tap to open`:'Tap to set monthly budget';
+    }
+    if(savings&&!savings.querySelector('.mb109-fin-icon'))savings.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('pig')}</div>`);
+    if(available){
+      if(!available.querySelector('.mb109-fin-icon'))available.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('wallet')}</div>`);
+      available.onclick=(e)=>{e.preventDefault();e.stopPropagation();openSpendActivity('week')};
+    }
+    [income,bills,savings,available].filter(Boolean).forEach(x=>strip.appendChild(x));
+  }
+
+  function tools(){
+    const box=document.querySelector('.finance-tools');if(!box)return;
+    [...box.querySelectorAll('button')].forEach(b=>{const t=(b.textContent||'').trim();if(t==='Monthly Budget'||t==='Export Summary'||t==='Copy Previous Month')b.remove()});
+    const map={'Paycheck Planner':'chart','Savings Goals':'target','Monthly Snapshot':'bars','Categories':'tag','Payment History':'list','Balance Forecast':'forecast'};
+    Object.entries(map).forEach(([label,name])=>{
+      const b=[...box.querySelectorAll('button')].find(x=>(x.textContent||'').replace(/\s+/g,' ').trim()===label);
+      if(!b)return;
+      if(!b.dataset.mb109){b.dataset.mb109='1';b.innerHTML=`<span class="mb109-tool-icon">${ico(name)}</span><span class="mb109-tool-text">${label}</span>`}
+      box.appendChild(b);
+    });
+  }
+
+  function nav(){
+    if(q('mb109BottomNav'))return;
+    const n=document.createElement('div');n.id='mb109BottomNav';
+    const items=[
+      ['Home','home',()=>window.scrollTo({top:0,behavior:'smooth'})],
+      ['Calendar','calendar',()=>document.querySelector('.calendar-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})],
+      ['Bills','bills',()=>typeof openBills==='function'?openBills():document.querySelector('#dashboardCards')?.scrollIntoView({behavior:'smooth'})],
+      ['Spending','card',()=>openSpendActivity('month')],
+      ['Budget','pie',()=>openBudgetDlg()],
+      ['Settings','gear',()=>q('settingsBtn')?.click()]
+    ];
+    items.forEach((it,i)=>{const b=document.createElement('button');b.className='mb109-navitem'+(i===0?' active':'');b.innerHTML=`${ico(it[1])}<span>${it[0]}</span>`;b.onclick=it[2];n.appendChild(b)});
+    document.body.appendChild(n);
+  }
+
+  function normalizeSpendItem(x){
+    if(!x||typeof x!=='object')return null;
+    const amount=Number(x.amount ?? x.value ?? x.cost ?? x.total ?? 0);
+    const title=x.description||x.name||x.note||x.merchant||x.title||x.category||'Spending';
+    let dt=x.timestamp||x.createdAt||x.dateTime||x.datetime||x.date||x.paidAt||x.time;
+    if(typeof dt==='number')dt=new Date(dt);
+    else if(dt)dt=new Date(dt);
+    else dt=new Date();
+    if(Number.isNaN(dt.getTime()))dt=new Date();
+    return {title:String(title),amount:Number.isFinite(amount)?amount:0,date:dt};
+  }
+
+  function collectSpend(){
+    const out=[];
+    try{
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);if(!k)continue;
+        if(!/(spend|purchase|transaction|budget|history)/i.test(k))continue;
+        let v;try{v=JSON.parse(localStorage.getItem(k))}catch(e){continue}
+        const walk=(obj)=>{
+          if(Array.isArray(obj)){obj.forEach(walk);return}
+          if(obj&&typeof obj==='object'){
+            const n=normalizeSpendItem(obj);
+            if(n&&n.amount>0&&(obj.description||obj.name||obj.merchant||obj.note||obj.category||obj.title))out.push(n);
+            Object.values(obj).forEach(val=>{if(val&&typeof val==='object')walk(val)});
+          }
+        };walk(v);
+      }
+    }catch(e){}
+    // de-dupe
+    const seen=new Set();return out.filter(x=>{const key=x.title+'|'+x.amount+'|'+x.date.toISOString();if(seen.has(key))return false;seen.add(key);return true}).sort((a,b)=>b.date-a.date);
+  }
+
+  function ensureSpendModal(){
+    let m=q('mb109SpendModal');if(m)return m;
+    m=document.createElement('div');m.id='mb109SpendModal';
+    m.innerHTML=`<div class="mb109-spend-sheet"><div class="mb109-spend-head"><div class="mb109-spend-headrow"><h2>Recent spending</h2><button class="mb109-close">×</button></div><div class="mb109-range"><button data-range="week">This week</button><button data-range="month">This month</button></div></div><div class="mb109-spend-list"></div></div>`;
+    document.body.appendChild(m);
+    m.querySelector('.mb109-close').onclick=()=>m.classList.remove('open');
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')});
+    m.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>renderSpend(b.dataset.range));
+    return m;
+  }
+
+  function renderSpend(range){
+    const m=ensureSpendModal(),list=m.querySelector('.mb109-spend-list');
+    m.querySelectorAll('[data-range]').forEach(b=>b.classList.toggle('active',b.dataset.range===range));
+    const now=new Date();let start;
+    if(range==='week'){start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
+    else{start=new Date(now.getFullYear(),now.getMonth(),1)}
+    const rows=collectSpend().filter(x=>x.date>=start&&x.date<=now);
+    if(!rows.length){list.innerHTML=`<div class="mb109-empty">No spending found for ${range==='week'?'this week':'this month'}.</div>`;return}
+    list.innerHTML=rows.map(x=>`<div class="mb109-spend-item"><div class="mb109-spend-title">${escapeHtml(x.title)}</div><div class="mb109-spend-amt">${money(x.amount)}</div><div class="mb109-spend-time">${x.date.toLocaleString()}</div></div>`).join('');
+  }
+
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  window.openSpendActivity=function(range='week'){ensureSpendModal().classList.add('open');renderSpend(range)}
+
+  function run(){buildHeader();quickActions();healthCards();tools();nav()}
+  let lock=false;function queue(){if(lock)return;lock=true;requestAnimationFrame(()=>{lock=false;run()})}
+  new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true,characterData:true});
+  document.addEventListener('change',queue,true);window.addEventListener('pageshow',queue);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue,{once:true});else queue();
+})();
+</script>
+
+
+<!-- v110: bottom nav + full-app theme -->
+<style id="mb-v110-full-theme">
+:root{
+  --mb110-navy:#172554;
+  --mb110-navy2:#0b1c3d;
+  --mb110-deep:#061328;
+  --mb110-cyan:#00f5ff;
+  --mb110-white:#ffffff;
+  --mb110-muted:#b8c3d8;
+  --mb110-bg:#eef3f8;
+}
+
+/* Make the WHOLE app use the same navy/cyan theme language */
+body, .app, main, section {
+  background:var(--mb110-bg)!important;
+}
+.card,
+.panel,
+.section-card,
+.modal .box,
+.dialog .box,
+.sheet,
+.sheet-content,
+.drawer,
+.popover,
+form,
+.calculator,
+.calc-card,
+.bills-card,
+.bill-card,
+.settings-card,
+.settings-section,
+#billsView .card,
+#calendarView .card,
+#spendingView .card,
+#budgetView .card {
+  border-color:var(--mb110-cyan)!important;
+}
+
+/* Generic content cards across non-dashboard screens */
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]),
+body .panel,
+body .section-card,
+body .bill-card,
+body .calculator,
+body .calc-card,
+body .settings-card,
+body .settings-section {
+  background:linear-gradient(145deg,#0b234b 0%,#172554 65%,#10214a 100%)!important;
+  color:#fff!important;
+  border:2px solid var(--mb110-cyan)!important;
+  box-shadow:0 8px 20px rgba(6,19,40,.12)!important;
+}
+
+/* Text on themed cards */
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h1,
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h2,
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h3,
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) strong,
+body .panel h1, body .panel h2, body .panel h3,
+body .settings-card h1, body .settings-card h2, body .settings-card h3 {
+  color:#fff!important;
+}
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) .meta,
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) .sub,
+body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) small,
+body .panel .meta, body .panel .sub, body .panel small {
+  color:var(--mb110-muted)!important;
+}
+
+/* Inputs/search/selects */
+input, select, textarea {
+  background:#f8fbff!important;
+  color:#101827!important;
+  border:1px solid #c9d3df!important;
+  border-radius:14px!important;
+}
+input:focus, select:focus, textarea:focus{
+  outline:2px solid rgba(0,245,255,.25)!important;
+  border-color:var(--mb110-cyan)!important;
+}
+
+/* General buttons */
+button {
+  transition:transform .08s ease, filter .12s ease;
+}
+button:active { transform:scale(.98); }
+.primary, .btn-primary, button.primary {
+  background:linear-gradient(145deg,#07182f,#0b1c3d)!important;
+  color:#fff!important;
+  border:1px solid var(--mb110-cyan)!important;
+}
+
+/* Bills page specifically */
+#billsView,
+[data-view="bills"],
+.bills-view {
+  background:var(--mb110-bg)!important;
+}
+#billsView .bill-card,
+[data-view="bills"] .bill-card,
+.bills-view .bill-card {
+  background:linear-gradient(145deg,#0b234b 0%,#172554 65%,#10214a 100%)!important;
+  color:#fff!important;
+  border:2px solid var(--mb110-cyan)!important;
+}
+#billsView .bill-card .muted,
+#billsView .bill-card .meta,
+[data-view="bills"] .bill-card .muted,
+[data-view="bills"] .bill-card .meta {
+  color:var(--mb110-muted)!important;
+}
+
+/* Calculator themed to match */
+.calculator, .calc-card {
+  background:linear-gradient(145deg,#0b234b,#172554)!important;
+}
+.calculator button, .calc-card button {
+  background:#0a1730!important;
+  color:#fff!important;
+  border:1px solid rgba(0,245,255,.35)!important;
+}
+.calculator button.equals, .calc-card button.equals,
+.calculator button:last-child, .calc-card button:last-child {
+  border-color:var(--mb110-cyan)!important;
+}
+.calculator input, .calc-card input,
+.calculator .display, .calc-card .display {
+  background:#f8fbff!important;
+  color:#101827!important;
+}
+
+/* Bottom navigation */
+#mb110BottomNav{
+  position:fixed!important;
+  left:50%!important;
+  bottom:0!important;
+  transform:translateX(-50%)!important;
+  width:min(100%,1024px)!important;
+  min-height:84px!important;
+  padding:9px 10px calc(9px + env(safe-area-inset-bottom))!important;
+  box-sizing:border-box!important;
+  background:linear-gradient(180deg,#071a36 0%,#061328 100%)!important;
+  border-top:2px solid rgba(0,245,255,.65)!important;
+  box-shadow:0 -8px 28px rgba(6,19,40,.20)!important;
+  display:grid!important;
+  grid-template-columns:repeat(6,1fr)!important;
+  z-index:900!important;
+}
+.mb110-navitem{
+  border:0!important;
+  background:transparent!important;
+  color:#aebbd0!important;
+  min-width:0!important;
+  padding:4px 2px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  font-size:11px!important;
+  font-weight:850!important;
+}
+.mb110-navitem svg{width:25px;height:25px}
+.mb110-navitem.active{color:var(--mb110-cyan)!important}
+.mb110-navitem span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* Keep body content above nav */
+.app{padding-bottom:calc(118px + env(safe-area-inset-bottom))!important}
+
+/* Theme any fixed/secondary bars if present */
+.bottom-nav, .bottom-tabs, .nav-bottom {
+  display:none!important;
+}
+
+@media(max-width:500px){
+  #mb110BottomNav{padding-left:2px!important;padding-right:2px!important}
+  .mb110-navitem{font-size:9px!important}
+  .mb110-navitem svg{width:22px;height:22px}
+}
+</style>
+
+<script id="mb-v110-full-theme-script">
+(function(){
+  const q=id=>document.getElementById(id);
+  const ico=name=>{
+    const I={
+      home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9h-6v-6H9v6H3z"/></svg>',
+      calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
+      bills:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+      spend:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
+      budget:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
+      gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>'
+    }; return I[name];
+  };
+
+  function scrollToEl(sel){
+    const el=document.querySelector(sel);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function clickKnown(selectors){
+    for(const sel of selectors){
+      const el=document.querySelector(sel);
+      if(el){el.click();return true}
+    }
+    return false;
+  }
+
+  function navHome(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function navCalendar(){
+    if(!clickKnown(['[data-tab="calendar"]','#calendarTab','.tab-calendar','button[onclick*="calendar"]'])) {
+      scrollToEl('.calendar-wrap');
+    }
+  }
+  function navBills(){
+    if(!clickKnown(['[data-tab="bills"]','#billsTab','.tab-bills','button[onclick*="Bills"]','button[onclick*="bills"]'])) {
+      scrollToEl('#dashboardCards');
+    }
+  }
+  function navSpending(){
+    if(typeof openSpendActivity==='function'){openSpendActivity('month');return}
+    if(!clickKnown(['[data-tab="spending"]','#spendingTab','.tab-spending','button[onclick*="spending"]'])) {
+      clickKnown(['#netRemainingCard']);
+    }
+  }
+  function navBudget(){
+    if(typeof openBudgetDlg==='function'){openBudgetDlg();return}
+    clickKnown(['[data-health-action="budget"]','button[onclick*="Budget"]','button[onclick*="budget"]']);
+  }
+  function navSettings(){
+    const s=q('settingsBtn');
+    if(s){s.click();return}
+    clickKnown(['button[onclick*="settings"]','.settings-button']);
+  }
+
+  function buildNav(){
+    // remove previous generated navs
+    q('mb109BottomNav')?.remove();
+    if(q('mb110BottomNav')) return;
+
+    const nav=document.createElement('div');
+    nav.id='mb110BottomNav';
+    const items=[
+      ['Home','home',navHome],
+      ['Calendar','calendar',navCalendar],
+      ['Bills','bills',navBills],
+      ['Spending','spend',navSpending],
+      ['Budget','budget',navBudget],
+      ['Settings','gear',navSettings],
+    ];
+    items.forEach((it,i)=>{
+      const b=document.createElement('button');
+      b.className='mb110-navitem'+(i===0?' active':'');
+      b.innerHTML=`${ico(it[1])}<span>${it[0]}</span>`;
+      b.onclick=()=>{
+        nav.querySelectorAll('.mb110-navitem').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        it[2]();
+      };
+      nav.appendChild(b);
+    });
+    document.body.appendChild(nav);
+  }
+
+  function run(){buildNav()}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});
+  else run();
+})();
+</script>
+
 </body>
 </html>
