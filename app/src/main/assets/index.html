@@ -9943,329 +9943,232 @@ html,body,#mb119Shell,.mb119-view{background:var(--mb-page)!important;color:var(
 
 
 
-<style id="mb-20-0-135-single-theme">
+
+
+
+
+
+<style id="mb-20-0-135-exact-theme">
 :root{
-  --mb135-page:#f7f9fc;
-  --mb135-navy:#172554;
-  --mb135-navy-deep:#0d1f49;
-  --mb135-cyan:#00f5ff;
-  --mb135-white:#ffffff;
-  --mb135-on-navy:#ffffff;
-  --mb135-muted-on-navy:#c8d3e4;
-  --mb135-ink:#10203a;
-  --mb135-muted:#718096;
-  --mb135-line:#d6e0ea;
+  --m135-page:#f7f9fc;
+  --m135-navy:#172554;
+  --m135-navy2:#0f1f46;
+  --m135-cyan:#00f5ff;
+  --m135-white:#ffffff;
+  --m135-muted:#c6d2e3;
+  --m135-ink:#10203a;
 }
 
-/* WHITE PAGE BEHIND NAVY SURFACES */
+/* White page behind the navy interface */
 html,body,#mb119Shell,.mb119-view{
-  background:var(--mb135-page)!important;
-  color:var(--mb135-ink)!important;
+  background:var(--m135-page)!important;
+  color:var(--m135-ink)!important;
 }
 
-/* FIXED/STICKY NAV-TAB HEADER: NAVY FROM THE START */
-.mb123-sticky-header{
+/* New locked header created by JS for every tab */
+.mb135-fixed-header{
   position:sticky!important;
   top:0!important;
-  z-index:150!important;
-  background:linear-gradient(135deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
-  color:var(--mb135-on-navy)!important;
-  border-bottom:3px solid var(--mb135-cyan)!important;
-  box-shadow:0 6px 18px rgba(9,25,55,.20)!important;
+  z-index:250!important;
+  margin:-14px -18px 18px!important;
+  padding:calc(18px + env(safe-area-inset-top)) 26px 17px!important;
+  background:linear-gradient(135deg,var(--m135-navy),var(--m135-navy2))!important;
+  border-bottom:3px solid var(--m135-cyan)!important;
+  box-shadow:0 6px 18px rgba(8,25,54,.20)!important;
 }
-.mb123-sticky-header .mb119-title,
-.mb123-sticky-header .mb119-sub,
-.mb123-sticky-header h1,
-.mb123-sticky-header h2,
-.mb123-sticky-header h3,
-.mb123-sticky-header span{
-  color:var(--mb135-on-navy)!important;
+.mb135-fixed-header .mb119-title{
+  margin:0 0 4px!important;
+  color:#fff!important;
 }
-.mb123-sticky-header .mb119-sub{color:var(--mb135-muted-on-navy)!important}
+.mb135-fixed-header .mb119-sub{
+  margin:0!important;
+  color:var(--m135-muted)!important;
+}
 
-/* HOME: EVERY SUMMARY / FEATURE TILE NAVY */
-#dashboardCards>.card,
-#mb119Home .card,
-#financeStatusCard,
-#availableNowCard,
+/* All Home cards/tabs are navy from the start */
+#mb119HomeMount #dashboardCards>.card,
+#mb119HomeMount>.card,
+#mb119HomeMount #financeStatusCard,
 #mb119Tips,
 .mb132-budget-card,
 .mb126-budget-card{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
-  color:var(--mb135-on-navy)!important;
-  border:3px solid var(--mb135-cyan)!important;
-  box-shadow:0 7px 18px rgba(10,31,76,.13)!important;
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
+  color:#fff!important;
+  border:3px solid var(--m135-cyan)!important;
+  box-shadow:0 7px 18px rgba(8,25,54,.13)!important;
 }
-#dashboardCards>.card *,
-#mb119Home .card *,
-#financeStatusCard *,
-#availableNowCard *,
+#mb119HomeMount #dashboardCards>.card *,
+#mb119HomeMount>.card *,
+#mb119HomeMount #financeStatusCard *,
 #mb119Tips *,
 .mb132-budget-card *,
 .mb126-budget-card *{
-  color:var(--mb135-on-navy)!important;
+  color:#fff!important;
   opacity:1!important;
 }
-#dashboardCards>.card .label,
-#financeStatusCard .label,
-#financeStatusSub,
-.mb132-budget-label,
-.mb126-budget-label,
-#mb119Tips small{
-  color:var(--mb135-muted-on-navy)!important;
+#mb119HomeMount #dashboardCards>.card .label,
+#mb119HomeMount #financeStatusSub{
+  color:var(--m135-muted)!important;
 }
 
-/* QUICK ACTIONS + PAGE TILES */
+/* Quick actions + all navigation tiles */
 .quick-actions button,
 .mb119-tool-grid button,
 .mb119-settings-grid button,
 .mb119-spend-actions button,
+.mb119-range button,
 #mb132BillColorsBtn,
-#mb126BillColorsBtn,
-#mb119Budget .mb119-tool-grid button,
-#mb119Settings .mb119-settings-grid button{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
-  color:var(--mb135-on-navy)!important;
-  border:2px solid var(--mb135-cyan)!important;
-  box-shadow:0 4px 10px rgba(10,31,76,.10)!important;
+#mb126BillColorsBtn{
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--m135-cyan)!important;
 }
 .quick-actions button *,
 .mb119-tool-grid button *,
 .mb119-settings-grid button *,
 .mb119-spend-actions button *{
-  color:var(--mb135-on-navy)!important;
+  color:#fff!important;
 }
 
-/* BOTTOM NAV: NAVY ALWAYS, CYAN ACTIVE */
+/* Bottom nav */
 #mb119BottomNav{
-  background:linear-gradient(180deg,#0c214a,#081936)!important;
-  border-top:3px solid var(--mb135-cyan)!important;
-  box-shadow:0 -8px 22px rgba(8,25,54,.26)!important;
+  background:linear-gradient(180deg,#0b2048,#071833)!important;
+  border-top:3px solid var(--m135-cyan)!important;
+  box-shadow:0 -8px 22px rgba(7,24,51,.26)!important;
 }
 .mb119-nav{
   background:transparent!important;
-  color:#d2dbea!important;
+  color:#d4deea!important;
   border:1px solid transparent!important;
-  border-radius:14px!important;
 }
 .mb119-nav *{color:inherit!important}
 .mb119-nav.active{
-  color:var(--mb135-cyan)!important;
+  color:var(--m135-cyan)!important;
   background:rgba(0,245,255,.08)!important;
-  border-color:rgba(0,245,255,.35)!important;
-}
-.mb119-nav .ico{
-  color:inherit!important;
-  width:25px!important;
-  height:25px!important;
+  border-color:rgba(0,245,255,.34)!important;
 }
 .mb119-nav .ico svg{
-  width:100%!important;
-  height:100%!important;
-  display:block!important;
-  stroke:currentColor!important;
-  fill:none!important;
-  stroke-width:2.2!important;
-  stroke-linecap:round!important;
-  stroke-linejoin:round!important;
+  width:26px;height:26px;display:block;
+  stroke:currentColor;fill:none;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round
 }
 
-/* CALENDAR: WHITE DAYS, NAVY CONTROLS / ACCORDIONS */
-#mb119Calendar .calendar-wrap{
-  background:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
-  color:var(--mb135-ink)!important;
-}
-#mb119Calendar .cal-day{
-  background:#fff!important;
-  color:var(--mb135-ink)!important;
-  border-color:#cbd5e1!important;
-}
-#mb119Calendar button:not(.cal-day),
-#mb119Calendar .filters-toggle,
-#mb132BillColorsBtn,
-#mb126BillColorsBtn{
-  background:var(--mb135-navy)!important;
+/* Bills: navy cards */
+#mb119BillsMount .bill{
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
   color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
+  border:2px solid var(--m135-cyan)!important;
 }
+#mb119BillsMount .bill .name,
+#mb119BillsMount .bill .amount,
+#mb119BillsMount .bill strong{color:#fff!important}
+#mb119BillsMount .bill .meta,
+#mb119BillsMount .bill small{color:var(--m135-muted)!important}
 
-/* BILLS: NAVY BILL CARDS */
-#mb119Bills .bill{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
-  color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
-#mb119Bills .bill .name,
-#mb119Bills .bill .amount,
-#mb119Bills .bill strong{color:#fff!important}
-#mb119Bills .bill .meta,
-#mb119Bills .bill small{color:var(--mb135-muted-on-navy)!important}
-#mb119Bills .bill-filter-bar,
-#mb119Bills .calculator-card{
+/* Calendar shell/inputs stay white; controls are navy */
+#mb119CalendarMount .calendar-wrap{
   background:#fff!important;
-  color:var(--mb135-ink)!important;
-  border:2px solid var(--mb135-cyan)!important;
+  color:var(--m135-ink)!important;
+  border:2px solid var(--m135-cyan)!important;
+}
+#mb119CalendarMount .cal-day{
+  background:#fff!important;
+  color:var(--m135-ink)!important;
+}
+#mb119CalendarMount button:not(.cal-day){
+  background:var(--m135-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--m135-cyan)!important;
 }
 
-/* SPENDING: WHITE ENTRY FORM, NAVY SPENDING ROWS */
+/* Spending form white, entries navy */
 #mb119Spending .mb119-spend-form,
 #mb119Spending .mb119-ledger{
   background:#fff!important;
-  color:var(--mb135-ink)!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
-#mb119Spending input,
-#mb119Spending textarea,
-#mb119Spending select{
-  background:#fff!important;
-  color:var(--mb135-ink)!important;
-  border:1px solid #b8c6d5!important;
-}
-.mb119-range button{
-  background:var(--mb135-navy)!important;
-  color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
-.mb119-range button.active{
-  background:#081936!important;
-  color:var(--mb135-cyan)!important;
+  color:var(--m135-ink)!important;
+  border:2px solid var(--m135-cyan)!important;
 }
 #mb119SpendList{
   display:grid!important;
   gap:10px!important;
 }
 #mb119SpendList .mb119-ledger-item{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
   color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
+  border:2px solid var(--m135-cyan)!important;
   border-radius:14px!important;
   padding:12px!important;
 }
 #mb119SpendList .mb119-ledger-title,
 #mb119SpendList .mb119-ledger-amt{color:#fff!important}
-#mb119SpendList .mb119-ledger-time{color:var(--mb135-muted-on-navy)!important}
+#mb119SpendList .mb119-ledger-time{color:var(--m135-muted)!important}
 
-/* SETTINGS EXPANDED SECTIONS NAVY */
-#mb123SettingsPanel .settings-section{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
-  color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
-#mb123SettingsPanel .settings-section h3,
-#mb123SettingsPanel .settings-section label,
-#mb123SettingsPanel .settings-section b{
-  color:#fff!important;
-}
-#mb123SettingsPanel .settings-section p,
-#mb123SettingsPanel .settings-section small,
-#mb123SettingsPanel .settings-section .meta{
-  color:var(--mb135-muted-on-navy)!important;
-}
-#mb123SettingsPanel input,
-#mb123SettingsPanel select,
-#mb123SettingsPanel textarea{
-  background:#fff!important;
-  color:var(--mb135-ink)!important;
-}
-
-/* VERSION TILE */
+/* Settings version and generated panel */
 #mb119Version{
-  background:var(--mb135-navy)!important;
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
   color:#fff!important;
-  border:3px solid var(--mb135-cyan)!important;
+  border:3px solid var(--m135-cyan)!important;
 }
 #mb119Version *{color:#fff!important}
-#mb119Version b{color:var(--mb135-cyan)!important}
-
-/* SINGLE SIMPLE APPEARANCE PANEL */
 #mb135Appearance{
-  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  background:linear-gradient(145deg,var(--m135-navy),var(--m135-navy2))!important;
   color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
+  border:2px solid var(--m135-cyan)!important;
   border-radius:18px!important;
   padding:14px!important;
 }
 #mb135Appearance h3,#mb135Appearance label{color:#fff!important}
-#mb135Appearance p{color:var(--mb135-muted-on-navy)!important}
-.mb135-color-row{
-  display:grid;
-  grid-template-columns:1fr 58px;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  margin:8px 0;
-  border:1px solid rgba(0,245,255,.38);
-  border-radius:12px;
+#mb135Appearance p{color:var(--m135-muted)!important}
+.mb135-row{
+  display:grid;grid-template-columns:1fr 58px;align-items:center;gap:10px;
+  padding:10px 12px;margin:8px 0;
+  border:1px solid rgba(0,245,255,.34);border-radius:12px
 }
-.mb135-color-row input[type=color]{
-  width:58px!important;
-  height:44px!important;
-  padding:2px!important;
-  background:#fff!important;
-  border:1px solid var(--mb135-cyan)!important;
+.mb135-row input[type=color]{
+  width:58px!important;height:44px!important;padding:2px!important;
+  background:#fff!important;border:1px solid var(--m135-cyan)!important
 }
-.mb135-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:12px;
-}
-#mb135SaveTheme{
-  background:#081936!important;
-  color:#fff!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
-#mb135ResetTheme{
-  background:#fff!important;
-  color:var(--mb135-ink)!important;
-  border:2px solid var(--mb135-cyan)!important;
-}
+.mb135-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#mb135Save{background:#081936!important;color:#fff!important;border:2px solid var(--m135-cyan)!important}
+#mb135Reset{background:#fff!important;color:var(--m135-ink)!important;border:2px solid var(--m135-cyan)!important}
 
-/* HIDE ALL OLD/DUPLICATE COLOR UIs */
-#mb126SimpleAppearance,
-#mb129Appearance,
-#mb132Appearance,
-#mb133Appearance,
+/* Hide legacy color editors */
 #settingsDlg .v102-color-grid,
 #settingsDlg .v102-color-row,
 #settingsDlg #resetDashboardColorsV102,
-#mb123SettingsPanel .settings-section:has(input[id*="headerColor"]),
-#mb123SettingsPanel .settings-section:has(input[id*="tabBgColor"]),
-#mb123SettingsPanel .settings-section:has(input[id*="tabBorderColor"]),
-#mb123SettingsPanel .settings-section:has(input[id*="tabTextColor"]){
+#mb126SimpleAppearance,
+#mb129Appearance,
+#mb132Appearance,
+#mb133Appearance{
   display:none!important;
 }
 
-/* ROOM ABOVE BOTTOM NAV */
 .mb119-view{
   padding-bottom:calc(270px + env(safe-area-inset-bottom))!important;
-  scroll-padding-top:110px!important;
+  scroll-padding-top:105px!important;
   scroll-padding-bottom:290px!important;
 }
 </style>
 
-<script id="mb-20-0-135-single-theme-script">
+<script id="mb-20-0-135-exact-script">
 (function(){
   const VERSION='20.0.135';
-  const KEY='myBills_theme_20_0';
-  const MIGRATION='myBills_theme_migrated_135';
-  const DEFAULTS={
-    navy:'#172554',
-    navyDeep:'#0d1f49',
-    cyan:'#00f5ff',
-    page:'#f7f9fc',
-    onNavy:'#ffffff'
+  const KEY='myBills_theme_simple_135';
+  const MIGRATION='myBills_theme_migrated_exact_135';
+  const DEFAULTS={navy:'#172554',cyan:'#00f5ff',page:'#f7f9fc',text:'#ffffff'};
+
+  const NAV_ICONS={
+    home:'<svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-6h5v6"/></svg>',
+    calendar:'<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M8 3v4M16 3v4M3.5 9h17"/></svg>',
+    bills:'<svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+    spending:'<svg viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="11" rx="2"/><path d="M3.5 10h17M15.5 14h2"/></svg>',
+    budget:'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M13 3v8h8A9 9 0 0 0 13 3z"/></svg>',
+    settings:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.12-1.28l2-1.55-2-3.46-2.4.97a7 7 0 0 0-2.2-1.28L14 3h-4l-.28 2.4a7 7 0 0 0-2.2 1.28l-2.4-.97-2 3.46 2 1.55A7 7 0 0 0 5 12c0 .44.04.87.12 1.28l-2 1.55 2 3.46 2.4-.97a7 7 0 0 0 2.2 1.28L10 21h4l.28-2.4a7 7 0 0 0 2.2-1.28l2.4.97 2-3.46-2-1.55c.08-.41.12-.84.12-1.28z"/></svg>'
   };
 
-  function parse(key,fallback){
-    try{const v=JSON.parse(localStorage.getItem(key)||'null');return v==null?fallback:v}
-    catch(e){return fallback}
-  }
-
-  function migrateOldColors(){
+  function parse(k,f){try{return JSON.parse(localStorage.getItem(k)||'null')??f}catch(e){return f}}
+  function migrate(){
     if(localStorage.getItem(MIGRATION)==='1')return;
-    // Delete only obsolete COLOR/THEME keys. User finance data is untouched.
     [
       'myBills_dashboard_colors_v101',
       'myBills_dashboard_colors_v102',
@@ -10274,103 +10177,147 @@ html,body,#mb119Shell,.mb119-view{
       'myBills_theme_20_0_134'
     ].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
     try{
-      const settings=parse('myBills_settings_v2',{});
-      if(settings && typeof settings==='object'){
-        delete settings.dashboardColorsV102;
-        localStorage.setItem('myBills_settings_v2',JSON.stringify(settings));
+      const s=parse('myBills_settings_v2',{});
+      if(s && typeof s==='object'){
+        delete s.dashboardColorsV102;
+        localStorage.setItem('myBills_settings_v2',JSON.stringify(s));
       }
     }catch(e){}
-    // New official default on first 135 migration.
     localStorage.setItem(KEY,JSON.stringify(DEFAULTS));
     localStorage.setItem(MIGRATION,'1');
   }
-
-  function read(){
-    return {...DEFAULTS,...parse(KEY,{})};
-  }
-  function apply(t){
+  function theme(){return {...DEFAULTS,...parse(KEY,{})}}
+  function applyVars(t){
     const r=document.documentElement;
-    r.style.setProperty('--mb135-navy',t.navy);
-    r.style.setProperty('--mb135-navy-deep',t.navyDeep||t.navy);
-    r.style.setProperty('--mb135-cyan',t.cyan);
-    r.style.setProperty('--mb135-page',t.page);
-    r.style.setProperty('--mb135-on-navy',t.onNavy);
+    r.style.setProperty('--m135-navy',t.navy);
+    r.style.setProperty('--m135-navy2',t.navy);
+    r.style.setProperty('--m135-cyan',t.cyan);
+    r.style.setProperty('--m135-page',t.page);
   }
 
-  function buildAppearance(){
+  function lockStyle(el, prop, value){
+    if(el)el.style.setProperty(prop,value,'important');
+  }
+  function forceVisuals(){
+    const t=theme();
+
+    document.querySelectorAll('.mb135-fixed-header').forEach(h=>{
+      lockStyle(h,'background',`linear-gradient(135deg,${t.navy},${t.navy})`);
+      lockStyle(h,'border-bottom-color',t.cyan);
+      h.querySelectorAll('.mb119-title,.mb119-sub').forEach(x=>lockStyle(x,'color',t.text));
+    });
+
+    document.querySelectorAll(
+      '#mb119HomeMount #dashboardCards>.card,#mb119HomeMount>.card,#mb119HomeMount #financeStatusCard,#mb119Tips,'+
+      '.quick-actions button,.mb119-tool-grid button,.mb119-settings-grid button,.mb119-spend-actions button,'+
+      '#mb119BillsMount .bill,#mb119SpendList .mb119-ledger-item,#mb119Version'
+    ).forEach(el=>{
+      lockStyle(el,'background',t.navy);
+      lockStyle(el,'color',t.text);
+      lockStyle(el,'border-color',t.cyan);
+    });
+
+    const nav=document.getElementById('mb119BottomNav');
+    lockStyle(nav,'background',t.navy);
+    lockStyle(nav,'border-top-color',t.cyan);
+
+    document.body.style.setProperty('background',t.page,'important');
+    document.getElementById('mb119Shell')?.style.setProperty('background',t.page,'important');
+  }
+
+  function wrapHeaders(){
+    document.querySelectorAll('.mb119-view').forEach(view=>{
+      if(view.querySelector(':scope > .mb135-fixed-header'))return;
+      const title=view.querySelector(':scope > .mb119-title');
+      const sub=view.querySelector(':scope > .mb119-sub');
+      if(!title)return;
+      const h=document.createElement('div');
+      h.className='mb135-fixed-header';
+      view.insertBefore(h,title);
+      h.appendChild(title);
+      if(sub)h.appendChild(sub);
+    });
+  }
+
+  function icons(){
+    document.querySelectorAll('.mb119-nav').forEach(btn=>{
+      const key=btn.dataset.view;
+      const ico=btn.querySelector('.ico');
+      if(ico && NAV_ICONS[key])ico.innerHTML=NAV_ICONS[key];
+    });
+  }
+
+  function appearance(){
     const panel=document.getElementById('mb123SettingsPanel');
     if(!panel)return;
-
-    // Remove any duplicate generated Appearance panels.
-    panel.querySelectorAll('#mb126SimpleAppearance,#mb129Appearance,#mb132Appearance,#mb133Appearance,#mb135Appearance')
-      .forEach(x=>x.remove());
-
-    const t=read();
+    panel.innerHTML='';
+    const t=theme();
     const box=document.createElement('div');
     box.id='mb135Appearance';
     box.innerHTML=`
       <h3 style="margin:0 0 5px">Appearance</h3>
-      <p style="margin:0 0 12px">Simple whole-app colors.</p>
-      <div class="mb135-color-row"><label>Navy tabs & headers</label><input id="mb135Navy" type="color" value="${t.navy}"></div>
-      <div class="mb135-color-row"><label>Cyan borders & active icons</label><input id="mb135Cyan" type="color" value="${t.cyan}"></div>
-      <div class="mb135-color-row"><label>Background behind tabs</label><input id="mb135Page" type="color" value="${t.page}"></div>
-      <div class="mb135-color-row"><label>Text on navy</label><input id="mb135Text" type="color" value="${t.onNavy}"></div>
-      <div class="mb135-actions">
-        <button id="mb135SaveTheme" type="button">Save Colors</button>
-        <button id="mb135ResetTheme" type="button">Official Colors</button>
-      </div>`;
-    panel.prepend(box);
+      <p style="margin:0 0 12px">Four simple colors control the whole app.</p>
+      <div class="mb135-row"><label>Navy tabs & headers</label><input id="mb135Navy" type="color" value="${t.navy}"></div>
+      <div class="mb135-row"><label>Cyan borders & active icons</label><input id="mb135Cyan" type="color" value="${t.cyan}"></div>
+      <div class="mb135-row"><label>White/background behind tabs</label><input id="mb135Page" type="color" value="${t.page}"></div>
+      <div class="mb135-row"><label>Text on navy</label><input id="mb135Text" type="color" value="${t.text}"></div>
+      <div class="mb135-actions"><button id="mb135Save" type="button">Save Colors</button><button id="mb135Reset" type="button">Official Colors</button></div>`;
+    panel.appendChild(box);
 
-    function values(){
-      const navy=document.getElementById('mb135Navy').value;
-      return {
-        navy,
-        navyDeep:navy,
-        cyan:document.getElementById('mb135Cyan').value,
-        page:document.getElementById('mb135Page').value,
-        onNavy:document.getElementById('mb135Text').value
-      };
-    }
+    function values(){return {
+      navy:document.getElementById('mb135Navy').value,
+      cyan:document.getElementById('mb135Cyan').value,
+      page:document.getElementById('mb135Page').value,
+      text:document.getElementById('mb135Text').value
+    }}
     function save(){
-      const t=values();
-      localStorage.setItem(KEY,JSON.stringify(t));
-      apply(t);
+      localStorage.setItem(KEY,JSON.stringify(values()));
+      applyVars(theme()); forceVisuals();
     }
     ['mb135Navy','mb135Cyan','mb135Page','mb135Text'].forEach(id=>{
-      const el=document.getElementById(id);
-      el.addEventListener('input',save);
-      el.addEventListener('change',save);
+      document.getElementById(id).addEventListener('input',save);
+      document.getElementById(id).addEventListener('change',save);
     });
-    document.getElementById('mb135SaveTheme').onclick=save;
-    document.getElementById('mb135ResetTheme').onclick=()=>{
+    document.getElementById('mb135Save').onclick=save;
+    document.getElementById('mb135Reset').onclick=()=>{
       localStorage.setItem(KEY,JSON.stringify(DEFAULTS));
-      apply(DEFAULTS);
-      document.getElementById('mb135Navy').value=DEFAULTS.navy;
-      document.getElementById('mb135Cyan').value=DEFAULTS.cyan;
-      document.getElementById('mb135Page').value=DEFAULTS.page;
-      document.getElementById('mb135Text').value=DEFAULTS.onNavy;
+      applyVars(DEFAULTS); appearance(); forceVisuals();
     };
   }
 
-  function forceVersion(){
-    document.querySelectorAll('#mb119Version strong,#mb119Version .value,[data-app-version]')
-      .forEach(x=>x.textContent=VERSION);
+  function version(){
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
   }
 
   function init(){
-    migrateOldColors();
-    apply(read());
-    forceVersion();
+    migrate();
+    applyVars(theme());
+    wrapHeaders();
+    icons();
+    version();
+    forceVisuals();
 
     const ap=document.querySelector('[data-mb123-settings="appearance"]');
     if(ap){
       ap.textContent='Appearance';
-      ap.onclick=()=>setTimeout(buildAppearance,30);
+      ap.addEventListener('click',e=>{
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        appearance();
+      },true);
     }
 
-    // Late renderers sometimes write the old version; correct it again.
-    setTimeout(forceVersion,250);
-    setTimeout(forceVersion,1000);
+    document.querySelectorAll('.mb119-nav').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{
+      wrapHeaders(); icons(); version(); forceVisuals();
+    },30)));
+
+    const obs=new MutationObserver(()=>requestAnimationFrame(()=>{
+      wrapHeaders(); icons(); version(); forceVisuals();
+    }));
+    obs.observe(document.getElementById('mb119Shell')||document.body,{childList:true,subtree:true});
+
+    setTimeout(()=>{wrapHeaders();icons();version();forceVisuals()},250);
+    setTimeout(()=>{wrapHeaders();icons();version();forceVisuals()},1000);
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});

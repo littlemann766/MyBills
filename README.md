@@ -1,3 +1,3 @@
 # My Bills 20.0.135
 
-This build removes the conflicting legacy dashboard/theme scripts and uses one authoritative theme system. The official default is a light/white page with navy headers, cards, navigation tiles and bottom navigation, cyan borders/active states, and white text on navy. Headers remain sticky at the top of each tab. Only one simplified Appearance panel is generated. The first 20.0.135 launch removes obsolete color-only localStorage keys without touching bills, spending, hours, paychecks, reminders, backups, or other finance data.
+Built directly from the uploaded 20.0.134 project. The old v102/v105/v107 and 132/133/134 theme layers were removed. Every tab gets a dedicated sticky navy header. The app defaults to navy cards/tabs/navigation with cyan borders and white text, with a light page behind them. Appearance is reduced to one four-color editor. Obsolete color-only saved values are migrated away without deleting finance data.
