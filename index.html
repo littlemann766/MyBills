@@ -3500,7 +3500,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 <dialog id="categorySummaryDlg"><div class="form"><h2 id="categorySummaryTitle">Category Summary</h2><div id="categorySummaryContent"></div><div class="form-actions"><button class="primary" type="button" onclick="categorySummaryDlg.close()">Done</button></div></div></dialog>
 <dialog id="paymentHistoryDlg"><div class="form"><h2 id="paymentHistoryTitle">Payment History</h2><div id="paymentHistoryContent"></div><div class="form-actions"><button class="primary" type="button" onclick="paymentHistoryDlg.close()">Done</button></div></div></dialog>
 
-<button class="primary settings-fab" id="settingsBtn" type="button" aria-label="Settings">⚙</button>
+
 
 <dialog id="settingsDlg">
   <div class="form">
@@ -10017,6 +10017,7 @@ button:active { transform:scale(.98); }
   box-shadow:0 -8px 28px rgba(6,19,40,.20)!important;
   display:grid!important;
   grid-template-columns:repeat(6,1fr)!important;
+  gap:6px!important;
   z-index:900!important;
 }
 .mb110-navitem{
@@ -10024,7 +10025,11 @@ button:active { transform:scale(.98); }
   background:transparent!important;
   color:#aebbd0!important;
   min-width:0!important;
-  padding:4px 2px!important;
+  padding:6px 3px!important;
+  margin:0!important;
+  border:1px solid rgba(174,187,208,.18)!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.025)!important;
   display:flex!important;
   flex-direction:column!important;
   align-items:center!important;
@@ -10034,7 +10039,7 @@ button:active { transform:scale(.98); }
   font-weight:850!important;
 }
 .mb110-navitem svg{width:25px;height:25px}
-.mb110-navitem.active{color:var(--mb110-cyan)!important}
+.mb110-navitem.active{color:var(--mb110-cyan)!important;background:rgba(0,245,255,.09)!important;border-color:rgba(0,245,255,.38)!important}
 .mb110-navitem span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 
 /* Keep body content above nav */
@@ -10046,8 +10051,8 @@ button:active { transform:scale(.98); }
 }
 
 @media(max-width:500px){
-  #mb110BottomNav{padding-left:2px!important;padding-right:2px!important}
-  .mb110-navitem{font-size:9px!important}
+  #mb110BottomNav{padding-left:4px!important;padding-right:4px!important;gap:3px!important}
+  .mb110-navitem{font-size:9px!important;padding:5px 1px!important;border-radius:10px!important}
   .mb110-navitem svg{width:22px;height:22px}
 }
 </style>
@@ -10140,6 +10145,660 @@ button:active { transform:scale(.98); }
   function run(){buildNav()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});
   else run();
+})();
+</script>
+
+<!-- v111: authoritative multi-screen app shell, ledger timestamps, and WebView-safe theme -->
+<style id="mb-v111-authoritative">
+:root{--mb111-bg:#eef3f8;--mb111-card1:#0b234b;--mb111-card2:#172554;--mb111-cyan:#00f5ff;--mb111-muted:#b8c3d8}
+.mb111-view{display:none}.mb111-view.active{display:block}
+.mb111-screen-title{margin:4px 0 14px;font-size:24px;font-weight:900;color:#0b1c3d}
+.mb111-screen-sub{margin:-8px 0 14px;color:#5e6b7d;font-size:13px;font-weight:650}
+/* Final authority for the cards Android WebView was turning white. */
+#dashboardCards>.card,#mb111Home>[onclick*="showHoursWeeks"],#healthStrip .health-cell,#availableNowCard,.available-now-card,
+.mb111-dark-card{background:linear-gradient(145deg,var(--mb111-card1),var(--mb111-card2))!important;color:#fff!important;border:2px solid var(--mb111-cyan)!important;box-shadow:0 8px 20px rgba(6,19,40,.14)!important}
+#dashboardCards>.card .label,#dashboardCards>.card .value,#mb111Home>[onclick*="showHoursWeeks"] .label,#mb111Home>[onclick*="showHoursWeeks"] .value,#healthStrip .health-cell span,#healthStrip .health-cell b{color:#fff!important}
+#dashboardCards>.card .meta,#mb111Home>[onclick*="showHoursWeeks"] .meta,#healthStrip .v64-budget-hint{color:var(--mb111-muted)!important}
+.mb111-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 18px}.mb111-tools button{min-height:48px}
+.mb111-ledger-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.mb111-range{display:flex;gap:8px}.mb111-range button.active{background:#07182f!important;color:#fff!important;border-color:var(--mb111-cyan)!important}
+.mb111-spend-form{padding:14px;margin-bottom:14px}.mb111-spend-grid{display:grid;grid-template-columns:1.5fr .8fr;gap:8px}.mb111-spend-grid input{width:100%;box-sizing:border-box}.mb111-spend-actions{display:flex;justify-content:flex-end;margin-top:9px}
+.mb111-ledger-item{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.14)}.mb111-ledger-item:last-child{border-bottom:0}.mb111-ledger-title{font-weight:850}.mb111-ledger-amt{font-weight:900}.mb111-ledger-time{grid-column:1/-1;color:var(--mb111-muted);font-size:12px}.mb111-ledger-empty{padding:18px 4px;color:var(--mb111-muted)}
+.mb111-budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mb111-budget-grid button{min-height:54px}
+/* Hide legacy duplicate Home tools after they are consolidated. */
+#mb111Home .finance-tools{display:none!important}
+#settingsBtn{display:none!important}
+@media(max-width:480px){.mb111-spend-grid,.mb111-budget-grid{grid-template-columns:1fr}.mb111-screen-title{font-size:22px}}
+</style>
+<script id="mb-v111-authoritative-script">
+(function(){
+ const $=id=>document.getElementById(id), app=document.querySelector('.app'); if(!app)return;
+ const SPEND_KEY='myBills_budget_spending_v1'; let spendRange='week';
+ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function cash(n){return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
+ function loadSpend(){try{const a=JSON.parse(localStorage.getItem(SPEND_KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+ function saveSpend(a){localStorage.setItem(SPEND_KEY,JSON.stringify(a));try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(a)}catch(e){};try{renderAll?.()}catch(e){};renderSpend()}
+ function enteredDate(x){const raw=x.enteredAt||x.createdAt||x.timestamp||x.date;const d=raw?new Date(raw):null;return d&&!isNaN(d)?d:new Date(0)}
+ function ensureEnteredTimestamps(){const a=loadSpend();let changed=false;a.forEach(x=>{if(!x.enteredAt){const d=enteredDate(x);x.enteredAt=(d.getTime()>0?d:new Date()).toISOString();changed=true}});if(changed)localStorage.setItem(SPEND_KEY,JSON.stringify(a))}
+ function makeView(id,title,sub){const s=document.createElement('section');s.id=id;s.className='mb111-view';if(title)s.innerHTML=`<h2 class="mb111-screen-title">${title}</h2>${sub?`<div class="mb111-screen-sub">${sub}</div>`:''}`;app.appendChild(s);return s}
+ function move(view,el){if(el)view.appendChild(el)}
+ function setupViews(){
+   if($('mb111Home'))return;
+   const home=makeView('mb111Home','Home','Your important numbers at a glance.');
+   const cal=makeView('mb111Calendar','Calendar','Bills, paychecks, and reminders by date.');
+   const bills=makeView('mb111Bills','Bills','Search, filter, edit, pay, and manage recurring bills.');
+   const spend=makeView('mb111Spending','Spending','Every entry is stamped with the exact time it was added.');
+   const budget=makeView('mb111Budget','Budget','Budgeting, categories, savings, projections, and planning in one place.');
+   // Dashboard/home pieces.
+   move(home,$('dashboardCards'));
+   const hours=[...app.children].find(x=>x.matches?.('.card[onclick*="showHoursWeeks"]'));move(home,hours);
+   move(home,document.querySelector('.quick-actions'));move(home,$('financeStatusCard'));move(home,document.querySelector('.finance-tools'));
+   document.querySelectorAll('.card.next').forEach(x=>move(home,x));
+   // Calendar + reminders.
+   move(cal,$('calendarWrap')); const remHead=[...document.querySelectorAll('.section-head')].find(x=>/My Reminders/.test(x.textContent));move(cal,remHead);move(cal,$('reminderList'));
+   // Bills list + calculator.
+   const billHead=[...document.querySelectorAll('.section-head')].find(x=>/^My Bills/.test(x.textContent.trim()));move(bills,billHead);move(bills,document.querySelector('.bill-filter-bar'));move(bills,$('list'));move(bills,document.querySelector('.calculator-card'));
+   // Spending native screen.
+   spend.insertAdjacentHTML('beforeend',`<div class="mb111-dark-card mb111-spend-form"><div class="mb111-spend-grid"><input id="mb111SpendName" placeholder="What did you spend on?" maxlength="80"><input id="mb111SpendAmount" type="number" min="0" step="0.01" placeholder="Amount"></div><div class="mb111-spend-actions"><button class="primary" id="mb111AddSpend" type="button">+ Add Spending</button></div></div><div class="mb111-ledger-head"><div class="mb111-range"><button class="ghost active" data-mb111-range="week">Week</button><button class="ghost" data-mb111-range="month">Month</button></div><div class="meta" id="mb111SpendTotal"></div></div><div class="mb111-dark-card" style="padding:14px"><div id="mb111SpendList"></div></div>`);
+   // Consolidated budget tools.
+   budget.insertAdjacentHTML('beforeend',`<div class="mb111-dark-card" style="padding:14px"><div class="mb111-budget-grid"><button class="ghost" onclick="openBudgetDlg()">Monthly Budget & Limits</button><button class="ghost" onclick="openSavingsGoals()">Savings Goals</button><button class="ghost" onclick="openPaycheckPlanner()">Paycheck Planner</button><button class="ghost" onclick="showCategorySummary()">Categories</button><button class="ghost" onclick="showFinancialSnapshot()">Monthly Snapshot</button><button class="ghost" onclick="showPaymentHistoryAll()">Payment History</button><button class="ghost" onclick="exportMonthlySummary()">Export Summary</button><button class="ghost" onclick="copyPreviousMonthBills()">Copy Previous Month</button></div></div>`);
+   $('mb111AddSpend').onclick=addSpend;$('mb111SpendName').addEventListener('keydown',e=>{if(e.key==='Enter')$('mb111SpendAmount').focus()});$('mb111SpendAmount').addEventListener('keydown',e=>{if(e.key==='Enter')addSpend()});
+   spend.querySelectorAll('[data-mb111-range]').forEach(b=>b.onclick=()=>{spendRange=b.dataset.mb111Range;spend.querySelectorAll('[data-mb111-range]').forEach(x=>x.classList.toggle('active',x===b));renderSpend()});
+   showView('home');renderSpend();
+ }
+ function addSpend(){const n=$('mb111SpendName'),a=$('mb111SpendAmount');const name=n.value.trim()||'Other spending',amount=Number(a.value);if(!(amount>0)){a.focus();return}const rows=loadSpend();const now=new Date();rows.push({id:'sp_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,amount,date:now.toISOString().slice(0,10),enteredAt:now.toISOString(),source:'manual'});saveSpend(rows);n.value='';a.value='';n.focus()}
+ function renderSpend(){if(!$('mb111SpendList'))return;const now=new Date();let start;if(spendRange==='week'){start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}else start=new Date(now.getFullYear(),now.getMonth(),1);const rows=loadSpend().map(x=>({...x,_d:enteredDate(x)})).filter(x=>x._d>=start&&x._d<=now).sort((a,b)=>b._d-a._d);$('mb111SpendTotal').textContent=`${cash(rows.reduce((s,x)=>s+(Number(x.amount)||0),0))} ${spendRange==='week'?'this week':'this month'}`;$('mb111SpendList').innerHTML=rows.length?rows.map(x=>`<div class="mb111-ledger-item"><div class="mb111-ledger-title">${esc(x.name||x.title||'Spending')}</div><div class="mb111-ledger-amt">${cash(x.amount)}</div><div class="mb111-ledger-time">Entered ${x._d.toLocaleString()}${x.source&&x.source!=='manual'?` • ${esc(x.source)}`:''}</div></div>`).join(''):`<div class="mb111-ledger-empty">No spending entered ${spendRange==='week'?'this week':'this month'}.</div>`}
+ function showView(name){document.querySelectorAll('.mb111-view').forEach(v=>v.classList.toggle('active',v.id==='mb111'+name[0].toUpperCase()+name.slice(1)));document.querySelectorAll('#mb110BottomNav .mb110-navitem').forEach(b=>b.classList.toggle('active',(b.textContent||'').trim().toLowerCase()===name));window.scrollTo({top:0,behavior:'auto'});if(name==='spending')renderSpend()}
+ window.mb111ShowView=showView;
+ function rewireNav(){const nav=$('mb110BottomNav');if(!nav)return;const map={home:'home',calendar:'calendar',bills:'bills',spending:'spending',budget:'budget'};nav.querySelectorAll('.mb110-navitem').forEach(b=>{const key=(b.textContent||'').trim().toLowerCase();b.onclick=e=>{e.preventDefault();if(key==='settings'){try{$('settingsDlg')?.showModal()}catch(_){$('settingsBtn')?.click()}return}if(map[key])showView(map[key])}})}
+ function run(){ensureEnteredTimestamps();setupViews();rewireNav();setTimeout(rewireNav,100);setTimeout(rewireNav,500)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ new MutationObserver(()=>{rewireNav()}).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+
+<!-- v112: expanded tab-specific layout -->
+<style id="mb-v112-expanded-tabs">
+.mb111-view{min-height:calc(100vh - 190px);padding:8px 0 32px}
+.mb112-hero{background:linear-gradient(145deg,#071a36,#172554);border:2px solid rgba(0,245,255,.72);border-radius:22px;padding:18px;margin:4px 0 18px;color:#fff;box-shadow:0 10px 24px rgba(6,19,40,.14)}
+.mb112-hero h3{margin:0 0 5px;font-size:20px}.mb112-hero p{margin:0;color:#c5d0df;font-size:13px;line-height:1.45}
+.mb112-section{margin:0 0 20px}.mb112-section-title{font-size:14px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#536174;margin:0 0 9px 3px}
+.mb112-action-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 18px}.mb112-action-row button{min-height:52px!important}
+#mb111Home .quick-actions{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;margin:0 0 18px!important;padding:0!important;border:0!important}
+#mb111Home .quick-actions button:not([data-mb112-home]){display:none!important}
+#mb111Calendar .quick-actions,#mb111Bills .quick-actions{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;margin:0 0 18px!important;padding:0!important;border:0!important}
+#mb111Calendar .quick-actions button,#mb111Bills .quick-actions button{display:flex!important}
+#mb111Budget .mb111-budget-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mb112-tool-group{margin-bottom:16px}.mb112-tool-group h3{margin:0 0 9px;color:#fff;font-size:15px}.mb112-tool-group .mb112-tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+
+#mb111Settings .mb117-version-card{
+  margin-top:14px!important;
+  padding:16px 18px!important;
+  border:1px solid rgba(0,245,255,.34)!important;
+  border-radius:16px!important;
+  background:linear-gradient(145deg,#071a36,#172554)!important;
+  color:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+}
+#mb111Settings .mb117-version-copy{min-width:0}
+#mb111Settings .mb117-version-title{
+  display:block;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+  color:#00f5ff;
+  margin-bottom:4px;
+}
+#mb111Settings .mb117-version-help{
+  display:block;
+  color:#c0cbda;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.35;
+}
+#mb111Settings .mb117-version-number{
+  flex:0 0 auto;
+  font-size:15px;
+  font-weight:900;
+  color:#fff;
+  background:rgba(0,245,255,.09);
+  border:1px solid rgba(0,245,255,.28);
+  border-radius:12px;
+  padding:9px 11px;
+  white-space:nowrap;
+}
+@media(max-width:560px){
+  #mb111Settings .mb117-version-card{align-items:flex-start;flex-direction:column}
+}
+
+#mb111Settings .mb112-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mb112-setting-card{min-height:118px!important;text-align:left!important;padding:16px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:6px!important}.mb112-setting-card b{font-size:16px}.mb112-setting-card span{font-size:12px;color:#c0cbda;font-weight:600;line-height:1.35}
+#mb110BottomNav{gap:8px!important;padding-left:12px!important;padding-right:12px!important}.mb110-navitem{border:1px solid rgba(0,245,255,.16)!important;border-radius:13px!important;margin:0!important}
+@media(max-width:560px){.mb112-action-row,#mb111Budget .mb111-budget-grid,#mb111Settings .mb112-settings-grid,.mb112-tool-group .mb112-tool-grid{grid-template-columns:1fr}.mb111-view{min-height:calc(100vh - 175px)}#mb110BottomNav{gap:4px!important;padding-left:5px!important;padding-right:5px!important}.mb112-setting-card{min-height:92px!important}}
+</style>
+<script id="mb-v112-expanded-tabs-script">
+(function(){
+ const MYBILLS_BUILD_CODE=118;
+ const MYBILLS_BUILD_NAME='19.1-v118';
+ const MYBILLS_BUILD_VERSION=`${MYBILLS_BUILD_CODE} / ${MYBILLS_BUILD_NAME}`;
+ window.MYBILLS_BUILD_CODE=MYBILLS_BUILD_CODE;
+ window.MYBILLS_BUILD_NAME=MYBILLS_BUILD_NAME;
+ window.MYBILLS_BUILD_VERSION=MYBILLS_BUILD_VERSION;
+ const $=id=>document.getElementById(id);
+ function hero(view,title,text){if(!view||view.querySelector('.mb112-hero'))return;const d=document.createElement('div');d.className='mb112-hero';d.innerHTML=`<h3>${title}</h3><p>${text}</p>`;const sub=view.querySelector('.mb111-screen-sub');(sub||view.firstChild)?.after(d)}
+ function makeActionButton(text,onclick,kind='primary'){const b=document.createElement('button');b.type='button';b.className=kind;b.textContent=text;b.onclick=onclick;return b}
+ function setup(){
+  if(!$('mb111Home'))return setTimeout(setup,80);
+  if($('mb112Done'))return;const done=document.createElement('i');done.id='mb112Done';done.hidden=true;document.body.appendChild(done);
+  const home=$('mb111Home'),cal=$('mb111Calendar'),bills=$('mb111Bills'),spend=$('mb111Spending'),budget=$('mb111Budget');
+  hero(home,'Your money at a glance','Only the numbers you need most often live here. The detailed tools are now inside their own tabs.');
+  hero(cal,'Plan around your dates','Calendar events and reminders stay together, with bill and paycheck dates easy to see.');
+  hero(bills,'Everything bill-related','Add, search, filter, edit and calculate without leaving the Bills tab.');
+  hero(spend,'Track what leaves your pocket','Manual spending is timestamped when entered. This structure is ready for connected cards and accounts later.');
+  hero(budget,'Plan the month','Budgets, categories, savings, projections and payment history are grouped here instead of crowding Home.');
+
+  const qa=home.querySelector('.quick-actions');
+  if(qa){const btns=[...qa.querySelectorAll('button')];const hours=btns.find(b=>/Add Hours/i.test(b.textContent));const bill=btns.find(b=>/Add Bill/i.test(b.textContent));const rem=btns.find(b=>/Add Reminder/i.test(b.textContent));if(hours)hours.dataset.mb112Home='1';if(bill){let w=document.createElement('div');w.className='quick-actions';bills.insertBefore(w,bills.querySelector('.section-head'));w.appendChild(bill)}if(rem){let w=document.createElement('div');w.className='quick-actions';cal.insertBefore(w,cal.querySelector('#calendarWrap'));w.appendChild(rem)}}
+
+  if(!bills.querySelector('.mb112-bill-actions')){const row=document.createElement('div');row.className='mb112-action-row mb112-bill-actions';row.appendChild(makeActionButton('+ Add Bill',()=>window.openForm?.()));row.appendChild(makeActionButton('Payment History',()=>window.showPaymentHistoryAll?.(),'ghost'));const head=bills.querySelector('.section-head');bills.insertBefore(row,head)}
+  if(!cal.querySelector('.mb112-cal-actions')){const row=document.createElement('div');row.className='mb112-action-row mb112-cal-actions';row.appendChild(makeActionButton('+ Add Reminder',()=>window.openReminderForm?.()));row.appendChild(makeActionButton('Today',()=>window.goToday?.(),'ghost'));const cw=$('calendarWrap');cal.insertBefore(row,cw)}
+
+  const oldGrid=budget.querySelector('.mb111-budget-grid');if(oldGrid&&!budget.querySelector('.mb112-budget-groups')){const card=oldGrid.closest('.mb111-dark-card');const wrap=document.createElement('div');wrap.className='mb112-budget-groups';const groups=[['Monthly Planning',['Monthly Budget & Limits','Paycheck Planner','Monthly Snapshot','Copy Previous Month']],['Spending & Categories',['Categories','Payment History']],['Goals & Reports',['Savings Goals','Export Summary']]];groups.forEach(([name,names])=>{const g=document.createElement('div');g.className='mb112-tool-group';g.innerHTML=`<h3>${name}</h3><div class="mb112-tool-grid"></div>`;const grid=g.querySelector('.mb112-tool-grid');names.forEach(n=>{const b=[...oldGrid.querySelectorAll('button')].find(x=>x.textContent.trim()===n);if(b)grid.appendChild(b)});wrap.appendChild(g)});card.innerHTML='';card.appendChild(wrap)}
+
+  if(!$('mb111Settings')){const settings=document.createElement('section');settings.id='mb111Settings';settings.className='mb111-view';settings.innerHTML='<h2 class="mb111-screen-title">Settings</h2><div class="mb111-screen-sub">Appearance, reminders, defaults, and your data.</div>';budget.after(settings);hero(settings,'Make My Bills yours','Keep app preferences and data controls together in one dedicated place.');const grid=document.createElement('div');grid.className='mb112-settings-grid';const opts=[['Appearance','Theme, colors and dashboard display'],['Reminders','Notification timing and reminder behavior'],['Defaults','Pay, calendar and app preferences'],['Backup & Restore','Save, restore and manage your data']];opts.forEach(([a,b])=>{const bt=document.createElement('button');bt.className='ghost mb112-setting-card';bt.innerHTML=`<b>${a}</b><span>${b}</span>`;bt.onclick=()=>{const d=$('settingsDlg');try{d?.showModal()}catch(e){$('settingsBtn')?.click()}};grid.appendChild(bt)});settings.appendChild(grid);
+    const version=document.createElement('div');
+    version.id='mb117AppVersion';
+    version.className='mb117-version-card';
+    version.innerHTML=`<div class="mb117-version-copy"><span class="mb117-version-title">App Version</span><span class="mb117-version-help">Use this number to confirm you are running the newest My Bills build.</span></div><span class="mb117-version-number">${window.MYBILLS_BUILD_VERSION||'118 / 19.1-v118'}</span>`;
+    settings.appendChild(version)}
+
+  const nav=$('mb110BottomNav');if(nav){nav.querySelectorAll('.mb110-navitem').forEach(b=>{const key=(b.textContent||'').trim().toLowerCase();if(key==='settings')b.onclick=e=>{e.preventDefault();window.mb111ShowView?.('settings')}})}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(setup,120),{once:true});else setTimeout(setup,120);
+ new MutationObserver(()=>{const nav=$('mb110BottomNav'),settings=$('mb111Settings');if(nav&&settings){const b=[...nav.querySelectorAll('.mb110-navitem')].find(x=>(x.textContent||'').trim().toLowerCase()==='settings');if(b&&b.dataset.mb112!=='1'){b.dataset.mb112='1';b.onclick=e=>{e.preventDefault();window.mb111ShowView?.('settings')}}}}).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+<!-- v113: rotating money tips + lightweight challenges -->
+<style id="mb-v113-money-coach">
+.mb113-coach{margin:0 0 20px;background:linear-gradient(145deg,#071a36,#172554);border:2px solid rgba(0,245,255,.72);border-radius:22px;padding:17px;color:#fff;box-shadow:0 10px 24px rgba(6,19,40,.14)}
+.mb113-coach-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.mb113-kicker{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#00f5ff}.mb113-next{min-height:34px!important;padding:6px 11px!important;border-radius:12px!important;font-size:12px!important}
+.mb113-coach h3{margin:9px 0 6px;font-size:19px}.mb113-coach p{margin:0;color:#c5d0df;line-height:1.48;font-size:13px}.mb113-challenge{margin-top:13px;padding:11px 12px;border:1px solid rgba(0,245,255,.25);border-radius:14px;background:rgba(0,245,255,.06);font-size:12px;font-weight:750;color:#e8f8fa}.mb113-challenge b{color:#00f5ff}
+</style>
+<script id="mb-v113-money-coach-script">
+(function(){
+ const tips=[
+  ['Quick win','Pay yourself first','Move a small amount to savings before everyday spending starts. Even a little, done consistently, adds up.','Try saving $10 this week before you spend it elsewhere.'],
+  ['Spend smart','Give wants a waiting period','For an unplanned purchase, wait a day before buying. If you still want it tomorrow, it is easier to judge whether it fits your budget.','Pick one non-essential purchase today and wait 24 hours.'],
+  ['Bill tip','Look ahead before spending','Check the next several days of bills before treating your current balance as money that is free to spend.','Review the next 7 days on your Calendar tab.'],
+  ['Savings','Make the goal smaller','A big savings goal can feel far away. Breaking it into weekly amounts makes progress easier to see and stick with.','Choose one savings goal and give it a weekly target.'],
+  ['Spending check','Small purchases count too','A few inexpensive purchases can quietly become a large monthly total. Logging them makes the pattern visible.','Log every extra purchase for one day.'],
+  ['Budget habit','Leave yourself breathing room','A budget works better when every dollar is not committed. Keeping a small cushion helps unexpected costs hurt less.','See if you can leave a small buffer in this month’s budget.'],
+  ['Quick win','Try a no-spend day','One intentional day without non-essential purchases can reset spending habits without feeling like a long restriction.','Make tomorrow a no-spend day for non-essentials.'],
+  ['Subscription check','Pay attention to repeat charges','Recurring purchases are easy to stop noticing. Reviewing them occasionally can uncover money you would rather use somewhere else.','Review one recurring charge you have not thought about lately.']
+ ];
+ function setup(){const home=document.getElementById('mb111Home');if(!home||document.getElementById('mb113Coach'))return setTimeout(setup,100);const card=document.createElement('div');card.id='mb113Coach';card.className='mb113-coach';const hero=home.querySelector('.mb112-hero');(hero||home.querySelector('.mb111-screen-sub'))?.after(card);let i=Number(localStorage.getItem('myBills_tip_index_v1')||0)%tips.length;function draw(){const t=tips[i];card.innerHTML=`<div class="mb113-coach-top"><div class="mb113-kicker">💡 ${t[0]}</div><button type="button" class="ghost mb113-next">Another tip</button></div><h3>${t[1]}</h3><p>${t[2]}</p><div class="mb113-challenge"><b>Mini challenge:</b> ${t[3]}</div>`;card.querySelector('.mb113-next').onclick=()=>{i=(i+1)%tips.length;localStorage.setItem('myBills_tip_index_v1',String(i));draw()}}draw()}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(setup,180),{once:true});else setTimeout(setup,180);
+})();
+</script>
+
+
+<!-- v114: full-theme consistency, reliable Bills tab, corrected actual net, single finance icons -->
+<style id="mb-v114-final-fixes">
+:root{--mb114-navy:#172554;--mb114-deep:#071a36;--mb114-card:#0b234b;--mb114-cyan:#00f5ff;--mb114-text:#ffffff;--mb114-muted:#c0cbda;--mb114-page:#eef3f8}
+/* Keep only one icon on the finance cards. */
+#healthStrip .v108-icon{display:none!important}
+#healthStrip .mb109-fin-icon{display:flex!important}
+
+/* Carry the navy/cyan visual language through every actual app tab. */
+.mb111-view .bill,
+.mb111-view .empty,
+.mb111-view .calendar-wrap,
+.mb111-view .calculator-card,
+.mb111-view .settings-section,
+.mb111-view .summary-stat,
+.mb111-view .backup-card,
+.mb111-view .week-stat,
+.mb111-view .week-row,
+.mb111-view .category-row-v55,
+.mb111-view .recurring-series-row,
+.mb111-view .planner-assign,
+.mb111-view .mb112-setting-card,
+.mb111-view .mb112-tool-group{
+  background:linear-gradient(145deg,var(--mb114-card),var(--mb114-navy))!important;
+  color:var(--mb114-text)!important;
+  border:2px solid rgba(0,245,255,.72)!important;
+  box-shadow:0 8px 20px rgba(6,19,40,.12)!important;
+}
+.mb111-view .bill,.mb111-view .empty,.mb111-view .calculator-card,.mb111-view .calendar-wrap{border-radius:22px!important}
+.mb111-view .bill .name,.mb111-view .bill .amount,.mb111-view .bill b,
+.mb111-view .settings-section h3,.mb111-view .summary-stat .value,.mb111-view .week-stat .value,
+.mb111-view .category-row-v55 b,.mb111-view .planner-assign b{color:#fff!important}
+.mb111-view .bill .meta,.mb111-view .empty,.mb111-view .settings-help,.mb111-view .summary-stat .label,
+.mb111-view .summary-stat .meta,.mb111-view .week-row .meta,.mb111-view .week-stat .meta,
+.mb111-view .category-row-v55 .meta,.mb111-view .planner-assign .meta{color:var(--mb114-muted)!important}
+
+/* Calendar itself uses the theme too instead of reverting to white. */
+#mb111Calendar .calendar-wrap{background:linear-gradient(145deg,#0a2148,#172554)!important}
+#mb111Calendar .calendar-month-name,#mb111Calendar .cal-num,#mb111Calendar .calendar-help,#mb111Calendar .week-total{color:#fff!important}
+#mb111Calendar .cal-weekday{color:var(--mb114-muted)!important}
+#mb111Calendar .cal-day{background:#0a1730!important;border:1px solid rgba(0,245,255,.23)!important;color:#fff!important}
+#mb111Calendar .cal-day.today{outline:2px solid var(--mb114-cyan)!important}
+#mb111Calendar .cal-hours{background:#102a55!important;color:#fff!important}
+#mb111Calendar .legend-toggle,#mb111Calendar .legend-item{background:#0a1730!important;color:#fff!important;border:1px solid rgba(0,245,255,.22)!important}
+
+/* Bills screen: inputs/filter remain readable but belong to the same visual system. */
+#mb111Bills .bill-filter-bar{background:transparent!important}
+#mb111Bills input,#mb111Bills select,#mb111Bills .calc-display,
+#mb111Spending input,#mb111Budget input,#mb111Budget select{
+  background:#f8fbff!important;color:#101827!important;border:1px solid rgba(0,245,255,.65)!important
+}
+#mb111Bills .calculator-card button{background:#07182f!important;color:#fff!important;border:1px solid rgba(0,245,255,.35)!important}
+
+/* Full dialog theming so opening a tool does not suddenly return to a white app. */
+dialog{background:linear-gradient(145deg,var(--mb114-card),var(--mb114-navy))!important;color:#fff!important;border:2px solid var(--mb114-cyan)!important}
+dialog .form{background:transparent!important;color:#fff!important}
+dialog .form h2,dialog .form h3,dialog .snapshot-row,dialog .snapshot-total,dialog .name,dialog .amount{color:#fff!important}
+dialog .meta,dialog .label,dialog .settings-help{color:var(--mb114-muted)!important}
+dialog .settings-section,dialog .summary-stat,dialog .bill,dialog .empty{
+  background:#0a1730!important;color:#fff!important;border:1px solid rgba(0,245,255,.42)!important;box-shadow:none!important
+}
+dialog input,dialog select,dialog textarea{background:#f8fbff!important;color:#101827!important;border:1px solid rgba(0,245,255,.65)!important}
+dialog .ghost{background:#102a55!important;color:#fff!important;border:1px solid rgba(0,245,255,.30)!important}
+dialog .primary{background:#07182f!important;color:#fff!important;border:1px solid var(--mb114-cyan)!important}
+dialog .dialog-close-x{background:#102a55!important;color:#fff!important}
+
+/* More complete tab screens and consistent spacing. */
+.mb111-view{padding-top:12px!important}
+.mb111-screen-title{color:#0b1c3d!important;margin-top:6px!important}
+#mb111Bills,#mb111Calendar,#mb111Spending,#mb111Budget,#mb111Settings{padding-bottom:38px!important}
+#mb110BottomNav{gap:7px!important;padding-left:8px!important;padding-right:8px!important}
+.mb110-navitem{min-height:64px!important}
+@media(max-width:500px){#mb110BottomNav{gap:4px!important}.mb110-navitem{min-height:61px!important}}
+</style>
+<script id="mb-v114-final-fixes-script">
+(function(){
+  const $=id=>document.getElementById(id);
+
+  function ensureSingleFinanceIcons(){
+    document.querySelectorAll('#healthStrip .v108-icon').forEach(x=>x.remove());
+  }
+
+  function ensureBillsContent(){
+    const view=$('mb111Bills'); if(!view)return;
+    const app=document.querySelector('.app');
+    if(!$('list'))return;
+    if(!$('list').closest('#mb111Bills')){
+      const head=[...document.querySelectorAll('.section-head')].find(x=>/^My Bills/.test((x.textContent||'').trim()));
+      if(head)view.appendChild(head);
+      const filter=document.querySelector('.bill-filter-bar');if(filter)view.appendChild(filter);
+      view.appendChild($('list'));
+      const calc=document.querySelector('.calculator-card');if(calc)view.appendChild(calc);
+    }
+  }
+
+  function forceTab(name){
+    if(name==='bills')ensureBillsContent();
+    if(typeof window.mb111ShowView==='function')window.mb111ShowView(name);
+    else{
+      document.querySelectorAll('.mb111-view').forEach(v=>v.classList.remove('active'));
+      const id='mb111'+name.charAt(0).toUpperCase()+name.slice(1);
+      $(id)?.classList.add('active');
+    }
+    document.querySelectorAll('#mb110BottomNav .mb110-navitem').forEach(b=>b.classList.toggle('active',(b.textContent||'').trim().toLowerCase()===name));
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+
+  /* Capture-phase navigation authority: older handlers cannot steal Bills clicks. */
+  document.addEventListener('click',function(e){
+    const b=e.target.closest?.('#mb110BottomNav .mb110-navitem'); if(!b)return;
+    const key=(b.textContent||'').trim().toLowerCase();
+    if(!['home','calendar','bills','spending','budget','settings'].includes(key))return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    if(key==='settings'){forceTab('settings');return;}
+    forceTab(key);
+  },true);
+
+  function actualForSnapshot(y,m){
+    try{
+      if(typeof window.myBillsActualToDate==='function'){
+        const a=window.myBillsActualToDate(y,m);
+        if(a&&Number.isFinite(Number(a.left)))return {income:Number(a.income)||0,bills:Number(a.bills)||0,spending:Number(a.spending)||0,savings:Number(a.savings)||0,left:Number(a.left)||0};
+      }
+    }catch(e){}
+    const income=typeof incomeThroughCutoff==='function'?incomeThroughCutoff(y,m):0;
+    const bills=typeof monthlyPaidFor==='function'?monthlyPaidFor(y,m):0;
+    const spending=typeof otherSpendingTotal==='function'?otherSpendingTotal(y,m):0;
+    const savings=typeof savingsContributionsFor==='function'?savingsContributionsFor(y,m):0;
+    return {income,bills,spending,savings,left:income-bills-spending-savings};
+  }
+
+  /* Snapshot Actual Now subtracts only bills that were actually paid, not every overdue/scheduled bill. */
+  window.showFinancialSnapshot=function(){
+    const y=calDate.getFullYear(),m=calDate.getMonth();
+    const label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    const a=actualForSnapshot(y,m);
+    const p=typeof fullCheckProjection==='function'?fullCheckProjection(y,m):{income:monthlyIncomeFor(y,m),bills:monthlyBillsFor(y,m),spending:otherSpendingTotal(y,m),savings:(typeof savingsContributionsFor==='function'?savingsContributionsFor(y,m):0)};
+    p.left=(Number(p.income)||0)-(Number(p.bills)||0)-(Number(p.spending)||0)-(Number(p.savings)||0);
+    const scheduled=monthlyBillsFor(y,m),paid=monthlyPaidFor(y,m),remaining=monthlyRemainingFor(y,m);
+    let budget=0,budgetSpent=0;try{budget=typeof viewedBudget==='function'?viewedBudget():0;budgetSpent=typeof totalBudgetSpent==='function'?totalBudgetSpent(y,m):0}catch(e){}
+    $('financialSnapshotTitle').textContent=`Monthly Snapshot — ${label}`;
+    $('financialSnapshotContent').innerHTML=`
+      <div class="snapshot-grid">
+        <div class="summary-stat"><div class="label">Net right now</div><div class="value">${money(a.left)}</div><div class="meta">Money actually received minus paid bills, entered spending and savings</div></div>
+        <div class="summary-stat"><div class="label">If all scheduled checks arrive</div><div class="value">${money(p.left)}</div><div class="meta">Full scheduled income and bills</div></div>
+      </div>
+      <div class="settings-section">
+        <h3>Current date & back</h3>
+        <div class="snapshot-row"><span>Income received</span><b>${money(a.income)}</b></div>
+        <div class="snapshot-row"><span>Bills actually paid</span><b>${money(a.bills)}</b></div>
+        <div class="snapshot-row"><span>Spending entered</span><b>${money(a.spending)}</b></div>
+        <div class="snapshot-row"><span>Savings added</span><b>${money(a.savings)}</b></div>
+        <div class="snapshot-row snapshot-total"><span>Net right now</span><b>${money(a.left)}</b></div>
+      </div>
+      <div class="settings-section">
+        <h3>Optional full-month view</h3>
+        <div class="snapshot-row"><span>All scheduled checks</span><b>${money(p.income)}</b></div>
+        <div class="snapshot-row"><span>All scheduled bills</span><b>${money(p.bills)}</b></div>
+        <div class="snapshot-row"><span>Spending entered so far</span><b>${money(p.spending)}</b></div>
+        <div class="snapshot-row"><span>Savings entered so far</span><b>${money(p.savings)}</b></div>
+        <div class="snapshot-row snapshot-total"><span>Projected net</span><b>${money(p.left)}</b></div>
+      </div>
+      <div class="settings-section">
+        <h3>Bill progress</h3>
+        <div class="snapshot-row"><span>Scheduled this month</span><b>${money(scheduled)}</b></div>
+        <div class="snapshot-row"><span>Bills paid</span><b>${money(paid)}</b></div>
+        <div class="snapshot-row"><span>Bills still due</span><b>${money(remaining)}</b></div>
+        ${budget?`<div class="snapshot-row"><span>Budget used</span><b>${money(budgetSpent)} / ${money(budget)}</b></div>`:''}
+      </div>`;
+    $('financialSnapshotDlg')?.showModal();
+  };
+
+  function boot(){ensureSingleFinanceIcons();ensureBillsContent();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,250),{once:true});else setTimeout(boot,250);
+  new MutationObserver(()=>{ensureSingleFinanceIcons()}).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
+
+<!-- v115: navigation cleanup + adaptive money coach -->
+<style id="mb-v115-cleanup">
+/* Bottom navigation is the only settings/navigation control. */
+.settings-fab,#settingsBtn{display:none!important;visibility:hidden!important;pointer-events:none!important}
+
+/* One and only one icon per finance card. Older icon injectors may still run, so suppress them. */
+#healthStrip .v108-icon{display:none!important}
+#healthStrip .health-cell>.mb109-fin-icon~.mb109-fin-icon,
+#healthStrip #netRemainingCard>.mb109-fin-icon~.mb109-fin-icon{display:none!important}
+#healthStrip .health-cell>.mb109-fin-icon,
+#healthStrip #netRemainingCard>.mb109-fin-icon{display:flex!important}
+
+/* Bills is a real themed screen, not a light-page fallback. */
+#mb111Bills{background:transparent!important}
+#mb111Bills .section-head h2,#mb111Bills .main-bill-date{color:#0b1c3d!important}
+#mb111Bills #list .bill{
+  background:linear-gradient(145deg,#0b234b 0%,#172554 68%,#10214a 100%)!important;
+  color:#fff!important;
+  border:2px solid rgba(0,245,255,.72)!important;
+  border-radius:22px!important;
+  box-shadow:0 8px 20px rgba(6,19,40,.12)!important;
+  padding:16px!important;
+}
+#mb111Bills #list .bill .name,#mb111Bills #list .bill .amount{color:#fff!important}
+#mb111Bills #list .bill .meta{color:#c0cbda!important}
+#mb111Bills #list .bill-category-pill,#mb111Bills #list .autopay-pill,#mb111Bills #list .bill-status-pill{
+  background:#102a55!important;color:#fff!important;border:1px solid rgba(0,245,255,.38)!important
+}
+#mb111Bills .bill-filter-grid input,#mb111Bills .bill-filter-grid select{
+  background:#0a1730!important;color:#fff!important;border:1px solid rgba(0,245,255,.55)!important
+}
+#mb111Bills .bill-filter-grid input::placeholder{color:#aebbd0!important}
+#mb111Bills .calculator-card{background:linear-gradient(145deg,#0b234b,#172554)!important;color:#fff!important;border:2px solid rgba(0,245,255,.72)!important}
+#mb111Bills .calc-display{background:#07182f!important;color:#fff!important}
+#mb111Bills .calculator-card .ghost{background:#102a55!important;color:#fff!important;border:1px solid rgba(0,245,255,.28)!important}
+
+/* Match the same dark-card language on other tab-specific content. */
+#mb111Calendar .bill,#mb111Calendar .reminder-list-row,
+#mb111Budget .mb111-dark-card,#mb111Spending .mb111-dark-card,
+#mb111Settings .mb112-setting-card{
+  background:linear-gradient(145deg,#0b234b,#172554)!important;color:#fff!important;
+  border:2px solid rgba(0,245,255,.62)!important
+}
+
+/* Adaptive coach */
+#mb113Coach.mb115-adaptive{position:relative;overflow:hidden}
+.mb115-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:rgba(0,245,255,.09);border:1px solid rgba(0,245,255,.28);font-size:11px;font-weight:850;color:#c8fbff;margin-top:10px}
+.mb115-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.mb115-stat{background:rgba(3,15,34,.42);border:1px solid rgba(0,245,255,.18);border-radius:12px;padding:9px 10px}
+.mb115-stat span{display:block;color:#9fb0c7;font-size:10px;font-weight:750}.mb115-stat b{display:block;color:#fff;font-size:14px;margin-top:2px}
+@media(max-width:420px){.mb115-stats{grid-template-columns:1fr 1fr}}
+</style>
+<script id="mb-v115-cleanup-script">
+(function(){
+ const MYBILLS_BUILD_CODE=118;
+ const MYBILLS_BUILD_NAME='19.1-v118';
+ const MYBILLS_BUILD_VERSION=`${MYBILLS_BUILD_CODE} / ${MYBILLS_BUILD_NAME}`;
+ window.MYBILLS_BUILD_CODE=MYBILLS_BUILD_CODE;
+ window.MYBILLS_BUILD_NAME=MYBILLS_BUILD_NAME;
+ window.MYBILLS_BUILD_VERSION=MYBILLS_BUILD_VERSION;
+ const $=id=>document.getElementById(id);
+ function cash(n){try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}catch(e){return '$0.00'}}
+
+ function cleanLegacyUI(){
+   document.querySelectorAll('.settings-fab,#settingsBtn').forEach(x=>x.remove());
+   document.querySelectorAll('#healthStrip .v108-icon').forEach(x=>x.remove());
+   document.querySelectorAll('#healthStrip .health-cell,#healthStrip #netRemainingCard').forEach(card=>{
+     const icons=[...card.querySelectorAll(':scope > .mb109-fin-icon')];icons.slice(1).forEach(x=>x.remove());
+   });
+ }
+
+ function refreshBills(){
+   try{renderAll?.()}catch(e){}
+   try{enhanceMainBillList?.()}catch(e){}
+ }
+ function openRealBills(){
+   try{window.mb111ShowView?.('bills')}catch(e){}
+   const view=$('mb111Bills');
+   if(view){document.querySelectorAll('.mb111-view').forEach(v=>v.classList.toggle('active',v===view));}
+   refreshBills();
+   document.querySelectorAll('#mb110BottomNav .mb110-navitem').forEach(b=>b.classList.toggle('active',(b.textContent||'').trim().toLowerCase()==='bills'));
+   window.scrollTo({top:0,behavior:'auto'});
+ }
+
+ // Make the bottom bar authoritative. Bills always means the native bill list screen.
+ document.addEventListener('click',e=>{
+   const b=e.target.closest?.('#mb110BottomNav .mb110-navitem');if(!b)return;
+   const key=(b.textContent||'').trim().toLowerCase();
+   if(key!=='bills')return;
+   e.preventDefault();e.stopImmediatePropagation();openRealBills();
+ },true);
+ window.mb115OpenBills=openRealBills;
+
+ function getActual(){
+   try{const y=calDate.getFullYear(),m=calDate.getMonth();const a=window.myBillsActualToDate?.(y,m);if(a)return {y,m,income:Number(a.income)||0,bills:Number(a.bills)||0,spending:Number(a.spending)||0,savings:Number(a.savings)||0,left:Number(a.left)||0};}catch(e){}
+   const d=new Date();return {y:d.getFullYear(),m:d.getMonth(),income:0,bills:0,spending:0,savings:0,left:0};
+ }
+ function nextSevenDue(){
+   let total=0,count=0;
+   try{
+     const now=new Date();now.setHours(0,0,0,0);const end=new Date(now);end.setDate(end.getDate()+7);
+     for(let d=new Date(now);d<=end;d.setDate(d.getDate()+1)){
+       const iso=typeof toISO==='function'?toISO(d):d.toISOString().slice(0,10);
+       (window.bills||bills||[]).forEach(b=>{try{if(isRecurringOnDate(b,d)&&!billOccurrenceDeleted(b,iso)&&billStatus(b,iso)!=='paid'){const rem=Math.max(0,Number(b.amount||0)-Number(billPaidAmount(b,iso)||0));if(rem>0){total+=rem;count++}}}catch(e){}});
+     }
+   }catch(e){}
+   return {total,count};
+ }
+ function budgetInfo(a){
+   try{const limit=Number(viewedBudget?.()||0),spent=Number(totalBudgetSpent?.(a.y,a.m)||0);return {limit,spent,pct:limit?spent/limit:0}}catch(e){return {limit:0,spent:0,pct:0}}
+ }
+ function smartTips(){
+   const a=getActual(),due=nextSevenDue(),bud=budgetInfo(a),tips=[];
+   if(due.total>0){
+     const after=a.left-due.total;
+     tips.push({k:'Upcoming bills',t:`Protect ${cash(due.total)} for the next 7 days`,p:`You have ${cash(a.left)} available now and ${due.count} unpaid bill${due.count===1?'':'s'} totaling ${cash(due.total)} due within the next week. ${after>=0?`That leaves about ${cash(after)} after reserving for them.`:`Your upcoming bills are about ${cash(Math.abs(after))} above your current available balance.`}`,c:'Check Calendar before making a non-essential purchase.'});
+   }
+   if(bud.limit>0 && bud.pct>=.8)tips.push({k:'Budget watch',t:`You're at ${Math.round(bud.pct*100)}% of this month's budget`,p:`You've used ${cash(bud.spent)} of ${cash(bud.limit)}. Slowing discretionary spending now can keep the end of the month from getting tight.`,c:'Choose one spending category to pause or reduce for the next few days.'});
+   if(a.spending>0 && a.income>0 && a.spending/a.income>=.2)tips.push({k:'Spending pattern',t:'Everyday spending is taking a noticeable share of received income',p:`You've entered ${cash(a.spending)} of non-bill spending against ${cash(a.income)} received this month. Logging each purchase is already giving MyBills a clearer picture of where the money is going.`,c:'Open Spending and look for one repeat purchase you could trim.'});
+   if(a.left>0 && a.savings<=0)tips.push({k:'Savings opportunity',t:`You currently have ${cash(a.left)} available`,p:'No savings contribution is recorded for this month yet. Even a small transfer can turn some of the current cushion into progress before it gets absorbed by everyday spending.',c:`Consider moving ${cash(Math.min(10,Math.max(1,a.left*.05)))} to a savings goal.`});
+   if(a.left<0)tips.push({k:'Cash-flow warning',t:'Current outflow is above money received',p:`Your current net is ${cash(a.left)}. MyBills will prioritize cash-flow and bill timing tips until the balance improves.`,c:'Review unpaid bills and upcoming income before adding optional spending.'});
+   if(!tips.length)tips.push({k:'Quick win',t:'Give wants a waiting period',p:'For an unplanned purchase, waiting 24 hours makes it easier to decide whether it belongs in this month’s budget.',c:'Delay one non-essential purchase until tomorrow.'});
+   tips.push({k:'Bill habit',t:'Look ahead before spending',p:'The money in your balance is not all equally available when bills are approaching. Checking the next several days first prevents accidental overspending.',c:'Review the next 7 days on Calendar.'});
+   tips.push({k:'Small purchases',t:'Tiny transactions can become a big category',p:'Keep entering everyday purchases. MyBills can use those records to surface stronger spending patterns as the month fills in.',c:'Log every optional purchase for one full day.'});
+   return {tips,a,due,bud};
+ }
+ function drawCoach(index){
+   const card=$('mb113Coach');if(!card)return;
+   const data=smartTips(),tips=data.tips;i=((Number(index)||0)%tips.length+tips.length)%tips.length;localStorage.setItem('myBills_tip_index_v1',String(i));const t=tips[i];
+   card.classList.add('mb115-adaptive');
+   card.innerHTML=`<div class="mb113-coach-top"><div class="mb113-kicker">💡 ${t.k}</div><button type="button" class="ghost mb113-next">Another tip</button></div><h3>${t.t}</h3><p>${t.p}</p><div class="mb113-challenge"><b>Try this:</b> ${t.c}</div><div class="mb115-badge">Uses your saved MyBills numbers • stays on this device</div><div class="mb115-stats"><div class="mb115-stat"><span>Available now</span><b>${cash(data.a.left)}</b></div><div class="mb115-stat"><span>Next 7 days</span><b>${cash(data.due.total)}</b></div></div>`;
+   card.querySelector('.mb113-next').onclick=()=>drawCoach(i+1);
+ }
+ function boot(){cleanLegacyUI();setTimeout(()=>{cleanLegacyUI();drawCoach(Number(localStorage.getItem('myBills_tip_index_v1')||0));},180)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+ const mo=new MutationObserver(()=>cleanLegacyUI());mo.observe(document.documentElement,{childList:true,subtree:true});
+ document.addEventListener('change',()=>setTimeout(()=>drawCoach(Number(localStorage.getItem('myBills_tip_index_v1')||0)),80),true);
+ window.addEventListener('pageshow',()=>setTimeout(()=>drawCoach(Number(localStorage.getItem('myBills_tip_index_v1')||0)),120));
+})();
+</script>
+
+
+<!-- v116 HARD RESET: stale-cache/version authority -->
+<script id="mb-v116-hard-reset">
+(function(){
+  window.MYBILLS_BUILD='116';
+  document.documentElement.dataset.mybillsBuild='116';
+  try{localStorage.setItem('myBills_last_loaded_build','116')}catch(e){}
+  // On hosted web builds, force the registered worker to update immediately.
+  if('serviceWorker' in navigator && location.protocol!=='file:'){
+    navigator.serviceWorker.getRegistration().then(r=>{ if(r){ r.update().catch(()=>{}); } }).catch(()=>{});
+  }
+})();
+</script>
+
+
+<!-- v117: permanent build/version display -->
+<script id="mb-v117-version-display">
+(function(){
+  const BUILD_CODE=118;
+  const BUILD_NAME='19.1-v118';
+  const BUILD_LABEL=BUILD_CODE+' / '+BUILD_NAME;
+  window.MYBILLS_BUILD_CODE=BUILD_CODE;
+  window.MYBILLS_BUILD_NAME=BUILD_NAME;
+  window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
+
+  function ensureVersion(){
+    const settings=document.getElementById('mb111Settings');
+    if(!settings)return;
+    let card=document.getElementById('mb117AppVersion');
+    if(!card){
+      card=document.createElement('div');
+      card.id='mb117AppVersion';
+      card.className='mb117-version-card';
+      settings.appendChild(card);
+    }
+    card.innerHTML='<div class="mb117-version-copy"><span class="mb117-version-title">App Version</span><span class="mb117-version-help">Use this number to confirm you are running the newest My Bills build.</span></div><span class="mb117-version-number">'+BUILD_LABEL+'</span>';
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(ensureVersion,250),{once:true});
+  }else setTimeout(ensureVersion,250);
+
+  new MutationObserver(()=>ensureVersion()).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+
+
+<!-- v118 COMPLETE authoritative layer -->
+<style id="mb-v118-complete-style">
+:root{--v118bg:#06162f;--v118panel:#10295a;--v118panel2:#172f68;--v118cyan:#00f5ff;--v118text:#f8fbff;--v118muted:#bac7da;--v118line:rgba(0,245,255,.34)}
+html,body,#app,.app,.shell,.wrap,.page,.view,.screen,#mb111Home,#mb111Calendar,#mb111Bills,#mb111Spending,#mb111Budget,#mb111Settings{background:linear-gradient(180deg,#071a36,#06162f)!important;color:var(--v118text)!important}
+#mb111Calendar input,#mb111Calendar select,#mb111Calendar textarea,#mb111Bills input,#mb111Bills select,#mb111Bills textarea,#mb111Spending input,#mb111Spending select,#mb111Spending textarea,#mb111Budget input,#mb111Budget select,#mb111Budget textarea,#mb111Settings input,#mb111Settings select,#mb111Settings textarea{background:#0b2148!important;color:#fff!important;border:1px solid var(--v118line)!important}
+#mb111Calendar button,#mb111Bills button,#mb111Spending button,#mb111Budget button,#mb111Settings button{background:#0b2148!important;color:#fff!important;border:1px solid var(--v118line)!important}
+#mb111Calendar .card,#mb111Calendar [class*="card"],#mb111Bills .card,#mb111Bills [class*="card"],#mb111Spending .card,#mb111Spending [class*="card"],#mb111Budget .card,#mb111Budget [class*="card"],#mb111Settings .card,#mb111Settings [class*="card"],#mb111Bills .bill-item,#mb111Bills .bill-row,#mb111Bills li{background:linear-gradient(145deg,#10295a,#172f68)!important;color:#fff!important;border-color:var(--v118line)!important}
+#mb111Calendar h1,#mb111Calendar h2,#mb111Calendar h3,#mb111Bills h1,#mb111Bills h2,#mb111Bills h3,#mb111Spending h1,#mb111Spending h2,#mb111Spending h3,#mb111Budget h1,#mb111Budget h2,#mb111Budget h3,#mb111Settings h1,#mb111Settings h2,#mb111Settings h3{color:#fff!important}
+#mb111Calendar p,#mb111Calendar small,#mb111Calendar label,#mb111Bills p,#mb111Bills small,#mb111Bills label,#mb111Spending p,#mb111Spending small,#mb111Spending label,#mb111Budget p,#mb111Budget small,#mb111Budget label,#mb111Settings p,#mb111Settings small,#mb111Settings label{color:var(--v118muted)!important}
+
+/* Cards that old CSS repeatedly turned white */
+#weekCard,#currentWeekCard,#hoursCard,#availableNowCard,#availableCard,[data-card="week-hours"],[data-card="available-now"],.mb-week-card,.mb-available-card{
+background:linear-gradient(145deg,#10295a,#172f68)!important;color:#fff!important;border:3px solid var(--v118cyan)!important}
+#weekCard *,#currentWeekCard *,#hoursCard *,#availableNowCard *,#availableCard *,[data-card="week-hours"] *,[data-card="available-now"] *{color:inherit!important}
+
+/* No floating Settings button */
+.floating-settings,.floating-gear,#floatingSettings,#settingsFab,.settings-fab,.settings-float,.fab-settings{display:none!important}
+
+/* Adaptive Tips */
+#mb118Tips{margin:16px 0;padding:18px;border:1px solid var(--v118line);border-radius:18px;background:linear-gradient(145deg,#10295a,#172f68);box-shadow:0 12px 28px rgba(0,0,0,.24)}
+#mb118Tips .tip-kicker{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--v118cyan)}
+#mb118Tips h3{margin:6px 0 8px;color:#fff}
+#mb118Tips p{margin:0;color:#d9e4f2;line-height:1.45}
+#mb118Tips .tip-foot{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#mb118Tips button{border:1px solid var(--v118line);background:#0b2148;color:#fff;border-radius:12px;padding:9px 12px;font-weight:800}
+</style>
+<script id="mb-v118-complete-script">
+(function(){
+ const BUILD='118 / 19.1-v118';
+ window.MYBILLS_BUILD_VERSION=BUILD;
+
+ function money(n){return '$'+Math.max(0,Number(n)||0).toFixed(2)}
+ function numText(el){if(!el)return 0;const m=(el.textContent||'').replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):0}
+
+ function killFloatingSettings(){
+   document.querySelectorAll('.floating-settings,.floating-gear,#floatingSettings,#settingsFab,.settings-fab,.settings-float,.fab-settings').forEach(e=>e.remove());
+   document.querySelectorAll('button').forEach(b=>{
+     const t=(b.textContent||'').trim();
+     const a=(b.getAttribute('aria-label')||'').toLowerCase();
+     if((t==='⚙' || t==='⚙️') && (b.className||'').toString().toLowerCase().includes('float')) b.remove();
+     if(a==='settings' && getComputedStyle(b).position==='fixed') b.remove();
+   });
+ }
+
+ function dedupeFinanceIcons(){
+   const selectors=['#mb111Home .card','#mb111Home [class*="card"]','.finance-card','.metric-card','.stat-card'];
+   document.querySelectorAll(selectors.join(',')).forEach(card=>{
+     const title=(card.textContent||'').toLowerCase();
+     if(!/(projected income|budget|savings|available now)/.test(title))return;
+     const icons=[...card.querySelectorAll('.icon,[class*="icon"],svg')].filter(x=>!x.closest('button'));
+     if(icons.length>1) icons.slice(1).forEach(x=>x.remove());
+   });
+ }
+
+ function ensureTips(){
+   const home=document.getElementById('mb111Home') || document.querySelector('[data-page="home"]') || document.querySelector('main');
+   if(!home || document.getElementById('mb118Tips'))return;
+   const box=document.createElement('section'); box.id='mb118Tips';
+   box.innerHTML='<div class="tip-kicker">💡 Smart Money Tip</div><h3 id="mb118TipTitle">Build a little breathing room</h3><p id="mb118TipText">Review what is due soon before deciding what is safe to spend.</p><div class="tip-foot"><small id="mb118TipWhy">Based on your My Bills numbers</small><button id="mb118NextTip" type="button">Another Tip</button></div>';
+   const target=home.querySelector('#availableNowCard,#availableCard,[data-card="available-now"],.mb-available-card');
+   if(target && target.parentNode) target.parentNode.insertBefore(box,target.nextSibling); else home.appendChild(box);
+   let idx=0;
+   function refresh(){
+     const available=numText(document.querySelector('#availableNowCard,#availableCard,[data-card="available-now"],.mb-available-card'));
+     const savings=numText([...document.querySelectorAll('#mb111Home .card,#mb111Home [class*="card"]')].find(e=>(e.textContent||'').toLowerCase().includes('savings')));
+     const remaining=numText([...document.querySelectorAll('#mb111Home .card,#mb111Home [class*="card"]')].find(e=>(e.textContent||'').toLowerCase().includes('remaining')));
+     const tips=[
+       ['Protect what is available', available>0 ? 'You currently have about '+money(available)+' available. Check upcoming bills before treating all of it as spending money.' : 'Your available amount is tight right now. Prioritize bills and essentials before discretionary spending.'],
+       ['Give savings a job', savings>0 ? 'You have about '+money(savings)+' showing in savings. Consider keeping part of it untouched as an emergency cushion.' : 'Even a small automatic savings amount can build a cushion over time. Try starting with an amount that will not interfere with bills.'],
+       ['Watch the remaining bills', remaining>0 ? 'There is about '+money(remaining)+' still showing as remaining. Reserving for those bills first gives you a more realistic spending limit.' : 'Your remaining-bills number is low right now. This can be a good time to direct a little extra toward savings.'],
+       ['Try a no-spend challenge','Pick one day this week for essentials only. Small no-spend days can make discretionary spending easier to notice.'],
+       ['Pause before impulse buys','For an unplanned purchase, give yourself a waiting period before buying it. If you still want it later and the bills are covered, it is easier to judge responsibly.']
+     ];
+     const t=tips[idx%tips.length]; document.getElementById('mb118TipTitle').textContent=t[0]; document.getElementById('mb118TipText').textContent=t[1];
+   }
+   document.getElementById('mb118NextTip').onclick=()=>{idx++;refresh()}; refresh();
+ }
+
+ function ensureVersion(){
+   const s=document.getElementById('mb111Settings'); if(!s)return;
+   let c=document.getElementById('mb117AppVersion');
+   if(c){const n=c.querySelector('.mb117-version-number');if(n)n.textContent=BUILD}
+ }
+
+ function run(){killFloatingSettings();dedupeFinanceIcons();ensureTips();ensureVersion()}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(run,300),{once:true}); else setTimeout(run,300);
+ new MutationObserver(()=>{clearTimeout(window.__mb118t);window.__mb118t=setTimeout(run,80)}).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
 
