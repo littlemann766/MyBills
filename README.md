@@ -1,3 +1,3 @@
-# My Bills 20.0.134
+# My Bills 20.0.135
 
-Full-project update based on the supplied reference design. Every main tab now starts with a stationary/sticky navy header, white header text and a cyan divider. Home and navigation-oriented tiles use navy with white text and cyan borders. The bottom navigation is navy with prominent line icons and a cyan active state. Content that needs contrast—calendar cells, bill rows, input fields and spending ledger rows—remains light. The Android WebView copy is synchronized with the root index.html.
+This build removes the conflicting legacy dashboard/theme scripts and uses one authoritative theme system. The official default is a light/white page with navy headers, cards, navigation tiles and bottom navigation, cyan borders/active states, and white text on navy. Headers remain sticky at the top of each tab. Only one simplified Appearance panel is generated. The first 20.0.135 launch removes obsolete color-only localStorage keys without touching bills, spending, hours, paychecks, reminders, backups, or other finance data.

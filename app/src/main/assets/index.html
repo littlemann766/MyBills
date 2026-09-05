@@ -8294,434 +8294,9 @@ body.theme-dark #settingsBtn{box-shadow:0 14px 34px rgba(0,0,0,.48)!important}
 
 
 <!-- v102: true live dashboard color preview + reliable save/cancel -->
-<style id="mb-v102-live-color-style">
-:root{
-  --mb-header-bg:#172554;
-  --mb-header-text:#ffffff;
-  --mb-tab-bg:#ffffff;
-  --mb-tab-border:#cbd5e1;
-  --mb-tab-text:#111827;
-}
 
-/* Header */
-.top{
-  background:var(--mb-header-bg)!important;
-  color:var(--mb-header-text)!important;
-  padding:18px 20px 16px!important;
-  margin:0 -2px 18px!important;
-  border-radius:0 0 22px 22px!important;
-  box-shadow:0 10px 24px rgba(17,24,39,.12)!important;
-}
-.top h1,
-.top .dashboard-viewing-label,
-.top .dashboard-month-button,
-.top .dashboard-month-row,
-.top .sub{
-  color:var(--mb-header-text)!important;
-}
-.top .dashboard-month-button{
-  background:rgba(255,255,255,.12)!important;
-  border:1px solid rgba(255,255,255,.30)!important;
-  padding:6px 10px!important;
-  border-radius:10px!important;
-}
 
-/* Main cards / tabs */
-#dashboardCards .card,
-.health-cell,
-.finance-tools button,
-.next.card,
-.calendar-week-tab,
-#financeStatusCard{
-  background:var(--mb-tab-bg)!important;
-  color:var(--mb-tab-text)!important;
-  border:3px solid var(--mb-tab-border)!important;
-  box-shadow:0 3px 12px rgba(17,24,39,.07)!important;
-}
-#dashboardCards .card .value,
-#dashboardCards .card .amount,
-.health-cell .value,
-.health-cell .amount,
-.finance-tools button,
-.next.card .value,
-.next.card .amount,
-.calendar-week-tab,
-#financeStatusCard .finance-main{
-  color:var(--mb-tab-text)!important;
-}
-#dashboardCards .card .label,
-#dashboardCards .card .meta,
-.health-cell .label,
-.health-cell .meta,
-.next.card .label,
-.next.card .meta,
-#financeStatusCard .finance-sub{
-  color:var(--mb-tab-text)!important;
-  opacity:.64!important;
-}
-.finance-tools button,
-.calendar-week-tab{font-weight:800!important}
-#dashboardCards .card:active,
-.health-cell:active,
-.finance-tools button:active,
-.next.card:active,
-.calendar-week-tab:active{transform:scale(.985)}
 
-/* Settings color editor */
-#settingsDlg .v102-color-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-  margin-top:12px;
-}
-#settingsDlg .v102-color-row{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 54px 112px;
-  align-items:center;
-  gap:9px;
-}
-#settingsDlg .v102-color-row label{
-  margin:0!important;
-  font-weight:750;
-}
-#settingsDlg .v102-color-row input[type="color"]{
-  width:54px!important;
-  height:42px!important;
-  min-width:54px!important;
-  max-width:54px!important;
-  padding:2px!important;
-  border:2px solid var(--border,#d1d5db)!important;
-  border-radius:10px!important;
-  background:transparent!important;
-  cursor:pointer!important;
-}
-#settingsDlg .v102-hex{
-  width:112px!important;
-  min-width:0!important;
-  padding:9px 8px!important;
-  font-size:13px!important;
-  font-family:monospace;
-  text-transform:uppercase;
-}
-#settingsDlg .v102-live-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  margin-top:8px;
-  padding:6px 9px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:800;
-  background:var(--surface-2,#f3f4f6);
-  border:1px solid var(--border,#e5e7eb);
-}
-#settingsDlg .v102-live-dot{
-  width:8px;height:8px;border-radius:50%;background:#16a34a;
-}
-#settingsDlg .v102-color-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-#settingsDlg .v102-color-actions button{flex:1 1 150px}
-
-@media(max-width:480px){
-  #settingsDlg .v102-color-row{
-    grid-template-columns:minmax(0,1fr) 50px 94px;
-    gap:7px;
-  }
-  #settingsDlg .v102-hex{
-    width:94px!important;
-    font-size:12px!important;
-  }
-}
-</style>
-
-<script id="mb-v102-live-color-script">
-(function(){
-  const COLOR_KEY='myBills_dashboard_colors_v102';
-  const LEGACY_KEY='myBills_dashboard_colors_v101';
-
-  const DEFAULTS={
-    headerBg:'#172554',
-    headerText:'#FFFFFF',
-    tabBg:'#FFFFFF',
-    tabBorder:'#CBD5E1',
-    tabText:'#111827'
-  };
-
-  let sessionSnapshot=null;
-  let sessionActive=false;
-
-  function q(id){return document.getElementById(id)}
-  function isHex(v){return /^#[0-9A-F]{6}$/i.test(String(v||'').trim())}
-  function normalize(v,fallback){
-    v=String(v||'').trim();
-    if(v && v[0]!=='#')v='#'+v;
-    return isHex(v)?v.toUpperCase():fallback;
-  }
-
-  function loadSaved(){
-    let raw=null;
-    try{
-      raw=JSON.parse(localStorage.getItem(COLOR_KEY)||'null');
-      if(!raw)raw=JSON.parse(localStorage.getItem(LEGACY_KEY)||'null');
-    }catch(e){raw=null}
-    raw=raw||{};
-    return {
-      headerBg:normalize(raw.headerBg,DEFAULTS.headerBg),
-      headerText:normalize(raw.headerText,DEFAULTS.headerText),
-      tabBg:normalize(raw.tabBg,DEFAULTS.tabBg),
-      tabBorder:normalize(raw.tabBorder,DEFAULTS.tabBorder),
-      tabText:normalize(raw.tabText,DEFAULTS.tabText)
-    };
-  }
-
-  function saveLocal(c){
-    try{localStorage.setItem(COLOR_KEY,JSON.stringify(c))}catch(e){}
-    try{
-      if(typeof appSettings!=='undefined'){
-        appSettings.dashboardColorsV102={...c};
-      }
-    }catch(e){}
-  }
-
-  function apply(c){
-    const root=document.documentElement;
-    root.style.setProperty('--mb-header-bg',c.headerBg);
-    root.style.setProperty('--mb-header-text',c.headerText);
-    root.style.setProperty('--mb-tab-bg',c.tabBg);
-    root.style.setProperty('--mb-tab-border',c.tabBorder);
-    root.style.setProperty('--mb-tab-text',c.tabText);
-  }
-
-  function valuesFromControls(){
-    return {
-      headerBg:normalize(q('headerColorV102')?.value||q('headerHexV102')?.value,DEFAULTS.headerBg),
-      headerText:normalize(q('headerTextColorV102')?.value||q('headerTextHexV102')?.value,DEFAULTS.headerText),
-      tabBg:normalize(q('tabBgColorV102')?.value||q('tabBgHexV102')?.value,DEFAULTS.tabBg),
-      tabBorder:normalize(q('tabBorderColorV102')?.value||q('tabBorderHexV102')?.value,DEFAULTS.tabBorder),
-      tabText:normalize(q('tabTextColorV102')?.value||q('tabTextHexV102')?.value,DEFAULTS.tabText)
-    };
-  }
-
-  function setPair(colorId,hexId,value){
-    const c=q(colorId),h=q(hexId);
-    if(c)c.value=value;
-    if(h)h.value=value;
-  }
-
-  function setControls(c){
-    setPair('headerColorV102','headerHexV102',c.headerBg);
-    setPair('headerTextColorV102','headerTextHexV102',c.headerText);
-    setPair('tabBgColorV102','tabBgHexV102',c.tabBg);
-    setPair('tabBorderColorV102','tabBorderHexV102',c.tabBorder);
-    setPair('tabTextColorV102','tabTextHexV102',c.tabText);
-  }
-
-  function previewNow(){
-    const c=valuesFromControls();
-    apply(c);
-  }
-
-  function bindPair(colorId,hexId,key){
-    const color=q(colorId),hex=q(hexId);
-    if(!color||!hex)return;
-
-    const fromColor=()=>{
-      hex.value=color.value.toUpperCase();
-      previewNow();
-    };
-    const fromHex=()=>{
-      let v=hex.value.trim();
-      if(v && v[0]!=='#')v='#'+v;
-      if(isHex(v)){
-        v=v.toUpperCase();
-        hex.value=v;
-        color.value=v;
-        previewNow();
-      }
-    };
-
-    // Android browsers vary on which event a native color picker emits.
-    ['input','change'].forEach(evt=>color.addEventListener(evt,fromColor));
-    hex.addEventListener('input',fromHex);
-    hex.addEventListener('change',fromHex);
-  }
-
-  function ensureUI(){
-    if(q('dashboardColorsV102'))return;
-
-    const sections=[...document.querySelectorAll('#settingsDlg .settings-section')];
-    const appearance=sections.find(s=>/appearance/i.test(s.querySelector('h3')?.textContent||''));
-    if(!appearance)return;
-
-    const wrap=document.createElement('div');
-    wrap.id='dashboardColorsV102';
-    wrap.innerHTML=`
-      <div style="height:1px;background:var(--border,#e5e7eb);margin:16px 0"></div>
-      <h3 style="margin-bottom:4px">Dashboard Colors</h3>
-      <div class="settings-help">Change a color and the dashboard updates immediately behind this Settings window.</div>
-      <div class="v102-live-badge"><span class="v102-live-dot"></span> Live preview is on</div>
-
-      <div class="v102-color-grid">
-        <div class="v102-color-row">
-          <label for="headerColorV102">Header</label>
-          <input type="color" id="headerColorV102">
-          <input class="v102-hex" id="headerHexV102" type="text" maxlength="7" inputmode="text">
-        </div>
-        <div class="v102-color-row">
-          <label for="headerTextColorV102">Header text</label>
-          <input type="color" id="headerTextColorV102">
-          <input class="v102-hex" id="headerTextHexV102" type="text" maxlength="7" inputmode="text">
-        </div>
-        <div class="v102-color-row">
-          <label for="tabBgColorV102">Cards/tabs</label>
-          <input type="color" id="tabBgColorV102">
-          <input class="v102-hex" id="tabBgHexV102" type="text" maxlength="7" inputmode="text">
-        </div>
-        <div class="v102-color-row">
-          <label for="tabBorderColorV102">Borders</label>
-          <input type="color" id="tabBorderColorV102">
-          <input class="v102-hex" id="tabBorderHexV102" type="text" maxlength="7" inputmode="text">
-        </div>
-        <div class="v102-color-row">
-          <label for="tabTextColorV102">Card/tab text</label>
-          <input type="color" id="tabTextColorV102">
-          <input class="v102-hex" id="tabTextHexV102" type="text" maxlength="7" inputmode="text">
-        </div>
-      </div>
-
-      <div class="v102-color-actions">
-        <button type="button" class="ghost" id="resetDashboardColorsV102">Reset Colors</button>
-        <button type="button" class="ghost" id="applyDashboardColorsV102">Apply Preview</button>
-      </div>
-    `;
-    appearance.appendChild(wrap);
-
-    bindPair('headerColorV102','headerHexV102','headerBg');
-    bindPair('headerTextColorV102','headerTextHexV102','headerText');
-    bindPair('tabBgColorV102','tabBgHexV102','tabBg');
-    bindPair('tabBorderColorV102','tabBorderHexV102','tabBorder');
-    bindPair('tabTextColorV102','tabTextHexV102','tabText');
-
-    q('resetDashboardColorsV102')?.addEventListener('click',e=>{
-      e.preventDefault();e.stopPropagation();
-      setControls(DEFAULTS);
-      apply(DEFAULTS);
-    });
-
-    q('applyDashboardColorsV102')?.addEventListener('click',e=>{
-      e.preventDefault();e.stopPropagation();
-      previewNow();
-    });
-
-    setControls(loadSaved());
-  }
-
-  function beginSession(){
-    ensureUI();
-    if(!sessionActive){
-      sessionSnapshot=loadSaved();
-      sessionActive=true;
-    }
-    setControls(loadSaved());
-    apply(loadSaved());
-  }
-
-  function commitSession(){
-    ensureUI();
-    const c=valuesFromControls();
-    saveLocal(c);
-    apply(c);
-    sessionSnapshot={...c};
-    sessionActive=false;
-  }
-
-  function cancelSession(){
-    const c=sessionSnapshot||loadSaved();
-    saveLocal(c);
-    setControls(c);
-    apply(c);
-    sessionActive=false;
-    sessionSnapshot=null;
-  }
-
-  function bindLifecycle(){
-    ensureUI();
-
-    const gear=q('settingsBtn');
-    if(gear&&!gear.dataset.v102ColorBound){
-      gear.dataset.v102ColorBound='1';
-      // The older settings click handler opens the dialog first; this one then
-      // starts a color-edit session using the currently saved colors.
-      gear.addEventListener('click',()=>setTimeout(beginSession,0),true);
-    }
-
-    const save=q('saveSettingsBtn');
-    if(save&&!save.dataset.v102ColorBound){
-      save.dataset.v102ColorBound='1';
-
-      /*
-        pointerdown/touchstart occurs BEFORE the older Settings click handler
-        closes the dialog. Persist the colors here so the close handler cannot
-        restore the previous palette.
-      */
-      save.addEventListener('pointerdown',commitSession,true);
-      save.addEventListener('touchstart',commitSession,{capture:true,passive:true});
-      save.addEventListener('click',commitSession,true);
-    }
-
-    const dlg=q('settingsDlg');
-    if(dlg&&!dlg.dataset.v102ColorBound){
-      dlg.dataset.v102ColorBound='1';
-
-      const cancel=[...dlg.querySelectorAll('.form-actions button')]
-        .find(b=>/cancel/i.test((b.textContent||'').trim()));
-      if(cancel&&!cancel.dataset.v102ColorBound){
-        cancel.dataset.v102ColorBound='1';
-        cancel.addEventListener('pointerdown',cancelSession,true);
-        cancel.addEventListener('click',cancelSession,true);
-      }
-
-      dlg.addEventListener('cancel',()=>{
-        cancelSession();
-      },true);
-    }
-  }
-
-  // Migrate/apply saved colors immediately.
-  const initial=loadSaved();
-  saveLocal(initial);
-  apply(initial);
-
-  let queued=false;
-  function queue(){
-    if(queued)return;
-    queued=true;
-    requestAnimationFrame(()=>{
-      queued=false;
-      bindLifecycle();
-    });
-  }
-
-  new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true});
-  window.addEventListener('pageshow',()=>{
-    apply(loadSaved());
-    queue();
-  });
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>{
-      apply(loadSaved());
-      bindLifecycle();
-    },{once:true});
-  }else{
-    bindLifecycle();
-  }
-})();
-</script>
 
 
 <!-- v103: Available Now 3-view swipe + complete dashboard color coverage -->
@@ -9077,212 +8652,7 @@ body.theme-dark #settingsBtn{box-shadow:0 14px 34px rgba(0,0,0,.48)!important}
 
 
 <!-- v105: persistent, editable dashboard color settings -->
-<script id="mb-v105-persistent-color-settings">
-(function(){
-  const COLOR_KEY='myBills_dashboard_colors_v102';
 
-  function q(id){return document.getElementById(id)}
-  function isHex(v){return /^#[0-9A-F]{6}$/i.test(String(v||'').trim())}
-  function norm(v,fallback){
-    v=String(v||'').trim();
-    if(v && v[0]!=='#')v='#'+v;
-    return isHex(v)?v.toUpperCase():fallback;
-  }
-
-  const FALLBACK={
-    headerBg:'#172554',
-    headerText:'#FFFFFF',
-    tabBg:'#FFFFFF',
-    tabBorder:'#CBD5E1',
-    tabText:'#111827'
-  };
-
-  function loadColors(){
-    let raw={};
-    try{raw=JSON.parse(localStorage.getItem(COLOR_KEY)||'{}')||{}}catch(e){}
-    return {
-      headerBg:norm(raw.headerBg,FALLBACK.headerBg),
-      headerText:norm(raw.headerText,FALLBACK.headerText),
-      tabBg:norm(raw.tabBg,FALLBACK.tabBg),
-      tabBorder:norm(raw.tabBorder,FALLBACK.tabBorder),
-      tabText:norm(raw.tabText,FALLBACK.tabText)
-    };
-  }
-
-  function saveColors(c){
-    try{localStorage.setItem(COLOR_KEY,JSON.stringify(c))}catch(e){}
-    try{
-      if(typeof appSettings!=='undefined'){
-        appSettings.dashboardColorsV102={...c};
-        localStorage.setItem('myBills_settings_v2',JSON.stringify(appSettings));
-      }
-    }catch(e){}
-  }
-
-  function applyColors(c){
-    const root=document.documentElement;
-    root.style.setProperty('--mb-header-bg',c.headerBg);
-    root.style.setProperty('--mb-header-text',c.headerText);
-    root.style.setProperty('--mb-tab-bg',c.tabBg);
-    root.style.setProperty('--mb-tab-border',c.tabBorder);
-    root.style.setProperty('--mb-tab-text',c.tabText);
-  }
-
-  function setPair(colorId,hexId,value){
-    const c=q(colorId),h=q(hexId);
-    if(c)c.value=value;
-    if(h)h.value=value;
-  }
-
-  function fillControls(){
-    const c=loadColors();
-    setPair('headerColorV102','headerHexV102',c.headerBg);
-    setPair('headerTextColorV102','headerTextHexV102',c.headerText);
-    setPair('tabBgColorV102','tabBgHexV102',c.tabBg);
-    setPair('tabBorderColorV102','tabBorderHexV102',c.tabBorder);
-    setPair('tabTextColorV102','tabTextHexV102',c.tabText);
-    return c;
-  }
-
-  function readControls(){
-    const saved=loadColors();
-    return {
-      headerBg:norm(q('headerHexV102')?.value||q('headerColorV102')?.value,saved.headerBg),
-      headerText:norm(q('headerTextHexV102')?.value||q('headerTextColorV102')?.value,saved.headerText),
-      tabBg:norm(q('tabBgHexV102')?.value||q('tabBgColorV102')?.value,saved.tabBg),
-      tabBorder:norm(q('tabBorderHexV102')?.value||q('tabBorderColorV102')?.value,saved.tabBorder),
-      tabText:norm(q('tabTextHexV102')?.value||q('tabTextColorV102')?.value,saved.tabText)
-    };
-  }
-
-  function preview(){
-    applyColors(readControls());
-  }
-
-  function beginSettings(){
-    // Always reload the last saved values into the editor when Settings opens.
-    setTimeout(()=>{
-      const c=fillControls();
-      applyColors(c);
-    },0);
-  }
-
-  function commitSettings(){
-    const c=readControls();
-    saveColors(c);
-    fillControls();
-    applyColors(c);
-  }
-
-  function restoreSettings(){
-    const c=fillControls();
-    applyColors(c);
-  }
-
-  function bind(){
-    const gear=q('settingsBtn');
-    if(gear&&!gear.dataset.v105Bound){
-      gear.dataset.v105Bound='1';
-      gear.addEventListener('click',beginSettings,true);
-    }
-
-    const save=q('saveSettingsBtn');
-    if(save&&!save.dataset.v105Bound){
-      save.dataset.v105Bound='1';
-      save.addEventListener('pointerdown',commitSettings,true);
-      save.addEventListener('click',commitSettings,true);
-    }
-
-    const dlg=q('settingsDlg');
-    if(dlg&&!dlg.dataset.v105Bound){
-      dlg.dataset.v105Bound='1';
-      const cancel=[...dlg.querySelectorAll('.form-actions button')]
-        .find(b=>/cancel/i.test((b.textContent||'').trim()));
-      if(cancel){
-        cancel.addEventListener('click',restoreSettings,true);
-      }
-      dlg.addEventListener('cancel',restoreSettings,true);
-    }
-
-    // Re-bind live preview on all visible color/hex controls.
-    const pairs=[
-      ['headerColorV102','headerHexV102'],
-      ['headerTextColorV102','headerTextHexV102'],
-      ['tabBgColorV102','tabBgHexV102'],
-      ['tabBorderColorV102','tabBorderHexV102'],
-      ['tabTextColorV102','tabTextHexV102']
-    ];
-    pairs.forEach(([cid,hid])=>{
-      const c=q(cid),h=q(hid);
-      if(c&&!c.dataset.v105Bound){
-        c.dataset.v105Bound='1';
-        ['input','change'].forEach(evt=>c.addEventListener(evt,()=>{
-          if(h)h.value=String(c.value||'').toUpperCase();
-          preview();
-        }));
-      }
-      if(h&&!h.dataset.v105Bound){
-        h.dataset.v105Bound='1';
-        ['input','change'].forEach(evt=>h.addEventListener(evt,()=>{
-          let v=String(h.value||'').trim();
-          if(v && v[0]!=='#')v='#'+v;
-          if(isHex(v)){
-            v=v.toUpperCase();
-            h.value=v;
-            if(c)c.value=v;
-            preview();
-          }
-        }));
-      }
-    });
-
-    const reset=q('resetDashboardColorsV102');
-    if(reset&&!reset.dataset.v105Bound){
-      reset.dataset.v105Bound='1';
-      reset.addEventListener('click',()=>{
-        setPair('headerColorV102','headerHexV102',FALLBACK.headerBg);
-        setPair('headerTextColorV102','headerTextHexV102',FALLBACK.headerText);
-        setPair('tabBgColorV102','tabBgHexV102',FALLBACK.tabBg);
-        setPair('tabBorderColorV102','tabBorderHexV102',FALLBACK.tabBorder);
-        setPair('tabTextColorV102','tabTextHexV102',FALLBACK.tabText);
-        preview();
-      },true);
-    }
-  }
-
-  // Ensure currently saved colors are active at startup.
-  const initial=loadColors();
-  saveColors(initial);
-  applyColors(initial);
-
-  let queued=false;
-  function queue(){
-    if(queued)return;
-    queued=true;
-    requestAnimationFrame(()=>{
-      queued=false;
-      bind();
-    });
-  }
-
-  new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true});
-  window.addEventListener('pageshow',()=>{
-    const c=loadColors();
-    applyColors(c);
-    queue();
-  });
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>{
-      const c=loadColors();
-      applyColors(c);
-      bind();
-    },{once:true});
-  }else{
-    bind();
-  }
-})();
-</script>
 
 
 <!-- v106: split actual month-to-date income from projected monthly income -->
@@ -9484,109 +8854,9 @@ body.theme-dark #settingsBtn{box-shadow:0 14px 34px rgba(0,0,0,.48)!important}
 
 
 <!-- v107: official My Bills theme defaults -->
-<style id="mb-v107-official-theme-style">
-:root{
-  --mb-header-bg:#172554;
-  --mb-header-text:#FFFFFF;
-  --mb-tab-bg:#172554;
-  --mb-tab-border:#00FFFF;
-  --mb-tab-text:#FFFFFF;
-}
-</style>
 
-<script id="mb-v107-official-theme-script">
-(function(){
-  const COLOR_KEY='myBills_dashboard_colors_v102';
-  const OFFICIAL={
-    headerBg:'#172554',
-    headerText:'#FFFFFF',
-    tabBg:'#172554',
-    tabBorder:'#00FFFF',
-    tabText:'#FFFFFF'
-  };
 
-  function q(id){return document.getElementById(id)}
 
-  function apply(c){
-    const root=document.documentElement;
-    root.style.setProperty('--mb-header-bg',c.headerBg);
-    root.style.setProperty('--mb-header-text',c.headerText);
-    root.style.setProperty('--mb-tab-bg',c.tabBg);
-    root.style.setProperty('--mb-tab-border',c.tabBorder);
-    root.style.setProperty('--mb-tab-text',c.tabText);
-  }
-
-  function setPair(colorId,hexId,value){
-    const c=q(colorId),h=q(hexId);
-    if(c)c.value=value;
-    if(h)h.value=value;
-  }
-
-  function setControls(c){
-    setPair('headerColorV102','headerHexV102',c.headerBg);
-    setPair('headerTextColorV102','headerTextHexV102',c.headerText);
-    setPair('tabBgColorV102','tabBgHexV102',c.tabBg);
-    setPair('tabBorderColorV102','tabBorderHexV102',c.tabBorder);
-    setPair('tabTextColorV102','tabTextHexV102',c.tabText);
-  }
-
-  function saveOfficial(){
-    try{localStorage.setItem(COLOR_KEY,JSON.stringify(OFFICIAL))}catch(e){}
-    try{
-      if(typeof appSettings!=='undefined'){
-        appSettings.dashboardColorsV102={...OFFICIAL};
-        localStorage.setItem('myBills_settings_v2',JSON.stringify(appSettings));
-      }
-    }catch(e){}
-    apply(OFFICIAL);
-    setControls(OFFICIAL);
-  }
-
-  function loadExistingOrOfficial(){
-    let saved=null;
-    try{saved=JSON.parse(localStorage.getItem(COLOR_KEY)||'null')}catch(e){}
-    if(!saved || typeof saved!=='object'){
-      saveOfficial();
-      return OFFICIAL;
-    }
-    return saved;
-  }
-
-  function bindReset(){
-    const reset=q('resetDashboardColorsV102');
-    if(!reset || reset.dataset.v107Bound==='1') return;
-    reset.dataset.v107Bound='1';
-
-    // Capture phase makes the official palette win over older reset handlers.
-    reset.addEventListener('click',function(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      saveOfficial();
-    },true);
-
-    reset.textContent='Reset to Official Colors';
-  }
-
-  function refresh(){
-    const c=loadExistingOrOfficial();
-    apply(c);
-    bindReset();
-  }
-
-  window.myBillsOfficialColorsV107={...OFFICIAL};
-
-  const observer=new MutationObserver(()=>requestAnimationFrame(refresh));
-  observer.observe(document.documentElement,{subtree:true,childList:true});
-
-  window.addEventListener('pageshow',refresh);
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',refresh,{once:true});
-  }else{
-    refresh();
-  }
-})();
-</script>
 
 
 
@@ -9804,7 +9074,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.0.134</strong>
+      <strong>20.0.135</strong>
     </div>
   </section>
 </div>
@@ -9818,10 +9088,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.134';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.135';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=133, BUILD_NAME='20.0.134', BUILD_LABEL='20.0.134';
+  const BUILD_CODE=135, BUILD_NAME='20.0.135', BUILD_LABEL='20.0.135';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10133,7 +9403,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.0.134';
+  const VERSION='20.0.135';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10378,7 +9648,7 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.0.134';
+  const VERSION='20.0.135';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10666,707 +9936,440 @@ html,body,#mb119Shell,.mb119-view{background:var(--mb-page)!important;color:var(
  </div>
 </dialog>
 
-<script id="mb-20-0-132-authoritative-script">
-(function(){
- const VERSION='20.0.134';
- const THEME_KEY='myBills_theme_v132';
- const SPEND_KEY='myBills_budget_spending_v1';
- const DEFAULT_THEME={navy:'#0f2457',accent:'#00f5ff',page:'#f6f8fc',onNavy:'#ffffff'};
- let tipTimer=null;
+\n
 
- function q(id){return document.getElementById(id)}
- function parse(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||'null');return x==null?fallback:x}catch(e){return fallback}}
- function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
- function cash(n){try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}catch(e){return '$'+(Number(n)||0).toFixed(2)}}
- function viewedYM(){try{return {y:calDate.getFullYear(),m:calDate.getMonth()}}catch(e){const d=new Date();return {y:d.getFullYear(),m:d.getMonth()}}}
 
- // ---------- Theme: one storage key, one set of CSS variables ----------
- function validHex(v){return /^#[0-9a-f]{6}$/i.test(String(v||''))}
- function theme(){const t=parse(THEME_KEY,{});return {navy:validHex(t.navy)?t.navy:DEFAULT_THEME.navy,accent:validHex(t.accent)?t.accent:DEFAULT_THEME.accent,page:validHex(t.page)?t.page:DEFAULT_THEME.page,onNavy:validHex(t.onNavy)?t.onNavy:DEFAULT_THEME.onNavy}}
- function applyTheme132(t=theme()){const r=document.documentElement;r.style.setProperty('--mb-navy',t.navy);r.style.setProperty('--mb-navy-2',t.navy);r.style.setProperty('--mb-accent',t.accent);r.style.setProperty('--mb-page',t.page);r.style.setProperty('--mb-on-navy',t.onNavy)}
- function buildAppearance(){
-   const panel=q('mb123SettingsPanel');if(!panel)return;
-   let box=q('mb132Appearance');if(!box){box=document.createElement('div');box.id='mb132Appearance';panel.prepend(box)}
-   const t=theme();
-   box.innerHTML=`<h3 style="margin:0 0 6px">Appearance</h3><p style="margin:0 0 12px;color:#64748b">These four colors control the whole app.</p><div class="mb132-color-grid">
-    <div class="mb132-color-row"><label>Navy interface</label><input id="mb132Navy" type="color" value="${t.navy}"></div>
-    <div class="mb132-color-row"><label>Accent / border</label><input id="mb132Accent" type="color" value="${t.accent}"></div>
-    <div class="mb132-color-row"><label>Page background</label><input id="mb132Page" type="color" value="${t.page}"></div>
-    <div class="mb132-color-row"><label>Text on navy</label><input id="mb132OnNavy" type="color" value="${t.onNavy}"></div></div>
-    <div class="mb132-theme-actions"><button id="mb132SaveTheme" type="button">Save Colors</button><button id="mb132ResetTheme" type="button">Reset Official Colors</button></div>`;
-   const current=()=>({navy:q('mb132Navy').value,accent:q('mb132Accent').value,page:q('mb132Page').value,onNavy:q('mb132OnNavy').value});
-   ['mb132Navy','mb132Accent','mb132Page','mb132OnNavy'].forEach(id=>q(id).addEventListener('input',()=>applyTheme132(current())));
-   q('mb132SaveTheme').onclick=()=>{const t=current();localStorage.setItem(THEME_KEY,JSON.stringify(t));applyTheme132(t)};
-   q('mb132ResetTheme').onclick=()=>{localStorage.removeItem(THEME_KEY);applyTheme132(DEFAULT_THEME);buildAppearance()};
- }
 
- // ---------- Finance: use the already-correct v99 budget ledger ----------
- function budgetState(){
-   const {y,m}=viewedYM();
-   try{if(typeof window.myBillsBudgetStateV99==='function'){const s=window.myBillsBudgetStateV99(y,m);return {limit:Number(s.limit)||0,billsPaid:Number(s.billsPaid)||0,other:Number(s.other)||0,spent:Number(s.spent)||0,left:Number(s.left)||0}}}catch(e){}
-   let limit=0,billsPaid=0,other=0;
-   try{if(typeof viewedBudget==='function')limit=Number(viewedBudget())||0}catch(e){}
-   try{if(typeof monthlyCashPaidFor==='function')billsPaid=Number(monthlyCashPaidFor(y,m))||0}catch(e){}
-   try{if(typeof otherSpendingTotal==='function')other=Number(otherSpendingTotal(y,m))||0}catch(e){}
-   return {limit,billsPaid,other,spent:billsPaid+other,left:limit-billsPaid-other};
- }
- function refreshFinanceCard(){
-   const card=q('financeStatusCard'),main=q('financeStatusMain'),sub=q('financeStatusSub');if(!card||!main||!sub)return;
-   const s=budgetState();
-   main.textContent=s.limit?`${cash(s.spent)} / ${cash(s.limit)}`:'Set monthly budget';
-   sub.textContent=s.limit?`${Math.round((s.spent/s.limit)*100)}% used • ${cash(s.left)} left`:'Tap to set a monthly budget';
-   card.onclick=()=>{try{openBudgetDlg()}catch(e){}};
- }
- function refreshAvailableNow(){
-   const s=budgetState();
-   // Try every known Available Now value slot without breaking older markup.
-   ['availableNowValue','actualNowValue','netRemainingValue'].forEach(id=>{const el=q(id);if(el)el.textContent=cash(s.left)});
-   const card=q('availableNowCard');if(card){const val=card.querySelector('.value');if(val)val.textContent=cash(s.left)}
- }
- function refreshBudgetSummary(){
-   const host=q('mb132BudgetSummary');if(!host)return;const s=budgetState();
-   host.innerHTML=`<div class="mb132-budget-card"><div class="mb132-budget-label">Monthly Budget</div><div class="mb132-budget-value">${s.limit?cash(s.limit):'Not set'}</div></div>
-    <div class="mb132-budget-card"><div class="mb132-budget-label">Bills paid this month</div><div class="mb132-budget-value">${cash(s.billsPaid)}</div></div>
-    <div class="mb132-budget-card"><div class="mb132-budget-label">Spending</div><div class="mb132-budget-value">${cash(s.other)}</div></div>
-    <div class="mb132-budget-card"><div class="mb132-budget-label">Budget Left</div><div class="mb132-budget-value">${cash(s.left)}</div></div>`;
- }
- window.showFinancialSnapshot=function(){
-   const {y,m}=viewedYM(),s=budgetState();
-   let scheduledBills=0,remainingBills=0,received=0,projectedIncome=0;
-   try{scheduledBills=Number(monthlyBillsFor(y,m))||0}catch(e){}
-   try{remainingBills=Number(monthlyRemainingFor(y,m))||0}catch(e){}
-   try{if(typeof window.actualIncomeMonthToDateV106==='function')received=Number(window.actualIncomeMonthToDateV106(y,m))||0;else if(typeof incomeThroughCutoff==='function')received=Number(incomeThroughCutoff(y,m))||0}catch(e){}
-   try{if(typeof window.projectedMonthlyIncomeV106==='function')projectedIncome=Number(window.projectedMonthlyIncomeV106(y,m))||0;else projectedIncome=Number(monthlyIncomeFor(y,m))||0}catch(e){}
-   const label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
-   const title=q('financialSnapshotTitle'),body=q('financialSnapshotContent');if(!title||!body)return;
-   title.textContent=`Monthly Snapshot — ${label}`;
-   body.innerHTML=`<div class="snapshot-grid"><div class="summary-stat"><div class="label">Available now</div><div class="value">${cash(s.left)}</div><div class="meta">Budget − paid bills − spending</div></div><div class="summary-stat"><div class="label">Projected income</div><div class="value">${cash(projectedIncome)}</div><div class="meta">Full viewed month</div></div></div>
-    <div class="settings-section"><h3>Budget right now</h3><div class="snapshot-row"><span>Monthly budget</span><b>${cash(s.limit)}</b></div><div class="snapshot-row"><span>Bills actually paid this month</span><b>${cash(s.billsPaid)}</b></div><div class="snapshot-row"><span>Spending entered</span><b>${cash(s.other)}</b></div><div class="snapshot-row snapshot-total"><span>Available now</span><b>${cash(s.left)}</b></div></div>
-    <div class="settings-section"><h3>Month information</h3><div class="snapshot-row"><span>Income received</span><b>${cash(received)}</b></div><div class="snapshot-row"><span>All scheduled bills</span><b>${cash(scheduledBills)}</b></div><div class="snapshot-row"><span>Bills still due</span><b>${cash(remainingBills)}</b></div><div class="snapshot-row"><span>Projected income</span><b>${cash(projectedIncome)}</b></div></div>`;
-   try{financialSnapshotDlg.showModal()}catch(e){}
- };
 
- // ---------- Dashboard navigation ----------
- function showTab(name){const b=document.querySelector(`.mb119-nav[data-view="${name}"]`);if(b)b.click()}
- function wireDashboard(){document.querySelectorAll('#dashboardCards>.card').forEach(card=>{const label=(card.querySelector('.label')?.textContent||'').trim().toLowerCase();let fn=null;if(label==='bills'||label==='remaining')fn=()=>showTab('bills');else if(label==='paid')fn=()=>{try{showPaymentHistoryAll()}catch(e){showTab('bills')}};else if(label.includes('monthly income'))fn=()=>{try{openPaycheckPlanner()}catch(e){}};else if(label.includes('ytd income'))fn=()=>showFinancialSnapshot();if(fn){card.style.cursor='pointer';card.onclick=fn}})}
 
- // ---------- Spending: one authoritative renderer/editor ----------
- function spendRows(){const r=parse(SPEND_KEY,[]);return Array.isArray(r)?r:[]}
- function spendDate(x){const raw=x.enteredAt||x.createdAt||x.timestamp||x.date;if(!raw)return null;if(/^\\d{4}-\\d{2}-\\d{2}$/.test(raw))return new Date(raw+'T12:00:00');const d=new Date(raw);return isNaN(d)?null:d}
- function bounds(range){const now=new Date();let start;if(range==='month')start=new Date(now.getFullYear(),now.getMonth(),1);else{start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}return {start,now}}
- function paidBillRows(start,now){
-   const out=[];let amounts={};let meta={};
-   try{amounts=(typeof billPaidAmounts==='object'&&billPaidAmounts)?billPaidAmounts:parse('myBills_bill_paid_amounts_v1',{})}catch(e){amounts=parse('myBills_bill_paid_amounts_v1',{})}
-   meta=parse('myBills_payment_meta_v1',{});
-   Object.keys(amounts).forEach(key=>{const sep=key.lastIndexOf('|');if(sep<0)return;const id=key.slice(0,sep),iso=key.slice(sep+1),amount=Number(amounts[key])||0;if(amount<=0)return;const b=Array.isArray(bills)?bills.find(x=>String(x.id)===String(id)):null;if(!b)return;const paidDate=meta[key]?.date||iso;const d=new Date(paidDate+'T12:00:00');if(isNaN(d)||d<start||d>now)return;out.push({kind:'bill',id,iso,name:b.name,amount,dateObj:d,category:b.category||'Bill'})});
-   return out;
- }
- function currentRange(){return document.querySelector('[data-mb119-range].active')?.dataset.mb119Range||'week'}
- function renderActivity(range=currentRange()){
-   const host=q('mb119SpendList'),total=q('mb119SpendTotal');if(!host||!total)return;const {start,now}=bounds(range);
-   const spends=spendRows().map(x=>({...x,kind:'spend',dateObj:spendDate(x)})).filter(x=>x.dateObj&&x.dateObj>=start&&x.dateObj<=now);
-   const all=[...spends,...paidBillRows(start,now)].sort((a,b)=>b.dateObj-a.dateObj);
-   total.textContent=`${cash(spends.reduce((s,x)=>s+(Number(x.amount)||0),0))} ${range==='month'?'this month':'this week'} spending`;
-   host.innerHTML=all.length?all.map(x=>x.kind==='bill'?`<div class="mb119-ledger-item"><div class="mb119-ledger-title">${esc(x.name)} <span class="mb132-badge bill">Bill</span></div><div class="mb119-ledger-amt">${cash(x.amount)}</div><div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()} • ${esc(x.category)}</div><div class="mb132-entry-actions"><button class="mb132-viewbill" type="button" data-bill-id="${esc(x.id)}" data-bill-iso="${esc(x.iso)}">View Bill</button></div></div>`:`<div class="mb119-ledger-item"><div class="mb119-ledger-title">${esc(x.name||x.title||'Spending')} <span class="mb132-badge spend">Spending</span></div><div class="mb119-ledger-amt">${cash(x.amount)}</div><div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()}${x.notes?' • '+esc(x.notes):''}</div><div class="mb132-entry-actions"><button class="mb132-edit" type="button" data-spend-edit="${esc(x.id)}">Edit</button><button class="mb132-delete" type="button" data-spend-delete="${esc(x.id)}">Delete</button></div></div>`).join(''):'<div style="padding:10px 0;color:#64748b">No activity for this period.</div>';
-   host.querySelectorAll('[data-spend-edit]').forEach(b=>b.onclick=()=>openSpendEditor(b.dataset.spendEdit));
-   host.querySelectorAll('[data-spend-delete]').forEach(b=>b.onclick=()=>deleteSpend(b.dataset.spendDelete));
-   host.querySelectorAll('[data-bill-id]').forEach(b=>b.onclick=()=>{try{showBill(b.dataset.billId,b.dataset.billIso)}catch(e){showTab('bills')}});
- }
- function openSpendEditor(id){const row=spendRows().find(x=>String(x.id)===String(id));if(!row)return;q('mb132SpendId').value=row.id;q('mb132SpendName').value=row.name||row.title||'';q('mb132SpendAmount').value=Number(row.amount||0).toFixed(2);q('mb132SpendDate').value=row.date||new Date().toISOString().slice(0,10);q('mb132SpendNotes').value=row.notes||'';q('mb132SpendEditor').showModal()}
- function closeSpendEditor(){if(q('mb132SpendEditor')?.open)q('mb132SpendEditor').close()}
- function saveSpend(){const id=q('mb132SpendId').value,rows=spendRows(),i=rows.findIndex(x=>String(x.id)===String(id));if(i<0)return closeSpendEditor();const name=q('mb132SpendName').value.trim()||'Spending',amount=Number(q('mb132SpendAmount').value),date=q('mb132SpendDate').value,notes=q('mb132SpendNotes').value.trim();if(!Number.isFinite(amount)||amount<=0||!date){alert('Enter a valid amount and date.');return}rows[i]={...rows[i],name,amount,date,notes};localStorage.setItem(SPEND_KEY,JSON.stringify(rows));try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(rows)}catch(e){}closeSpendEditor();refreshAll132();renderActivity()}
- function deleteSpend(id){const rows=spendRows(),row=rows.find(x=>String(x.id)===String(id));if(!confirm(`Delete ${row?.name||'this spending entry'}?`))return;const next=rows.filter(x=>String(x.id)!==String(id));localStorage.setItem(SPEND_KEY,JSON.stringify(next));try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(next)}catch(e){}refreshAll132();renderActivity()}
- function wireSpending(){document.querySelectorAll('[data-mb119-range]').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('[data-mb119-range]').forEach(x=>x.classList.toggle('active',x===btn));renderActivity(btn.dataset.mb119Range)}});q('mb132SpendClose').onclick=closeSpendEditor;q('mb132CancelSpend').onclick=closeSpendEditor;q('mb132SaveSpend').onclick=saveSpend;renderActivity()}
 
- // ---------- Calendar bill colors ----------
- function installBillColors(){const cal=q('mb119CalendarMount'),legend=q('legend');if(!cal||!legend)return;let wrap=q('mb132BillColorsWrap');if(!wrap){wrap=document.createElement('div');wrap.id='mb132BillColorsWrap';wrap.innerHTML='<button id="mb132BillColorsBtn" type="button"><span>Bill Colors</span><span id="mb132BillColorsArrow">▾</span></button><div id="mb132BillColorsBody"></div>';cal.appendChild(wrap);q('mb132BillColorsBtn').onclick=()=>{wrap.classList.toggle('open');q('mb132BillColorsArrow').textContent=wrap.classList.contains('open')?'▴':'▾';if(wrap.classList.contains('open')){try{if(typeof renderLegend==='function')renderLegend()}catch(e){}}}}const body=q('mb132BillColorsBody');if(legend.parentElement!==body)body.appendChild(legend);legend.style.display='grid'}
-
- // ---------- Tips ----------
- function startTips(){const next=q('mb119NextTip');if(next)next.style.display='none';if(tipTimer)clearInterval(tipTimer);tipTimer=setInterval(()=>{try{if(next)next.click();else if(typeof refreshTip==='function')refreshTip()}catch(e){}},10000)}
-
- // Budget modal should set budget only; spending is managed in Spending.
- function cleanBudgetModal(){const list=q('budgetExpenseList');if(list)list.style.display='none'}
-
- function refreshAll132(){refreshFinanceCard();refreshAvailableNow();refreshBudgetSummary();try{if(typeof updateFinanceDashboard==='function')updateFinanceDashboard()}catch(e){}}
- function init(){
-   applyTheme132();
-   document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
-   const ap=document.querySelector('[data-mb123-settings="appearance"]');if(ap){ap.textContent='Appearance';ap.addEventListener('click',()=>setTimeout(buildAppearance,30))}
-   installBillColors();wireSpending();wireDashboard();startTips();cleanBudgetModal();refreshAll132();
-   document.querySelectorAll('.mb119-nav').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.view==='spending')setTimeout(()=>renderActivity(),30);if(btn.dataset.view==='budget')setTimeout(refreshBudgetSummary,30);if(btn.dataset.view==='home')setTimeout(refreshAll132,30)}));
-   document.addEventListener('change',()=>setTimeout(refreshAll132,25),true);
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-})();
-</script>\n
-
-<style id="mb-20-0-133-final-theme">
+<style id="mb-20-0-135-single-theme">
 :root{
-  --mb-page:#f5f8fc;
-  --mb-surface:#ffffff;
-  --mb-navy:#0f2457;
-  --mb-navy-deep:#091a3f;
-  --mb-cyan:#00f5ff;
-  --mb-on-navy:#ffffff;
-  --mb-muted-navy:#c7d1df;
-  --mb-ink:#10203a;
-  --mb-muted:#718096;
-  --mb-line:#d6e0eb;
+  --mb135-page:#f7f9fc;
+  --mb135-navy:#172554;
+  --mb135-navy-deep:#0d1f49;
+  --mb135-cyan:#00f5ff;
+  --mb135-white:#ffffff;
+  --mb135-on-navy:#ffffff;
+  --mb135-muted-on-navy:#c8d3e4;
+  --mb135-ink:#10203a;
+  --mb135-muted:#718096;
+  --mb135-line:#d6e0ea;
 }
 
-/* ---------- GLOBAL ---------- */
-html, body, #mb119Shell, .mb119-view{
-  background:var(--mb-page)!important;
-  color:var(--mb-ink)!important;
+/* WHITE PAGE BEHIND NAVY SURFACES */
+html,body,#mb119Shell,.mb119-view{
+  background:var(--mb135-page)!important;
+  color:var(--mb135-ink)!important;
 }
 
-/* ---------- STICKY TAB HEADERS ---------- */
+/* FIXED/STICKY NAV-TAB HEADER: NAVY FROM THE START */
 .mb123-sticky-header{
-  background:linear-gradient(135deg,var(--mb-navy),var(--mb-navy-deep))!important;
-  color:var(--mb-on-navy)!important;
-  border-bottom:3px solid var(--mb-cyan)!important;
-  box-shadow:0 7px 20px rgba(6,18,45,.2)!important;
+  position:sticky!important;
+  top:0!important;
+  z-index:150!important;
+  background:linear-gradient(135deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:var(--mb135-on-navy)!important;
+  border-bottom:3px solid var(--mb135-cyan)!important;
+  box-shadow:0 6px 18px rgba(9,25,55,.20)!important;
 }
-.mb123-sticky-header *,
 .mb123-sticky-header .mb119-title,
-.mb123-sticky-header .mb119-sub{
-  color:var(--mb-on-navy)!important;
+.mb123-sticky-header .mb119-sub,
+.mb123-sticky-header h1,
+.mb123-sticky-header h2,
+.mb123-sticky-header h3,
+.mb123-sticky-header span{
+  color:var(--mb135-on-navy)!important;
 }
-.mb123-sticky-header .mb119-sub{opacity:.82!important}
+.mb123-sticky-header .mb119-sub{color:var(--mb135-muted-on-navy)!important}
 
-/* ---------- HOME SUMMARY CARDS ---------- */
-#dashboardCards > .card,
-#mb119Home .card[onclick*="showHoursWeeks"],
+/* HOME: EVERY SUMMARY / FEATURE TILE NAVY */
+#dashboardCards>.card,
+#mb119Home .card,
 #financeStatusCard,
 #availableNowCard,
 #mb119Tips,
+.mb132-budget-card,
 .mb126-budget-card{
-  background:linear-gradient(145deg,var(--mb-navy),var(--mb-navy-deep))!important;
-  border:3px solid var(--mb-cyan)!important;
-  color:var(--mb-on-navy)!important;
-  box-shadow:0 7px 18px rgba(10,31,76,.14)!important;
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:var(--mb135-on-navy)!important;
+  border:3px solid var(--mb135-cyan)!important;
+  box-shadow:0 7px 18px rgba(10,31,76,.13)!important;
 }
-#dashboardCards > .card *,
-#mb119Home .card[onclick*="showHoursWeeks"] *,
+#dashboardCards>.card *,
+#mb119Home .card *,
 #financeStatusCard *,
 #availableNowCard *,
 #mb119Tips *,
+.mb132-budget-card *,
 .mb126-budget-card *{
-  color:var(--mb-on-navy)!important;
+  color:var(--mb135-on-navy)!important;
   opacity:1!important;
 }
-#dashboardCards > .card .label,
-#mb119Home .card[onclick*="showHoursWeeks"] .label,
+#dashboardCards>.card .label,
 #financeStatusCard .label,
 #financeStatusSub,
-.mb126-budget-label{
-  color:var(--mb-muted-navy)!important;
+.mb132-budget-label,
+.mb126-budget-label,
+#mb119Tips small{
+  color:var(--mb135-muted-on-navy)!important;
 }
 
-/* ---------- QUICK ACTIONS / TOOL TILES / SETTINGS TILES ---------- */
+/* QUICK ACTIONS + PAGE TILES */
 .quick-actions button,
 .mb119-tool-grid button,
 .mb119-settings-grid button,
 .mb119-spend-actions button,
+#mb132BillColorsBtn,
 #mb126BillColorsBtn,
-#mb119Budget button,
-#mb119Settings button{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
-  box-shadow:none!important;
+#mb119Budget .mb119-tool-grid button,
+#mb119Settings .mb119-settings-grid button{
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:var(--mb135-on-navy)!important;
+  border:2px solid var(--mb135-cyan)!important;
+  box-shadow:0 4px 10px rgba(10,31,76,.10)!important;
 }
 .quick-actions button *,
 .mb119-tool-grid button *,
 .mb119-settings-grid button *,
-.mb119-spend-actions button *,
-#mb119Budget button *,
-#mb119Settings button *{
-  color:var(--mb-on-navy)!important;
+.mb119-spend-actions button *{
+  color:var(--mb135-on-navy)!important;
 }
 
-/* ---------- BOTTOM NAV ---------- */
+/* BOTTOM NAV: NAVY ALWAYS, CYAN ACTIVE */
 #mb119BottomNav{
-  background:linear-gradient(180deg,#0b1f4c,#071833)!important;
-  border-top:3px solid var(--mb-cyan)!important;
-  box-shadow:0 -8px 20px rgba(7,24,51,.25)!important;
+  background:linear-gradient(180deg,#0c214a,#081936)!important;
+  border-top:3px solid var(--mb135-cyan)!important;
+  box-shadow:0 -8px 22px rgba(8,25,54,.26)!important;
 }
 .mb119-nav{
   background:transparent!important;
   color:#d2dbea!important;
-  border:0!important;
+  border:1px solid transparent!important;
+  border-radius:14px!important;
 }
 .mb119-nav *{color:inherit!important}
 .mb119-nav.active{
+  color:var(--mb135-cyan)!important;
   background:rgba(0,245,255,.08)!important;
-  color:var(--mb-cyan)!important;
-  border:1px solid rgba(0,245,255,.32)!important;
+  border-color:rgba(0,245,255,.35)!important;
+}
+.mb119-nav .ico{
+  color:inherit!important;
+  width:25px!important;
+  height:25px!important;
+}
+.mb119-nav .ico svg{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  stroke:currentColor!important;
+  fill:none!important;
+  stroke-width:2.2!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
 }
 
-/* ---------- CALENDAR ---------- */
-#mb119Calendar .calendar-wrap,
-#mb119Calendar .cal-day,
-#mb119Calendar .filter-panel,
-#mb126BillColorsBody{
-  background:var(--mb-surface)!important;
-  color:var(--mb-ink)!important;
-}
+/* CALENDAR: WHITE DAYS, NAVY CONTROLS / ACCORDIONS */
 #mb119Calendar .calendar-wrap{
-  border:2px solid #54c9d0!important;
+  background:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
+  color:var(--mb135-ink)!important;
 }
-#mb119Calendar .calendar-top button,
-#mb119Calendar .calendar-nav button,
-#mb119Calendar .filters-toggle{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
+#mb119Calendar .cal-day{
+  background:#fff!important;
+  color:var(--mb135-ink)!important;
+  border-color:#cbd5e1!important;
+}
+#mb119Calendar button:not(.cal-day),
+#mb119Calendar .filters-toggle,
+#mb132BillColorsBtn,
+#mb126BillColorsBtn{
+  background:var(--mb135-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
 
-/* ---------- BILLS ---------- */
-#mb119Bills .bill,
-#mb119Bills .bill-filter-bar,
-#mb119Bills .calculator-card{
-  background:var(--mb-surface)!important;
-  color:var(--mb-ink)!important;
-  border-color:var(--mb-line)!important;
+/* BILLS: NAVY BILL CARDS */
+#mb119Bills .bill{
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
 #mb119Bills .bill .name,
-#mb119Bills .bill .amount{color:var(--mb-ink)!important}
-#mb119Bills .bill .meta{color:var(--mb-muted)!important}
+#mb119Bills .bill .amount,
+#mb119Bills .bill strong{color:#fff!important}
+#mb119Bills .bill .meta,
+#mb119Bills .bill small{color:var(--mb135-muted-on-navy)!important}
+#mb119Bills .bill-filter-bar,
+#mb119Bills .calculator-card{
+  background:#fff!important;
+  color:var(--mb135-ink)!important;
+  border:2px solid var(--mb135-cyan)!important;
+}
 
-/* ---------- SPENDING ---------- */
+/* SPENDING: WHITE ENTRY FORM, NAVY SPENDING ROWS */
 #mb119Spending .mb119-spend-form,
 #mb119Spending .mb119-ledger{
-  background:var(--mb-surface)!important;
-  color:var(--mb-ink)!important;
-  border:2px solid #54c9d0!important;
+  background:#fff!important;
+  color:var(--mb135-ink)!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
 #mb119Spending input,
 #mb119Spending textarea,
 #mb119Spending select{
   background:#fff!important;
-  color:var(--mb-ink)!important;
-  border:1px solid #b9c6d5!important;
+  color:var(--mb135-ink)!important;
+  border:1px solid #b8c6d5!important;
 }
 .mb119-range button{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
+  background:var(--mb135-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
 .mb119-range button.active{
-  background:#071833!important;
-  color:var(--mb-cyan)!important;
+  background:#081936!important;
+  color:var(--mb135-cyan)!important;
 }
-.mb119-ledger-title,.mb119-ledger-amt{color:var(--mb-ink)!important}
-.mb119-ledger-time{color:var(--mb-muted)!important}
+#mb119SpendList{
+  display:grid!important;
+  gap:10px!important;
+}
+#mb119SpendList .mb119-ledger-item{
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
+  border-radius:14px!important;
+  padding:12px!important;
+}
+#mb119SpendList .mb119-ledger-title,
+#mb119SpendList .mb119-ledger-amt{color:#fff!important}
+#mb119SpendList .mb119-ledger-time{color:var(--mb135-muted-on-navy)!important}
 
-/* ---------- BUDGET ---------- */
-#mb119Budget .mb119-tool-grid button,
-#mb119Budget .mb126-budget-card{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
+/* SETTINGS EXPANDED SECTIONS NAVY */
+#mb123SettingsPanel .settings-section{
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
-#mb119Budget .mb119-tool-grid button *{color:var(--mb-on-navy)!important}
-
-/* ---------- SETTINGS ---------- */
-#mb119Settings .mb119-settings-grid button{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
+#mb123SettingsPanel .settings-section h3,
+#mb123SettingsPanel .settings-section label,
+#mb123SettingsPanel .settings-section b{
+  color:#fff!important;
 }
-#mb119Settings .mb119-settings-grid button *{color:var(--mb-on-navy)!important}
-#mb119Version{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:3px solid var(--mb-cyan)!important;
+#mb123SettingsPanel .settings-section p,
+#mb123SettingsPanel .settings-section small,
+#mb123SettingsPanel .settings-section .meta{
+  color:var(--mb135-muted-on-navy)!important;
 }
-#mb119Version *{color:var(--mb-on-navy)!important}
-#mb119Version b{color:var(--mb-cyan)!important}
-
-/* ---------- MODALS ---------- */
-dialog{
-  background:var(--mb-surface)!important;
-  color:var(--mb-ink)!important;
-}
-dialog button.primary,
-dialog .primary{
-  background:var(--mb-navy)!important;
-  color:var(--mb-on-navy)!important;
-  border:2px solid var(--mb-cyan)!important;
-}
-
-/* ---------- APPEARANCE ---------- */
-#mb133Appearance{
+#mb123SettingsPanel input,
+#mb123SettingsPanel select,
+#mb123SettingsPanel textarea{
   background:#fff!important;
-  border:2px solid #54c9d0!important;
+  color:var(--mb135-ink)!important;
+}
+
+/* VERSION TILE */
+#mb119Version{
+  background:var(--mb135-navy)!important;
+  color:#fff!important;
+  border:3px solid var(--mb135-cyan)!important;
+}
+#mb119Version *{color:#fff!important}
+#mb119Version b{color:var(--mb135-cyan)!important}
+
+/* SINGLE SIMPLE APPEARANCE PANEL */
+#mb135Appearance{
+  background:linear-gradient(145deg,var(--mb135-navy),var(--mb135-navy-deep))!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
   border-radius:18px!important;
   padding:14px!important;
 }
-.mb133-color-row{
+#mb135Appearance h3,#mb135Appearance label{color:#fff!important}
+#mb135Appearance p{color:var(--mb135-muted-on-navy)!important}
+.mb135-color-row{
   display:grid;
   grid-template-columns:1fr 58px;
-  gap:10px;
   align-items:center;
+  gap:10px;
   padding:10px 12px;
-  margin-bottom:8px;
-  border:1px solid var(--mb-line);
+  margin:8px 0;
+  border:1px solid rgba(0,245,255,.38);
   border-radius:12px;
 }
-.mb133-color-row label{font-weight:850;color:var(--mb-ink)!important}
-.mb133-color-row input[type=color]{
-  width:58px!important;height:44px!important;padding:2px!important;
-  border:1px solid #9fb0c2!important;background:#fff!important
+.mb135-color-row input[type=color]{
+  width:58px!important;
+  height:44px!important;
+  padding:2px!important;
+  background:#fff!important;
+  border:1px solid var(--mb135-cyan)!important;
 }
-.mb133-actions{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px
+.mb135-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
 }
-#mb133SaveTheme{
-  background:var(--mb-navy)!important;color:#fff!important;border:2px solid var(--mb-cyan)!important
+#mb135SaveTheme{
+  background:#081936!important;
+  color:#fff!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
-#mb133ResetTheme{
-  background:#fff!important;color:var(--mb-ink)!important;border:2px solid #b8c5d5!important
+#mb135ResetTheme{
+  background:#fff!important;
+  color:var(--mb135-ink)!important;
+  border:2px solid var(--mb135-cyan)!important;
 }
 
-/* Hide older appearance UIs so there is only one color system. */
+/* HIDE ALL OLD/DUPLICATE COLOR UIs */
 #mb126SimpleAppearance,
 #mb129Appearance,
-#mb123SettingsPanel .settings-section:has(input[type="color"]),
-#mb123SettingsPanel .settings-section:has(input[id*="Hex"]),
+#mb132Appearance,
+#mb133Appearance,
+#settingsDlg .v102-color-grid,
+#settingsDlg .v102-color-row,
+#settingsDlg #resetDashboardColorsV102,
 #mb123SettingsPanel .settings-section:has(input[id*="headerColor"]),
-#mb123SettingsPanel .settings-section:has(input[id*="cardColor"]){
+#mb123SettingsPanel .settings-section:has(input[id*="tabBgColor"]),
+#mb123SettingsPanel .settings-section:has(input[id*="tabBorderColor"]),
+#mb123SettingsPanel .settings-section:has(input[id*="tabTextColor"]){
   display:none!important;
 }
 
-/* ---------- SAFE SPACE ---------- */
+/* ROOM ABOVE BOTTOM NAV */
 .mb119-view{
-  padding-bottom:calc(260px + env(safe-area-inset-bottom))!important;
+  padding-bottom:calc(270px + env(safe-area-inset-bottom))!important;
+  scroll-padding-top:110px!important;
+  scroll-padding-bottom:290px!important;
 }
 </style>
 
-<script id="mb-20-0-133-theme-script">
+<script id="mb-20-0-135-single-theme-script">
 (function(){
-  const VERSION='20.0.134';
-  const KEY='myBills_theme_20_0_133';
-
+  const VERSION='20.0.135';
+  const KEY='myBills_theme_20_0';
+  const MIGRATION='myBills_theme_migrated_135';
   const DEFAULTS={
-    navy:'#0f2457',
-    navyDeep:'#091a3f',
+    navy:'#172554',
+    navyDeep:'#0d1f49',
     cyan:'#00f5ff',
-    page:'#f5f8fc',
+    page:'#f7f9fc',
     onNavy:'#ffffff'
   };
 
-  function readTheme(){
-    try{return {...DEFAULTS,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return {...DEFAULTS}}
+  function parse(key,fallback){
+    try{const v=JSON.parse(localStorage.getItem(key)||'null');return v==null?fallback:v}
+    catch(e){return fallback}
   }
-  function applyTheme133(t){
+
+  function migrateOldColors(){
+    if(localStorage.getItem(MIGRATION)==='1')return;
+    // Delete only obsolete COLOR/THEME keys. User finance data is untouched.
+    [
+      'myBills_dashboard_colors_v101',
+      'myBills_dashboard_colors_v102',
+      'myBills_theme_v132',
+      'myBills_theme_20_0_133',
+      'myBills_theme_20_0_134'
+    ].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+    try{
+      const settings=parse('myBills_settings_v2',{});
+      if(settings && typeof settings==='object'){
+        delete settings.dashboardColorsV102;
+        localStorage.setItem('myBills_settings_v2',JSON.stringify(settings));
+      }
+    }catch(e){}
+    // New official default on first 135 migration.
+    localStorage.setItem(KEY,JSON.stringify(DEFAULTS));
+    localStorage.setItem(MIGRATION,'1');
+  }
+
+  function read(){
+    return {...DEFAULTS,...parse(KEY,{})};
+  }
+  function apply(t){
     const r=document.documentElement;
-    r.style.setProperty('--mb-navy',t.navy);
-    r.style.setProperty('--mb-navy-deep',t.navyDeep||t.navy);
-    r.style.setProperty('--mb-cyan',t.cyan);
-    r.style.setProperty('--mb-page',t.page);
-    r.style.setProperty('--mb-on-navy',t.onNavy);
+    r.style.setProperty('--mb135-navy',t.navy);
+    r.style.setProperty('--mb135-navy-deep',t.navyDeep||t.navy);
+    r.style.setProperty('--mb135-cyan',t.cyan);
+    r.style.setProperty('--mb135-page',t.page);
+    r.style.setProperty('--mb135-on-navy',t.onNavy);
   }
-  function buildAppearance133(){
+
+  function buildAppearance(){
     const panel=document.getElementById('mb123SettingsPanel');
-    if(!panel || document.getElementById('mb133Appearance'))return;
-    const t=readTheme();
+    if(!panel)return;
+
+    // Remove any duplicate generated Appearance panels.
+    panel.querySelectorAll('#mb126SimpleAppearance,#mb129Appearance,#mb132Appearance,#mb133Appearance,#mb135Appearance')
+      .forEach(x=>x.remove());
+
+    const t=read();
     const box=document.createElement('div');
-    box.id='mb133Appearance';
+    box.id='mb135Appearance';
     box.innerHTML=`
-      <h3 style="margin:0 0 6px">Appearance</h3>
-      <p style="margin:0 0 12px;color:#64748b">These colors control the whole app.</p>
-      <div class="mb133-color-row"><label>Navy interface</label><input id="mb133Navy" type="color" value="${t.navy}"></div>
-      <div class="mb133-color-row"><label>Cyan accent / border</label><input id="mb133Cyan" type="color" value="${t.cyan}"></div>
-      <div class="mb133-color-row"><label>Page background</label><input id="mb133Page" type="color" value="${t.page}"></div>
-      <div class="mb133-color-row"><label>Text on navy</label><input id="mb133OnNavy" type="color" value="${t.onNavy}"></div>
-      <div class="mb133-actions">
-        <button id="mb133SaveTheme" type="button">Save Colors</button>
-        <button id="mb133ResetTheme" type="button">Reset Official Colors</button>
+      <h3 style="margin:0 0 5px">Appearance</h3>
+      <p style="margin:0 0 12px">Simple whole-app colors.</p>
+      <div class="mb135-color-row"><label>Navy tabs & headers</label><input id="mb135Navy" type="color" value="${t.navy}"></div>
+      <div class="mb135-color-row"><label>Cyan borders & active icons</label><input id="mb135Cyan" type="color" value="${t.cyan}"></div>
+      <div class="mb135-color-row"><label>Background behind tabs</label><input id="mb135Page" type="color" value="${t.page}"></div>
+      <div class="mb135-color-row"><label>Text on navy</label><input id="mb135Text" type="color" value="${t.onNavy}"></div>
+      <div class="mb135-actions">
+        <button id="mb135SaveTheme" type="button">Save Colors</button>
+        <button id="mb135ResetTheme" type="button">Official Colors</button>
       </div>`;
     panel.prepend(box);
 
     function values(){
+      const navy=document.getElementById('mb135Navy').value;
       return {
-        navy:document.getElementById('mb133Navy').value,
-        navyDeep:document.getElementById('mb133Navy').value,
-        cyan:document.getElementById('mb133Cyan').value,
-        page:document.getElementById('mb133Page').value,
-        onNavy:document.getElementById('mb133OnNavy').value
+        navy,
+        navyDeep:navy,
+        cyan:document.getElementById('mb135Cyan').value,
+        page:document.getElementById('mb135Page').value,
+        onNavy:document.getElementById('mb135Text').value
       };
     }
-    function live(){
+    function save(){
       const t=values();
       localStorage.setItem(KEY,JSON.stringify(t));
-      applyTheme133(t);
+      apply(t);
     }
-    ['mb133Navy','mb133Cyan','mb133Page','mb133OnNavy'].forEach(id=>{
-      document.getElementById(id).addEventListener('input',live);
-      document.getElementById(id).addEventListener('change',live);
+    ['mb135Navy','mb135Cyan','mb135Page','mb135Text'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.addEventListener('input',save);
+      el.addEventListener('change',save);
     });
-    document.getElementById('mb133SaveTheme').onclick=live;
-    document.getElementById('mb133ResetTheme').onclick=()=>{
-      localStorage.removeItem(KEY);
-      applyTheme133(DEFAULTS);
-      document.getElementById('mb133Navy').value=DEFAULTS.navy;
-      document.getElementById('mb133Cyan').value=DEFAULTS.cyan;
-      document.getElementById('mb133Page').value=DEFAULTS.page;
-      document.getElementById('mb133OnNavy').value=DEFAULTS.onNavy;
+    document.getElementById('mb135SaveTheme').onclick=save;
+    document.getElementById('mb135ResetTheme').onclick=()=>{
+      localStorage.setItem(KEY,JSON.stringify(DEFAULTS));
+      apply(DEFAULTS);
+      document.getElementById('mb135Navy').value=DEFAULTS.navy;
+      document.getElementById('mb135Cyan').value=DEFAULTS.cyan;
+      document.getElementById('mb135Page').value=DEFAULTS.page;
+      document.getElementById('mb135Text').value=DEFAULTS.onNavy;
     };
   }
 
-  function init133(){
-    applyTheme133(readTheme());
-    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
-    const ap=document.querySelector('[data-mb123-settings="appearance"]');
-    if(ap){
-      ap.textContent='Appearance';
-      ap.addEventListener('click',()=>setTimeout(buildAppearance133,30));
-    }
-  }
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init133,{once:true});
-  else init133();
-})();
-</script>
-
-
-<style id="mb-20-0-134-authoritative-theme">
-:root{
-  --myb-page:#f6f8fc;
-  --myb-white:#ffffff;
-  --myb-navy:#0f2457;
-  --myb-navy-deep:#091a3f;
-  --myb-cyan:#00f5ff;
-  --myb-on-navy:#ffffff;
-  --myb-muted-on-navy:#c5d0df;
-  --myb-ink:#10203a;
-  --myb-muted:#718096;
-  --myb-line:#d3deea;
-}
-
-/* PAGE */
-html,body{
-  background:var(--myb-page)!important;
-  color:var(--myb-ink)!important;
-}
-
-/* EVERY TAB PAGE */
-.mb119-view,
-.view,
-.page,
-.screen{
-  background:var(--myb-page)!important;
-}
-
-/* STATIONARY/STICKY NAV-TAB HEADERS */
-.mb123-sticky-header,
-.page-header,
-.section-header,
-.sticky-header,
-header.app-header{
-  position:sticky!important;
-  top:0!important;
-  z-index:100!important;
-  background:linear-gradient(135deg,var(--myb-navy),var(--myb-navy-deep))!important;
-  color:var(--myb-on-navy)!important;
-  border-bottom:3px solid var(--myb-cyan)!important;
-  box-shadow:0 5px 16px rgba(7,24,51,.20)!important;
-}
-.mb123-sticky-header *,
-.page-header *,
-.section-header *,
-.sticky-header *,
-header.app-header *{
-  color:var(--myb-on-navy)!important;
-}
-
-/* HOME SUMMARY + FEATURE CARDS */
-#dashboardCards>.card,
-.dashboard-card,
-.summary-card,
-.finance-card,
-#financeStatusCard,
-#availableNowCard,
-#mb119Tips,
-.card.navy,
-.mb126-budget-card{
-  background:linear-gradient(145deg,var(--myb-navy),var(--myb-navy-deep))!important;
-  color:var(--myb-on-navy)!important;
-  border:3px solid var(--myb-cyan)!important;
-  box-shadow:0 7px 18px rgba(9,26,63,.14)!important;
-}
-#dashboardCards>.card *,
-.dashboard-card *,
-.summary-card *,
-.finance-card *,
-#financeStatusCard *,
-#availableNowCard *,
-#mb119Tips *,
-.card.navy *,
-.mb126-budget-card *{
-  color:var(--myb-on-navy)!important;
-  opacity:1!important;
-}
-#dashboardCards>.card .label,
-.dashboard-card .label,
-.summary-card .label,
-.finance-card .label{
-  color:var(--myb-muted-on-navy)!important;
-}
-
-/* ACTION BUTTONS AND NAV-SECTION TILES */
-.quick-actions button,
-.quick-action,
-.mb119-tool-grid button,
-.mb119-settings-grid button,
-.mb119-spend-actions button,
-.tool-card,
-.settings-card,
-.nav-card{
-  background:var(--myb-navy)!important;
-  color:var(--myb-on-navy)!important;
-  border:2px solid var(--myb-cyan)!important;
-  box-shadow:none!important;
-}
-.quick-actions button *,
-.quick-action *,
-.mb119-tool-grid button *,
-.mb119-settings-grid button *,
-.mb119-spend-actions button *,
-.tool-card *,
-.settings-card *,
-.nav-card *{
-  color:var(--myb-on-navy)!important;
-}
-
-/* BOTTOM NAVIGATION */
-#mb119BottomNav,
-.bottom-nav,
-.bottom-navigation,
-nav.bottom-nav{
-  background:linear-gradient(180deg,#0b1f4c,#071833)!important;
-  border-top:3px solid var(--myb-cyan)!important;
-  box-shadow:0 -8px 20px rgba(7,24,51,.25)!important;
-}
-.mb119-nav,
-.bottom-nav button,
-.bottom-navigation button,
-nav.bottom-nav button{
-  background:transparent!important;
-  color:#d4deeb!important;
-  border:0!important;
-}
-.mb119-nav.active,
-.bottom-nav button.active,
-.bottom-navigation button.active,
-nav.bottom-nav button.active{
-  color:var(--myb-cyan)!important;
-  background:rgba(0,245,255,.07)!important;
-}
-.mb119-nav svg,
-.bottom-nav svg,
-.bottom-navigation svg{
-  stroke:currentColor!important;
-  fill:none!important;
-  stroke-width:2.2!important;
-}
-
-/* TRUE CONTENT SURFACES REMAIN LIGHT FOR READABILITY */
-#mb119Calendar .calendar-wrap,
-#mb119Calendar .cal-day,
-#mb119Bills .bill,
-#mb119Spending .mb119-spend-form,
-#mb119Spending .mb119-ledger,
-input,select,textarea,
-dialog{
-  background:var(--myb-white)!important;
-  color:var(--myb-ink)!important;
-}
-#mb119Calendar .calendar-wrap,
-#mb119Spending .mb119-spend-form,
-#mb119Spending .mb119-ledger{
-  border:2px solid #54c9d0!important;
-}
-
-/* CALENDAR/BUDGET/SETTINGS CONTROLS START NAVY */
-#mb119Calendar button,
-#mb119Budget button,
-#mb119Settings button,
-#mb126BillColorsBtn,
-.mb119-range button{
-  background:var(--myb-navy)!important;
-  color:var(--myb-on-navy)!important;
-  border:2px solid var(--myb-cyan)!important;
-}
-#mb119Calendar button *,
-#mb119Budget button *,
-#mb119Settings button *,
-.mb119-range button *{
-  color:var(--myb-on-navy)!important;
-}
-.mb119-range button.active{
-  background:#071833!important;
-  color:var(--myb-cyan)!important;
-}
-
-/* APP VERSION */
-#mb119Version{
-  background:var(--myb-navy)!important;
-  color:var(--myb-on-navy)!important;
-  border:3px solid var(--myb-cyan)!important;
-}
-#mb119Version *{color:var(--myb-on-navy)!important}
-
-/* SAFE SPACE FOR STICKY HEADERS + BOTTOM NAV */
-.mb119-view{
-  padding-bottom:calc(260px + env(safe-area-inset-bottom))!important;
-  scroll-padding-top:110px!important;
-  scroll-padding-bottom:280px!important;
-}
-</style>
-
-<script id="mb-20-0-134-authoritative-script">
-(function(){
-  const VERSION='20.0.134';
-
-  // Hard-set visible version after all older scripts have loaded.
   function forceVersion(){
-    document.querySelectorAll('#mb119Version strong,#mb119Version .value,[data-app-version]').forEach(el=>{
-      el.textContent=VERSION;
-    });
-  }
-
-  // Replace plain nav glyphs with consistent line icons when the expected nav exists.
-  const icons={
-    home:'<svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-6h5v6"/></svg>',
-    calendar:'<svg viewBox="0 0 24 24" width="26" height="26"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M8 3v4M16 3v4M3.5 9h17"/></svg>',
-    bills:'<svg viewBox="0 0 24 24" width="26" height="26"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-    spending:'<svg viewBox="0 0 24 24" width="26" height="26"><rect x="3.5" y="7" width="17" height="11" rx="2"/><path d="M3.5 10h17M15.5 14h2"/></svg>',
-    budget:'<svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M13 3v8h8A9 9 0 0 0 13 3z"/></svg>',
-    settings:'<svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.12-1.28l2-1.55-2-3.46-2.4.97a7 7 0 0 0-2.2-1.28L14 3h-4l-.28 2.4a7 7 0 0 0-2.2 1.28l-2.4-.97-2 3.46 2 1.55A7 7 0 0 0 5 12c0 .44.04.87.12 1.28l-2 1.55 2 3.46 2.4-.97a7 7 0 0 0 2.2 1.28L10 21h4l.28-2.4a7 7 0 0 0 2.2-1.28l2.4.97 2-3.46-2-1.55c.08-.41.12-.84.12-1.28z"/></svg>'
-  };
-
-  function normalizeBottomNav(){
-    document.querySelectorAll('.mb119-nav').forEach(btn=>{
-      const key=btn.dataset.view;
-      if(!key || !icons[key])return;
-      let icon=btn.querySelector('.ico');
-      if(!icon){
-        icon=document.createElement('span');
-        icon.className='ico';
-        btn.prepend(icon);
-      }
-      icon.innerHTML=icons[key];
-    });
+    document.querySelectorAll('#mb119Version strong,#mb119Version .value,[data-app-version]')
+      .forEach(x=>x.textContent=VERSION);
   }
 
   function init(){
+    migrateOldColors();
+    apply(read());
     forceVersion();
-    normalizeBottomNav();
-    // Re-force after late renderers.
-    setTimeout(forceVersion,200);
+
+    const ap=document.querySelector('[data-mb123-settings="appearance"]');
+    if(ap){
+      ap.textContent='Appearance';
+      ap.onclick=()=>setTimeout(buildAppearance,30);
+    }
+
+    // Late renderers sometimes write the old version; correct it again.
+    setTimeout(forceVersion,250);
     setTimeout(forceVersion,1000);
   }
 
