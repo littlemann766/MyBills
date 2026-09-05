@@ -1,3 +1,4 @@
 My Bills
-Build: 125 / 19.1-v125
-v125: full v89 masterState.storage restore + forced reload/render after restore.
+Build: 126 / 19.1-v126
+Reference style: white page + navy interface + cyan accents + white text on navy.
+Bill colors returned to Calendar (collapsed). Spending Week/Month fixed. Tips auto-cycle. Budget summary added.

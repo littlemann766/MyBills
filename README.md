@@ -1,5 +1,5 @@
-# My Bills v125
+# My Bills v126
 
-Build: **125 / 19.1-v125**
+Build: **126 / 19.1-v126**
 
-Restore now recognizes full My Bills backups such as v89 and restores the exact `masterState.storage` snapshot including bills, paychecks, spending, work hours, settings, paid amounts, categories, overrides, budgets, and related data. The app reloads after restore so calculations and tab content are rebuilt from the restored storage.
+This build is styled to match the supplied My Bills reference image: a light/white page, navy cards/headers/navigation, cyan accents, and white text on navy surfaces. It also restores Bill Colors to Calendar in a collapsed section, simplifies Appearance, fixes Spending Week/Month rendering, rotates Smart Money Tips automatically, and adds a visible Budget summary.
