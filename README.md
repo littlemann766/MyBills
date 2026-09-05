@@ -1,5 +1,11 @@
-# My Bills v126
+# My Bills — 20.0.128
 
-Build: **126 / 19.1-v126**
+Official 20.0 release naming begins here.
 
-This build is styled to match the supplied My Bills reference image: a light/white page, navy cards/headers/navigation, cyan accents, and white text on navy surfaces. It also restores Bill Colors to Calendar in a collapsed section, simplifies Appearance, fixes Spending Week/Month rendering, rotates Smart Money Tips automatically, and adds a visible Budget summary.
+Version plan requested:
+- Current: 20.0.128
+- Continue refinement numbers through 20.0.150
+- After 150, reset refinement numbering to 20.1.1
+
+This update uses the navy + cyan + white reference theme across the app.
+No app icon/photo files are included in this update package. Future update packages should not require replacing icon image files.

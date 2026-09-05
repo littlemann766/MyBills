@@ -9803,7 +9803,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>126 / 19.1-v126</strong>
+      <strong>20.0.128</strong>
     </div>
   </section>
 </div>
@@ -9817,10 +9817,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='126 / 19.1-v126';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.128';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=126, BUILD_NAME='19.1-v126', BUILD_LABEL='126 / 19.1-v126';
+  const BUILD_CODE=127, BUILD_NAME='20.0.128', BUILD_LABEL='20.0.128';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10132,7 +10132,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='126 / 19.1-v126';
+  const VERSION='20.0.128';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10377,7 +10377,7 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='126 / 19.1-v126';
+  const VERSION='20.0.128';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10795,7 +10795,7 @@ html,body{
 
 <script id="mb-v126-reference-script">
 (function(){
-  const VERSION='126 / 19.1-v126';
+  const VERSION='20.0.128';
   let autoTipTimer=null;
 
   function money126(n){
@@ -10818,9 +10818,10 @@ html,body{
       const brand=document.createElement('div');
       brand.className='mb126-brand';
 
-      const img=document.createElement('img');
-      img.src='mybills-v126-192.png';
-      img.alt='My Bills';
+      const img=document.createElement('span');
+      img.className='mb128-brand-icon';
+      img.setAttribute('aria-hidden','true');
+      img.textContent='▣';
 
       const copy=document.createElement('div');
       copy.className='mb126-head-copy';
@@ -11009,6 +11010,426 @@ html,body{
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
+})();
+</script>
+
+
+<style id="mb-v127-fixes">
+/* More breathing room around every page so sticky headers and bottom nav never cover controls. */
+.mb119-view{
+  padding-top:calc(8px + env(safe-area-inset-top))!important;
+  padding-bottom:calc(150px + env(safe-area-inset-bottom))!important;
+}
+.mb123-sticky-header{
+  top:0!important;
+  padding-top:calc(16px + env(safe-area-inset-top))!important;
+  min-height:82px!important;
+}
+#mb119BottomNav{
+  padding-bottom:calc(10px + env(safe-area-inset-bottom))!important;
+}
+
+/* Dashboard cards that navigate should feel tappable. */
+.mb127-clickable{
+  cursor:pointer!important;
+  transition:transform .12s ease,box-shadow .12s ease!important;
+}
+.mb127-clickable:active{transform:scale(.985)!important}
+
+/* Spending activity controls */
+.mb127-activity-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:10px 0 6px;
+}
+.mb127-activity-head b{font-size:14px}
+.mb127-spend-actions-row{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px
+}
+.mb127-edit,.mb127-delete{
+  min-height:34px!important;padding:6px 10px!important;border-radius:10px!important;font-weight:850!important
+}
+.mb127-edit{
+  background:#10265d!important;color:#fff!important;border:1px solid #00F5FF!important
+}
+.mb127-delete{
+  background:#fff!important;color:#b42318!important;border:1px solid #e4a6a2!important
+}
+.mb127-badge{
+  display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;
+  margin-left:7px;vertical-align:middle
+}
+.mb127-badge-spend{background:#eef2f7;color:#27364e;border:1px solid #cbd5e1}
+.mb127-badge-bill{background:#10265d;color:#fff;border:1px solid #00F5FF}
+.mb127-bill-row{background:#f8fbff;border-radius:12px;padding-left:10px!important;padding-right:10px!important}
+
+/* Budget modal is budget settings only; no giant tracked-spending list here. */
+#budgetExpenseList{display:none!important}
+#budgetDlg .budget-history-title{display:none!important}
+
+/* Snapshot: clear separation of cash-now vs bills due. */
+.mb127-note{
+  padding:10px 12px;border-radius:12px;background:#eef9fb;border:1px solid #94e6eb;
+  color:#29445b;font-size:12px;line-height:1.4;margin-top:10px
+}
+</style>
+
+<script id="mb-v127-fixes-script">
+(function(){
+  const VERSION='20.0.128';
+
+  function cash127(n){
+    try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
+    catch(e){return '$'+(Number(n)||0).toFixed(2)}
+  }
+  function j127(key,fallback){
+    try{const v=JSON.parse(localStorage.getItem(key)||'null');return v==null?fallback:v}catch(e){return fallback}
+  }
+  function esc127(s){
+    return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))
+  }
+
+  function showMainTab(name){
+    const btn=document.querySelector('.mb119-nav[data-view="'+name+'"]');
+    if(btn){btn.click();return}
+    document.querySelectorAll('.mb119-view').forEach(v=>{
+      v.classList.toggle('active',v.id==='mb119'+name[0].toUpperCase()+name.slice(1));
+    });
+  }
+
+  /* Dashboard cards are now useful navigation, not dead summaries. */
+  function wireDashboardCards(){
+    document.querySelectorAll('#dashboardCards>.card').forEach(card=>{
+      const label=(card.querySelector('.label')?.textContent||'').trim().toLowerCase();
+      let fn=null;
+      if(label==='bills' || label==='remaining')fn=()=>showMainTab('bills');
+      else if(label==='paid')fn=()=>{try{showPaymentHistoryAll()}catch(e){showMainTab('bills')}};
+      else if(label.includes('monthly income'))fn=()=>{try{openPaycheckPlanner()}catch(e){showMainTab('budget')}};
+      else if(label.includes('ytd income'))fn=()=>{try{showFinancialSnapshot()}catch(e){showMainTab('budget')}};
+      if(fn){
+        card.classList.add('mb127-clickable');
+        card.setAttribute('role','button');
+        card.tabIndex=0;
+        card.onclick=fn;
+        card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}};
+      }
+    });
+  }
+
+  /* Actual cash paid in the viewed month through the cutoff.
+     Due-but-unpaid bills do NOT reduce Net right now. */
+  function paidBillsThroughCutoff127(y,m){
+    let cutoff=new Date();
+    try{
+      if(typeof viewedMonthCutoff==='function'){
+        const x=viewedMonthCutoff(y,m);
+        if(x)cutoff=x;
+      }
+    }catch(e){}
+    const cutoffIso=(typeof toISO==='function')?toISO(cutoff):cutoff.toISOString().slice(0,10);
+
+    let total=0;
+    try{
+      if(typeof monthBillOccurrencesV47==='function'){
+        monthBillOccurrencesV47(y,m,true).forEach(({b,iso})=>{
+          if(iso>cutoffIso)return;
+          let status='';
+          try{status=typeof billStatus==='function'?billStatus(b,iso):''}catch(e){}
+          if(status!=='paid' && !b.paid)return;
+          let paid=Number(b.amount)||0;
+          try{
+            if(typeof billPaidAmount==='function'){
+              const x=Number(billPaidAmount(b,iso));
+              if(Number.isFinite(x)&&x>0)paid=x;
+            }
+          }catch(e){}
+          total+=paid;
+        });
+      }
+    }catch(e){}
+    return total;
+  }
+
+  function actualCashValues127(y,m){
+    let income=0,spending=0,savings=0;
+    try{income=typeof incomeThroughCutoff==='function'?incomeThroughCutoff(y,m):0}catch(e){}
+    try{spending=typeof spendingThroughCutoff==='function'?spendingThroughCutoff(y,m):0}catch(e){}
+    try{savings=typeof savingsThroughCutoff==='function'?savingsThroughCutoff(y,m):0}catch(e){}
+    const paidBills=paidBillsThroughCutoff127(y,m);
+    return {income,paidBills,spending,savings,left:income-paidBills-spending-savings};
+  }
+
+  /* Make Available Now use actual paid bills, not bills merely due. */
+  window.myBillsActualNowV127=function(y,m){return actualCashValues127(y,m)};
+
+  const oldNet=window.updateNetRemainingV63;
+  window.updateNetRemainingV63=function(){
+    try{if(oldNet)oldNet.apply(this,arguments)}catch(e){}
+    const el=document.getElementById('netRemainingValue');
+    if(!el)return;
+    const y=calDate.getFullYear(),m=calDate.getMonth();
+    const a=actualCashValues127(y,m);
+    el.textContent=cash127(a.left);
+    const meta=document.getElementById('netRemainingMeta');
+    if(meta){
+      meta.innerHTML=`${cash127(a.income)} income − ${cash127(a.paidBills)} paid bills − ${cash127(a.spending)} spending − ${cash127(a.savings)} savings`;
+    }
+  };
+
+  /* Override the later "actual now" helper if the card uses it. */
+  window.myBillsActualNowV99=function(y,m){
+    const a=actualCashValues127(y,m);
+    return {left:a.left,income:a.income,bills:a.paidBills,spending:a.spending,savings:a.savings};
+  };
+
+  /* Snapshot now keeps due bills informational instead of subtracting them from current cash. */
+  window.showFinancialSnapshot=function(){
+    const y=calDate.getFullYear(),m=calDate.getMonth();
+    const label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    const a=actualCashValues127(y,m);
+
+    let fullIncome=0,fullBills=0,paid=0,remaining=0,budget=0,budgetSpent=0;
+    try{fullIncome=monthlyIncomeFor(y,m)}catch(e){}
+    try{fullBills=monthlyBillsFor(y,m)}catch(e){}
+    try{paid=monthlyPaidFor(y,m)}catch(e){}
+    try{remaining=monthlyRemainingFor(y,m)}catch(e){}
+    try{budget=viewedBudget()}catch(e){}
+    try{budgetSpent=totalBudgetSpent(y,m)}catch(e){}
+    const projected=fullIncome-fullBills-a.spending-a.savings;
+
+    document.getElementById('financialSnapshotTitle').textContent=`Monthly Snapshot — ${label}`;
+    document.getElementById('financialSnapshotContent').innerHTML=`
+      <div class="snapshot-grid">
+        <div class="summary-stat">
+          <div class="label">Net right now</div>
+          <div class="value">${cash127(a.left)}</div>
+          <div class="meta">Only money actually received, paid, spent, or saved</div>
+        </div>
+        <div class="summary-stat">
+          <div class="label">Full-month projection</div>
+          <div class="value">${cash127(projected)}</div>
+          <div class="meta">If all scheduled checks and bills happen</div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Cash right now</h3>
+        <div class="snapshot-row"><span>Income received</span><b>${cash127(a.income)}</b></div>
+        <div class="snapshot-row"><span>Bills actually paid</span><b>${cash127(a.paidBills)}</b></div>
+        <div class="snapshot-row"><span>Spending entered</span><b>${cash127(a.spending)}</b></div>
+        <div class="snapshot-row"><span>Savings added</span><b>${cash127(a.savings)}</b></div>
+        <div class="snapshot-row snapshot-total"><span>Net right now</span><b>${cash127(a.left)}</b></div>
+        <div class="mb127-note">Bills that are due but not paid stay in Bills/Remaining. They no longer reduce Net right now.</div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Bill progress</h3>
+        <div class="snapshot-row"><span>All scheduled bills</span><b>${cash127(fullBills)}</b></div>
+        <div class="snapshot-row"><span>Bills marked paid</span><b>${cash127(paid)}</b></div>
+        <div class="snapshot-row"><span>Bills still due</span><b>${cash127(remaining)}</b></div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Optional full-month view</h3>
+        <div class="snapshot-row"><span>All scheduled checks</span><b>${cash127(fullIncome)}</b></div>
+        <div class="snapshot-row"><span>All scheduled bills</span><b>${cash127(fullBills)}</b></div>
+        <div class="snapshot-row"><span>Spending entered so far</span><b>${cash127(a.spending)}</b></div>
+        ${budget?`<div class="snapshot-row"><span>Budget used</span><b>${cash127(budgetSpent)} / ${cash127(budget)}</b></div>`:''}
+        <div class="snapshot-row snapshot-total"><span>Projected net</span><b>${cash127(projected)}</b></div>
+      </div>`;
+    try{financialSnapshotDlg.showModal()}catch(e){}
+  };
+
+  /* Spending: edit/delete manual entries in the Spending tab, and show paid bills as Bill rows. */
+  function spendRows127(){
+    const rows=j127('myBills_budget_spending_v1',[]);
+    return Array.isArray(rows)?rows:[];
+  }
+  function spendDate127(x){
+    const raw=x.enteredAt||x.createdAt||x.timestamp||x.date;
+    if(!raw)return null;
+    if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return new Date(raw+'T12:00:00');
+    const d=new Date(raw);return isNaN(d)?null:d;
+  }
+  function rangeBounds127(range){
+    const now=new Date();let start;
+    if(range==='month')start=new Date(now.getFullYear(),now.getMonth(),1);
+    else{start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
+    return {start,now};
+  }
+  function paidBillActivity127(start,now){
+    const rows=[];
+    const metas=j127('myBills_payment_meta_v1',{});
+    try{
+      const months=new Set();
+      let d=new Date(start.getFullYear(),start.getMonth(),1);
+      const endM=new Date(now.getFullYear(),now.getMonth(),1);
+      while(d<=endM){months.add(d.getFullYear()+'-'+d.getMonth());d.setMonth(d.getMonth()+1)}
+      months.forEach(k=>{
+        const [y,m]=k.split('-').map(Number);
+        if(typeof monthBillOccurrencesV47!=='function')return;
+        monthBillOccurrencesV47(y,m,true).forEach(({b,iso})=>{
+          let status='';try{status=billStatus(b,iso)}catch(e){}
+          if(status!=='paid'&&!b.paid)return;
+          const meta=metas[(b.id||'')+'|'+iso]||{};
+          const d=spendDate127({date:meta.date||iso});
+          if(!d||d<start||d>now)return;
+          let amount=Number(b.amount)||0;
+          try{
+            const x=Number(billPaidAmount(b,iso));if(Number.isFinite(x)&&x>0)amount=x;
+          }catch(e){}
+          rows.push({kind:'bill',id:b.id+'|'+iso,name:b.name,amount,date:d,iso,category:b.category||'Bill'});
+        });
+      });
+    }catch(e){}
+    return rows;
+  }
+
+  window.mb127EditSpend=function(id){
+    const rows=spendRows127();
+    const row=rows.find(x=>String(x.id)===String(id));if(!row)return;
+    const name=prompt('Spending name',row.name||'');if(name===null)return;
+    const amountRaw=prompt('Amount',String(Number(row.amount)||0));if(amountRaw===null)return;
+    const amount=Number(amountRaw);if(!Number.isFinite(amount)||amount<=0){alert('Enter a valid amount.');return}
+    const date=prompt('Date (YYYY-MM-DD)',row.date||new Date().toISOString().slice(0,10));if(date===null)return;
+    const notes=prompt('Notes',row.notes||'');if(notes===null)return;
+    Object.assign(row,{name:name.trim()||'Spending',amount,date,notes});
+    localStorage.setItem('myBills_budget_spending_v1',JSON.stringify(rows));
+    try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(rows)}catch(e){}
+    renderActivity127(currentRange127());
+    try{if(typeof updateFinanceDashboard==='function')updateFinanceDashboard()}catch(e){}
+  };
+  window.mb127DeleteSpend=function(id){
+    const rows=spendRows127();
+    const row=rows.find(x=>String(x.id)===String(id));
+    if(!confirm(`Delete ${row?.name||'this spending entry'}?`))return;
+    const next=rows.filter(x=>String(x.id)!==String(id));
+    localStorage.setItem('myBills_budget_spending_v1',JSON.stringify(next));
+    try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(next)}catch(e){}
+    renderActivity127(currentRange127());
+    try{if(typeof updateFinanceDashboard==='function')updateFinanceDashboard()}catch(e){}
+  };
+  window.mb127OpenBill=function(id,iso){
+    try{if(typeof showBill==='function')showBill(id,iso)}catch(e){showMainTab('bills')}
+  };
+
+  function currentRange127(){
+    return document.querySelector('[data-mb119-range].active')?.dataset.mb119Range||'week';
+  }
+  function renderActivity127(range){
+    const host=document.getElementById('mb119SpendList'),total=document.getElementById('mb119SpendTotal');
+    if(!host||!total)return;
+    const {start,now}=rangeBounds127(range);
+
+    const spends=spendRows127().map(x=>({...x,_d:spendDate127(x)}))
+      .filter(x=>x._d&&x._d>=start&&x._d<=now)
+      .map(x=>({...x,kind:'spend',dateObj:x._d}));
+    const bills=paidBillActivity127(start,now).map(x=>({...x,dateObj:x.date}));
+    const all=[...spends,...bills].sort((a,b)=>b.dateObj-a.dateObj);
+
+    total.textContent=`${cash127(spends.reduce((s,x)=>s+(Number(x.amount)||0),0))} ${range==='month'?'this month':'this week'} spending`;
+
+    host.innerHTML=all.length?all.map(x=>{
+      if(x.kind==='bill'){
+        return `<div class="mb119-ledger-item mb127-bill-row">
+          <div class="mb119-ledger-title">${esc127(x.name)} <span class="mb127-badge mb127-badge-bill">Bill</span></div>
+          <div class="mb119-ledger-amt">${cash127(x.amount)}</div>
+          <div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()} • ${esc127(x.category)}</div>
+          <div class="mb127-spend-actions-row"><button class="mb127-edit" type="button" onclick="mb127OpenBill('${x.id}','${x.iso}')">View Bill</button></div>
+        </div>`;
+      }
+      return `<div class="mb119-ledger-item">
+        <div class="mb119-ledger-title">${esc127(x.name||'Spending')} <span class="mb127-badge mb127-badge-spend">Spending</span></div>
+        <div class="mb119-ledger-amt">${cash127(x.amount)}</div>
+        <div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()}${x.notes?' • '+esc127(x.notes):''}</div>
+        <div class="mb127-spend-actions-row">
+          <button class="mb127-edit" type="button" onclick="mb127EditSpend('${x.id}')">Edit</button>
+          <button class="mb127-delete" type="button" onclick="mb127DeleteSpend('${x.id}')">Delete</button>
+        </div>
+      </div>`;
+    }).join(''):'<div style="padding:10px 0;color:#64748b">No activity for this period.</div>';
+  }
+
+  function wireActivity127(){
+    document.querySelectorAll('[data-mb119-range]').forEach(btn=>{
+      btn.onclick=()=>{
+        document.querySelectorAll('[data-mb119-range]').forEach(b=>b.classList.toggle('active',b===btn));
+        renderActivity127(btn.dataset.mb119Range);
+      };
+    });
+    renderActivity127(currentRange127());
+  }
+
+  /* Budget modal: only budget/limit controls. Spending management lives in Spending. */
+  const oldOpenBudget=window.openBudgetDlg;
+  window.openBudgetDlg=function(){
+    if(oldOpenBudget)oldOpenBudget.apply(this,arguments);
+    const list=document.getElementById('budgetExpenseList');
+    if(list)list.style.display='none';
+    const title=document.querySelector('#budgetDlg .budget-history-title');
+    if(title)title.style.display='none';
+  };
+
+  function init127(){
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
+    wireDashboardCards();
+    wireActivity127();
+    setTimeout(()=>{try{window.updateNetRemainingV63()}catch(e){}},80);
+
+    document.querySelectorAll('.mb119-nav').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(btn.dataset.view==='spending')setTimeout(()=>renderActivity127(currentRange127()),40);
+      });
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init127,{once:true});
+  else init127();
+})();
+</script>
+
+
+<style id="mb-v128-official-theme">
+:root{--mb128-navy:#0b1f4c;--mb128-navy-hi:#12356f;--mb128-cyan:#00F5FF;--mb128-page:#f7f9fc;--mb128-white:#fff;--mb128-muted:#b9c7da;--mb128-ink:#10203d}
+html,body,#mb119Shell,.mb119-view{background:var(--mb128-page)!important}
+.mb123-sticky-header{background:linear-gradient(135deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border-bottom:3px solid var(--mb128-cyan)!important}
+.mb123-sticky-header *{color:#fff!important}.mb123-sticky-header .mb119-sub{color:var(--mb128-muted)!important}
+.mb128-brand-icon{width:34px;height:34px;border:2px solid var(--mb128-cyan);border-radius:8px;display:grid;place-items:center;color:var(--mb128-cyan)!important;font-size:23px;font-weight:900;flex:0 0 auto}
+/* Primary app cards and actions match the supplied navy/cyan reference. */
+#dashboardCards>.card,#mb119Home .card[onclick*="showHoursWeeks"],#financeStatusCard,#availableNowCard,#mb119Tips,
+.mb126-budget-card,#mb119Budget .mb119-tool-grid button,#mb119Budget .mb119-settings-grid button,
+#mb119Settings .mb119-settings-grid button,#mb119Home .mb119-tool-grid button,.quick-actions button{
+ background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:3px solid var(--mb128-cyan)!important;box-shadow:0 7px 18px rgba(7,24,58,.13)!important}
+#dashboardCards>.card *,#mb119Home .card[onclick*="showHoursWeeks"] *,#financeStatusCard *,#availableNowCard *,#mb119Tips *,
+#mb119Budget .mb119-tool-grid button *,#mb119Budget .mb119-settings-grid button *,#mb119Settings .mb119-settings-grid button *{color:#fff!important;opacity:1!important}
+/* Bills use navy cards, white readable text, cyan outlines. */
+#mb119Bills .bill{background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
+#mb119Bills .bill .name,#mb119Bills .bill .amount,#mb119Bills .bill b,#mb119Bills .bill strong{color:#fff!important}
+#mb119Bills .bill .meta{color:var(--mb128-muted)!important}
+/* Spending keeps entries readable but controls/tabs carry the official theme. */
+#mb119Spending .mb119-spend-form{background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
+#mb119Spending .mb119-spend-form label,#mb119Spending .mb119-spend-form h2,#mb119Spending .mb119-spend-form h3{color:#fff!important}
+#mb119Spending .mb119-spend-form input{background:#fff!important;color:var(--mb128-ink)!important}
+.mb119-range button{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}.mb119-range button.active{color:var(--mb128-cyan)!important}
+.mb127-edit,.mb127-delete{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important;border-radius:12px!important}
+/* Calendar remains a clean white calendar, with themed chrome and bill-color control. */
+#mb119Calendar .calendar-wrap{background:#fff!important;border:2px solid var(--mb128-cyan)!important}
+#mb126BillColorsBtn{background:var(--mb128-navy)!important;color:#fff!important;border-bottom:2px solid var(--mb128-cyan)!important}
+/* Dialog headers/actions follow theme while dialog bodies stay readable. */
+dialog .form-actions button,dialog button.primary{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
+dialog h2,dialog h3{color:var(--mb128-ink)!important}
+/* Fixed bottom navigation exactly follows the reference. */
+#mb119BottomNav{background:linear-gradient(180deg,var(--mb128-navy),#071936)!important;border-top:2px solid var(--mb128-cyan)!important}
+.mb119-nav{color:#c8d3e5!important;background:transparent!important}.mb119-nav.active{color:var(--mb128-cyan)!important;background:transparent!important}
+/* Simple appearance: one official theme; no complex individual app-color editor. */
+#mb126SimpleAppearance{background:#fff!important;border:2px solid var(--mb128-cyan)!important}
+#mb126SimpleAppearance .mb126-preset{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
+</style>
+<script id="mb-v128-release-label">
+(function(){
+ const VERSION='20.0.128';
+ window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
+ window.MYBILLS_BUILD_CODE=128; window.MYBILLS_BUILD_NAME=VERSION; window.MYBILLS_BUILD_LABEL=VERSION;
+ function setV(){document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);try{localStorage.setItem('myBills_last_loaded_build','128')}catch(e){}}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setV,{once:true});else setV();
 })();
 </script>
 
