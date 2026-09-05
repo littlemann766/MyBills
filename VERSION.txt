@@ -1,3 +1,3 @@
-My Bills GitHub Pages replacement
-Build: 118 / 19.1-v118
-Upload the CONTENTS of this ZIP to the ROOT of the MyBills GitHub repository.
+My Bills
+Build: 120 / 19.1-v120
+Icon reset: new unique filenames, no tagline
