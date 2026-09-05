@@ -1,4 +1,3 @@
 My Bills
-Build: 126 / 19.1-v126
-Reference style: white page + navy interface + cyan accents + white text on navy.
-Bill colors returned to Calendar (collapsed). Spending Week/Month fixed. Tips auto-cycle. Budget summary added.
+Version: 20.0.130
+Fix: Monthly Budget finance card restored, readable, navy/cyan/white, clickable.

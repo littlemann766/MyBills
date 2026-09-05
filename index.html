@@ -9803,7 +9803,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.0.128</strong>
+      <strong>20.0.130</strong>
     </div>
   </section>
 </div>
@@ -9817,10 +9817,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.128';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.130';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=127, BUILD_NAME='20.0.128', BUILD_LABEL='20.0.128';
+  const BUILD_CODE=130, BUILD_NAME='20.0.130', BUILD_LABEL='20.0.130';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10132,7 +10132,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.0.128';
+  const VERSION='20.0.130';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10377,7 +10377,7 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.0.128';
+  const VERSION='20.0.130';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10795,7 +10795,7 @@ html,body{
 
 <script id="mb-v126-reference-script">
 (function(){
-  const VERSION='20.0.128';
+  const VERSION='20.0.130';
   let autoTipTimer=null;
 
   function money126(n){
@@ -10818,10 +10818,9 @@ html,body{
       const brand=document.createElement('div');
       brand.className='mb126-brand';
 
-      const img=document.createElement('span');
-      img.className='mb128-brand-icon';
-      img.setAttribute('aria-hidden','true');
-      img.textContent='▣';
+      const img=document.createElement('img');
+      img.src='mybills-v126-192.png';
+      img.alt='My Bills';
 
       const copy=document.createElement('div');
       copy.className='mb126-head-copy';
@@ -11075,7 +11074,7 @@ html,body{
 
 <script id="mb-v127-fixes-script">
 (function(){
-  const VERSION='20.0.128';
+  const VERSION='20.0.130';
 
   function cash127(n){
     try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
@@ -11387,49 +11386,408 @@ html,body{
 </script>
 
 
-<style id="mb-v128-official-theme">
-:root{--mb128-navy:#0b1f4c;--mb128-navy-hi:#12356f;--mb128-cyan:#00F5FF;--mb128-page:#f7f9fc;--mb128-white:#fff;--mb128-muted:#b9c7da;--mb128-ink:#10203d}
-html,body,#mb119Shell,.mb119-view{background:var(--mb128-page)!important}
-.mb123-sticky-header{background:linear-gradient(135deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border-bottom:3px solid var(--mb128-cyan)!important}
-.mb123-sticky-header *{color:#fff!important}.mb123-sticky-header .mb119-sub{color:var(--mb128-muted)!important}
-.mb128-brand-icon{width:34px;height:34px;border:2px solid var(--mb128-cyan);border-radius:8px;display:grid;place-items:center;color:var(--mb128-cyan)!important;font-size:23px;font-weight:900;flex:0 0 auto}
-/* Primary app cards and actions match the supplied navy/cyan reference. */
-#dashboardCards>.card,#mb119Home .card[onclick*="showHoursWeeks"],#financeStatusCard,#availableNowCard,#mb119Tips,
-.mb126-budget-card,#mb119Budget .mb119-tool-grid button,#mb119Budget .mb119-settings-grid button,
-#mb119Settings .mb119-settings-grid button,#mb119Home .mb119-tool-grid button,.quick-actions button{
- background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:3px solid var(--mb128-cyan)!important;box-shadow:0 7px 18px rgba(7,24,58,.13)!important}
-#dashboardCards>.card *,#mb119Home .card[onclick*="showHoursWeeks"] *,#financeStatusCard *,#availableNowCard *,#mb119Tips *,
-#mb119Budget .mb119-tool-grid button *,#mb119Budget .mb119-settings-grid button *,#mb119Settings .mb119-settings-grid button *{color:#fff!important;opacity:1!important}
-/* Bills use navy cards, white readable text, cyan outlines. */
-#mb119Bills .bill{background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
-#mb119Bills .bill .name,#mb119Bills .bill .amount,#mb119Bills .bill b,#mb119Bills .bill strong{color:#fff!important}
-#mb119Bills .bill .meta{color:var(--mb128-muted)!important}
-/* Spending keeps entries readable but controls/tabs carry the official theme. */
-#mb119Spending .mb119-spend-form{background:linear-gradient(145deg,var(--mb128-navy-hi),var(--mb128-navy))!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
-#mb119Spending .mb119-spend-form label,#mb119Spending .mb119-spend-form h2,#mb119Spending .mb119-spend-form h3{color:#fff!important}
-#mb119Spending .mb119-spend-form input{background:#fff!important;color:var(--mb128-ink)!important}
-.mb119-range button{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}.mb119-range button.active{color:var(--mb128-cyan)!important}
-.mb127-edit,.mb127-delete{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important;border-radius:12px!important}
-/* Calendar remains a clean white calendar, with themed chrome and bill-color control. */
-#mb119Calendar .calendar-wrap{background:#fff!important;border:2px solid var(--mb128-cyan)!important}
-#mb126BillColorsBtn{background:var(--mb128-navy)!important;color:#fff!important;border-bottom:2px solid var(--mb128-cyan)!important}
-/* Dialog headers/actions follow theme while dialog bodies stay readable. */
-dialog .form-actions button,dialog button.primary{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
-dialog h2,dialog h3{color:var(--mb128-ink)!important}
-/* Fixed bottom navigation exactly follows the reference. */
-#mb119BottomNav{background:linear-gradient(180deg,var(--mb128-navy),#071936)!important;border-top:2px solid var(--mb128-cyan)!important}
-.mb119-nav{color:#c8d3e5!important;background:transparent!important}.mb119-nav.active{color:var(--mb128-cyan)!important;background:transparent!important}
-/* Simple appearance: one official theme; no complex individual app-color editor. */
-#mb126SimpleAppearance{background:#fff!important;border:2px solid var(--mb128-cyan)!important}
-#mb126SimpleAppearance .mb126-preset{background:var(--mb128-navy)!important;color:#fff!important;border:2px solid var(--mb128-cyan)!important}
+<style id="mb-20-0-129-theme">
+:root{
+  --m129-page:#f7f9fc;
+  --m129-navy:#172554;
+  --m129-navy2:#10265d;
+  --m129-cyan:#00F5FF;
+  --m129-white:#ffffff;
+  --m129-muted:#b8c6da;
+}
+
+/* The page is light; the interface surfaces are navy/cyan like the agreed reference. */
+html,body,#mb119Shell,.mb119-view{
+  background:var(--m129-page)!important;
+  color:#10203d!important;
+}
+
+/* Sticky headers */
+.mb123-sticky-header{
+  background:linear-gradient(135deg,var(--m129-navy2),#091c42)!important;
+  border-bottom:3px solid var(--m129-cyan)!important;
+  color:#fff!important;
+  padding-top:calc(20px + env(safe-area-inset-top))!important;
+  padding-bottom:16px!important;
+  min-height:92px!important;
+}
+.mb123-sticky-header .mb119-title,
+.mb123-sticky-header .mb119-sub{color:#fff!important}
+.mb123-sticky-header .mb119-sub{opacity:.82!important}
+
+/* All home dashboard tiles start navy. */
+#dashboardCards>.card,
+#mb119Home .card[onclick*="showHoursWeeks"],
+#financeStatusCard,
+#availableNowCard,
+#mb119Tips,
+.mb126-budget-card{
+  background:linear-gradient(145deg,var(--m129-navy),#10204a)!important;
+  color:#fff!important;
+  border:3px solid var(--m129-cyan)!important;
+}
+#dashboardCards>.card *,
+#mb119Home .card[onclick*="showHoursWeeks"] *,
+#financeStatusCard *,
+#availableNowCard *,
+#mb119Tips *,
+.mb126-budget-card *{
+  color:#fff!important;
+  opacity:1!important;
+}
+#dashboardCards>.card .label,
+#mb119Home .card[onclick*="showHoursWeeks"] .label,
+#financeStatusCard .label,
+.mb126-budget-label{color:#c9d5e7!important}
+
+/* Hide the legacy finance card only when it truly contains no useful text. */
+#financeStatusCard.mb129-empty{display:none!important}
+
+/* Quick actions and tool cards */
+.quick-actions button,
+.mb119-tool-grid button,
+.mb119-settings-grid button,
+.mb119-spend-actions button{
+  background:var(--m129-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--m129-cyan)!important;
+}
+.quick-actions button *,.mb119-tool-grid button *,.mb119-settings-grid button *{color:#fff!important}
+
+/* Bottom nav is always navy, not white. */
+#mb119BottomNav{
+  background:linear-gradient(180deg,#0b1f4c,#091936)!important;
+  border-top:3px solid var(--m129-cyan)!important;
+  box-shadow:0 -8px 22px rgba(9,25,54,.24)!important;
+}
+.mb119-nav{
+  background:transparent!important;
+  color:#d7e1ef!important;
+  border:0!important;
+}
+.mb119-nav.active{
+  background:rgba(0,245,255,.07)!important;
+  color:var(--m129-cyan)!important;
+  border:1px solid rgba(0,245,255,.35)!important;
+}
+.mb119-nav .ico{color:inherit!important}
+
+/* Ensure enough room to fully reveal controls and expanded sections. */
+.mb119-view{
+  padding-bottom:calc(230px + env(safe-area-inset-bottom))!important;
+}
+#mb119Settings,#mb119Calendar,#mb119Bills,#mb119Spending,#mb119Budget,#mb119Home{
+  scroll-padding-bottom:240px!important;
+}
+
+/* Calendar stays white, but its controls use navy. */
+#mb119Calendar .calendar-wrap{
+  background:#fff!important;
+  border:2px solid #52c8cf!important;
+  color:#10203d!important;
+}
+#mb119Calendar .calendar-top button,
+#mb119Calendar .calendar-nav button{
+  background:var(--m129-navy)!important;
+  color:#fff!important;
+  border:1px solid var(--m129-cyan)!important;
+}
+
+/* Only the new collapsed Bill Colors control is shown. */
+#legendToggle{display:none!important}
+#legend{display:none!important}
+#mb126BillColorsWrap{display:block!important}
+#mb126BillColorsWrap.open #legend{display:grid!important}
+
+/* Spending */
+#mb119Spending .mb119-spend-form,
+#mb119Spending .mb119-ledger{
+  background:#fff!important;
+  color:#10203d!important;
+  border:2px solid #52c8cf!important;
+}
+#mb119Spending input{
+  background:#fff!important;
+  color:#10203d!important;
+}
+.mb119-range button{
+  background:var(--m129-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--m129-cyan)!important;
+}
+.mb119-range button.active{
+  background:#0c1d43!important;
+  color:var(--m129-cyan)!important;
+}
+
+/* Settings Appearance: simple custom colors. */
+#mb129Appearance{
+  background:#fff!important;
+  border:2px solid #52c8cf!important;
+  border-radius:18px!important;
+  padding:14px!important;
+  margin-bottom:12px!important;
+}
+.mb129-color-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.mb129-color-row{
+  display:grid;
+  grid-template-columns:1fr 54px;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid #d7e1ea;
+  border-radius:12px;
+}
+.mb129-color-row label{
+  font-weight:850;
+  color:#10203d!important;
+}
+.mb129-color-row input[type="color"]{
+  width:54px!important;
+  height:42px!important;
+  padding:2px!important;
+  border:1px solid #9fb0c2!important;
+  background:#fff!important;
+}
+.mb129-appearance-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+.mb129-appearance-actions button{
+  min-height:48px;
+  border-radius:12px!important;
+  font-weight:900!important;
+}
+#mb129SaveTheme{
+  background:var(--m129-navy)!important;color:#fff!important;border:2px solid var(--m129-cyan)!important
+}
+#mb129ResetTheme{
+  background:#fff!important;color:#10203d!important;border:2px solid #b8c5d5!important
+}
+
+/* Hide old appearance editors/buttons so only the simple one remains. */
+#mb126SimpleAppearance,
+#mb123SettingsPanel .settings-section:has(input[type="color"]),
+#mb123SettingsPanel .settings-section:has(input[id*="Hex"]),
+#mb123SettingsPanel .settings-section:has(input[id*="headerColor"]),
+#mb123SettingsPanel .settings-section:has(input[id*="cardColor"]){
+  display:none!important;
+}
+
+/* App version card navy. */
+#mb119Version{
+  background:var(--m129-navy)!important;
+  color:#fff!important;
+  border:3px solid var(--m129-cyan)!important;
+}
+#mb119Version *{color:#fff!important}
+#mb119Version b{color:var(--m129-cyan)!important}
+
+@media(max-width:560px){
+  .mb129-color-grid{grid-template-columns:1fr}
+  .mb129-appearance-actions{grid-template-columns:1fr}
+}
 </style>
-<script id="mb-v128-release-label">
+
+<script id="mb-20-0-129-script">
 (function(){
- const VERSION='20.0.128';
- window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
- window.MYBILLS_BUILD_CODE=128; window.MYBILLS_BUILD_NAME=VERSION; window.MYBILLS_BUILD_LABEL=VERSION;
- function setV(){document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);try{localStorage.setItem('myBills_last_loaded_build','128')}catch(e){}}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setV,{once:true});else setV();
+  const VERSION='20.0.130';
+  const KEY='myBills_simple_theme_20_0';
+
+  function readTheme(){
+    try{return JSON.parse(localStorage.getItem(KEY)||'null')||{}}catch(e){return{}}
+  }
+  function applySimpleTheme(theme){
+    const root=document.documentElement;
+    root.style.setProperty('--m129-navy',theme.navy||'#172554');
+    root.style.setProperty('--m129-navy2',theme.navy||'#172554');
+    root.style.setProperty('--m129-cyan',theme.accent||'#00F5FF');
+    root.style.setProperty('--m129-page',theme.page||'#F7F9FC');
+    root.style.setProperty('--m129-white',theme.text||'#FFFFFF');
+  }
+
+  function buildAppearance(){
+    const panel=document.getElementById('mb123SettingsPanel');
+    if(!panel || document.getElementById('mb129Appearance'))return;
+
+    const t=readTheme();
+    const box=document.createElement('div');
+    box.id='mb129Appearance';
+    box.innerHTML=`
+      <h3 style="margin:0 0 6px">Appearance</h3>
+      <p style="margin:0 0 12px;color:#64748b">Simple app colors. Changes apply to the whole app.</p>
+      <div class="mb129-color-grid">
+        <div class="mb129-color-row"><label for="mb129Navy">Navy interface</label><input id="mb129Navy" type="color" value="${t.navy||'#172554'}"></div>
+        <div class="mb129-color-row"><label for="mb129Accent">Accent / border</label><input id="mb129Accent" type="color" value="${t.accent||'#00F5FF'}"></div>
+        <div class="mb129-color-row"><label for="mb129Page">Page background</label><input id="mb129Page" type="color" value="${t.page||'#F7F9FC'}"></div>
+        <div class="mb129-color-row"><label for="mb129Text">Text on navy</label><input id="mb129Text" type="color" value="${t.text||'#FFFFFF'}"></div>
+      </div>
+      <div class="mb129-appearance-actions">
+        <button id="mb129SaveTheme" type="button">Save Colors</button>
+        <button id="mb129ResetTheme" type="button">Reset Official Colors</button>
+      </div>`;
+
+    panel.prepend(box);
+
+    const save=()=>{
+      const theme={
+        navy:document.getElementById('mb129Navy').value,
+        accent:document.getElementById('mb129Accent').value,
+        page:document.getElementById('mb129Page').value,
+        text:document.getElementById('mb129Text').value
+      };
+      localStorage.setItem(KEY,JSON.stringify(theme));
+      applySimpleTheme(theme);
+    };
+    ['mb129Navy','mb129Accent','mb129Page','mb129Text'].forEach(id=>{
+      document.getElementById(id).addEventListener('input',save);
+    });
+    document.getElementById('mb129SaveTheme').onclick=save;
+    document.getElementById('mb129ResetTheme').onclick=()=>{
+      localStorage.removeItem(KEY);
+      applySimpleTheme({});
+      document.getElementById('mb129Navy').value='#172554';
+      document.getElementById('mb129Accent').value='#00F5FF';
+      document.getElementById('mb129Page').value='#F7F9FC';
+      document.getElementById('mb129Text').value='#FFFFFF';
+    };
+  }
+
+  function cleanBlank(){
+    const card=document.getElementById('financeStatusCard');
+    if(card && !(card.textContent||'').trim())card.classList.add('mb129-empty');
+  }
+
+  function init(){
+    applySimpleTheme(readTheme());
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
+
+    const ap=document.querySelector('[data-mb123-settings="appearance"]');
+    if(ap){
+      ap.textContent='Appearance';
+      ap.addEventListener('click',()=>setTimeout(buildAppearance,40));
+    }
+    setTimeout(cleanBlank,100);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
+
+
+<style id="mb-20-0-130-finance-card">
+#financeStatusCard{
+  display:block!important;
+  background:linear-gradient(145deg,#172554,#10265d)!important;
+  color:#fff!important;
+  border:3px solid #00F5FF!important;
+  border-radius:22px!important;
+  padding:16px 18px!important;
+  box-shadow:0 8px 22px rgba(10,31,76,.14)!important;
+  cursor:pointer!important;
+}
+#financeStatusCard *{
+  color:#fff!important;
+  opacity:1!important;
+}
+#financeStatusMain{
+  font-size:18px!important;
+  font-weight:950!important;
+  color:#fff!important;
+}
+#financeStatusSub{
+  margin-top:5px!important;
+  color:#c8d3e5!important;
+  font-size:13px!important;
+  line-height:1.4!important;
+}
+#financeStatusCard::before{
+  content:'Monthly Budget';
+  display:block;
+  color:#c8d3e5;
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:4px;
+}
+#financeStatusCard::after{
+  content:'Tap to open';
+  display:block;
+  color:#c8d3e5;
+  font-size:11px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+/* Prevent older cleanup code from hiding the budget card. */
+#financeStatusCard.mb129-empty{display:block!important}
+</style>
+
+<script id="mb-20-0-130-finance-card-script">
+(function(){
+  const VERSION='20.0.130';
+
+  function refreshBudgetCard(){
+    const card=document.getElementById('financeStatusCard');
+    const main=document.getElementById('financeStatusMain');
+    const sub=document.getElementById('financeStatusSub');
+    if(!card||!main||!sub)return;
+
+    let y,m,budget=0,spent=0,left=0,pct=0;
+    try{
+      const d=(typeof calDate!=='undefined' && calDate instanceof Date)?calDate:new Date();
+      y=d.getFullYear(); m=d.getMonth();
+      if(typeof viewedBudget==='function')budget=Number(viewedBudget())||0;
+      if(typeof totalBudgetSpent==='function')spent=Number(totalBudgetSpent(y,m))||0;
+      left=budget-spent;
+      pct=budget>0?Math.round((spent/budget)*100):0;
+    }catch(e){}
+
+    if(budget>0){
+      main.textContent=`${typeof money==='function'?money(spent):'$'+spent.toFixed(2)} / ${typeof money==='function'?money(budget):'$'+budget.toFixed(2)}`;
+      sub.textContent=`${pct}% used • ${typeof money==='function'?money(left):'$'+left.toFixed(2)} left`;
+    }else{
+      main.textContent='Set monthly budget';
+      sub.textContent='Tap to set a budget and track spending.';
+    }
+
+    card.onclick=()=>{
+      try{
+        if(typeof openBudgetDlg==='function')openBudgetDlg();
+      }catch(e){}
+    };
+  }
+
+  function init(){
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
+    refreshBudgetCard();
+
+    document.querySelectorAll('.mb119-nav').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(btn.dataset.view==='home')setTimeout(refreshBudgetCard,40);
+      });
+    });
+
+    const oldRender=window.render;
+    if(typeof oldRender==='function' && !oldRender.__mb130wrapped){
+      const wrapped=function(){
+        const r=oldRender.apply(this,arguments);
+        setTimeout(refreshBudgetCard,0);
+        return r;
+      };
+      wrapped.__mb130wrapped=true;
+      window.render=wrapped;
+    }
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
 })();
 </script>
 
