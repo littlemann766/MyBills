@@ -1,2 +1,9 @@
-Upload this ZIP to the repository root as MyBills_update.zip.
-Version: 20.0.133
+MY BILLS UPDATE PACKAGE
+Version: 20.0.134
+
+Upload this ZIP itself to the ROOT of the GitHub repository with the exact filename:
+MyBills_update.zip
+
+Do NOT extract it before uploading.
+The existing 'Apply My Bills Update' GitHub Action will extract it, replace the included files,
+delete MyBills_update.zip, commit the update, and then the APK build workflow will run.
