@@ -62,6 +62,9 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
         webView.setWebViewClient(new WebViewClient());
 
+        webView.clearCache(true);
+        webView.clearHistory();
+
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onShowFileChooser(
@@ -90,6 +93,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // v122: this is the ONLY Android UI source.
         webView.loadUrl("file:///android_asset/index.html");
     }
 

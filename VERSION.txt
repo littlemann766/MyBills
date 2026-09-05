@@ -1,4 +1,5 @@
 My Bills
-Build: 121 / 19.1-v121
-GitHub one-file update package
-No-tagline icon forced across PWA, old icon names, and Android launcher resources
+Build: 122 / 19.1-v122
+Android source: app/src/main/assets/index.html ONLY
+MainActivity: file:///android_asset/index.html
+WebView cache: cleared on launch

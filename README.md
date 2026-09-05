@@ -1,5 +1,5 @@
-# My Bills v121
+# My Bills v122
 
-GitHub / app build: **121 / 19.1-v121**
+Build: **122 / 19.1-v122**
 
-This release synchronizes the clean UI across GitHub Pages and Android assets, forces the no-tagline icon through new and legacy icon filenames, and uses a new service-worker cache.
+This release makes `app/src/main/assets/index.html` the single authoritative Android UI source. The older `app/src/index.html` is intentionally reduced to an unused marker page. MainActivity loads only the bundled asset and clears WebView cache before loading it.
