@@ -1,3 +1,0 @@
-UPLOAD THIS ZIP AS MyBills_update.zip TO THE ROOT OF YOUR GITHUB REPOSITORY.
-Your existing 'Apply My Bills Update' GitHub Action will extract it and commit the update automatically.
-Build: 121 / 19.1-v121
