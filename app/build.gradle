@@ -8,8 +8,8 @@ android {
         applicationId 'com.mybills.app'
         minSdk 26
         targetSdk 35
-        versionCode 130
-        versionName '20.0.130'
+        versionCode 131
+        versionName '20.0.131'
     }
 }
 

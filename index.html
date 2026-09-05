@@ -9803,7 +9803,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.0.130</strong>
+      <strong>20.0.131</strong>
     </div>
   </section>
 </div>
@@ -9817,10 +9817,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.130';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.131';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=130, BUILD_NAME='20.0.130', BUILD_LABEL='20.0.130';
+  const BUILD_CODE=131, BUILD_NAME='20.0.131', BUILD_LABEL='20.0.131';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10132,7 +10132,7 @@ body:not(.theme-dark) .mb119-nav.active{
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10377,7 +10377,7 @@ body:not(.theme-dark) #mb123BillColors .legend-item label{color:#14213a!importan
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10795,7 +10795,7 @@ html,body{
 
 <script id="mb-v126-reference-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
   let autoTipTimer=null;
 
   function money126(n){
@@ -11074,7 +11074,7 @@ html,body{
 
 <script id="mb-v127-fixes-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
 
   function cash127(n){
     try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
@@ -11597,7 +11597,7 @@ html,body,#mb119Shell,.mb119-view{
 
 <script id="mb-20-0-129-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
   const KEY='myBills_simple_theme_20_0';
 
   function readTheme(){
@@ -11731,7 +11731,7 @@ html,body,#mb119Shell,.mb119-view{
 
 <script id="mb-20-0-130-finance-card-script">
 (function(){
-  const VERSION='20.0.130';
+  const VERSION='20.0.131';
 
   function refreshBudgetCard(){
     const card=document.getElementById('financeStatusCard');
@@ -11784,6 +11784,363 @@ html,body,#mb119Shell,.mb119-view{
       wrapped.__mb130wrapped=true;
       window.render=wrapped;
     }
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
+
+
+<style id="mb-20-0-131-baseline-lock">
+:root{
+  --b131-page:#f6f8fc;
+  --b131-navy:#0f2457;
+  --b131-navy2:#091a3f;
+  --b131-cyan:#00f5ff;
+  --b131-white:#ffffff;
+  --b131-muted:#c2ccda;
+}
+
+/* Baseline screenshot lock: light page + navy/cyan interface */
+html,body,#mb119Shell,.mb119-view{
+  background:var(--b131-page)!important;
+  color:#12213c!important;
+}
+
+/* Top sticky headers */
+.mb123-sticky-header{
+  background:linear-gradient(135deg,var(--b131-navy),var(--b131-navy2))!important;
+  color:#fff!important;
+  border-bottom:3px solid var(--b131-cyan)!important;
+  box-shadow:0 6px 18px rgba(9,26,63,.18)!important;
+}
+.mb123-sticky-header *{color:#fff!important}
+
+/* Home cards */
+#dashboardCards>.card,
+#mb119Home .card[onclick*="showHoursWeeks"],
+#financeStatusCard,
+#availableNowCard,
+#mb119Tips,
+.mb126-budget-card{
+  background:linear-gradient(145deg,var(--b131-navy),var(--b131-navy2))!important;
+  color:#fff!important;
+  border:3px solid var(--b131-cyan)!important;
+}
+#dashboardCards>.card *,
+#mb119Home .card[onclick*="showHoursWeeks"] *,
+#financeStatusCard *,
+#availableNowCard *,
+#mb119Tips *,
+.mb126-budget-card *{
+  color:#fff!important;
+  opacity:1!important;
+}
+
+/* Buttons throughout sections */
+.quick-actions button,
+.mb119-tool-grid button,
+.mb119-settings-grid button,
+.mb119-spend-actions button,
+#mb126BillColorsBtn{
+  background:var(--b131-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--b131-cyan)!important;
+}
+.quick-actions button *,
+.mb119-tool-grid button *,
+.mb119-settings-grid button *,
+.mb119-spend-actions button *{color:#fff!important}
+
+/* Bottom nav */
+#mb119BottomNav{
+  background:linear-gradient(180deg,#0b1f4c,#091a3e)!important;
+  border-top:3px solid var(--b131-cyan)!important;
+}
+.mb119-nav{
+  background:transparent!important;
+  color:#d5dfec!important;
+  border:0!important;
+}
+.mb119-nav.active{
+  color:var(--b131-cyan)!important;
+  background:rgba(0,245,255,.06)!important;
+  border:0!important;
+}
+
+/* Calendar stays readable */
+#mb119Calendar .calendar-wrap,
+#mb119Calendar .cal-day,
+#mb119Spending .mb119-spend-form,
+#mb119Spending .mb119-ledger,
+#mb119Bills .bill{
+  background:#fff!important;
+  color:#12213c!important;
+}
+#mb119Calendar .calendar-wrap,
+#mb119Spending .mb119-spend-form,
+#mb119Spending .mb119-ledger{
+  border:2px solid #55c9cf!important;
+}
+
+/* Spending Week/Month buttons */
+.mb119-range button{
+  background:var(--b131-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--b131-cyan)!important;
+}
+.mb119-range button.active{
+  background:#071734!important;
+  color:var(--b131-cyan)!important;
+}
+
+/* Bottom-safe room */
+.mb119-view{
+  padding-bottom:calc(260px + env(safe-area-inset-bottom))!important;
+}
+
+/* Spending editor modal */
+#mb131SpendEditor{
+  border:none;
+  border-radius:22px;
+  padding:0;
+  width:min(92vw,560px);
+  max-height:86vh;
+}
+#mb131SpendEditor::backdrop{background:rgba(5,15,35,.68)}
+.mb131-editor-wrap{
+  background:#fff;
+  color:#12213c;
+  padding:18px;
+}
+.mb131-editor-head{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px
+}
+.mb131-editor-head h3{margin:0;font-size:24px}
+.mb131-editor-close{
+  width:42px;height:42px;border-radius:50%;font-size:24px;font-weight:900;
+  background:#fff;border:1px solid #aebbc9;color:#12213c
+}
+.mb131-editor-grid{display:grid;gap:10px}
+.mb131-editor-grid label{font-weight:850}
+.mb131-editor-grid input,
+.mb131-editor-grid textarea{
+  width:100%;box-sizing:border-box;border:1px solid #b9c6d5;border-radius:12px;
+  padding:11px 12px;font-size:16px;background:#fff;color:#12213c
+}
+.mb131-editor-actions{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px
+}
+.mb131-editor-actions button{
+  min-height:48px;border-radius:12px;font-weight:900
+}
+#mb131SaveSpend{
+  background:var(--b131-navy);color:#fff;border:2px solid var(--b131-cyan)
+}
+#mb131CancelSpend{
+  background:#fff;color:#12213c;border:1px solid #b9c6d5
+}
+.mb131-edit-btn,.mb131-delete-btn,.mb131-viewbill-btn{
+  min-height:34px;padding:6px 10px;border-radius:10px;font-weight:850
+}
+.mb131-edit-btn,.mb131-viewbill-btn{
+  background:var(--b131-navy);color:#fff;border:1px solid var(--b131-cyan)
+}
+.mb131-delete-btn{
+  background:#fff;color:#b42318;border:1px solid #e6aaa6
+}
+.mb131-badge{
+  display:inline-block;margin-left:6px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900
+}
+.mb131-badge.bill{background:var(--b131-navy);color:#fff;border:1px solid var(--b131-cyan)}
+.mb131-badge.spend{background:#edf2f7;color:#27364e;border:1px solid #cbd5e1}
+</style>
+
+<dialog id="mb131SpendEditor">
+  <div class="mb131-editor-wrap">
+    <div class="mb131-editor-head">
+      <h3>Edit Spending</h3>
+      <button type="button" class="mb131-editor-close" id="mb131SpendClose">×</button>
+    </div>
+    <div class="mb131-editor-grid">
+      <input type="hidden" id="mb131SpendId">
+      <label>Name<input id="mb131SpendEditName" maxlength="80"></label>
+      <label>Amount<input id="mb131SpendEditAmount" type="number" min="0" step="0.01"></label>
+      <label>Date<input id="mb131SpendEditDate" type="date"></label>
+      <label>Notes<textarea id="mb131SpendEditNotes" rows="3"></textarea></label>
+    </div>
+    <div class="mb131-editor-actions">
+      <button id="mb131SaveSpend" type="button">Save Changes</button>
+      <button id="mb131CancelSpend" type="button">Cancel</button>
+    </div>
+  </div>
+</dialog>
+
+<script id="mb-20-0-131-baseline-script">
+(function(){
+  const VERSION='20.0.131';
+
+  function j(key,fallback){
+    try{const x=JSON.parse(localStorage.getItem(key)||'null');return x==null?fallback:x}catch(e){return fallback}
+  }
+  function esc(s){
+    return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))
+  }
+  function money131(n){
+    try{return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
+    catch(e){return '$'+(Number(n)||0).toFixed(2)}
+  }
+  function spendRows(){
+    const rows=j('myBills_budget_spending_v1',[]);
+    return Array.isArray(rows)?rows:[];
+  }
+  function spendDate(x){
+    const raw=x.enteredAt||x.createdAt||x.timestamp||x.date;
+    if(!raw)return null;
+    if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return new Date(raw+'T12:00:00');
+    const d=new Date(raw);return isNaN(d)?null:d;
+  }
+  function rangeBounds(range){
+    const now=new Date();let start;
+    if(range==='month')start=new Date(now.getFullYear(),now.getMonth(),1);
+    else{start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
+    return {start,now};
+  }
+  function paidBills(start,now){
+    const out=[];
+    try{
+      const seen=new Set();
+      let d=new Date(start.getFullYear(),start.getMonth(),1);
+      const end=new Date(now.getFullYear(),now.getMonth(),1);
+      while(d<=end){seen.add(d.getFullYear()+'-'+d.getMonth());d.setMonth(d.getMonth()+1)}
+      seen.forEach(k=>{
+        const [y,m]=k.split('-').map(Number);
+        if(typeof monthBillOccurrencesV47!=='function')return;
+        monthBillOccurrencesV47(y,m,true).forEach(({b,iso})=>{
+          let st='';try{st=billStatus(b,iso)}catch(e){}
+          if(st!=='paid'&&!b.paid)return;
+          const dt=new Date(iso+'T12:00:00');
+          if(dt<start||dt>now)return;
+          let amount=Number(b.amount)||0;
+          try{
+            const x=Number(billPaidAmount(b,iso));
+            if(Number.isFinite(x)&&x>0)amount=x;
+          }catch(e){}
+          out.push({kind:'bill',id:b.id,iso,name:b.name,amount,dateObj:dt,category:b.category||'Bill'});
+        });
+      });
+    }catch(e){}
+    return out;
+  }
+
+  function openEditor(id){
+    const row=spendRows().find(x=>String(x.id)===String(id));
+    if(!row)return;
+    document.getElementById('mb131SpendId').value=row.id;
+    document.getElementById('mb131SpendEditName').value=row.name||row.title||'';
+    document.getElementById('mb131SpendEditAmount').value=Number(row.amount||0).toFixed(2);
+    document.getElementById('mb131SpendEditDate').value=row.date||new Date().toISOString().slice(0,10);
+    document.getElementById('mb131SpendEditNotes').value=row.notes||'';
+    document.getElementById('mb131SpendEditor').showModal();
+  }
+  function closeEditor(){
+    const dlg=document.getElementById('mb131SpendEditor');
+    if(dlg.open)dlg.close();
+  }
+  function saveEditor(){
+    const id=document.getElementById('mb131SpendId').value;
+    const rows=spendRows();
+    const idx=rows.findIndex(x=>String(x.id)===String(id));
+    if(idx<0)return closeEditor();
+
+    const name=document.getElementById('mb131SpendEditName').value.trim()||'Spending';
+    const amount=Number(document.getElementById('mb131SpendEditAmount').value);
+    const date=document.getElementById('mb131SpendEditDate').value;
+    const notes=document.getElementById('mb131SpendEditNotes').value.trim();
+    if(!Number.isFinite(amount)||amount<=0||!date){alert('Enter a valid amount and date.');return}
+
+    rows[idx]={...rows[idx],name,amount,date,notes};
+    localStorage.setItem('myBills_budget_spending_v1',JSON.stringify(rows));
+    try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(rows)}catch(e){}
+    closeEditor();
+    renderActivity(currentRange());
+    try{if(typeof updateFinanceDashboard==='function')updateFinanceDashboard()}catch(e){}
+  }
+  function deleteSpend(id){
+    const rows=spendRows();
+    const row=rows.find(x=>String(x.id)===String(id));
+    if(!confirm(`Delete ${row?.name||'this spending entry'}?`))return;
+    const next=rows.filter(x=>String(x.id)!==String(id));
+    localStorage.setItem('myBills_budget_spending_v1',JSON.stringify(next));
+    try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(next)}catch(e){}
+    renderActivity(currentRange());
+  }
+  function currentRange(){
+    return document.querySelector('[data-mb119-range].active')?.dataset.mb119Range||'week';
+  }
+  function renderActivity(range){
+    const host=document.getElementById('mb119SpendList');
+    const total=document.getElementById('mb119SpendTotal');
+    if(!host||!total)return;
+    const {start,now}=rangeBounds(range);
+
+    const spends=spendRows().map(x=>({...x,dateObj:spendDate(x),kind:'spend'}))
+      .filter(x=>x.dateObj&&x.dateObj>=start&&x.dateObj<=now);
+    const bills=paidBills(start,now);
+    const all=[...spends,...bills].sort((a,b)=>b.dateObj-a.dateObj);
+
+    total.textContent=`${money131(spends.reduce((s,x)=>s+(Number(x.amount)||0),0))} ${range==='month'?'this month':'this week'} spending`;
+
+    host.innerHTML=all.length?all.map(x=>{
+      if(x.kind==='bill'){
+        return `<div class="mb119-ledger-item">
+          <div class="mb119-ledger-title">${esc(x.name)} <span class="mb131-badge bill">Bill</span></div>
+          <div class="mb119-ledger-amt">${money131(x.amount)}</div>
+          <div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()} • ${esc(x.category)}</div>
+          <div style="margin-top:6px"><button class="mb131-viewbill-btn" type="button" onclick="try{showBill('${x.id}','${x.iso}')}catch(e){}">View Bill</button></div>
+        </div>`;
+      }
+      return `<div class="mb119-ledger-item">
+        <div class="mb119-ledger-title">${esc(x.name||x.title||'Spending')} <span class="mb131-badge spend">Spending</span></div>
+        <div class="mb119-ledger-amt">${money131(x.amount)}</div>
+        <div class="mb119-ledger-time">${x.dateObj.toLocaleDateString()}${x.notes?' • '+esc(x.notes):''}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <button class="mb131-edit-btn" type="button" data-edit-spend="${esc(x.id)}">Edit</button>
+          <button class="mb131-delete-btn" type="button" data-delete-spend="${esc(x.id)}">Delete</button>
+        </div>
+      </div>`;
+    }).join(''):'<div style="padding:10px 0;color:#64748b">No activity for this period.</div>';
+
+    host.querySelectorAll('[data-edit-spend]').forEach(b=>b.onclick=()=>openEditor(b.dataset.editSpend));
+    host.querySelectorAll('[data-delete-spend]').forEach(b=>b.onclick=()=>deleteSpend(b.dataset.deleteSpend));
+  }
+
+  function wireSpending(){
+    document.querySelectorAll('[data-mb119-range]').forEach(btn=>{
+      btn.onclick=()=>{
+        document.querySelectorAll('[data-mb119-range]').forEach(b=>b.classList.toggle('active',b===btn));
+        renderActivity(btn.dataset.mb119Range);
+      };
+    });
+    renderActivity(currentRange());
+  }
+
+  function wireEditor(){
+    document.getElementById('mb131SpendClose').onclick=closeEditor;
+    document.getElementById('mb131CancelSpend').onclick=closeEditor;
+    document.getElementById('mb131SaveSpend').onclick=saveEditor;
+  }
+
+  function init(){
+    document.querySelectorAll('#mb119Version strong').forEach(x=>x.textContent=VERSION);
+    wireSpending();
+    wireEditor();
+    document.querySelectorAll('.mb119-nav').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(btn.dataset.view==='spending')setTimeout(()=>renderActivity(currentRange()),30);
+      });
+    });
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
