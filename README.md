@@ -1,5 +1,5 @@
-# My Bills v120
+# My Bills v121
 
-GitHub Pages build: **120 / 19.1-v120**
+GitHub / app build: **121 / 19.1-v121**
 
-v120 uses brand-new icon filenames so Android/Chrome cannot reuse the old cached app icon.
+This release synchronizes the clean UI across GitHub Pages and Android assets, forces the no-tagline icon through new and legacy icon filenames, and uses a new service-worker cache.

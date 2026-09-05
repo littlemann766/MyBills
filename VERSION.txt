@@ -1,3 +1,4 @@
 My Bills
-Build: 120 / 19.1-v120
-Icon reset: new unique filenames, no tagline
+Build: 121 / 19.1-v121
+GitHub one-file update package
+No-tagline icon forced across PWA, old icon names, and Android launcher resources

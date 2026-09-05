@@ -8,8 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="My Bills">
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-192.png">
-<title>My Bills</title>
+<link rel="manifest" href="manifest.webmanifest"><title>My Bills</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f3f4f6;color:#111827}
 .app{max-width:720px;margin:auto;padding:18px 16px calc(190px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
@@ -852,6 +851,11 @@ dialog button.danger{
   }
 }
 </style>
+
+
+<link rel="icon" type="image/png" sizes="96x96" href="mybills-v121-favicon.png?v=121">
+<link rel="apple-touch-icon" sizes="192x192" href="mybills-v121-192.png?v=121">
+<link rel="manifest" href="manifest.webmanifest?v=121">
 
 </head>
 <body>
@@ -3500,7 +3504,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 <dialog id="categorySummaryDlg"><div class="form"><h2 id="categorySummaryTitle">Category Summary</h2><div id="categorySummaryContent"></div><div class="form-actions"><button class="primary" type="button" onclick="categorySummaryDlg.close()">Done</button></div></div></dialog>
 <dialog id="paymentHistoryDlg"><div class="form"><h2 id="paymentHistoryTitle">Payment History</h2><div id="paymentHistoryContent"></div><div class="form-actions"><button class="primary" type="button" onclick="paymentHistoryDlg.close()">Done</button></div></div></dialog>
 
-<button class="primary settings-fab" id="settingsBtn" type="button" aria-label="Settings">⚙</button>
+
 
 <dialog id="settingsDlg">
   <div class="form">
@@ -9507,639 +9511,369 @@ body.theme-dark #settingsBtn{box-shadow:0 14px 34px rgba(0,0,0,.48)!important}
 </script>
 
 
-<!-- v108: My Bills neon dashboard redesign -->
-<style id="mb-v108-neon-dashboard">
-:root{--v108-navy:#172554;--v108-deep:#07152f;--v108-cyan:#00FFFF;--v108-white:#FFFFFF;--v108-muted:#B8C1D1;--v108-bg:#F4F7FB}
-html,body{margin:0!important;padding:0!important;background:var(--v108-bg)!important}
-body{overflow-x:hidden}
-.app{max-width:780px!important;margin:0 auto!important;padding:0 18px calc(140px + env(safe-area-inset-bottom))!important}
-.top{margin:0 -18px 18px!important;padding:calc(16px + env(safe-area-inset-top)) 20px 18px!important;border-radius:0 0 28px 28px!important;border:0!important;border-bottom:3px solid var(--mb-tab-border,var(--v108-cyan))!important;background:radial-gradient(circle at 12% 0%,rgba(0,255,255,.15),transparent 30%),linear-gradient(135deg,var(--mb-header-bg,var(--v108-navy)) 0%,var(--v108-deep) 100%)!important;box-shadow:0 12px 28px rgba(7,21,47,.20)!important;color:var(--mb-header-text,var(--v108-white))!important}
-.v108-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.v108-brand{display:flex;align-items:center;gap:12px}
-.v108-brand-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(0,255,255,.75);background:rgba(0,255,255,.08);color:var(--v108-cyan)}
-.v108-brand-icon svg{width:25px;height:25px}
-.v108-brand h1{margin:0!important;font-size:34px!important;line-height:1!important;color:#fff!important;letter-spacing:-.03em!important}
-.v108-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.v108-nav button,.v108-nav #month{min-height:42px!important;border-radius:14px!important;border:2px solid rgba(0,255,255,.72)!important;background:rgba(255,255,255,.06)!important;color:#fff!important;font-weight:850!important;box-shadow:none!important}
-.v108-nav #month{padding:8px 14px!important;min-width:160px!important}
-.v108-arrow{width:42px!important;min-width:42px!important;padding:0!important;font-size:24px!important}
-.v108-today{padding:8px 12px!important}
-@media(max-width:560px){.v108-header{flex-direction:column;align-items:flex-start}.v108-nav{width:100%;justify-content:flex-start}.v108-nav #month{flex:1;min-width:0!important}.v108-today{display:none!important}.v108-brand h1{font-size:32px!important}}
-#dashboardCards{gap:12px!important;margin-bottom:12px!important}
-#dashboardCards .card,.card[onclick="showHoursWeeks()"],#healthStrip .health-cell,#netRemainingCard,.finance-tools button,.next.card{border:3px solid var(--mb-tab-border,var(--v108-cyan))!important;background:radial-gradient(circle at 100% 0,rgba(0,255,255,.06),transparent 32%),linear-gradient(145deg,var(--mb-tab-bg,var(--v108-navy)) 0%,#101E46 100%)!important;color:var(--mb-tab-text,var(--v108-white))!important;box-shadow:0 8px 18px rgba(7,21,47,.10)!important}
-#dashboardCards .card{border-radius:24px!important;padding:17px 18px!important;min-height:116px!important}
-#dashboardCards .card .label,.card[onclick="showHoursWeeks()"] .label,#healthStrip .health-cell span,#netRemainingCard .label,.next.card .label{color:var(--v108-muted)!important;opacity:1!important;font-weight:800!important}
-#dashboardCards .card .value,.card[onclick="showHoursWeeks()"] .value,#healthStrip .health-cell b,#netRemainingValue,.next.card .value{color:#fff!important;opacity:1!important}
-#dashboardCards .card .meta,.card[onclick="showHoursWeeks()"] .meta,#healthStrip .health-cell .meta,#netRemainingCard .meta,.next.card .meta{color:var(--v108-muted)!important;opacity:.9!important}
-.card[onclick="showHoursWeeks()"]{border-radius:24px!important;padding:18px 20px!important;margin-top:4px!important}
-.quick-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;margin:12px 0 28px!important;padding-bottom:26px!important;border-bottom:1px solid rgba(0,181,203,.20)!important}
-.quick-actions button{min-width:0!important;min-height:58px!important;padding:11px 8px!important;border-radius:18px!important;border:1px solid rgba(0,255,255,.34)!important;background:linear-gradient(145deg,#07152f,#10182d)!important;color:#fff!important;font-weight:850!important;box-shadow:0 8px 18px rgba(7,21,47,.14)!important}
-#healthStrip{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin:0 0 18px!important}
-#healthStrip .health-cell,#netRemainingCard{min-height:118px!important;border-radius:22px!important;padding:16px!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
-#healthStrip .health-cell[data-health-action="spending"],#healthStrip .health-cell[data-health-action="left"]{display:none!important}
-#healthStrip .v108-icon{width:30px;height:30px;color:var(--v108-cyan);margin-bottom:6px}
-#healthStrip .v108-icon svg{width:27px;height:27px}
-#financeStatusCard{display:none!important}
-.finance-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin:4px 0 24px!important}
-.finance-tools button{min-height:58px!important;border-radius:18px!important;padding:10px 12px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important;font-size:14px!important;font-weight:850!important}
-.finance-tools .v108-tool-icon{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:var(--v108-cyan);margin-right:10px;flex:0 0 28px}
-.finance-tools .v108-tool-icon svg{width:24px;height:24px}
-.next.card{border-radius:22px!important;padding:17px 18px!important;margin-bottom:14px!important}
-.calendar-wrap{border:1px solid rgba(23,37,84,.10)!important;border-radius:24px!important;box-shadow:0 8px 22px rgba(7,21,47,.06)!important;background:#fff!important}
-#settingsBtn{z-index:120!important;border:1px solid rgba(0,255,255,.35)!important;background:linear-gradient(145deg,#07152f,#10182d)!important;color:#fff!important;box-shadow:0 12px 28px rgba(7,21,47,.28)!important}
-</style>
-<script id="mb-v108-neon-dashboard-script">
-(function(){
-  const q=id=>document.getElementById(id);
-  const icon=(name)=>{
-    const I={
-      calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
-      chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/><path d="m4 7 5-4 5 4 6-5"/></svg>',
-      budget:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
-      savings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9c0-3-3-5-7-5S5 6 5 9c-2 1-3 3-3 5 0 3 3 5 7 5h6c4 0 7-2 7-5 0-2-1-4-3-5Z"/></svg>',
-      wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 13h5v4h-5a2 2 0 0 1 0-4Z"/></svg>',
-      target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>',
-      snap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 17V9M10 17V5M15 17v-4M20 17V7"/></svg>',
-      tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 13-7 7L3 10V3h7z"/><circle cx="8" cy="8" r="1"/></svg>',
-      history:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-      forecast:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 19h18M5 16l4-5 4 3 6-8"/><path d="M16 6h3v3"/></svg>'
-    }; return I[name]||I.chart;
-  };
-  function header(){
-    const top=document.querySelector('.top'),month=q('month');
-    if(!top||!month||top.dataset.v108)return;
-    top.dataset.v108='1';
-    const shell=document.createElement('div'); shell.className='v108-header';
-    shell.innerHTML=`<div class="v108-brand"><div class="v108-brand-icon">${icon('calendar')}</div><h1>My Bills</h1></div><div class="v108-nav"><button type="button" class="v108-arrow" data-prev>‹</button><span data-month></span><button type="button" class="v108-arrow" data-next>›</button><button type="button" class="v108-today">Today</button></div>`;
-    top.innerHTML=''; top.appendChild(shell); shell.querySelector('[data-month]').replaceWith(month);
-    month.className='dashboard-month-button'; month.onclick=()=>openMonthPicker();
-    shell.querySelector('[data-prev]').onclick=()=>changeMonth(-1);
-    shell.querySelector('[data-next]').onclick=()=>changeMonth(1);
-    shell.querySelector('.v108-today').onclick=()=>goToday();
-  }
-  function budgetState(){
-    const y=calDate.getFullYear(),m=calDate.getMonth();
-    try{if(typeof myBillsBudgetStateV99==='function')return myBillsBudgetStateV99(y,m)}catch(e){}
-    let limit=0,spent=0; try{limit=Number(typeof viewedBudget==='function'?viewedBudget():0)||0}catch(e){} try{spent=Number(typeof totalBudgetSpent==='function'?totalBudgetSpent(y,m):0)||0}catch(e){}
-    return {limit,spent,left:limit-spent};
-  }
-  function health(){
-    const strip=q('healthStrip'); if(!strip)return;
-    const income=strip.querySelector('[data-health-action="income"]');
-    const bills=strip.querySelector('[data-health-action="bills"]');
-    const savings=strip.querySelector('[data-health-action="savings"]');
-    const spending=strip.querySelector('[data-health-action="spending"]');
-    const left=strip.querySelector('[data-health-action="left"]');
-    const available=q('netRemainingCard');
-    if(spending)spending.style.display='none'; if(left)left.style.display='none';
-    if(income){const l=income.querySelector('span');if(l)l.textContent='Projected Monthly Income';income.onclick=()=>openPaycheckForm();if(!income.querySelector('.v108-icon'))income.insertAdjacentHTML('afterbegin',`<div class="v108-icon">${icon('chart')}</div>`);let m=income.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';income.appendChild(m)}m.textContent='Based on current checks & hours'}
-    if(bills){bills.dataset.healthAction='budget';const l=bills.querySelector('span');if(l)l.textContent='Monthly Budget';bills.onclick=()=>openBudgetDlg();if(!bills.querySelector('.v108-icon'))bills.insertAdjacentHTML('afterbegin',`<div class="v108-icon">${icon('budget')}</div>`);const s=budgetState(),b=bills.querySelector('b');if(b)b.textContent=s.limit?`${money(s.spent)} / ${money(s.limit)}`:'Set budget';let m=bills.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';bills.appendChild(m)}m.textContent=s.limit?`${Math.round((s.spent/s.limit)*100)}% used • Tap to open`:'Tap to set monthly budget'}
-    if(savings&&!savings.querySelector('.v108-icon'))savings.insertAdjacentHTML('afterbegin',`<div class="v108-icon">${icon('savings')}</div>`);
-    if(available&&!available.querySelector('.v108-icon'))available.insertAdjacentHTML('afterbegin',`<div class="v108-icon">${icon('wallet')}</div>`);
-    [income,bills,savings,available].filter(Boolean).forEach(x=>strip.appendChild(x));
-  }
-  function tools(){
-    const box=document.querySelector('.finance-tools'); if(!box)return;
-    [...box.querySelectorAll('button')].forEach(b=>{const t=(b.textContent||'').trim();if(t==='Monthly Budget'||t==='Export Summary'||t==='Copy Previous Month')b.remove()});
-    const map={'Paycheck Planner':'chart','Savings Goals':'target','Monthly Snapshot':'snap','Categories':'tag','Payment History':'history','Balance Forecast':'forecast'};
-    Object.entries(map).forEach(([label,ico])=>{const b=[...box.querySelectorAll('button')].find(x=>(x.textContent||'').replace(/\s+/g,' ').trim()===label);if(!b)return;if(!b.dataset.v108){b.dataset.v108='1';b.innerHTML=`<span class="v108-tool-icon">${icon(ico)}</span><span>${label}</span>`}box.appendChild(b)});
-  }
-  function income(){const c=q('monthlyIncome')?.closest('.card');if(c){const l=c.querySelector('.label');if(l)l.textContent='Monthly Income'}}
-  function run(){header();health();tools();income()}
-  let busy=false; function queue(){if(busy)return;busy=true;requestAnimationFrame(()=>{busy=false;run()})}
-  new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true,characterData:true});
-  document.addEventListener('change',queue,true);window.addEventListener('pageshow',queue);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue,{once:true});else queue();
-})();
-</script>
 
-
-<!-- v109: exact neon dashboard layout + simple Available Now activity -->
-<style id="mb-v109-dashboard">
-:root{--mb109-bg:#f4f7fb;--mb109-navy:#172554;--mb109-navy2:#0b1c3d;--mb109-deep:#061328;--mb109-cyan:#00f5ff;--mb109-white:#fff;--mb109-muted:#b8c3d8}
-html,body{margin:0!important;padding:0!important;background:var(--mb109-bg)!important}
-body{overflow-x:hidden}
-.app{width:min(100%,1024px)!important;max-width:1024px!important;margin:0 auto!important;padding:0 28px calc(110px + env(safe-area-inset-bottom))!important;box-sizing:border-box!important}
-.top{margin:0 -28px 14px!important;padding:calc(18px + env(safe-area-inset-top)) 32px 18px!important;border:0!important;border-radius:0!important;color:#fff!important;background:radial-gradient(circle at 22% 0%,rgba(0,245,255,.12),transparent 30%),linear-gradient(135deg,#0e316a 0%,#081938 45%,#061328 100%)!important;box-shadow:0 5px 0 var(--mb109-cyan),0 12px 24px rgba(6,19,40,.18)!important;position:relative!important;overflow:hidden!important}
-.top::after{content:"";position:absolute;left:-4%;right:-4%;bottom:-2px;height:34px;border-top:4px solid rgba(0,245,255,.9);border-radius:50% 50% 0 0;transform:rotate(-1deg);opacity:.75;pointer-events:none}
-.mb109-header{position:relative;z-index:2;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px}
-.mb109-brand{display:flex;align-items:center;gap:14px;white-space:nowrap}
-.mb109-brand-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--mb109-cyan)}
-.mb109-brand-icon svg{width:45px;height:45px}.mb109-brand-title{margin:0;font-size:38px;line-height:1;font-weight:950;letter-spacing:-1.5px;color:#fff}
-.mb109-month-nav{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0}
-.mb109-headbtn{min-height:46px!important;height:46px!important;border:2px solid var(--mb109-cyan)!important;background:rgba(6,19,40,.58)!important;color:#fff!important;border-radius:16px!important;box-shadow:none!important;font-weight:900!important}
-.mb109-arrow{width:48px!important;padding:0!important;font-size:30px!important;line-height:1!important}
-#month.dashboard-month-button{min-width:210px!important;max-width:310px!important;height:46px!important;padding:8px 18px!important;border:2px solid var(--mb109-cyan)!important;background:rgba(15,39,78,.82)!important;color:#fff!important;border-radius:16px!important;font-size:18px!important;font-weight:900!important}
-.mb109-today{display:flex;align-items:center;gap:8px;padding:0 16px!important}.mb109-today svg{width:21px;height:21px;color:var(--mb109-cyan)}
-#dashboardCards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 14px!important;margin:0 0 10px!important}
-#dashboardCards .card,.card[onclick="showHoursWeeks()"],#healthStrip .health-cell,#healthStrip #netRemainingCard,.finance-tools button,.next.card{border:3px solid var(--mb109-cyan)!important;background:linear-gradient(145deg,#092853 0%,#142653 56%,#11224a 100%)!important;box-shadow:0 5px 12px rgba(6,19,40,.10)!important;color:#fff!important;box-sizing:border-box!important}
-#dashboardCards .card{min-height:114px!important;padding:14px 28px!important;border-radius:24px!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
-#dashboardCards .label,.card[onclick="showHoursWeeks()"] .label{color:var(--mb109-muted)!important;font-size:16px!important;font-weight:850!important}
-#dashboardCards .value,.card[onclick="showHoursWeeks()"] .value{color:#fff!important;font-size:30px!important;font-weight:950!important;line-height:1.1!important;margin-top:6px!important}
-#dashboardCards .meta,.card[onclick="showHoursWeeks()"] .meta{color:var(--mb109-muted)!important;font-size:13px!important;line-height:1.25!important;margin-top:3px!important}
-.card[onclick="showHoursWeeks()"]{min-height:128px!important;margin:0 0 12px!important;padding:16px 30px!important;border-radius:25px!important}
-.card[onclick="showHoursWeeks()"] .meta:last-child{display:none!important}
-.quick-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:40px!important;margin:14px 16px 34px!important;padding-bottom:16px!important;border-bottom:1px solid rgba(0,178,196,.22)!important}
-.quick-actions button{width:100%!important;min-width:0!important;height:78px!important;min-height:78px!important;padding:0 16px!important;border-radius:18px!important;border:2px solid rgba(0,245,255,.58)!important;background:linear-gradient(145deg,#07182f,#091326)!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;font-size:17px!important;font-weight:900!important;white-space:nowrap!important;overflow:hidden!important}
-.quick-actions .mb109-quick-icon{display:flex;color:var(--mb109-cyan);flex:0 0 30px}.quick-actions .mb109-quick-icon svg{width:30px;height:30px}
-#financeStatusCard{display:none!important}
-#healthStrip{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 14px!important;margin:0 0 22px!important}
-#healthStrip .health-cell,#healthStrip #netRemainingCard{min-height:126px!important;padding:15px 30px!important;border-radius:24px!important;display:grid!important;grid-template-columns:58px minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;column-gap:16px!important;align-content:center!important}
-#healthStrip .health-cell[data-health-action="spending"],#healthStrip .health-cell[data-health-action="left"]{display:none!important}
-#healthStrip .mb109-fin-icon{grid-column:1;grid-row:1/4;align-self:center;justify-self:center;color:var(--mb109-cyan)}
-#healthStrip .mb109-fin-icon svg{width:48px;height:48px}
-#healthStrip .health-cell span,#healthStrip #netRemainingCard .label{grid-column:2;color:var(--mb109-muted)!important;font-size:15px!important;font-weight:850!important}
-#healthStrip .health-cell b,#healthStrip #netRemainingValue{grid-column:2;color:#fff!important;font-size:24px!important;font-weight:950!important;line-height:1.1!important;margin-top:4px!important}
-#healthStrip .health-cell .meta,#healthStrip #netRemainingCard .meta{grid-column:2;color:var(--mb109-muted)!important;font-size:12px!important;line-height:1.2!important;margin-top:5px!important}
-#healthStrip #netRemainingCard .v76-swipe-dots{grid-column:2!important}
-.finance-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px 14px!important;margin:0 0 26px!important}
-.finance-tools button{min-height:68px!important;height:68px!important;border-radius:17px!important;display:grid!important;grid-template-columns:54px 1fr 54px!important;align-items:center!important;padding:0 16px!important;font-size:17px!important;font-weight:900!important}
-.finance-tools .mb109-tool-icon{grid-column:1;display:flex;align-items:center;justify-content:center;color:var(--mb109-cyan)}.finance-tools .mb109-tool-icon svg{width:31px;height:31px}.finance-tools .mb109-tool-text{grid-column:2;text-align:center;white-space:nowrap}
-.next.card{min-height:110px!important;margin:0 0 14px!important;padding:18px 30px!important;border-radius:24px!important}.next.card .label{color:var(--mb109-muted)!important;font-size:15px!important;font-weight:850!important}.next.card .value{color:#fff!important;font-size:23px!important;font-weight:950!important;margin-top:5px!important}.next.card .meta{display:none!important}
-.calendar-wrap{border-radius:22px!important;border:1px solid rgba(23,37,84,.10)!important;box-shadow:0 8px 22px rgba(6,19,40,.07)!important;background:#fff!important}
-#mb109BottomNav{position:fixed!important;left:50%!important;bottom:0!important;transform:translateX(-50%)!important;width:min(100%,1024px)!important;min-height:84px!important;padding:10px 24px calc(10px + env(safe-area-inset-bottom))!important;box-sizing:border-box!important;background:linear-gradient(180deg,#071a36,#061328)!important;border-top:2px solid rgba(0,245,255,.50)!important;display:grid!important;grid-template-columns:repeat(6,1fr)!important;z-index:500!important;box-shadow:0 -8px 24px rgba(6,19,40,.18)!important}
-.mb109-navitem{border:0!important;background:transparent!important;box-shadow:none!important;min-height:60px!important;padding:4px 3px!important;color:#aebbd0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;font-size:12px!important;font-weight:800!important}.mb109-navitem svg{width:27px;height:27px}.mb109-navitem.active{color:var(--mb109-cyan)!important}
-#settingsBtn{position:fixed!important;right:max(18px,calc((100vw - min(100vw,1024px))/2 + 18px))!important;bottom:92px!important;width:66px!important;height:66px!important;min-width:66px!important;border-radius:50%!important;background:#07162c!important;color:#fff!important;border:1px solid rgba(0,245,255,.38)!important;box-shadow:0 10px 26px rgba(6,19,40,.25)!important;font-size:28px!important;z-index:520!important}
-
-/* Available Now activity modal */
-#mb109SpendModal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;background:rgba(3,10,22,.58);backdrop-filter:blur(6px)}
-#mb109SpendModal.open{display:flex}
-.mb109-spend-sheet{width:min(100%,720px);max-height:78vh;background:#f8fafc;border-radius:28px 28px 0 0;overflow:hidden;box-shadow:0 -18px 50px rgba(6,19,40,.28)}
-.mb109-spend-head{padding:18px 20px 12px;background:linear-gradient(135deg,#0b1c3d,#172554);color:#fff;border-bottom:3px solid var(--mb109-cyan)}
-.mb109-spend-headrow{display:flex;align-items:center;justify-content:space-between;gap:12px}.mb109-spend-head h2{margin:0;font-size:24px}.mb109-close{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.10);color:#fff;font-size:24px;font-weight:900}
-.mb109-range{display:flex;gap:8px;margin-top:14px}.mb109-range button{flex:1;min-height:40px;border-radius:14px;border:1px solid rgba(0,245,255,.45);background:rgba(255,255,255,.07);color:#c8d2e3;font-weight:850}.mb109-range button.active{background:var(--mb109-cyan);color:#061328}
-.mb109-spend-list{padding:12px 14px 18px;overflow:auto;max-height:calc(78vh - 120px)}
-.mb109-spend-item{display:grid;grid-template-columns:1fr auto;gap:8px 14px;padding:14px 10px;border-bottom:1px solid #dbe3ee}.mb109-spend-item:last-child{border-bottom:0}
-.mb109-spend-title{font-weight:850;color:#111827}.mb109-spend-amt{font-weight:950;color:#111827}.mb109-spend-time{grid-column:1/-1;color:#6b7280;font-size:12px}.mb109-empty{padding:30px 12px;text-align:center;color:#6b7280}
-
-@media(max-width:760px){
-  .app{padding-left:18px!important;padding-right:18px!important}.top{margin-left:-18px!important;margin-right:-18px!important;padding-left:20px!important;padding-right:20px!important}
-  .mb109-header{grid-template-columns:auto 1fr;gap:14px}.mb109-month-nav{grid-column:1/-1;justify-content:flex-start}.mb109-brand-title{font-size:32px}.mb109-brand-icon{width:42px;height:42px}.mb109-brand-icon svg{width:39px;height:39px}
-  #month.dashboard-month-button{flex:1;min-width:0!important;max-width:none!important}.mb109-today{margin-left:auto}
-  .quick-actions{gap:10px!important;margin-left:0!important;margin-right:0!important}.quick-actions button{height:66px!important;min-height:66px!important;font-size:14px!important;gap:8px!important}
-  #dashboardCards .card{padding-left:18px!important;padding-right:18px!important}
-  #healthStrip .health-cell,#healthStrip #netRemainingCard{padding-left:18px!important;padding-right:18px!important;grid-template-columns:42px minmax(0,1fr)!important}
-  #healthStrip .mb109-fin-icon svg{width:36px;height:36px}
-}
-@media(max-width:500px){
-  .app{padding-left:12px!important;padding-right:12px!important}.top{margin-left:-12px!important;margin-right:-12px!important;padding-left:14px!important;padding-right:14px!important}
-  .mb109-brand-title{font-size:28px}.mb109-brand-icon{width:38px;height:38px}.mb109-brand-icon svg{width:35px;height:35px}.mb109-month-nav{gap:7px}.mb109-arrow{width:42px!important;min-width:42px!important}
-  #month.dashboard-month-button{font-size:15px!important;padding-left:9px!important;padding-right:9px!important}.mb109-today{display:none!important}
-  #dashboardCards{gap:8px!important}#dashboardCards .card{min-height:104px!important;padding:13px 14px!important;border-radius:20px!important}
-  #dashboardCards .label,.card[onclick="showHoursWeeks()"] .label{font-size:13px!important}#dashboardCards .value,.card[onclick="showHoursWeeks()"] .value{font-size:25px!important}#dashboardCards .meta,.card[onclick="showHoursWeeks()"] .meta{font-size:11px!important}
-  .card[onclick="showHoursWeeks()"]{min-height:112px!important;padding:14px 17px!important}
-  .quick-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;margin-top:9px!important;margin-bottom:24px!important}.quick-actions button{height:58px!important;min-height:58px!important;font-size:11px!important;padding:0 5px!important;gap:4px!important}.quick-actions .mb109-quick-icon{display:none!important}
-  #healthStrip{gap:8px!important}#healthStrip .health-cell,#healthStrip #netRemainingCard{min-height:114px!important;padding:12px!important;grid-template-columns:32px minmax(0,1fr)!important;column-gap:8px!important}
-  #healthStrip .mb109-fin-icon svg{width:29px;height:29px}#healthStrip .health-cell span,#healthStrip #netRemainingCard .label{font-size:11px!important}#healthStrip .health-cell b,#healthStrip #netRemainingValue{font-size:18px!important}#healthStrip .health-cell .meta,#healthStrip #netRemainingCard .meta{font-size:9px!important}
-  .finance-tools{gap:7px!important}.finance-tools button{height:60px!important;min-height:60px!important;grid-template-columns:34px 1fr 10px!important;padding:0 7px!important;font-size:12px!important}.finance-tools .mb109-tool-icon svg{width:23px;height:23px}
-  .next.card{min-height:96px!important;padding:15px 18px!important}.next.card .value{font-size:19px!important}
-  #mb109BottomNav{padding-left:4px!important;padding-right:4px!important}.mb109-navitem{font-size:9px!important}.mb109-navitem svg{width:23px;height:23px}
-  #settingsBtn{width:58px!important;height:58px!important;min-width:58px!important;bottom:86px!important}
-}
-</style>
-
-<script id="mb-v109-dashboard-script">
-(function(){
-  const q=id=>document.getElementById(id);
-  const ico=name=>{
-    const I={
-      calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7 14h2M11 14h2M15 14h2"/></svg>',
-      clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-      doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></svg>',
-      bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>',
-      chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 17v-5M10 17V7M15 17v-3M20 17V4"/><path d="m4 8 5-4 5 3 6-5"/></svg>',
-      pie:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
-      pig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9c0-3-3-5-7-5S5 6 5 9c-2 1-3 3-3 5 0 3 3 5 7 5h6c4 0 7-2 7-5 0-2-1-4-3-5Z"/></svg>',
-      wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 13h5v4h-5a2 2 0 0 1 0-4Z"/></svg>',
-      target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>',
-      bars:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M5 17V9M10 17V5M15 17v-4M20 17V7"/></svg>',
-      tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 13-7 7L3 10V3h7z"/><circle cx="8" cy="8" r="1"/></svg>',
-      list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-      forecast:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 19h18M5 16l4-5 4 3 6-8"/><path d="M16 6h3v3"/></svg>',
-      home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9h-6v-6H9v6H3z"/></svg>',
-      bills:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-      card:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
-      gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>'
-    };return I[name]||I.chart;
-  };
-
-  function buildHeader(){
-    const top=document.querySelector('.top'), month=q('month');
-    if(!top||!month||top.dataset.mb109)return;
-    top.dataset.mb109='1';
-    const shell=document.createElement('div');shell.className='mb109-header';
-    shell.innerHTML=`<div class="mb109-brand"><div class="mb109-brand-icon">${ico('calendar')}</div><div class="mb109-brand-title">My Bills</div></div><div></div><div class="mb109-month-nav"><button class="mb109-headbtn mb109-arrow" data-prev>‹</button><span data-month></span><button class="mb109-headbtn mb109-arrow" data-next>›</button><button class="mb109-headbtn mb109-today">${ico('calendar')}<span>Today</span></button></div>`;
-    top.innerHTML='';top.appendChild(shell);shell.querySelector('[data-month]').replaceWith(month);
-    month.className='dashboard-month-button';month.onclick=()=>openMonthPicker();
-    shell.querySelector('[data-prev]').onclick=()=>changeMonth(-1);shell.querySelector('[data-next]').onclick=()=>changeMonth(1);shell.querySelector('.mb109-today').onclick=()=>goToday();
-  }
-
-  function quickActions(){
-    const btns=[...document.querySelectorAll('.quick-actions button')];
-    const defs=[['clock','+ Add Hours'],['doc','+ Add Bill'],['bell','+ Add Reminder']];
-    btns.slice(0,3).forEach((b,i)=>{if(!b.dataset.mb109){b.dataset.mb109='1';b.innerHTML=`<span class="mb109-quick-icon">${ico(defs[i][0])}</span><span>${defs[i][1]}</span>`}});
-  }
-
-  function budgetState(){
-    const y=calDate.getFullYear(),m=calDate.getMonth();
-    try{if(typeof myBillsBudgetStateV99==='function')return myBillsBudgetStateV99(y,m)}catch(e){}
-    let limit=0,spent=0;try{limit=Number(typeof viewedBudget==='function'?viewedBudget():0)||0}catch(e){}try{spent=Number(typeof totalBudgetSpent==='function'?totalBudgetSpent(y,m):0)||0}catch(e){}
-    return {limit,spent,left:limit-spent};
-  }
-
-  function healthCards(){
-    const strip=q('healthStrip');if(!strip)return;
-    const income=strip.querySelector('[data-health-action="income"]');
-    const bills=strip.querySelector('[data-health-action="bills"],[data-health-action="budget"]');
-    const savings=strip.querySelector('[data-health-action="savings"]');
-    const spending=strip.querySelector('[data-health-action="spending"]');
-    const left=strip.querySelector('[data-health-action="left"]');
-    const available=q('netRemainingCard');
-    if(spending)spending.style.display='none';if(left)left.style.display='none';
-    if(income){
-      const l=income.querySelector('span');if(l)l.textContent='Projected Monthly Income';
-      if(!income.querySelector('.mb109-fin-icon'))income.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('chart')}</div>`);
-      let m=income.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';income.appendChild(m)}m.textContent='Based on current checks & hours';
-    }
-    if(bills){
-      bills.dataset.healthAction='budget';bills.onclick=()=>openBudgetDlg();
-      const l=bills.querySelector('span');if(l)l.textContent='Monthly Budget';
-      if(!bills.querySelector('.mb109-fin-icon'))bills.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('pie')}</div>`);
-      const s=budgetState(),b=bills.querySelector('b');if(b)b.textContent=s.limit?`${money(s.spent)} / ${money(s.limit)}`:'Set budget';
-      let m=bills.querySelector('.meta');if(!m){m=document.createElement('div');m.className='meta';bills.appendChild(m)}m.textContent=s.limit?`${Math.round((s.spent/s.limit)*100)}% used • Tap to open`:'Tap to set monthly budget';
-    }
-    if(savings&&!savings.querySelector('.mb109-fin-icon'))savings.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('pig')}</div>`);
-    if(available){
-      if(!available.querySelector('.mb109-fin-icon'))available.insertAdjacentHTML('afterbegin',`<div class="mb109-fin-icon">${ico('wallet')}</div>`);
-      available.onclick=(e)=>{e.preventDefault();e.stopPropagation();openSpendActivity('week')};
-    }
-    [income,bills,savings,available].filter(Boolean).forEach(x=>strip.appendChild(x));
-  }
-
-  function tools(){
-    const box=document.querySelector('.finance-tools');if(!box)return;
-    [...box.querySelectorAll('button')].forEach(b=>{const t=(b.textContent||'').trim();if(t==='Monthly Budget'||t==='Export Summary'||t==='Copy Previous Month')b.remove()});
-    const map={'Paycheck Planner':'chart','Savings Goals':'target','Monthly Snapshot':'bars','Categories':'tag','Payment History':'list','Balance Forecast':'forecast'};
-    Object.entries(map).forEach(([label,name])=>{
-      const b=[...box.querySelectorAll('button')].find(x=>(x.textContent||'').replace(/\s+/g,' ').trim()===label);
-      if(!b)return;
-      if(!b.dataset.mb109){b.dataset.mb109='1';b.innerHTML=`<span class="mb109-tool-icon">${ico(name)}</span><span class="mb109-tool-text">${label}</span>`}
-      box.appendChild(b);
-    });
-  }
-
-  function nav(){
-    if(q('mb109BottomNav'))return;
-    const n=document.createElement('div');n.id='mb109BottomNav';
-    const items=[
-      ['Home','home',()=>window.scrollTo({top:0,behavior:'smooth'})],
-      ['Calendar','calendar',()=>document.querySelector('.calendar-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})],
-      ['Bills','bills',()=>typeof openBills==='function'?openBills():document.querySelector('#dashboardCards')?.scrollIntoView({behavior:'smooth'})],
-      ['Spending','card',()=>openSpendActivity('month')],
-      ['Budget','pie',()=>openBudgetDlg()],
-      ['Settings','gear',()=>q('settingsBtn')?.click()]
-    ];
-    items.forEach((it,i)=>{const b=document.createElement('button');b.className='mb109-navitem'+(i===0?' active':'');b.innerHTML=`${ico(it[1])}<span>${it[0]}</span>`;b.onclick=it[2];n.appendChild(b)});
-    document.body.appendChild(n);
-  }
-
-  function normalizeSpendItem(x){
-    if(!x||typeof x!=='object')return null;
-    const amount=Number(x.amount ?? x.value ?? x.cost ?? x.total ?? 0);
-    const title=x.description||x.name||x.note||x.merchant||x.title||x.category||'Spending';
-    let dt=x.timestamp||x.createdAt||x.dateTime||x.datetime||x.date||x.paidAt||x.time;
-    if(typeof dt==='number')dt=new Date(dt);
-    else if(dt)dt=new Date(dt);
-    else dt=new Date();
-    if(Number.isNaN(dt.getTime()))dt=new Date();
-    return {title:String(title),amount:Number.isFinite(amount)?amount:0,date:dt};
-  }
-
-  function collectSpend(){
-    const out=[];
-    try{
-      for(let i=0;i<localStorage.length;i++){
-        const k=localStorage.key(i);if(!k)continue;
-        if(!/(spend|purchase|transaction|budget|history)/i.test(k))continue;
-        let v;try{v=JSON.parse(localStorage.getItem(k))}catch(e){continue}
-        const walk=(obj)=>{
-          if(Array.isArray(obj)){obj.forEach(walk);return}
-          if(obj&&typeof obj==='object'){
-            const n=normalizeSpendItem(obj);
-            if(n&&n.amount>0&&(obj.description||obj.name||obj.merchant||obj.note||obj.category||obj.title))out.push(n);
-            Object.values(obj).forEach(val=>{if(val&&typeof val==='object')walk(val)});
-          }
-        };walk(v);
-      }
-    }catch(e){}
-    // de-dupe
-    const seen=new Set();return out.filter(x=>{const key=x.title+'|'+x.amount+'|'+x.date.toISOString();if(seen.has(key))return false;seen.add(key);return true}).sort((a,b)=>b.date-a.date);
-  }
-
-  function ensureSpendModal(){
-    let m=q('mb109SpendModal');if(m)return m;
-    m=document.createElement('div');m.id='mb109SpendModal';
-    m.innerHTML=`<div class="mb109-spend-sheet"><div class="mb109-spend-head"><div class="mb109-spend-headrow"><h2>Recent spending</h2><button class="mb109-close">×</button></div><div class="mb109-range"><button data-range="week">This week</button><button data-range="month">This month</button></div></div><div class="mb109-spend-list"></div></div>`;
-    document.body.appendChild(m);
-    m.querySelector('.mb109-close').onclick=()=>m.classList.remove('open');
-    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')});
-    m.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>renderSpend(b.dataset.range));
-    return m;
-  }
-
-  function renderSpend(range){
-    const m=ensureSpendModal(),list=m.querySelector('.mb109-spend-list');
-    m.querySelectorAll('[data-range]').forEach(b=>b.classList.toggle('active',b.dataset.range===range));
-    const now=new Date();let start;
-    if(range==='week'){start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
-    else{start=new Date(now.getFullYear(),now.getMonth(),1)}
-    const rows=collectSpend().filter(x=>x.date>=start&&x.date<=now);
-    if(!rows.length){list.innerHTML=`<div class="mb109-empty">No spending found for ${range==='week'?'this week':'this month'}.</div>`;return}
-    list.innerHTML=rows.map(x=>`<div class="mb109-spend-item"><div class="mb109-spend-title">${escapeHtml(x.title)}</div><div class="mb109-spend-amt">${money(x.amount)}</div><div class="mb109-spend-time">${x.date.toLocaleString()}</div></div>`).join('');
-  }
-
-  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-  window.openSpendActivity=function(range='week'){ensureSpendModal().classList.add('open');renderSpend(range)}
-
-  function run(){buildHeader();quickActions();healthCards();tools();nav()}
-  let lock=false;function queue(){if(lock)return;lock=true;requestAnimationFrame(()=>{lock=false;run()})}
-  new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true,characterData:true});
-  document.addEventListener('change',queue,true);window.addEventListener('pageshow',queue);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue,{once:true});else queue();
-})();
-</script>
-
-
-<!-- v110: bottom nav + full-app theme -->
-<style id="mb-v110-full-theme">
+<!-- ============================================================
+     v119 CLEAN RESET
+     One UI layer only. No stacked v108-v118 layout patches.
+     ============================================================ -->
+<style id="mb-v119-clean-style">
 :root{
-  --mb110-navy:#172554;
-  --mb110-navy2:#0b1c3d;
-  --mb110-deep:#061328;
-  --mb110-cyan:#00f5ff;
-  --mb110-white:#ffffff;
-  --mb110-muted:#b8c3d8;
-  --mb110-bg:#eef3f8;
+  --mb-bg:#06162f;
+  --mb-bg2:#071a36;
+  --mb-panel:#10295a;
+  --mb-panel2:#172f68;
+  --mb-cyan:#00f5ff;
+  --mb-text:#f8fbff;
+  --mb-muted:#b9c7da;
+  --mb-border:rgba(0,245,255,.62);
+  --mb-soft:rgba(0,245,255,.10);
 }
+html,body{margin:0!important;background:linear-gradient(180deg,var(--mb-bg2),var(--mb-bg))!important;color:var(--mb-text)!important}
+body{overflow-x:hidden}
+.app{max-width:820px!important;margin:0 auto!important;padding-bottom:105px!important;background:transparent!important}
+.top{
+  background:linear-gradient(135deg,#0d326c,#071a36)!important;
+  color:#fff!important;border-bottom:3px solid var(--mb-cyan)!important;
+}
+#mb119Shell{padding:14px 18px 30px}
+.mb119-view{display:none;min-height:calc(100vh - 210px)}
+.mb119-view.active{display:block}
+.mb119-title{margin:4px 0 4px;color:#fff;font-size:27px;font-weight:950}
+.mb119-sub{margin:0 0 18px;color:var(--mb-muted);font-size:13px;font-weight:650}
+.mb119-section{margin:0 0 18px}
+.mb119-section-title{margin:0 0 9px 2px;color:#dce7f6;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.mb119-card{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border:2px solid var(--mb-border)!important;
+  border-radius:22px!important;box-shadow:0 10px 26px rgba(0,0,0,.18)!important;
+}
+#mb119Shell .card,#mb119Shell .panel,#mb119Shell .section-card,#mb119Shell .bill,
+#mb119Shell .calendar-wrap,#mb119Shell .calculator-card,#mb119Shell .empty,
+#mb119Shell .settings-section,#mb119Shell .summary-stat,#mb119Shell .week-stat,
+#mb119Shell .backup-card,#mb119Shell .category-row-v55,#mb119Shell .recurring-series-row{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border-color:var(--mb-border)!important;
+}
+#mb119Shell .card *,#mb119Shell .bill *,#mb119Shell .calendar-wrap *,
+#mb119Shell .calculator-card *{color:inherit}
+#mb119Shell input,#mb119Shell select,#mb119Shell textarea,
+dialog input,dialog select,dialog textarea{
+  background:#0a2047!important;color:#fff!important;
+  border:1px solid rgba(0,245,255,.38)!important;
+}
+#mb119Shell button,dialog button{
+  border-color:rgba(0,245,255,.40)!important;
+}
+dialog,.modal,.sheet,.drawer,.popover{color:#fff!important}
+dialog .box,.modal .box,.sheet-content,.drawer,.popover{
+  background:linear-gradient(145deg,#0a2148,#172554)!important;color:#fff!important;
+  border:2px solid var(--mb-border)!important;
+}
+dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:inherit}
 
-/* Make the WHOLE app use the same navy/cyan theme language */
-body, .app, main, section {
-  background:var(--mb110-bg)!important;
+/* Force the problem cards to the real theme. */
+#dashboardCards>.card,
+#mb119Home .card[onclick*="showHoursWeeks"],
+#financeStatusCard,
+#availableNowCard,.available-now-card{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border:3px solid var(--mb-cyan)!important;
 }
-.card,
-.panel,
-.section-card,
-.modal .box,
-.dialog .box,
-.sheet,
-.sheet-content,
-.drawer,
-.popover,
-form,
-.calculator,
-.calc-card,
-.bills-card,
-.bill-card,
-.settings-card,
-.settings-section,
-#billsView .card,
-#calendarView .card,
-#spendingView .card,
-#budgetView .card {
-  border-color:var(--mb110-cyan)!important;
-}
+#dashboardCards>.card *,#mb119Home .card[onclick*="showHoursWeeks"] *,
+#financeStatusCard *,#availableNowCard *{color:inherit!important}
 
-/* Generic content cards across non-dashboard screens */
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]),
-body .panel,
-body .section-card,
-body .bill-card,
-body .calculator,
-body .calc-card,
-body .settings-card,
-body .settings-section {
-  background:linear-gradient(145deg,#0b234b 0%,#172554 65%,#10214a 100%)!important;
-  color:#fff!important;
-  border:2px solid var(--mb110-cyan)!important;
-  box-shadow:0 8px 20px rgba(6,19,40,.12)!important;
-}
+/* Remove every old/floating Settings control. Bottom nav only. */
+.settings-fab,#settingsBtn,.floating-settings,.floating-gear,#floatingSettings,
+#settingsFab,.settings-float,.fab-settings{display:none!important}
 
-/* Text on themed cards */
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h1,
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h2,
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) h3,
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) strong,
-body .panel h1, body .panel h2, body .panel h3,
-body .settings-card h1, body .settings-card h2, body .settings-card h3 {
-  color:#fff!important;
-}
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) .meta,
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) .sub,
-body .card:not(#dashboardCards .card):not(.next.card):not([onclick="showHoursWeeks()"]) small,
-body .panel .meta, body .panel .sub, body .panel small {
-  color:var(--mb110-muted)!important;
-}
+/* Bills */
+#mb119Bills .section-head,#mb119Bills .bill-filter-bar{margin-bottom:12px}
+#mb119Bills .bill{margin-bottom:12px!important}
+#mb119Bills .bill .name,#mb119Bills .bill .amount{color:#fff!important}
 
-/* Inputs/search/selects */
-input, select, textarea {
-  background:#f8fbff!important;
-  color:#101827!important;
-  border:1px solid #c9d3df!important;
-  border-radius:14px!important;
-}
-input:focus, select:focus, textarea:focus{
-  outline:2px solid rgba(0,245,255,.25)!important;
-  border-color:var(--mb110-cyan)!important;
-}
+/* Spending */
+.mb119-spend-form{padding:14px}
+.mb119-spend-grid{display:grid;grid-template-columns:1fr 150px;gap:10px}
+.mb119-spend-actions{margin-top:10px}
+.mb119-spend-actions button{width:100%;min-height:46px;background:#0b2a59!important;color:#fff!important}
+.mb119-range{display:flex;gap:8px;margin:0 0 12px}
+.mb119-range button.active{border-color:var(--mb-cyan)!important;color:var(--mb-cyan)!important}
+.mb119-ledger{padding:14px}
+.mb119-ledger-item{padding:12px 2px;border-bottom:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr auto;gap:4px 10px}
+.mb119-ledger-item:last-child{border-bottom:0}
+.mb119-ledger-title{font-weight:900;color:#fff}
+.mb119-ledger-amt{font-weight:950;color:#fff}
+.mb119-ledger-time{grid-column:1/-1;color:var(--mb-muted);font-size:12px}
 
-/* General buttons */
-button {
-  transition:transform .08s ease, filter .12s ease;
-}
-button:active { transform:scale(.98); }
-.primary, .btn-primary, button.primary {
-  background:linear-gradient(145deg,#07182f,#0b1c3d)!important;
-  color:#fff!important;
-  border:1px solid var(--mb110-cyan)!important;
-}
+/* Tips */
+#mb119Tips{padding:17px}
+.mb119-tip-kicker{font-size:12px;font-weight:950;color:var(--mb-cyan);text-transform:uppercase;letter-spacing:.08em}
+#mb119Tips h3{margin:8px 0 6px;color:#fff;font-size:19px}
+#mb119Tips p{margin:0;color:#d8e4f2;line-height:1.48}
+.mb119-tip-foot{margin-top:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mb119-tip-foot small{color:var(--mb-muted)}
+.mb119-tip-foot button{background:#0b2a59!important;color:#fff!important;border-radius:12px!important;padding:8px 11px!important}
 
-/* Bills page specifically */
-#billsView,
-[data-view="bills"],
-.bills-view {
-  background:var(--mb110-bg)!important;
+/* Budget + Settings */
+.mb119-tool-grid,.mb119-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mb119-tool-grid button,.mb119-settings-grid button{
+  min-height:74px;background:linear-gradient(145deg,#0b234b,#172554)!important;
+  color:#fff!important;border:1px solid var(--mb-border)!important;border-radius:16px!important;
+  font-weight:850!important;padding:12px!important;
 }
-#billsView .bill-card,
-[data-view="bills"] .bill-card,
-.bills-view .bill-card {
-  background:linear-gradient(145deg,#0b234b 0%,#172554 65%,#10214a 100%)!important;
-  color:#fff!important;
-  border:2px solid var(--mb110-cyan)!important;
-}
-#billsView .bill-card .muted,
-#billsView .bill-card .meta,
-[data-view="bills"] .bill-card .muted,
-[data-view="bills"] .bill-card .meta {
-  color:var(--mb110-muted)!important;
-}
-
-/* Calculator themed to match */
-.calculator, .calc-card {
-  background:linear-gradient(145deg,#0b234b,#172554)!important;
-}
-.calculator button, .calc-card button {
-  background:#0a1730!important;
-  color:#fff!important;
-  border:1px solid rgba(0,245,255,.35)!important;
-}
-.calculator button.equals, .calc-card button.equals,
-.calculator button:last-child, .calc-card button:last-child {
-  border-color:var(--mb110-cyan)!important;
-}
-.calculator input, .calc-card input,
-.calculator .display, .calc-card .display {
-  background:#f8fbff!important;
-  color:#101827!important;
-}
+#mb119Version{padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#mb119Version b{color:var(--mb-cyan)}
+#mb119Version strong{white-space:nowrap}
 
 /* Bottom navigation */
-#mb110BottomNav{
-  position:fixed!important;
-  left:50%!important;
-  bottom:0!important;
-  transform:translateX(-50%)!important;
-  width:min(100%,1024px)!important;
-  min-height:84px!important;
-  padding:9px 10px calc(9px + env(safe-area-inset-bottom))!important;
-  box-sizing:border-box!important;
-  background:linear-gradient(180deg,#071a36 0%,#061328 100%)!important;
-  border-top:2px solid rgba(0,245,255,.65)!important;
-  box-shadow:0 -8px 28px rgba(6,19,40,.20)!important;
-  display:grid!important;
-  grid-template-columns:repeat(6,1fr)!important;
-  z-index:900!important;
+#mb119BottomNav{
+  position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  display:grid;grid-template-columns:repeat(6,1fr);gap:5px;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(4,18,40,.98);border-top:2px solid rgba(0,245,255,.55);
+  box-shadow:0 -10px 26px rgba(0,0,0,.28)
 }
-.mb110-navitem{
-  border:0!important;
-  background:transparent!important;
-  color:#aebbd0!important;
-  min-width:0!important;
-  padding:4px 2px!important;
-  display:flex!important;
-  flex-direction:column!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:3px!important;
-  font-size:11px!important;
-  font-weight:850!important;
+.mb119-nav{
+  min-width:0;padding:9px 3px!important;border:1px solid rgba(0,245,255,.16)!important;
+  border-radius:13px!important;background:#071a36!important;color:#b9c7da!important;
+  font-size:11px!important;font-weight:850!important;display:flex!important;
+  flex-direction:column!important;align-items:center!important;gap:4px!important
 }
-.mb110-navitem svg{width:25px;height:25px}
-.mb110-navitem.active{color:var(--mb110-cyan)!important}
-.mb110-navitem span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mb119-nav .ico{font-size:21px;line-height:1}
+.mb119-nav.active{color:var(--mb-cyan)!important;border-color:rgba(0,245,255,.65)!important;background:#0b234b!important}
 
-/* Keep body content above nav */
-.app{padding-bottom:calc(118px + env(safe-area-inset-bottom))!important}
-
-/* Theme any fixed/secondary bars if present */
-.bottom-nav, .bottom-tabs, .nav-bottom {
-  display:none!important;
-}
-
-@media(max-width:500px){
-  #mb110BottomNav{padding-left:2px!important;padding-right:2px!important}
-  .mb110-navitem{font-size:9px!important}
-  .mb110-navitem svg{width:22px;height:22px}
+@media(max-width:560px){
+  #mb119Shell{padding:12px 12px 26px}
+  .mb119-spend-grid,.mb119-tool-grid,.mb119-settings-grid{grid-template-columns:1fr}
+  .mb119-nav{font-size:10px!important;padding-left:1px!important;padding-right:1px!important}
 }
 </style>
 
-<script id="mb-v110-full-theme-script">
+<div id="mb119Shell">
+  <section id="mb119Home" class="mb119-view active">
+    <h2 class="mb119-title">Home</h2>
+    <div class="mb119-sub">Your important numbers at a glance.</div>
+    <div id="mb119HomeMount"></div>
+    <section id="mb119Tips" class="mb119-card">
+      <div class="mb119-tip-kicker">💡 Smart Money Tip</div>
+      <h3 id="mb119TipTitle">Protect your breathing room</h3>
+      <p id="mb119TipText">Check upcoming bills before deciding what is safe to spend.</p>
+      <div class="mb119-tip-foot">
+        <small>Based on the money already in My Bills</small>
+        <button id="mb119NextTip" type="button">Another Tip</button>
+      </div>
+    </section>
+  </section>
+
+  <section id="mb119Calendar" class="mb119-view">
+    <h2 class="mb119-title">Calendar</h2>
+    <div class="mb119-sub">Bills, paychecks, and reminders by date.</div>
+    <div id="mb119CalendarMount"></div>
+  </section>
+
+  <section id="mb119Bills" class="mb119-view">
+    <h2 class="mb119-title">Bills</h2>
+    <div class="mb119-sub">Search, filter, edit, pay, and manage your bills.</div>
+    <div id="mb119BillsMount"></div>
+  </section>
+
+  <section id="mb119Spending" class="mb119-view">
+    <h2 class="mb119-title">Spending</h2>
+    <div class="mb119-sub">Manual spending is timestamped when you enter it.</div>
+    <div class="mb119-card mb119-spend-form">
+      <div class="mb119-spend-grid">
+        <input id="mb119SpendName" placeholder="What did you spend on?" maxlength="80">
+        <input id="mb119SpendAmount" type="number" min="0" step="0.01" placeholder="Amount">
+      </div>
+      <div class="mb119-spend-actions"><button id="mb119AddSpend" type="button">+ Add Spending</button></div>
+    </div>
+    <div class="mb119-range">
+      <button class="active" data-mb119-range="week" type="button">Week</button>
+      <button data-mb119-range="month" type="button">Month</button>
+    </div>
+    <div class="mb119-card mb119-ledger">
+      <div id="mb119SpendTotal" style="font-weight:900;margin-bottom:8px"></div>
+      <div id="mb119SpendList"></div>
+    </div>
+  </section>
+
+  <section id="mb119Budget" class="mb119-view">
+    <h2 class="mb119-title">Budget</h2>
+    <div class="mb119-sub">Planning, categories, savings, reports, and projections.</div>
+    <div class="mb119-tool-grid">
+      <button data-fn="openBudgetDlg">Monthly Budget & Limits</button>
+      <button data-fn="openSavingsGoals">Savings Goals</button>
+      <button data-fn="openPaycheckPlanner">Paycheck Planner</button>
+      <button data-fn="showCategorySummary">Categories</button>
+      <button data-fn="showFinancialSnapshot">Monthly Snapshot</button>
+      <button data-fn="showPaymentHistoryAll">Payment History</button>
+      <button data-fn="exportMonthlySummary">Export Summary</button>
+      <button data-fn="copyPreviousMonthBills">Copy Previous Month</button>
+    </div>
+  </section>
+
+  <section id="mb119Settings" class="mb119-view">
+    <h2 class="mb119-title">Settings</h2>
+    <div class="mb119-sub">Appearance, reminders, defaults, backup, and app information.</div>
+    <div class="mb119-settings-grid">
+      <button data-settings-open>Open Settings</button>
+      <button data-fn="backupBills">Save Backup</button>
+      <button data-fn="openNotificationSettings">Reminder Settings</button>
+      <button data-fn="openThemeSettings">Appearance</button>
+    </div>
+    <div id="mb119Version" class="mb119-card" style="margin-top:14px">
+      <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
+      <strong>121 / 19.1-v121</strong>
+    </div>
+  </section>
+</div>
+
+<nav id="mb119BottomNav" aria-label="Main navigation">
+  <button class="mb119-nav active" data-view="home"><span class="ico">⌂</span><span>Home</span></button>
+  <button class="mb119-nav" data-view="calendar"><span class="ico">▣</span><span>Calendar</span></button>
+  <button class="mb119-nav" data-view="bills"><span class="ico">▤</span><span>Bills</span></button>
+  <button class="mb119-nav" data-view="spending"><span class="ico">▭</span><span>Spending</span></button>
+  <button class="mb119-nav" data-view="budget"><span class="ico">◔</span><span>Budget</span></button>
+  <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
+</nav>
+
+<script id="mb-v119-clean-script">
 (function(){
-  const q=id=>document.getElementById(id);
-  const ico=name=>{
-    const I={
-      home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9h-6v-6H9v6H3z"/></svg>',
-      calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
-      bills:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-      spend:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
-      budget:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
-      gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>'
-    }; return I[name];
-  };
+  const BUILD_CODE=121, BUILD_NAME='19.1-v121', BUILD_LABEL='121 / 19.1-v121';
+  window.MYBILLS_BUILD_CODE=BUILD_CODE;
+  window.MYBILLS_BUILD_NAME=BUILD_NAME;
+  window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
+  try{localStorage.setItem('myBills_last_loaded_build',String(BUILD_CODE))}catch(e){}
 
-  function scrollToEl(sel){
-    const el=document.querySelector(sel);
-    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+  const $=id=>document.getElementById(id);
+  const SPEND_KEY='myBills_budget_spending_v1';
+  let spendRange='week', tipIndex=0;
 
-  function clickKnown(selectors){
-    for(const sel of selectors){
-      const el=document.querySelector(sel);
-      if(el){el.click();return true}
-    }
-    return false;
-  }
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function cash(n){return typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2)}
+  function loadSpend(){try{const a=JSON.parse(localStorage.getItem(SPEND_KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+  function saveSpend(a){localStorage.setItem(SPEND_KEY,JSON.stringify(a));try{if(typeof persistBudgetSpending==='function')persistBudgetSpending(a)}catch(e){};try{renderAll?.()}catch(e){};renderSpend();refreshTip()}
+  function enteredDate(x){const raw=x.enteredAt||x.createdAt||x.timestamp||x.date;const d=raw?new Date(raw):null;return d&&!isNaN(d)?d:new Date(0)}
 
-  function navHome(){
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-  function navCalendar(){
-    if(!clickKnown(['[data-tab="calendar"]','#calendarTab','.tab-calendar','button[onclick*="calendar"]'])) {
-      scrollToEl('.calendar-wrap');
-    }
-  }
-  function navBills(){
-    if(!clickKnown(['[data-tab="bills"]','#billsTab','.tab-bills','button[onclick*="Bills"]','button[onclick*="bills"]'])) {
-      scrollToEl('#dashboardCards');
-    }
-  }
-  function navSpending(){
-    if(typeof openSpendActivity==='function'){openSpendActivity('month');return}
-    if(!clickKnown(['[data-tab="spending"]','#spendingTab','.tab-spending','button[onclick*="spending"]'])) {
-      clickKnown(['#netRemainingCard']);
-    }
-  }
-  function navBudget(){
-    if(typeof openBudgetDlg==='function'){openBudgetDlg();return}
-    clickKnown(['[data-health-action="budget"]','button[onclick*="Budget"]','button[onclick*="budget"]']);
-  }
-  function navSettings(){
-    const s=q('settingsBtn');
-    if(s){s.click();return}
-    clickKnown(['button[onclick*="settings"]','.settings-button']);
-  }
+  function move(mount,el){if(mount&&el)mount.appendChild(el)}
+  function findSectionHead(pattern){return [...document.querySelectorAll('.section-head')].find(x=>pattern.test((x.textContent||'').trim()))}
 
-  function buildNav(){
-    // remove previous generated navs
-    q('mb109BottomNav')?.remove();
-    if(q('mb110BottomNav')) return;
+  function setupContent(){
+    const app=document.querySelector('.app');
+    if(!app)return;
 
-    const nav=document.createElement('div');
-    nav.id='mb110BottomNav';
-    const items=[
-      ['Home','home',navHome],
-      ['Calendar','calendar',navCalendar],
-      ['Bills','bills',navBills],
-      ['Spending','spend',navSpending],
-      ['Budget','budget',navBudget],
-      ['Settings','gear',navSettings],
-    ];
-    items.forEach((it,i)=>{
-      const b=document.createElement('button');
-      b.className='mb110-navitem'+(i===0?' active':'');
-      b.innerHTML=`${ico(it[1])}<span>${it[0]}</span>`;
-      b.onclick=()=>{
-        nav.querySelectorAll('.mb110-navitem').forEach(x=>x.classList.remove('active'));
-        b.classList.add('active');
-        it[2]();
-      };
-      nav.appendChild(b);
+    // HOME: one copy of the real dashboard/hours/actions/status only.
+    move($('mb119HomeMount'),$('dashboardCards'));
+    const hours=[...app.children].find(x=>x.matches?.('.card[onclick*="showHoursWeeks"]'));
+    move($('mb119HomeMount'),hours);
+    move($('mb119HomeMount'),document.querySelector('.quick-actions'));
+    move($('mb119HomeMount'),$('financeStatusCard'));
+
+    // CALENDAR
+    move($('mb119CalendarMount'),$('calendarWrap'));
+    move($('mb119CalendarMount'),findSectionHead(/My Reminders/i));
+    move($('mb119CalendarMount'),$('reminderList'));
+
+    // BILLS — the actual searchable/filterable list.
+    move($('mb119BillsMount'),findSectionHead(/^My Bills/i));
+    move($('mb119BillsMount'),document.querySelector('.bill-filter-bar'));
+    move($('mb119BillsMount'),$('list'));
+    move($('mb119BillsMount'),document.querySelector('.calculator-card'));
+
+    // Hide every leftover legacy layout node still directly under .app.
+    [...app.children].forEach(el=>{
+      if(el.id==='mb119Shell' || el.id==='mb119BottomNav' || el.classList.contains('top'))return;
+      if(!el.closest('#mb119Shell')) el.style.display='none';
     });
-    document.body.appendChild(nav);
+
+    // Remove all floating/fallback settings controls.
+    document.querySelectorAll('.settings-fab,#settingsBtn,.floating-settings,.floating-gear,#floatingSettings,#settingsFab,.settings-float,.fab-settings').forEach(x=>x.remove());
   }
 
-  function run(){buildNav()}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});
-  else run();
+  function showView(name){
+    document.querySelectorAll('.mb119-view').forEach(v=>v.classList.toggle('active',v.id==='mb119'+name[0].toUpperCase()+name.slice(1)));
+    document.querySelectorAll('.mb119-nav').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
+    window.scrollTo({top:0,behavior:'auto'});
+    if(name==='spending')renderSpend();
+  }
+
+  function wireNav(){
+    document.querySelectorAll('.mb119-nav').forEach(b=>b.onclick=e=>{e.preventDefault();showView(b.dataset.view)});
+  }
+
+  function callFn(name){
+    const fn=window[name];
+    if(typeof fn==='function'){try{fn()}catch(e){console.warn(name,e)}}
+  }
+
+  function wireTools(){
+    document.querySelectorAll('[data-fn]').forEach(b=>b.onclick=()=>callFn(b.dataset.fn));
+    document.querySelectorAll('[data-settings-open]').forEach(b=>b.onclick=()=>{
+      const dlg=$('settingsDlg');
+      if(dlg?.showModal){try{dlg.showModal();return}catch(e){}}
+      const old=$('settingsBtn'); if(old)old.click();
+    });
+  }
+
+  function addSpend(){
+    const n=$('mb119SpendName'),a=$('mb119SpendAmount');
+    const name=n.value.trim()||'Other spending',amount=Number(a.value);
+    if(!(amount>0)){a.focus();return}
+    const rows=loadSpend(),now=new Date();
+    rows.push({id:'sp_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,amount,date:now.toISOString().slice(0,10),enteredAt:now.toISOString(),source:'manual'});
+    saveSpend(rows);n.value='';a.value='';n.focus();
+  }
+
+  function renderSpend(){
+    if(!$('mb119SpendList'))return;
+    const now=new Date();let start;
+    if(spendRange==='week'){start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
+    else start=new Date(now.getFullYear(),now.getMonth(),1);
+    const rows=loadSpend().map(x=>({...x,_d:enteredDate(x)})).filter(x=>x._d>=start&&x._d<=now).sort((a,b)=>b._d-a._d);
+    $('mb119SpendTotal').textContent=cash(rows.reduce((s,x)=>s+(Number(x.amount)||0),0))+(spendRange==='week'?' this week':' this month');
+    $('mb119SpendList').innerHTML=rows.length?rows.map(x=>`<div class="mb119-ledger-item"><div class="mb119-ledger-title">${esc(x.name||x.title||'Spending')}</div><div class="mb119-ledger-amt">${cash(x.amount)}</div><div class="mb119-ledger-time">Entered ${x._d.toLocaleString()}</div></div>`).join(''):'<div style="color:#b9c7da;padding:8px 0">No spending entered for this period.</div>';
+  }
+
+  function numberFromText(el){
+    if(!el)return 0;
+    const matches=(el.textContent||'').replace(/,/g,'').match(/-?\$?\d+(?:\.\d+)?/g)||[];
+    const vals=matches.map(x=>Number(x.replace('$',''))).filter(Number.isFinite);
+    return vals.length?vals[vals.length-1]:0;
+  }
+
+  function refreshTip(){
+    const available=numberFromText($('availableNowCard')||document.querySelector('.available-now-card'));
+    const savingsCard=[...document.querySelectorAll('#dashboardCards .card,#financeStatusCard .health-cell')].find(x=>/savings/i.test(x.textContent||''));
+    const savings=numberFromText(savingsCard);
+    const spending=loadSpend().filter(x=>{const d=enteredDate(x),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).reduce((s,x)=>s+(Number(x.amount)||0),0);
+
+    const tips=[
+      ['Protect what is available', available>0?`You have about ${cash(available)} available right now. Treat upcoming bills as already spoken for before using the rest.`:'Your available amount is tight right now. Keep essentials and upcoming bills ahead of discretionary spending.'],
+      ['Build the savings habit', savings>0?`You have about ${cash(savings)} in savings. Keeping even part of that untouched gives future bills more breathing room.`:'Try saving a small repeatable amount instead of waiting for a large amount to be left over.'],
+      ['Watch monthly spending', spending>0?`You have entered about ${cash(spending)} in spending this month. Comparing that number with Available Now can help catch overspending early.`:'Start entering everyday purchases in Spending. The more complete the ledger is, the more useful My Bills can make these tips.'],
+      ['Try a no-spend day','Choose one day this week for essentials only. A simple no-spend day can make impulse purchases easier to notice.'],
+      ['Use a waiting rule','For an unplanned purchase, wait before buying it. If you still want it later and the bills are covered, it is easier to judge responsibly.'],
+      ['Review recurring charges','Take a quick look at subscriptions and recurring bills once a month. Small charges are easy to overlook when they renew automatically.']
+    ];
+    const t=tips[tipIndex%tips.length];
+    $('mb119TipTitle').textContent=t[0];$('mb119TipText').textContent=t[1];
+  }
+
+  function init(){
+    setupContent();wireNav();wireTools();
+    $('mb119AddSpend').onclick=addSpend;
+    $('mb119SpendAmount').addEventListener('keydown',e=>{if(e.key==='Enter')addSpend()});
+    document.querySelectorAll('[data-mb119-range]').forEach(b=>b.onclick=()=>{spendRange=b.dataset.mb119Range;document.querySelectorAll('[data-mb119-range]').forEach(x=>x.classList.toggle('active',x===b));renderSpend()});
+    $('mb119NextTip').onclick=()=>{tipIndex++;refreshTip()};
+    renderSpend();refreshTip();showView('home');
+
+    // Force hosted builds to ask for the newest worker.
+    if('serviceWorker' in navigator && location.protocol!=='file:'){
+      navigator.serviceWorker.getRegistration().then(r=>r?.update?.()).catch(()=>{});
+    }
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
 
