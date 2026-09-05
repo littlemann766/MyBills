@@ -1,5 +1,3 @@
 My Bills
-Build: 122 / 19.1-v122
-Android source: app/src/main/assets/index.html ONLY
-MainActivity: file:///android_asset/index.html
-WebView cache: cleared on launch
+Build: 123 / 19.1-v123
+v123: real light mode; sticky tab headers; bill colors moved to Appearance; split Settings; Android-safe Export Summary.

@@ -38,11 +38,14 @@ public class MainActivity extends Activity {
     private static final int FILE_CHOOSER_REQUEST = 1001;
     private static final int SAVE_BACKUP_REQUEST = 1002;
     private static final int NOTIFICATION_PERMISSION_REQUEST = 1003;
+    private static final int SAVE_TEXT_REQUEST = 1004;
     private static final int REQUEST_BASE = 41000;
 
     private WebView webView;
     private ValueCallback<Uri[]> filePathCallback;
     private String pendingBackupJson;
+    private String pendingTextExport;
+    private String pendingTextFilename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        // v122: this is the ONLY Android UI source.
+        // v123: this is the ONLY Android UI source.
         webView.loadUrl("file:///android_asset/index.html");
     }
 
@@ -155,6 +158,30 @@ public class MainActivity extends Activity {
                     startActivityForResult(intent, SAVE_BACKUP_REQUEST);
                 } catch (Exception e) {
                     pendingBackupJson = null;
+                    Toast.makeText(MainActivity.this,
+                            "Unable to choose a save location.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+        @JavascriptInterface
+        public void saveTextFile(final String filename, final String text) {
+            runOnUiThread(() -> {
+                pendingTextExport = text;
+                pendingTextFilename = (filename == null || filename.trim().isEmpty())
+                        ? "MyBills_summary.txt" : filename;
+
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TITLE, pendingTextFilename);
+
+                try {
+                    startActivityForResult(intent, SAVE_TEXT_REQUEST);
+                } catch (Exception e) {
+                    pendingTextExport = null;
+                    pendingTextFilename = null;
                     Toast.makeText(MainActivity.this,
                             "Unable to choose a save location.", Toast.LENGTH_SHORT).show();
                 }
@@ -427,6 +454,30 @@ public class MainActivity extends Activity {
 
             filePathCallback.onReceiveValue(results);
             filePathCallback = null;
+            return;
+        }
+
+
+        if (requestCode == SAVE_TEXT_REQUEST) {
+            if (resultCode == RESULT_OK
+                    && data != null
+                    && data.getData() != null
+                    && pendingTextExport != null) {
+                Uri uri = data.getData();
+                try (OutputStream out = getContentResolver().openOutputStream(uri)) {
+                    if (out != null) {
+                        out.write(pendingTextExport.getBytes(StandardCharsets.UTF_8));
+                        out.flush();
+                        Toast.makeText(this,
+                                "My Bills summary saved.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(this,
+                            "Could not save summary.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            pendingTextExport = null;
+            pendingTextFilename = null;
             return;
         }
 

@@ -1,5 +1,5 @@
-const CACHE='mybills-v122-android-clean';
-const CORE=['./','./index.html','./manifest.webmanifest','./mybills-v122-192.png','./mybills-v122-512.png','./mybills-v122-favicon.png'];
+const CACHE='mybills-v123-settings-split';
+const CORE=['./','./index.html','./manifest.webmanifest','./mybills-v123-192.png','./mybills-v123-512.png','./mybills-v123-favicon.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{

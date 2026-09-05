@@ -853,9 +853,9 @@ dialog button.danger{
 </style>
 
 
-<link rel="icon" type="image/png" sizes="96x96" href="mybills-v122-favicon.png?v=122">
-<link rel="apple-touch-icon" sizes="192x192" href="mybills-v122-192.png?v=122">
-<link rel="manifest" href="manifest.webmanifest?v=122">
+<link rel="icon" type="image/png" sizes="96x96" href="mybills-v123-favicon.png?v=123">
+<link rel="apple-touch-icon" sizes="192x192" href="mybills-v123-192.png?v=123">
+<link rel="manifest" href="manifest.webmanifest?v=123">
 
 </head>
 <body>
@@ -3305,7 +3305,7 @@ function saveSettings(){
   }
   scheduleNativeNotifications();
   const dlg=$('settingsDlg');
-  if(dlg) dlg.close();
+  if(dlg&&dlg.open) dlg.close();
 }
 function notificationPayload(){
   return {
@@ -9707,7 +9707,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
       <button data-fn="showCategorySummary">Categories</button>
       <button data-fn="showFinancialSnapshot">Monthly Snapshot</button>
       <button data-fn="showPaymentHistoryAll">Payment History</button>
-      <button data-fn="exportMonthlySummary">Export Summary</button>
+      <button data-fn="mb123ExportSummary">Export Summary</button>
       <button data-fn="copyPreviousMonthBills">Copy Previous Month</button>
     </div>
   </section>
@@ -9715,15 +9715,16 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <section id="mb119Settings" class="mb119-view">
     <h2 class="mb119-title">Settings</h2>
     <div class="mb119-sub">Appearance, reminders, defaults, backup, and app information.</div>
-    <div class="mb119-settings-grid">
-      <button data-settings-open>Open Settings</button>
-      <button data-fn="backupBills">Save Backup</button>
-      <button data-fn="openNotificationSettings">Reminder Settings</button>
-      <button data-fn="openThemeSettings">Appearance</button>
+    <div class="mb119-settings-grid mb123-settings-nav">
+      <button type="button" data-mb123-settings="appearance">Appearance & Colors</button>
+      <button type="button" data-mb123-settings="reminders">Bills & Reminders</button>
+      <button type="button" data-mb123-settings="calendar">Calendar & Defaults</button>
+      <button type="button" data-mb123-settings="backup">Backup & App</button>
     </div>
+    <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>122 / 19.1-v122</strong>
+      <strong>123 / 19.1-v123</strong>
     </div>
   </section>
 </div>
@@ -9737,10 +9738,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='122 / 19.1-v122';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='123 / 19.1-v123';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=122, BUILD_NAME='19.1-v122', BUILD_LABEL='122 / 19.1-v122';
+  const BUILD_CODE=123, BUILD_NAME='19.1-v123', BUILD_LABEL='123 / 19.1-v123';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9874,6 +9875,359 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     }
   }
 
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+<style id="mb-v123-ui">
+/* =========================================================
+   v123: real light mode + sticky tab headers + split settings
+   ========================================================= */
+:root{
+  --v123-light-bg:#f7f9fc;
+  --v123-light-card:#ffffff;
+  --v123-light-text:#14213a;
+  --v123-light-muted:#64748b;
+  --v123-light-line:#cbd5e1;
+  --v123-cyan:#00dfe9;
+  --v123-dark-bg:#06162f;
+  --v123-dark-card:#142d65;
+}
+
+/* The old global header is replaced by a header belonging to each tab. */
+.top{display:none!important}
+.app{padding-top:0!important;margin-top:0!important}
+#mb119Shell{padding-top:0!important}
+
+/* Sticky per-tab header. */
+.mb123-sticky-header{
+  position:sticky;top:0;z-index:900;
+  margin:0 -18px 18px;padding:18px 18px 13px;
+  border-bottom:1px solid rgba(0,223,233,.5);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)
+}
+.mb123-sticky-header .mb119-title{margin:0!important}
+.mb123-sticky-header .mb119-sub{margin:3px 0 0!important}
+
+/* ---------- LIGHT MODE ---------- */
+html{background:var(--v123-light-bg)!important}
+body:not(.theme-dark),
+body:not(.theme-dark) #mb119Shell,
+body:not(.theme-dark) .mb119-view{
+  background:var(--v123-light-bg)!important;
+  color:var(--v123-light-text)!important;
+}
+body:not(.theme-dark) .mb123-sticky-header{
+  background:rgba(247,249,252,.96)!important;
+  color:var(--v123-light-text)!important;
+}
+body:not(.theme-dark) .mb119-title,
+body:not(.theme-dark) .mb119-section-title,
+body:not(.theme-dark) h1,
+body:not(.theme-dark) h2,
+body:not(.theme-dark) h3{
+  color:var(--v123-light-text)!important;
+}
+body:not(.theme-dark) .mb119-sub,
+body:not(.theme-dark) .meta,
+body:not(.theme-dark) .label,
+body:not(.theme-dark) small{
+  color:var(--v123-light-muted)!important;
+}
+body:not(.theme-dark) #mb119Shell .card,
+body:not(.theme-dark) #mb119Shell .panel,
+body:not(.theme-dark) #mb119Shell .bill,
+body:not(.theme-dark) #mb119Shell .calendar-wrap,
+body:not(.theme-dark) #mb119Shell .calculator-card,
+body:not(.theme-dark) #mb119Shell .settings-section,
+body:not(.theme-dark) #mb119Shell .summary-stat,
+body:not(.theme-dark) #mb119Shell .week-stat,
+body:not(.theme-dark) .mb119-card,
+body:not(.theme-dark) .mb123-settings-panel{
+  background:#fff!important;color:var(--v123-light-text)!important;
+  border-color:rgba(0,190,205,.68)!important;
+  box-shadow:0 8px 24px rgba(15,23,42,.08)!important;
+}
+body:not(.theme-dark) #dashboardCards>.card,
+body:not(.theme-dark) #financeStatusCard,
+body:not(.theme-dark) #availableNowCard{
+  background:#fff!important;color:var(--v123-light-text)!important;
+}
+body:not(.theme-dark) #mb119Shell input,
+body:not(.theme-dark) #mb119Shell select,
+body:not(.theme-dark) #mb119Shell textarea,
+body:not(.theme-dark) dialog input,
+body:not(.theme-dark) dialog select,
+body:not(.theme-dark) dialog textarea{
+  background:#fff!important;color:#14213a!important;border-color:#b8c5d6!important;
+}
+body:not(.theme-dark) #mb119Shell button:not(.mb119-nav),
+body:not(.theme-dark) dialog button{
+  background:#fff!important;color:#14213a!important;border-color:#9fb3c8!important;
+}
+body:not(.theme-dark) .cal-day{
+  background:#fff!important;color:#14213a!important;border-color:#cbd5e1!important;
+}
+body:not(.theme-dark) .cal-day .day-num{color:#14213a!important}
+body:not(.theme-dark) .bill-category-pill{
+  background:#eaf2ff!important;color:#14213a!important;border-color:#bfd1ea!important;
+}
+body:not(.theme-dark) .date-bill-header{color:#14213a!important;border-color:#cbd5e1!important}
+body:not(.theme-dark) #mb119Tips p,
+body:not(.theme-dark) #mb119Tips .mb119-tip-foot small{color:#475569!important}
+
+/* ---------- DARK MODE ---------- */
+body.theme-dark,
+body.theme-dark #mb119Shell,
+body.theme-dark .mb119-view{background:linear-gradient(180deg,#071a36,#06162f)!important;color:#fff!important}
+body.theme-dark .mb123-sticky-header{background:rgba(6,22,47,.96)!important}
+body.theme-dark .bill-category-pill{
+  background:#203d78!important;color:#fff!important;border-color:#3e64a7!important;
+}
+
+/* Calendar should be the calendar; bill-color management lives in Settings. */
+#legendToggle{display:none!important}
+#mb123BillColors #legend{
+  display:grid!important;grid-template-columns:1fr;gap:9px!important;width:100%!important
+}
+#mb123BillColors .legend-item{
+  display:grid!important;grid-template-columns:58px 1fr!important;align-items:center!important;
+  gap:12px!important;padding:9px 10px!important;border-radius:13px!important;
+  border:1px solid rgba(0,190,205,.35)!important
+}
+#mb123BillColors .color-input{
+  width:58px!important;height:44px!important;min-width:58px!important;padding:2px!important;
+  border-radius:10px!important;cursor:pointer!important;pointer-events:auto!important
+}
+body:not(.theme-dark) #mb123BillColors .legend-item{background:#f8fafc!important;color:#14213a!important}
+body.theme-dark #mb123BillColors .legend-item{background:#0c2148!important;color:#fff!important}
+
+/* Categories / bill list readability */
+#mb119Bills .bill .name,#mb119Bills .bill .amount{font-weight:900!important}
+body:not(.theme-dark) #mb119Bills .bill .name,
+body:not(.theme-dark) #mb119Bills .bill .amount{color:#14213a!important}
+body:not(.theme-dark) #mb119Bills .bill .meta{color:#64748b!important}
+body:not(.theme-dark) #mb119Bills .bill-filter-bar{background:transparent!important}
+body:not(.theme-dark) #mb119Bills .date-bill-header{color:#14213a!important}
+
+/* Split Settings */
+.mb123-settings-nav button.active{
+  border:2px solid var(--v123-cyan)!important;
+  box-shadow:0 0 0 2px rgba(0,223,233,.12)!important
+}
+.mb123-settings-panel{margin-top:14px;border:1px solid rgba(0,223,233,.45);border-radius:20px;padding:14px}
+.mb123-settings-panel:empty{display:none}
+.mb123-settings-panel .settings-section{
+  margin:0 0 12px!important;box-shadow:none!important
+}
+.mb123-settings-panel .settings-section:last-of-type{margin-bottom:0!important}
+.mb123-settings-save{
+  width:100%;min-height:48px;margin-top:12px;border-radius:13px!important;
+  font-weight:900!important;border:1px solid rgba(0,223,233,.55)!important
+}
+.mb123-settings-back{margin-bottom:10px!important}
+#settingsDlg{display:none!important}
+
+/* Budget export feedback. */
+#mb123ExportStatus{margin-top:10px;font-size:13px;font-weight:750}
+body:not(.theme-dark) #mb123ExportStatus{color:#475569}
+body.theme-dark #mb123ExportStatus{color:#b9c7da}
+
+/* Bottom navigation follows theme too. */
+body:not(.theme-dark) #mb119BottomNav{
+  background:rgba(255,255,255,.98)!important;border-top-color:rgba(0,190,205,.65)!important;
+  box-shadow:0 -8px 24px rgba(15,23,42,.10)!important
+}
+body:not(.theme-dark) .mb119-nav{
+  background:#fff!important;color:#64748b!important;border-color:#d5dee9!important
+}
+body:not(.theme-dark) .mb119-nav.active{
+  background:#eafcff!important;color:#007f8a!important;border-color:#00cbd8!important
+}
+
+@media(max-width:560px){
+  .mb123-sticky-header{margin-left:-12px;margin-right:-12px;padding-left:14px;padding-right:14px}
+}
+</style>
+
+<script id="mb-v123-script">
+(function(){
+  const VERSION='123 / 19.1-v123';
+
+  function wrapStickyHeaders(){
+    document.querySelectorAll('.mb119-view').forEach(view=>{
+      if(view.querySelector(':scope > .mb123-sticky-header'))return;
+      const title=view.querySelector(':scope > .mb119-title');
+      const sub=view.querySelector(':scope > .mb119-sub');
+      if(!title)return;
+      const head=document.createElement('div');
+      head.className='mb123-sticky-header';
+      view.insertBefore(head,title);
+      head.appendChild(title);
+      if(sub)head.appendChild(sub);
+    });
+  }
+
+  function forceThemeRefresh(){
+    try{ if(typeof applyTheme==='function') applyTheme(); }catch(e){}
+  }
+
+  function moveBillColorsToAppearance(panel){
+    let box=document.getElementById('mb123BillColors');
+    if(!box){
+      box=document.createElement('div');
+      box.id='mb123BillColors';
+      box.className='settings-section';
+      box.innerHTML='<h3>Bill Colors</h3><div class="settings-help">Tap a color swatch to change how that bill appears on the calendar.</div>';
+    }
+    const legend=document.getElementById('legend');
+    if(legend && !box.contains(legend))box.appendChild(legend);
+    panel.appendChild(box);
+    try{
+      if(typeof legendOpen!=='undefined')legendOpen=true;
+      if(typeof renderLegend==='function')renderLegend();
+      if(legend)legend.style.display='grid';
+    }catch(e){}
+  }
+
+  function settingsSections(){
+    const dlg=document.getElementById('settingsDlg');
+    const sections=dlg?[...dlg.querySelectorAll('.settings-section')]:[];
+    const byTitle={};
+    sections.forEach(s=>{
+      const h=s.querySelector('h3');
+      if(h)byTitle[(h.textContent||'').trim()]=s;
+    });
+    return byTitle;
+  }
+
+  function addSave(panel){
+    const b=document.createElement('button');
+    b.type='button';b.className='mb123-settings-save';b.textContent='Save Changes';
+    b.onclick=()=>{
+      try{
+        if(typeof saveSettings==='function')saveSettings();
+        forceThemeRefresh();
+        b.textContent='Saved ✓';setTimeout(()=>b.textContent='Save Changes',1300);
+      }catch(e){console.error(e);b.textContent='Could not save';}
+    };
+    panel.appendChild(b);
+  }
+
+  function openSettingsSection(name){
+    const panel=document.getElementById('mb123SettingsPanel');
+    if(!panel)return;
+    panel.innerHTML='';
+    document.querySelectorAll('[data-mb123-settings]').forEach(b=>b.classList.toggle('active',b.dataset.mb123Settings===name));
+
+    const sections=settingsSections();
+    const title=document.createElement('h3');
+    title.style.margin='2px 0 12px';
+    panel.appendChild(title);
+
+    if(name==='appearance'){
+      title.textContent='Appearance & Colors';
+      if(sections['Appearance'])panel.appendChild(sections['Appearance']);
+      moveBillColorsToAppearance(panel);
+      addSave(panel);
+    }else if(name==='reminders'){
+      title.textContent='Bills & Reminders';
+      if(sections['Default Bill Settings'])panel.appendChild(sections['Default Bill Settings']);
+      if(sections['Notifications'])panel.appendChild(sections['Notifications']);
+      addSave(panel);
+    }else if(name==='calendar'){
+      title.textContent='Calendar & Defaults';
+      if(sections['Calendar Display'])panel.appendChild(sections['Calendar Display']);
+      if(sections['Safety'])panel.appendChild(sections['Safety']);
+      addSave(panel);
+    }else{
+      title.textContent='Backup & App';
+      if(sections['Save & Backup'])panel.appendChild(sections['Save & Backup']);
+      if(sections['Android App Security'])panel.appendChild(sections['Android App Security']);
+      const version=document.getElementById('mb119Version');
+      if(version)panel.appendChild(version);
+    }
+
+    panel.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+
+  function setupSettings(){
+    document.querySelectorAll('[data-mb123-settings]').forEach(b=>{
+      b.onclick=()=>openSettingsSection(b.dataset.mb123Settings);
+    });
+    // No second Settings popup anymore.
+    document.querySelectorAll('[data-settings-open]').forEach(b=>b.remove());
+  }
+
+  function cleanCalendar(){
+    // Bill list belongs to Bills. Calendar keeps date cells and date events only.
+    const toggle=document.getElementById('legendToggle');
+    if(toggle)toggle.style.display='none';
+  }
+
+  function buildSummary(){
+    try{
+      const y=calDate.getFullYear(),m=calDate.getMonth();
+      const label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+      const rows=typeof monthBillOccurrencesV47==='function'?monthBillOccurrencesV47(y,m,true):[];
+      const income=typeof monthlyIncomeFor==='function'?monthlyIncomeFor(y,m):0;
+      const scheduled=typeof monthlyBillsFor==='function'?monthlyBillsFor(y,m):0;
+      const paid=typeof monthlyPaidFor==='function'?monthlyPaidFor(y,m):0;
+      const remaining=typeof monthlyRemainingFor==='function'?monthlyRemainingFor(y,m):Math.max(0,scheduled-paid);
+      const spending=typeof otherSpendingTotal==='function'?otherSpendingTotal(y,m):0;
+      const savings=typeof savingsContributionsFor==='function'?savingsContributionsFor(y,m):0;
+      const budget=typeof viewedBudget==='function'?viewedBudget():0;
+      let text=`My Bills — ${label}\n\nIncome: ${money(income)}\nScheduled bills: ${money(scheduled)}\nPaid: ${money(paid)}\nRemaining: ${money(remaining)}\nProjected after bills: ${money(income-scheduled)}\nOther spending: ${money(spending)}\nSavings added: ${money(savings)}\n`;
+      if(budget)text+=`Budget: ${money(budget)}\n`;
+      text+='\nBills\n';
+      rows.forEach(({b,iso})=>{
+        text+=`${fmtLong(iso)} | ${b.name} | ${b.category||'Uncategorized'} | ${money(b.amount)} | ${billStatus(b,iso)}${b.notes?' | '+b.notes:''}\n`;
+      });
+      return {filename:`MyBills_${y}-${String(m+1).padStart(2,'0')}_summary.txt`,text};
+    }catch(e){
+      console.error(e);
+      return {filename:'MyBills_summary.txt',text:'My Bills summary could not be generated.'};
+    }
+  }
+
+  window.mb123ExportSummary=function(){
+    const data=buildSummary();
+    let status=document.getElementById('mb123ExportStatus');
+    if(!status){
+      status=document.createElement('div');status.id='mb123ExportStatus';
+      const btn=[...document.querySelectorAll('[data-fn="mb123ExportSummary"]')][0];
+      if(btn)btn.insertAdjacentElement('afterend',status);
+    }
+    try{
+      if(window.AndroidBridge&&typeof window.AndroidBridge.saveTextFile==='function'){
+        window.AndroidBridge.saveTextFile(data.filename,data.text);
+        if(status)status.textContent='Choose where to save the summary.';
+        return;
+      }
+      const blob=new Blob([data.text],{type:'text/plain'});
+      const url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download=data.filename;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),700);
+      if(status)status.textContent='Summary exported.';
+    }catch(e){
+      console.error(e);
+      if(status)status.textContent='Export failed. Try again.';
+    }
+  };
+
+  function version(){
+    const v=document.querySelector('#mb119Version strong');
+    if(v)v.textContent=VERSION;
+  }
+
+  function init(){
+    wrapStickyHeaders();
+    setupSettings();
+    cleanCalendar();
+    version();
+    forceThemeRefresh();
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>

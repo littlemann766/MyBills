@@ -1,2 +1,2 @@
-Upload this ZIP to the ROOT of the GitHub repository and rename it to MyBills_update.zip if needed.
-Build: 122 / 19.1-v122
+Upload this ZIP to the repository root as MyBills_update.zip.
+Build: 123 / 19.1-v123
