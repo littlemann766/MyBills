@@ -2129,3 +2129,71 @@ label{
   color:#9feef3!important;
   font-weight:700;
 }
+
+
+/* ============================================================
+   20.1.5 — onboarding visibility + simple progress + popup scroll fix
+   ============================================================ */
+
+/* The onboarding dialog itself is the only scroll container.
+   This avoids nested-scroll traps in Android WebView. */
+.mb212-onboarding{
+  width:min(94vw,620px)!important;
+  max-height:92dvh!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  margin:auto!important;
+  scrollbar-gutter:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+.mb212-wrap{
+  max-height:none!important;
+  overflow:visible!important;
+  padding:
+    max(16px,env(safe-area-inset-top))
+    max(18px,env(safe-area-inset-right))
+    max(28px,env(safe-area-inset-bottom))
+    max(18px,env(safe-area-inset-left))!important;
+  scroll-padding-bottom:28px!important;
+}
+
+/* No faux "tabs" at the top. Setup position is now plain text. */
+.mb212-progress{display:none!important}
+
+/* Let action buttons flow naturally so they never cover/cut off content. */
+.mb212-actions,
+.mb212-actions.stack{
+  position:static!important;
+  background:none!important;
+  padding-top:8px!important;
+  padding-bottom:max(8px,env(safe-area-inset-bottom))!important;
+}
+
+/* Keep onboarding readable without giant lines dominating a small phone. */
+.mb212-step h2{
+  font-size:clamp(1.55rem,6vw,2rem)!important;
+  line-height:1.12!important;
+}
+.mb212-step>p,
+.mb212-callout span,
+.mb212-security-card p{
+  font-size:clamp(1rem,4.6vw,1.15rem)!important;
+  line-height:1.45!important;
+}
+.mb212-kicker{
+  font-size:clamp(.85rem,3.8vw,1rem)!important;
+}
+
+/* All dialogs get a little more usable vertical room, while staying scrollable. */
+dialog{
+  max-height:92dvh!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
+
+/* On very short screens, keep spacing compact but never hide text. */
+@media (max-height:700px){
+  .mb212-onboarding{max-height:94dvh!important}
+  .mb212-wrap{padding-top:12px!important;padding-bottom:18px!important}
+  .mb212-callout,.mb212-tip,.mb212-security-card{margin:12px 0!important}
+}

@@ -1,3 +1,3 @@
 My Bills
-Version: 20.1.4
-Release: Simplified App Lock / phone PIN explanation
+Version: 20.1.5
+Release: Spending net display and onboarding visibility fixes

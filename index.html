@@ -1,4 +1,4 @@
-<!-- 20.1.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7531,7 +7531,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7618,7 +7618,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.4</strong>
+      <strong>20.1.5</strong>
     </div>
   </section>
 </div>
@@ -7632,10 +7632,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.4';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.5';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=154, BUILD_NAME='20.1.4', BUILD_LABEL='20.1.4';
+  const BUILD_CODE=155, BUILD_NAME='20.1.5', BUILD_LABEL='20.1.5';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7794,7 +7794,12 @@ function openAvailableNowSpendingV88(){
     const billRows=paidBillSpendRows(start,now);
     const rows=[...manual,...billRows].sort((a,b)=>b._d-a._d);
     const total=rows.reduce((sum,x)=>sum+(x.kind==='bill'?(Number(x.amount)||0):spendingSignedAmount(x)),0);
-    $('mb119SpendTotal').textContent=cash(total)+(spendRange==='week'?' net spent this week':' net spent this month');
+    const period=spendRange==='week'?'this week':'this month';
+    if(total<0){
+      $('mb119SpendTotal').textContent='+'+cash(Math.abs(total))+' net returned '+period;
+    }else{
+      $('mb119SpendTotal').textContent=cash(total)+' net spent '+period;
+    }
     $('mb119SpendList').innerHTML=rows.length?rows.map(x=>{
       if(x.kind==='bill'){
         return `<div class="mb119-ledger-item mb146-bill-spend"><div class="mb119-ledger-title">${esc(x.name||'Bill')} <span class="mb146-spend-type">Bill</span></div><div class="mb119-ledger-amt">−${cash(x.amount)}</div><div class="mb119-ledger-time">Paid ${x._d.toLocaleDateString()}${x.category?' • '+esc(x.category):''}${x.autopay?' • Autopay':''}</div><div class="mb137-spend-actions"><button type="button" class="mb137-edit" data-mb146-bill="${esc(x.id)}" data-mb146-due="${esc(x.dueIso)}">Edit Payment</button></div></div>`;
@@ -7889,7 +7894,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.4';
+  const VERSION='20.1.5';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8073,7 +8078,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.4';
+  const VERSION='20.1.5';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8313,7 +8318,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.4';
+  const VERSION='20.1.5';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8620,7 +8625,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -8636,17 +8641,13 @@ function openAvailableNowSpendingV88(){
 
 <dialog id="mb212Onboarding" class="mb212-onboarding">
   <div class="mb212-wrap">
-    <div class="mb212-progress" aria-label="Setup progress">
-      <span class="active"></span><span></span><span></span><span></span>
-    </div>
-
     <section class="mb212-step active" data-mb212-step="0">
-      <div class="mb212-kicker">Welcome to My Bills</div>
+      <div class="mb212-kicker">Setup 1 of 4</div>
       <h2>Let's get you set up</h2>
-      <p>We’ll add the basics My Bills uses for income, budget, bills, spending, and your monthly totals. You can change any of this later. Every setup screen can scroll so nothing is hidden on smaller phones or larger text settings.</p>
+      <p>Answer a few quick questions so My Bills can calculate your income, bills, spending, and what you have available. You can change everything later.</p>
       <div class="mb212-callout">
         <strong>Your information stays on this device.</strong>
-        <span>The current Android app does not require Internet access. Backups are only created when you choose to make one.</span>
+        <span>My Bills does not need Internet access. Backups are only created when you choose to make one.</span>
       </div>
       <div class="mb212-actions">
         <button type="button" class="mb212-primary" data-mb212-next>Get Started</button>
@@ -8654,7 +8655,7 @@ function openAvailableNowSpendingV88(){
     </section>
 
     <section class="mb212-step" data-mb212-step="1">
-      <div class="mb212-kicker">Step 1 of 3</div>
+      <div class="mb212-kicker">Setup 2 of 4</div>
       <h2>Tell us about your income</h2>
       <p>This gives My Bills a starting point for paycheck projections. If your pay changes, you can edit it anytime.</p>
 
@@ -8685,7 +8686,7 @@ function openAvailableNowSpendingV88(){
     </section>
 
     <section class="mb212-step" data-mb212-step="2">
-      <div class="mb212-kicker">Step 2 of 3</div>
+      <div class="mb212-kicker">Setup 3 of 4</div>
       <h2>Set your starting monthly amount</h2>
       <p>This is the amount My Bills uses as the starting point for “Available Now” this month. Paid bills and spending come out of it, while refunds add money back.</p>
 
@@ -8704,7 +8705,7 @@ function openAvailableNowSpendingV88(){
     </section>
 
     <section class="mb212-step" data-mb212-step="3">
-      <div class="mb212-kicker">Step 3 of 3</div>
+      <div class="mb212-kicker">Setup 4 of 4</div>
       <h2>Before you turn on App Lock</h2>
 
       <div class="mb212-security-card mb214-simple-security">
@@ -8876,9 +8877,8 @@ function openAvailableNowSpendingV88(){
     document.querySelectorAll('#mb212Onboarding .mb212-step').forEach((el,i)=>{
       el.classList.toggle('active',i===step);
     });
-    document.querySelectorAll('#mb212Onboarding .mb212-progress span').forEach((el,i)=>{
-      el.classList.toggle('active',i<=step);
-    });
+    const dlg=q('mb212Onboarding');
+    if(dlg)dlg.scrollTop=0;
   }
 
   function currentDateISO(){
@@ -8976,7 +8976,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.4 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.5 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
