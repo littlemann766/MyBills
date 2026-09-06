@@ -58,7 +58,8 @@ jobs:
         run: |
           set -euo pipefail
           KEYSTORE_PATH="$RUNNER_TEMP/mybills-release.jks"
-          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$KEYSTORE_PATH"
+          CLEAN_B64="$(printf '%s' "$KEYSTORE_B64" | tr -d '[:space:]')"
+printf '%s' "$CLEAN_B64" | base64 --decode > "$KEYSTORE_PATH"
 
           echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
           echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
