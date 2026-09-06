@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'MyBills_update.zip'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  apply-update:
+  apply-update-and-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,29 +29,25 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ ! -f MyBills_update.zip ]; then
-            echo "No MyBills_update.zip found. Nothing to apply."
-            exit 0
+          if [ -f MyBills_update.zip ]; then
+            cp MyBills_update.zip /tmp/MyBills_update.zip
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            cp /tmp/MyBills_update.zip MyBills_update.zip
+
+            rm -rf .mybills_update_tmp
+            mkdir .mybills_update_tmp
+            unzip -o MyBills_update.zip -d .mybills_update_tmp
+
+            cp -a .mybills_update_tmp/. .
+
+            rm -rf .mybills_update_tmp
+            rm -f MyBills_update.zip
+          else
+            echo "No MyBills_update.zip found; manual run will build current main."
           fi
-
-          # Keep a safe copy of the uploaded package while we sync to
-          # the newest version of main.
-          cp MyBills_update.zip /tmp/MyBills_update.zip
-
-          git fetch origin main
-          git reset --hard origin/main
-
-          cp /tmp/MyBills_update.zip MyBills_update.zip
-
-          rm -rf .mybills_update_tmp
-          mkdir .mybills_update_tmp
-          unzip -o MyBills_update.zip -d .mybills_update_tmp
-
-          # Copy the update package into the repository root.
-          cp -a .mybills_update_tmp/. .
-
-          rm -rf .mybills_update_tmp
-          rm -f MyBills_update.zip
 
       - name: Commit and push applied update
         shell: bash
@@ -62,19 +59,76 @@ jobs:
 
           git add -A
 
-          if git diff --cached --quiet; then
+          if ! git diff --cached --quiet; then
+            git commit -m "Apply My Bills app update"
+
+            git fetch origin main
+            if ! git push origin HEAD:main; then
+              echo "main changed while the update was running. Rebasing and retrying..."
+              git pull --rebase origin main
+              git push origin HEAD:main
+            fi
+          else
             echo "No repository changes to commit."
-            exit 0
           fi
 
-          git commit -m "Apply My Bills app update"
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-          # If main changed while this workflow was running, rebase our
-          # update on top of the newest main before pushing.
-          git fetch origin main
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
-          if ! git push origin HEAD:main; then
-            echo "main changed while the update was running. Rebasing and retrying..."
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+      - name: Verify permanent signing secrets
+        shell: bash
+        env:
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_HEX" || { echo "::error::Missing MYBILLS_KEYSTORE_HEX"; exit 1; }
+          test -n "$KEYSTORE_PASSWORD" || { echo "::error::Missing MYBILLS_KEYSTORE_PASSWORD"; exit 1; }
+
+      - name: Restore permanent signing key
+        shell: bash
+        env:
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYSTORE_PATH="$RUNNER_TEMP/mybills-release.jks"
+          printf '%s' "$KEYSTORE_HEX" | tr -d '[:space:]' | xxd -r -p > "$KEYSTORE_PATH"
+          test -s "$KEYSTORE_PATH"
+          keytool -list -keystore "$KEYSTORE_PATH" -storepass "$KEYSTORE_PASSWORD" -alias mybills >/dev/null
+          echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+          echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+
+      - name: Build permanently signed APK
+        run: gradle assembleRelease
+
+      - name: Find release APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
+          test -n "$APK"
+          cp "$APK" MyBills.apk
+
+      - name: Verify APK signature
+        shell: bash
+        run: |
+          set -euo pipefail
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -n "$APKSIGNER"
+          "$APKSIGNER" verify --verbose MyBills.apk
+
+      - name: Upload signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyBills-signed
+          path: MyBills.apk
+          if-no-files-found: error
