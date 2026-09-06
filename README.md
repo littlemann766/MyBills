@@ -1,3 +1,3 @@
-# My Bills 20.0.136
+# My Bills 20.0.137
 
-This update removes the old v123/v124 light-mode CSS and the later 132/133/134 theme layers that were competing with the reference theme. The visible app now has one authoritative visual system: light page background, sticky navy headers, navy cards/tool tabs/bottom navigation, cyan borders and active states, and white text on navy. Bottom navigation uses line SVG icons. The Appearance page has one four-color editor. Every manual Spending entry has Edit and Delete controls while preserving its original entered timestamp.
+This update is based on 20.0.136. Headers are now truly fixed at the top of every active tab. The bottom navigation is a continuous navy bar with cyan active line icons and no white button boxes. The original Spending renderer now includes Edit/Delete for every manual spending entry, preserving the entered timestamp when edited. Net right now and Monthly Snapshot use monthly budget minus bills with an explicit payment date in the viewed month, manual spending, and savings, so scheduled/due bills do not reduce cash available merely because they are due or marked paid.
