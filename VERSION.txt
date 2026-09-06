@@ -1,3 +1,3 @@
 My Bills
-Version: 20.0.135
-Exact rebuild from the user's 20.0.134 project. Legacy color engines removed. Official default: white page, navy headers/cards/tabs/navigation, cyan borders/active icons, white text.
+Version: 20.0.136
+Reference theme: light page behind navy headers/cards/tabs/navigation, cyan borders/active icons, white text.

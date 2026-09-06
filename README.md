@@ -1,3 +1,3 @@
-# My Bills 20.0.135
+# My Bills 20.0.136
 
-Built directly from the uploaded 20.0.134 project. The old v102/v105/v107 and 132/133/134 theme layers were removed. Every tab gets a dedicated sticky navy header. The app defaults to navy cards/tabs/navigation with cyan borders and white text, with a light page behind them. Appearance is reduced to one four-color editor. Obsolete color-only saved values are migrated away without deleting finance data.
+This update removes the old v123/v124 light-mode CSS and the later 132/133/134 theme layers that were competing with the reference theme. The visible app now has one authoritative visual system: light page background, sticky navy headers, navy cards/tool tabs/bottom navigation, cyan borders and active states, and white text on navy. Bottom navigation uses line SVG icons. The Appearance page has one four-color editor. Every manual Spending entry has Edit and Delete controls while preserving its original entered timestamp.

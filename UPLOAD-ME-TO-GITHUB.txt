@@ -1,5 +1,5 @@
 My Bills update package
-Version: 20.0.135
+Version: 20.0.136
 
-Upload this ZIP itself to the ROOT of the GitHub repository as MyBills_update.zip.
-Do not extract it. Let the existing Apply My Bills Update workflow apply it.
+Upload this ZIP itself to the ROOT of the GitHub repository with the exact filename MyBills_update.zip.
+Do not extract it. Let the existing Apply My Bills Update workflow apply it, then install the APK from the following build run.
