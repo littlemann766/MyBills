@@ -1,5 +1,5 @@
 My Bills update package
-Version: 20.0.143
+Version: 20.0.144
 
 BEFORE uploading this update ZIP:
 1. Add GitHub Actions secret MYBILLS_KEYSTORE_BASE64.
