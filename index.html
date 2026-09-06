@@ -1,4 +1,4 @@
-<!-- 20.1.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.6 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -462,8 +462,14 @@
 <form class="form" method="dialog" onsubmit="savePaycheck(event)">
 <h2 id="paycheckTitle">Add Check Income</h2>
 <input type="hidden" id="editPaycheckId">
-<label>Amount per check</label><input id="checkAmount" type="number" min="0" step="0.01" placeholder="Optional if hours are logged"><div class="meta" id="checkAmountHint" style="margin-top:6px">If hours exist for this check week, the app will calculate the amount automatically from hours × hourly wage.</div>
-<label>Hourly wage</label><input id="incomeWage" type="number" min="0" step="0.01" placeholder="0.00" oninput="updateCheckAmountHint()">
+<label>Income type</label>
+<select id="checkIncomeType" onchange="togglePayType216();updateCheckAmountHint()" style="width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;font-size:16px">
+  <option value="hourly">Hourly</option>
+  <option value="salary">Salary</option>
+</select>
+<label>Amount per check</label><input id="checkAmount" type="number" min="0" step="0.01" placeholder="Optional if hours or salary can estimate it"><div class="meta" id="checkAmountHint" style="margin-top:6px">Hourly income can use logged hours. Salary income can estimate a gross check from annual salary.</div>
+<div id="checkHourlyWrap"><label>Hourly wage</label><input id="incomeWage" type="number" min="0" step="0.01" placeholder="0.00" oninput="updateCheckAmountHint()"></div>
+<div id="checkSalaryWrap" hidden><label>Annual salary</label><input id="incomeSalary" type="number" min="0" step="0.01" placeholder="50000.00" oninput="updateCheckAmountHint()"><div class="meta" style="margin-top:6px">Used for salary tracking and paycheck estimates.</div></div>
 <label>First check date</label><input id="checkDate" type="date" required onchange="updateCheckAmountHint()">
 <label>How often</label><select id="checkFrequency" onchange="updateCheckAmountHint()" style="width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;font-size:16px"><option value="one-time">One-time</option><option value="weekly">Weekly</option><option value="biweekly">Biweekly</option></select>
 <div id="previousChecksWrap" style="margin-top:14px">
@@ -698,7 +704,21 @@ function weekEndISO(iso){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()
 function weekHoursTotal(iso,excludeId=''){const start=new Date(weekStartISO(iso)+'T00:00:00'),end=new Date(weekEndISO(iso)+'T00:00:00');return workHours.filter(x=>x.id!==excludeId&&x.date>=toISO(start)&&x.date<=toISO(end)).reduce((s,x)=>s+(Number(x.hours)||0),0)}
 function totalHoursFor(y,m){return workHours.filter(x=>{const d=new Date(x.date+'T00:00:00');return d.getFullYear()===y&&d.getMonth()===m}).reduce((s,x)=>s+(Number(x.hours)||0),0)}
 function hoursBetween(a,b){let total=0;for(let d=new Date(a+'T00:00:00'),e=new Date(b+'T00:00:00');d<=e;d.setDate(d.getDate()+1)){const r=workHours.find(x=>x.date===toISO(d));if(r)total+=Number(r.hours)||0}return total}
+function salaryCheckEstimate216(annual,frequency){
+  annual=Math.max(0,Number(annual)||0);
+  if(!annual)return 0;
+  if(frequency==='weekly')return annual/52;
+  if(frequency==='biweekly')return annual/26;
+  return 0;
+}
+
 function paycheckCalculatedAmount(p,iso){
+  if(p?.incomeType==='salary'){
+    const entered=Number(p.amount)||0;
+    if(entered>0)return entered;
+    return salaryCheckEstimate216(p.annualSalary,p.frequency);
+  }
+
   const end=new Date(iso+'T00:00:00');
 
   if(p.frequency==='one-time'){
@@ -724,6 +744,11 @@ function paycheckOccurrenceDeleted(p,iso){
 function paycheckAmountOnDate(p,date){
   const key=`${p.id}|${date}`;
   if(Object.prototype.hasOwnProperty.call(paycheckOverrides,key)){const ov=paycheckOverrides[key];if(ov&&ov.deleted)return 0;return Number(ov?.amount)||0;}
+
+  if(p?.incomeType==='salary'){
+    const entered=Number(p.amount)||0;
+    return entered>0 ? entered : salaryCheckEstimate216(p.annualSalary,p.frequency);
+  }
 
   let start,end=new Date(date+'T00:00:00');
 
@@ -1975,13 +2000,34 @@ function renderSelectedHoursWeek(ws){
 }
 
 
+function togglePayType216(){
+  const type=$('checkIncomeType')?.value||'hourly';
+  const hourly=$('checkHourlyWrap'),salary=$('checkSalaryWrap');
+  if(hourly)hourly.hidden=type!=='hourly';
+  if(salary)salary.hidden=type!=='salary';
+}
+
 function updateCheckAmountHint(){
   const date=$('checkDate')?.value;
   const frequency=$('checkFrequency')?.value;
   const hint=$('checkAmountHint');
+  const type=$('checkIncomeType')?.value||'hourly';
   if(!date||!frequency||!hint)return;
 
-  const temp={id:'temp',amount:0,date,frequency};
+  if(type==='salary'){
+    const annual=Math.max(0,Number($('incomeSalary')?.value)||0);
+    const estimate=salaryCheckEstimate216(annual,frequency);
+    if(estimate>0){
+      hint.textContent=`Estimated gross check from annual salary: ${money(estimate)}. Enter your typical take-home amount above if you want a more accurate budget number.`;
+      $('checkAmount').placeholder=money(estimate);
+    }else{
+      hint.textContent='Enter your annual salary, or enter the amount you normally receive per check.';
+      $('checkAmount').placeholder='Enter take-home check amount';
+    }
+    return;
+  }
+
+  const temp={id:'temp',amount:0,date,frequency,incomeType:'hourly'};
   const auto=paycheckCalculatedAmount(temp,date);
 
   if(auto>0){
@@ -1998,10 +2044,16 @@ function openPaycheckForm(id='',presetDate='',presetFrequency=''){
  $('paycheckTitle').textContent=id?'Update Check Income':'Add Check Income';
  const p=id?paychecks.find(x=>x.id===id):null;
  const n=new Date();
+ const savedType=p?.incomeType||localStorage.getItem('myBills_income_type_v1')||'hourly';
+ $('checkIncomeType').value=savedType;
  $('checkDate').value=p?.date||presetDate||toISO(n);
  $('checkFrequency').value=p?.frequency||presetFrequency||'weekly';
  $('checkAmount').value=p?Number(p.amount||0).toFixed(2):'';
  $('incomeWage').value=Number(hourlyWage||0).toFixed(2);
+ $('incomeSalary').value=Number(p?.annualSalary||localStorage.getItem('myBills_annual_salary_v1')||0)>0
+   ? Number(p?.annualSalary||localStorage.getItem('myBills_annual_salary_v1')||0).toFixed(2)
+   : '';
+ togglePayType216();
  renderPaycheckList();
  renderPreviousChecksDropdown(id||paychecks[0]?.id||'');
  updateCheckAmountHint();
@@ -2091,8 +2143,8 @@ function renderPaycheckList(){
    ? '<div class="meta" style="margin-bottom:8px">Check schedules — tap Edit to update your amount or frequency</div>'+
      schedules.map(p=>`<div class="bill" style="margin:8px 0">
        <div class="billmain">
-         <div class="name">${money(p.amount)} ${p.frequency==='weekly'?'Weekly':'Biweekly'}</div>
-         <div class="meta">Starting ${fmt(p.date)}</div>
+         <div class="name">${p.incomeType==='salary'?'Salary • ':''}${money(paycheckAmountOnDate(p,p.date))} ${p.frequency==='weekly'?'Weekly':'Biweekly'}</div>
+         <div class="meta">${p.incomeType==='salary'&&Number(p.annualSalary)>0?`Annual salary ${money(p.annualSalary)} • `:''}Starting ${fmt(p.date)}</div>
        </div>
        <button type="button" class="ghost" onclick="openPaycheckForm('${p.id}')">Edit</button>
        <button type="button" class="danger" onclick="deletePaycheck('${p.id}')">Delete</button>
@@ -2155,11 +2207,19 @@ function savePaycheck(e){
  const id=$('editPaycheckId').value;
  const date=$('checkDate').value;
  const frequency=$('checkFrequency').value;
+ const incomeType=$('checkIncomeType')?.value||'hourly';
  const newWage=Number($('incomeWage').value);
+ const annualSalary=Math.max(0,Number($('incomeSalary')?.value)||0);
 
- if(Number.isFinite(newWage)&&newWage>=0){
+ localStorage.setItem('myBills_income_type_v1',incomeType);
+
+ if(incomeType==='hourly' && Number.isFinite(newWage)&&newWage>=0){
    hourlyWage=newWage;
+   localStorage.setItem('myBills_hourly_wage_v1',String(newWage));
    persistWorkHours();
+ }
+ if(incomeType==='salary'){
+   localStorage.setItem('myBills_annual_salary_v1',String(annualSalary));
  }
 
  if(!date){
@@ -2167,29 +2227,35 @@ function savePaycheck(e){
    return;
  }
 
- const temp={
-   id:id||'temp',
-   amount:0,
-   date,
-   frequency
- };
-
- const autoAmount=paycheckCalculatedAmount(temp,date);
  const raw=$('checkAmount').value.trim();
  let amount=raw==='' ? 0 : Number(raw);
 
- if(autoAmount>0){
-   amount=autoAmount;
- }else if(raw==='' || !Number.isFinite(amount) || amount<0){
-   alert('Add hours for this check week, or enter a check amount.');
-   return;
+ if(incomeType==='salary'){
+   if(raw==='' || !Number.isFinite(amount) || amount<0){
+     amount=salaryCheckEstimate216(annualSalary,frequency);
+   }
+   if(!(amount>0)){
+     alert('Enter your annual salary or the amount you normally receive per check.');
+     return;
+   }
+ }else{
+   const temp={id:id||'temp',amount:0,date,frequency,incomeType:'hourly'};
+   const autoAmount=paycheckCalculatedAmount(temp,date);
+   if(autoAmount>0){
+     amount=autoAmount;
+   }else if(raw==='' || !Number.isFinite(amount) || amount<0){
+     alert('Add hours for this check week, or enter a check amount.');
+     return;
+   }
  }
 
  const data={
    id:id||crypto.randomUUID(),
    amount,
    date,
-   frequency
+   frequency,
+   incomeType,
+   annualSalary:incomeType==='salary'?annualSalary:0
  };
 
  if(id) paychecks=paychecks.map(p=>p.id===id?data:p);
@@ -7470,7 +7536,11 @@ function openAvailableNowSpendingV88(){
       const metas=card?.querySelectorAll('.meta');
       if(label)label.textContent='Monthly Income';
       if(metas&&metas.length){
-        metas[0].textContent=`Hourly wage: ${moneyV106(typeof hourlyWage!=='undefined'?hourlyWage:0)}`;
+        const incomeType216=localStorage.getItem('myBills_income_type_v1')||'hourly';
+        const salary216=Number(localStorage.getItem('myBills_annual_salary_v1')||0);
+        metas[0].textContent=incomeType216==='salary'
+          ? `Annual salary: ${moneyV106(salary216)}`
+          : `Hourly wage: ${moneyV106(typeof hourlyWage!=='undefined'?hourlyWage:0)}`;
         if(metas[1])metas[1].textContent='Checks received so far in the viewed month';
       }
     }
@@ -7531,7 +7601,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.6 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7618,7 +7688,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.5</strong>
+      <strong>20.1.6</strong>
     </div>
   </section>
 </div>
@@ -7632,10 +7702,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.5';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.6';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=155, BUILD_NAME='20.1.5', BUILD_LABEL='20.1.5';
+  const BUILD_CODE=156, BUILD_NAME='20.1.6', BUILD_LABEL='20.1.6';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7894,7 +7964,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.5';
+  const VERSION='20.1.6';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8078,7 +8148,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.5';
+  const VERSION='20.1.6';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8318,7 +8388,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.5';
+  const VERSION='20.1.6';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8625,7 +8695,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.6: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -8659,8 +8729,19 @@ function openAvailableNowSpendingV88(){
       <h2>Tell us about your income</h2>
       <p>This gives My Bills a starting point for paycheck projections. If your pay changes, you can edit it anytime.</p>
 
-      <label class="mb212-label">Hourly wage <span>optional</span>
+      <label class="mb212-label">How are you paid?
+        <select id="mb216IncomeType">
+          <option value="hourly">Hourly</option>
+          <option value="salary">Salary</option>
+        </select>
+      </label>
+
+      <label class="mb212-label" id="mb216HourlyWrap">Hourly wage <span>optional</span>
         <input id="mb212Wage" type="number" min="0" step="0.01" inputmode="decimal" placeholder="18.50">
+      </label>
+
+      <label class="mb212-label" id="mb216SalaryWrap" hidden>Annual salary <span>before taxes</span>
+        <input id="mb216Salary" type="number" min="0" step="0.01" inputmode="decimal" placeholder="50000.00">
       </label>
 
       <label class="mb212-label">How often are you paid?
@@ -8675,7 +8756,7 @@ function openAvailableNowSpendingV88(){
         <input id="mb212Payday" type="date">
       </label>
 
-      <label class="mb212-label">Typical take-home check <span>optional</span>
+      <label class="mb212-label">Typical take-home check <span>optional — overrides estimate</span>
         <input id="mb212CheckAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="750.00">
       </label>
 
@@ -8706,34 +8787,30 @@ function openAvailableNowSpendingV88(){
 
     <section class="mb212-step" data-mb212-step="3">
       <div class="mb212-kicker">Setup 4 of 4</div>
-      <h2>Before you turn on App Lock</h2>
+      <h2>App Lock <span class="mb216-optional">(optional)</span></h2>
 
-      <div class="mb212-security-card mb214-simple-security">
-        <div class="mb212-shield">✓</div>
-        <div>
-          <strong>There is no separate My Bills PIN.</strong>
-          <p>If your phone asks for a PIN, use the <strong>same PIN you use to unlock your phone</strong>.</p>
-          <p>If you use your fingerprint to unlock your phone, you can use that too.</p>
-          <p class="mb214-private-note">My Bills does not see or save your PIN or fingerprint.</p>
-        </div>
+      <div class="mb216-lock-simple">
+        <strong>App Lock uses the lock already on your phone.</strong>
+        <div><b>PIN:</b> use the same PIN that unlocks your phone.</div>
+        <div><b>Fingerprint:</b> use the fingerprint already set up on your phone.</div>
+        <small>My Bills never sees or saves either one.</small>
       </div>
 
       <label id="mb212LockChoiceRow" class="mb212-lock-choice">
         <input id="mb212EnableLock" type="checkbox">
         <span>
           <strong>Turn on App Lock</strong>
-          <small>Uses your phone's existing lock. You can change this later in Settings.</small>
+          <small>You can change this later in Settings.</small>
         </span>
       </label>
 
       <div class="mb212-callout compact">
-        <strong>Next: add your bills.</strong>
-        <span>We can open the regular Add Bill screen after setup so you can enter the exact due dates, amounts, categories, recurrence, and autopay status.</span>
+        <strong>You're ready.</strong>
+        <span>Next, add your first bill so My Bills can start calculating what is due and what you have available.</span>
       </div>
 
       <div class="mb212-actions stack">
         <button type="button" class="mb212-primary" id="mb212FinishAddBill">Finish & Add My First Bill</button>
-        <button type="button" class="mb212-secondary" id="mb212Finish">Finish Setup</button>
         <button type="button" class="mb212-link" data-mb212-back>Back</button>
       </div>
     </section>
@@ -8743,7 +8820,7 @@ function openAvailableNowSpendingV88(){
 <div id="mb212SecurityTip" class="mb212-security-tip" hidden>
   <button type="button" class="mb212-tip-close" aria-label="Dismiss">×</button>
   <strong>Using App Lock</strong>
-  <span><b>No new PIN to remember.</b> If asked for a PIN, use the same one that unlocks your phone. Your fingerprint works too if it is set up on your phone.</span>
+  <span><b>App Lock uses your phone lock.</b> Same phone PIN. Same phone fingerprint. No separate My Bills PIN.</span>
 </div>
 
 <script id="mb-20-0-142-security-settings-script">
@@ -8862,12 +8939,13 @@ function openAvailableNowSpendingV88(){
       const spending=safeJson('myBills_budget_spending_v1',[]);
       const budgets=safeJson('myBills_monthly_budgets_v1',{});
       const wage=Number(localStorage.getItem('myBills_hourly_wage_v1')||0);
+      const salary=Number(localStorage.getItem('myBills_annual_salary_v1')||0);
       return (Array.isArray(bills)&&bills.length>0) ||
              (Array.isArray(checks)&&checks.length>0) ||
              (Array.isArray(hours)&&hours.length>0) ||
              (Array.isArray(spending)&&spending.length>0) ||
              (budgets&&typeof budgets==='object'&&Object.keys(budgets).length>0) ||
-             wage>0;
+             wage>0 || salary>0;
     }catch(e){return false}
   }
 
@@ -8886,9 +8964,20 @@ function openAvailableNowSpendingV88(){
     return new Date(d.getTime()-off*60000).toISOString().slice(0,10);
   }
 
+  function toggleOnboardingIncome216(){
+    const type=q('mb216IncomeType')?.value||'hourly';
+    if(q('mb216HourlyWrap'))q('mb216HourlyWrap').hidden=type!=='hourly';
+    if(q('mb216SalaryWrap'))q('mb216SalaryWrap').hidden=type!=='salary';
+  }
+
   function prefill(){
+    const savedType=localStorage.getItem('myBills_income_type_v1')||'hourly';
+    if(q('mb216IncomeType'))q('mb216IncomeType').value=savedType;
     const wage=Number(localStorage.getItem('myBills_hourly_wage_v1')||0);
     if(wage>0)q('mb212Wage').value=wage.toFixed(2);
+    const salary=Number(localStorage.getItem('myBills_annual_salary_v1')||0);
+    if(salary>0 && q('mb216Salary'))q('mb216Salary').value=salary.toFixed(2);
+    toggleOnboardingIncome216();
 
     const checks=safeJson('myBills_paychecks_v1',[]);
     if(Array.isArray(checks)&&checks[0]){
@@ -8918,20 +9007,27 @@ function openAvailableNowSpendingV88(){
   }
 
   function saveSetup(){
+    const incomeType=q('mb216IncomeType')?.value||'hourly';
     const wage=Math.max(0,Number(q('mb212Wage').value)||0);
+    const annualSalary=Math.max(0,Number(q('mb216Salary')?.value)||0);
+    localStorage.setItem('myBills_income_type_v1',incomeType);
     localStorage.setItem('myBills_hourly_wage_v1',String(wage));
+    localStorage.setItem('myBills_annual_salary_v1',String(annualSalary));
     try{hourlyWage=wage}catch(e){}
 
     const payday=q('mb212Payday').value;
     const frequency=q('mb212Frequency').value||'weekly';
-    const amount=Math.max(0,Number(q('mb212CheckAmount').value)||0);
+    let amount=Math.max(0,Number(q('mb212CheckAmount').value)||0);
+    if(incomeType==='salary' && !(amount>0)){
+      amount=salaryCheckEstimate216(annualSalary,frequency);
+    }
 
     if(payday){
       let checks=safeJson('myBills_paychecks_v1',[]);
       if(!Array.isArray(checks))checks=[];
-      if(checks.length===0){
+      if(checks.length===0 && amount>0){
         const id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'pay_'+Date.now();
-        checks.push({id,amount,date:payday,frequency});
+        checks.push({id,amount,date:payday,frequency,incomeType,annualSalary:incomeType==='salary'?annualSalary:0});
         localStorage.setItem('myBills_paychecks_v1',JSON.stringify(checks));
         try{paychecks=checks}catch(e){}
       }
@@ -8976,7 +9072,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.5 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.6 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9008,9 +9104,9 @@ function openAvailableNowSpendingV88(){
 
   function init(){
     q('mb212Onboarding')?.addEventListener('cancel',e=>e.preventDefault());
+    q('mb216IncomeType')?.addEventListener('change',toggleOnboardingIncome216);
     document.querySelectorAll('[data-mb212-next]').forEach(b=>b.addEventListener('click',()=>showStep(step+1)));
     document.querySelectorAll('[data-mb212-back]').forEach(b=>b.addEventListener('click',()=>showStep(step-1)));
-    q('mb212Finish')?.addEventListener('click',()=>finish(false));
     q('mb212FinishAddBill')?.addEventListener('click',()=>finish(true));
 
     setTimeout(maybeShowOnboarding,350);
