@@ -1970,3 +1970,149 @@ body > .app{
   .mb212-wrap{padding:18px}
   .mb212-step h2{font-size:1.45rem}
 }
+
+
+/* ============================================================
+   20.1.3 — Accessibility / popup mobility pass
+   ============================================================ */
+
+/* All native dialogs get enough room to move, scroll, and respect system bars. */
+dialog{
+  box-sizing:border-box;
+  max-width:min(94vw,680px);
+  max-height:calc(100dvh - 32px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable both-edges;
+  margin:auto;
+}
+
+/* Avoid content being trapped behind Android navigation/status areas. */
+dialog > *{
+  box-sizing:border-box;
+}
+
+/* First-run setup: full content can always be reached on short/small screens. */
+.mb212-onboarding{
+  width:min(94vw,620px);
+  max-height:calc(100dvh - 24px);
+  overflow:hidden;
+  margin:auto;
+}
+.mb212-wrap{
+  max-height:calc(100dvh - 28px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding:
+    max(18px,env(safe-area-inset-top))
+    max(18px,env(safe-area-inset-right))
+    max(24px,env(safe-area-inset-bottom))
+    max(18px,env(safe-area-inset-left));
+  scroll-padding-top:20px;
+  scroll-padding-bottom:96px;
+}
+.mb212-step{
+  min-height:min-content;
+}
+.mb212-actions{
+  position:sticky;
+  bottom:-1px;
+  z-index:4;
+  padding:12px 0 max(4px,env(safe-area-inset-bottom));
+  margin-top:20px;
+  background:linear-gradient(to bottom,rgba(11,35,75,0),var(--mb137-navy,#0b234b) 30%);
+}
+.mb212-actions.stack{
+  position:static;
+  background:none;
+  padding-bottom:max(8px,env(safe-area-inset-bottom));
+}
+
+/* Comfortable touch targets for young, older, and motor-impaired users. */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+.mb119-nav{
+  min-height:44px;
+}
+.mb212-primary,
+.mb212-secondary,
+.mb212-link,
+.mb212-tip-close{
+  min-height:48px;
+}
+
+/* Form controls should remain comfortably readable when Android font size is increased. */
+input,
+select,
+textarea,
+button{
+  font-size:max(16px,1em);
+}
+label{
+  line-height:1.35;
+}
+
+/* Generic legacy modal / popup classes used throughout My Bills.
+   This does not change layout unless the element is already acting as an overlay. */
+.modal,
+.popup,
+.dialog,
+.sheet,
+[role="dialog"],
+[aria-modal="true"]{
+  max-height:calc(100dvh - 24px);
+  overscroll-behavior:contain;
+}
+.modal,
+.popup,
+.dialog,
+.sheet{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Give focused controls a strong visible keyboard/accessibility outline. */
+:where(button,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid var(--mb137-cyan,#00f5ff);
+  outline-offset:3px;
+}
+
+/* Respect users who request less motion. */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* Small / short screens: reduce wasted space, never shrink text. */
+@media (max-height:700px){
+  .mb212-wrap{padding-top:14px}
+  .mb212-progress{margin-bottom:14px}
+  .mb212-step h2{margin-bottom:8px}
+  .mb212-step>p{margin-bottom:12px}
+  .mb212-label{margin-top:10px}
+}
+
+@media (max-width:380px){
+  .mb212-onboarding{width:96vw}
+  .mb212-wrap{
+    padding-left:14px;
+    padding-right:14px;
+  }
+  .mb212-actions.split{
+    gap:8px;
+  }
+  .mb212-actions.split > button{
+    flex:1 1 0;
+  }
+}

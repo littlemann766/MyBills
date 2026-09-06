@@ -1,3 +1,3 @@
 My Bills
-Version: 20.1.2
-Release: First-run setup and phone-security education
+Version: 20.1.3
+Release: Accessibility and popup movement improvements
