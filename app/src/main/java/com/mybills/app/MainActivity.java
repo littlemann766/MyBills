@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
     private static final int DEVICE_CREDENTIAL_REQUEST = 1005;
     private static final String SECURITY_PREFS = "mybills_security";
     private static final String SECURITY_ENABLED_KEY = "app_lock_enabled";
-    private static final long RELOCK_AFTER_MS = 15000L;
+    private static final long RELOCK_AFTER_MS = 5 * 60 * 1000L; // 5-minute grace period
     private static final int SAVE_TEXT_REQUEST = 1004;
     private static final int REQUEST_BASE = 41000;
 
@@ -238,7 +238,7 @@ public class MainActivity extends Activity {
             setAppLockEnabledNative(enabled);
             runOnUiThread(() -> Toast.makeText(
                     MainActivity.this,
-                    enabled ? "Fingerprint / device lock enabled." : "App lock disabled.",
+                    enabled ? "PIN Lock enabled. Quick app switches stay unlocked for 5 minutes." : "PIN Lock disabled.",
                     Toast.LENGTH_SHORT
             ).show());
         }
@@ -552,7 +552,7 @@ public class MainActivity extends Activity {
 
     private boolean isAppLockEnabled() {
         SharedPreferences prefs = getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE);
-        return prefs.getBoolean(SECURITY_ENABLED_KEY, true);
+        return prefs.getBoolean(SECURITY_ENABLED_KEY, false);
     }
 
     private void setAppLockEnabledNative(boolean enabled) {
@@ -620,7 +620,7 @@ public class MainActivity extends Activity {
         if (!isDeviceSecure()) {
             Toast.makeText(
                     this,
-                    "Set up a fingerprint, PIN, pattern, or password in Android first. App Lock was left unlocked for this session.",
+                    "Set up a PIN, pattern, password, or fingerprint in Android first. PIN Lock stayed off for this session.",
                     Toast.LENGTH_LONG
             ).show();
             unlockAndCreateWebView();
@@ -723,11 +723,15 @@ public class MainActivity extends Activity {
 
         if (awayFor >= RELOCK_AFTER_MS) {
             authenticatedForSession = false;
+            stoppedAtElapsed = 0L;
             if (webView != null) {
                 webView.setVisibility(View.INVISIBLE);
             }
             showLockedScreen();
             authenticateUser();
+        } else {
+            // Quick app switches stay unlocked for this session.
+            stoppedAtElapsed = 0L;
         }
     }
 

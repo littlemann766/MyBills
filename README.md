@@ -122,3 +122,12 @@ After this cleanup release is installed and tested, move the Android build to AP
 - The regular Add/Update Check Income dialog now supports Hourly and Salary income.
 - Salary schedules ignore logged work hours so hourly tracking cannot overwrite salary checks.
 - Existing hourly users and existing paycheck data remain compatible.
+
+
+## PIN Lock behavior — 20.1.9
+
+- PIN Lock is now OFF by default at the native Android layer as well as in setup.
+- Quick app switches no longer force authentication again.
+- PIN Lock only relocks after My Bills has been in the background for 5 minutes.
+- Returning within 5 minutes keeps the current authenticated session open.
+- Manual `Lock Now` behavior is unchanged and still locks immediately.
