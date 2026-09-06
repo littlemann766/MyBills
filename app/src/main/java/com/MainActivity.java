@@ -7,6 +7,18 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.KeyguardManager;
+import android.hardware.biometrics.BiometricManager;
+import android.hardware.biometrics.BiometricPrompt;
+import android.os.CancellationSignal;
+import android.os.SystemClock;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,10 +50,19 @@ public class MainActivity extends Activity {
     private static final int FILE_CHOOSER_REQUEST = 1001;
     private static final int SAVE_BACKUP_REQUEST = 1002;
     private static final int NOTIFICATION_PERMISSION_REQUEST = 1003;
+    private static final int DEVICE_CREDENTIAL_REQUEST = 1005;
+    private static final String SECURITY_PREFS = "mybills_security";
+    private static final String SECURITY_ENABLED_KEY = "app_lock_enabled";
+    private static final long RELOCK_AFTER_MS = 15000L;
     private static final int SAVE_TEXT_REQUEST = 1004;
     private static final int REQUEST_BASE = 41000;
 
     private WebView webView;
+    private LinearLayout lockView;
+    private boolean authenticatedForSession = false;
+    private boolean authenticationInProgress = false;
+    private boolean externalActivityInProgress = false;
+    private long stoppedAtElapsed = 0L;
     private ValueCallback<Uri[]> filePathCallback;
     private String pendingBackupJson;
     private String pendingTextExport;
@@ -50,6 +71,19 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showLockedScreen();
+        if (isAppLockEnabled()) {
+            authenticateUser();
+            return;
+        }
+
+        unlockAndCreateWebView();
+    }
+
+    private void unlockAndCreateWebView() {
+        authenticatedForSession = true;
+        authenticationInProgress = false;
 
         webView = new WebView(this);
         setContentView(webView);
@@ -85,6 +119,7 @@ public class MainActivity extends Activity {
                         new String[]{"application/json", "text/json", "text/plain"});
 
                 try {
+                    externalActivityInProgress = true;
                     startActivityForResult(intent, FILE_CHOOSER_REQUEST);
                     return true;
                 } catch (Exception e) {
@@ -144,6 +179,30 @@ public class MainActivity extends Activity {
     }
 
     public class AndroidBridge {
+
+        @JavascriptInterface
+        public boolean isAppLockEnabled() {
+            return MainActivity.this.isAppLockEnabled();
+        }
+
+        @JavascriptInterface
+        public void setAppLockEnabled(boolean enabled) {
+            setAppLockEnabledNative(enabled);
+            runOnUiThread(() -> Toast.makeText(
+                    MainActivity.this,
+                    enabled ? "Fingerprint / device lock enabled." : "App lock disabled.",
+                    Toast.LENGTH_SHORT
+            ).show());
+        }
+
+        @JavascriptInterface
+        public void lockNow() {
+            runOnUiThread(() -> {
+                authenticatedForSession = false;
+                showLockedScreen();
+                authenticateUser();
+            });
+        }
         @JavascriptInterface
         public void saveBackup(final String json) {
             runOnUiThread(() -> {
@@ -155,7 +214,8 @@ public class MainActivity extends Activity {
                 intent.putExtra(Intent.EXTRA_TITLE, "my-bills-backup.json");
 
                 try {
-                    startActivityForResult(intent, SAVE_BACKUP_REQUEST);
+                    externalActivityInProgress = true;
+            startActivityForResult(intent, SAVE_BACKUP_REQUEST);
                 } catch (Exception e) {
                     pendingBackupJson = null;
                     Toast.makeText(MainActivity.this,
@@ -178,7 +238,8 @@ public class MainActivity extends Activity {
                 intent.putExtra(Intent.EXTRA_TITLE, pendingTextFilename);
 
                 try {
-                    startActivityForResult(intent, SAVE_TEXT_REQUEST);
+                    externalActivityInProgress = true;
+            startActivityForResult(intent, SAVE_TEXT_REQUEST);
                 } catch (Exception e) {
                     pendingTextExport = null;
                     pendingTextFilename = null;
@@ -440,9 +501,229 @@ public class MainActivity extends Activity {
         }
     }
 
+
+    private boolean isAppLockEnabled() {
+        SharedPreferences prefs = getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE);
+        return prefs.getBoolean(SECURITY_ENABLED_KEY, true);
+    }
+
+    private void setAppLockEnabledNative(boolean enabled) {
+        getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE)
+                .edit()
+                .putBoolean(SECURITY_ENABLED_KEY, enabled)
+                .apply();
+    }
+
+    private boolean isDeviceSecure() {
+        KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        if (km == null) return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return km.isDeviceSecure();
+        }
+        return km.isKeyguardSecure();
+    }
+
+    private void showLockedScreen() {
+        lockView = new LinearLayout(this);
+        lockView.setOrientation(LinearLayout.VERTICAL);
+        lockView.setGravity(Gravity.CENTER);
+        lockView.setPadding(48, 48, 48, 48);
+        lockView.setBackgroundColor(Color.rgb(7, 24, 51));
+
+        TextView icon = new TextView(this);
+        icon.setText("🔒");
+        icon.setTextSize(44);
+        icon.setGravity(Gravity.CENTER);
+
+        TextView title = new TextView(this);
+        title.setText("My Bills Locked");
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(26);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0, 18, 0, 8);
+
+        TextView sub = new TextView(this);
+        sub.setText("Authenticate to view your financial information.");
+        sub.setTextColor(Color.rgb(197, 209, 226));
+        sub.setTextSize(15);
+        sub.setGravity(Gravity.CENTER);
+        sub.setPadding(0, 0, 0, 26);
+
+        Button unlock = new Button(this);
+        unlock.setText("Unlock My Bills");
+        unlock.setOnClickListener(v -> authenticateUser());
+
+        lockView.addView(icon);
+        lockView.addView(title);
+        lockView.addView(sub);
+        lockView.addView(unlock);
+
+        setContentView(lockView);
+    }
+
+    private void authenticateUser() {
+        if (authenticationInProgress) return;
+
+        if (!isAppLockEnabled()) {
+            unlockAndCreateWebView();
+            return;
+        }
+
+        if (!isDeviceSecure()) {
+            Toast.makeText(
+                    this,
+                    "Set up a fingerprint, PIN, pattern, or password in Android first. App Lock was left unlocked for this session.",
+                    Toast.LENGTH_LONG
+            ).show();
+            unlockAndCreateWebView();
+            return;
+        }
+
+        authenticationInProgress = true;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            showBiometricPrompt();
+        } else {
+            showDeviceCredentialPrompt();
+        }
+    }
+
+    private void showBiometricPrompt() {
+        BiometricPrompt.Builder builder = new BiometricPrompt.Builder(this)
+                .setTitle("Unlock My Bills")
+                .setSubtitle("Use your fingerprint or device security");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            builder.setAllowedAuthenticators(
+                    BiometricManager.Authenticators.BIOMETRIC_STRONG
+                            | BiometricManager.Authenticators.DEVICE_CREDENTIAL
+            );
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            builder.setDeviceCredentialAllowed(true);
+        } else {
+            builder.setNegativeButton(
+                    "Use PIN",
+                    getMainExecutor(),
+                    (dialog, which) -> showDeviceCredentialPrompt()
+            );
+        }
+
+        BiometricPrompt prompt = builder.build();
+        CancellationSignal cancellationSignal = new CancellationSignal();
+
+        prompt.authenticate(
+                cancellationSignal,
+                getMainExecutor(),
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        authenticationInProgress = false;
+                        unlockAndCreateWebView();
+                    }
+
+                    @Override
+                    public void onAuthenticationError(int errorCode, CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                        authenticationInProgress = false;
+
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                                && errorCode == BiometricPrompt.BIOMETRIC_ERROR_NEGATIVE_BUTTON) {
+                            return;
+                        }
+
+                        Toast.makeText(
+                                MainActivity.this,
+                                "My Bills is still locked.",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        Toast.makeText(
+                                MainActivity.this,
+                                "Fingerprint not recognized. Try again.",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    private void showDeviceCredentialPrompt() {
+        KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        if (km == null) {
+            authenticationInProgress = false;
+            return;
+        }
+
+        Intent intent = km.createConfirmDeviceCredentialIntent(
+                "Unlock My Bills",
+                "Confirm your phone security to continue."
+        );
+
+        if (intent == null) {
+            authenticationInProgress = false;
+            Toast.makeText(this, "Device security is unavailable.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        externalActivityInProgress = true;
+        startActivityForResult(intent, DEVICE_CREDENTIAL_REQUEST);
+    }
+
+    private void relockIfNeeded() {
+        if (!isAppLockEnabled() || !authenticatedForSession || authenticationInProgress) return;
+
+        long awayFor = stoppedAtElapsed > 0L
+                ? SystemClock.elapsedRealtime() - stoppedAtElapsed
+                : 0L;
+
+        if (awayFor >= RELOCK_AFTER_MS) {
+            authenticatedForSession = false;
+            if (webView != null) {
+                webView.setVisibility(View.INVISIBLE);
+            }
+            showLockedScreen();
+            authenticateUser();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!externalActivityInProgress) {
+            relockIfNeeded();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!externalActivityInProgress && authenticatedForSession) {
+            stoppedAtElapsed = SystemClock.elapsedRealtime();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == DEVICE_CREDENTIAL_REQUEST) {
+            externalActivityInProgress = false;
+            authenticationInProgress = false;
+            if (resultCode == RESULT_OK) {
+                unlockAndCreateWebView();
+            } else {
+                showLockedScreen();
+                Toast.makeText(this, "My Bills is still locked.", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        externalActivityInProgress = false;
 
         if (requestCode == FILE_CHOOSER_REQUEST) {
             if (filePathCallback == null) return;
