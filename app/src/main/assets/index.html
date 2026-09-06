@@ -1,4 +1,4 @@
-<!-- 20.1.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2884,7 +2884,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 
     <div class="settings-section">
       <h3>Android App Security</h3>
-      <div class="settings-help">App Lock uses Android's secure device authentication. Any PIN/password/pattern is the same one already used to unlock your phone, and fingerprint authentication comes from your phone. My Bills does not store a separate PIN or fingerprint.</div>
+      <div class="settings-help">My Bills uses your phone's lock. If asked for a PIN, enter the same PIN you use to unlock your phone. You can also use your fingerprint if your phone allows it. My Bills does not see or save either one.</div>
     </div>
 
     <div class="settings-section">
@@ -7531,7 +7531,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7618,7 +7618,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.3</strong>
+      <strong>20.1.4</strong>
     </div>
   </section>
 </div>
@@ -7632,10 +7632,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.3';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.4';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=153, BUILD_NAME='20.1.3', BUILD_LABEL='20.1.3';
+  const BUILD_CODE=154, BUILD_NAME='20.1.4', BUILD_LABEL='20.1.4';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7889,7 +7889,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.3';
+  const VERSION='20.1.4';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8073,7 +8073,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.3';
+  const VERSION='20.1.4';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8313,7 +8313,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.3';
+  const VERSION='20.1.4';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8620,7 +8620,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -8705,22 +8705,23 @@ function openAvailableNowSpendingV88(){
 
     <section class="mb212-step" data-mb212-step="3">
       <div class="mb212-kicker">Step 3 of 3</div>
-      <h2>Protecting My Bills</h2>
+      <h2>Before you turn on App Lock</h2>
 
-      <div class="mb212-security-card">
+      <div class="mb212-security-card mb214-simple-security">
         <div class="mb212-shield">✓</div>
         <div>
-          <strong>My Bills does not create a separate PIN.</strong>
-          <p>If App Lock is turned on, the PIN/password/pattern it asks for is the <strong>same device lock you already use on your phone</strong>. If your phone has fingerprint authentication set up, Android can use that too.</p>
-          <p>My Bills never sees or stores your fingerprint or phone PIN.</p>
+          <strong>There is no separate My Bills PIN.</strong>
+          <p>If your phone asks for a PIN, use the <strong>same PIN you use to unlock your phone</strong>.</p>
+          <p>If you use your fingerprint to unlock your phone, you can use that too.</p>
+          <p class="mb214-private-note">My Bills does not see or save your PIN or fingerprint.</p>
         </div>
       </div>
 
       <label id="mb212LockChoiceRow" class="mb212-lock-choice">
         <input id="mb212EnableLock" type="checkbox">
         <span>
-          <strong>Use my phone security to lock My Bills</strong>
-          <small>Optional. You can change this later in Settings.</small>
+          <strong>Turn on App Lock</strong>
+          <small>Uses your phone's existing lock. You can change this later in Settings.</small>
         </span>
       </label>
 
@@ -8740,8 +8741,8 @@ function openAvailableNowSpendingV88(){
 
 <div id="mb212SecurityTip" class="mb212-security-tip" hidden>
   <button type="button" class="mb212-tip-close" aria-label="Dismiss">×</button>
-  <strong>About the My Bills lock</strong>
-  <span>Any PIN, password, pattern, or fingerprint prompt comes from <b>your phone’s existing device lock</b>. My Bills does not have or store a separate PIN.</span>
+  <strong>Using App Lock</strong>
+  <span><b>No new PIN to remember.</b> If asked for a PIN, use the same one that unlocks your phone. Your fingerprint works too if it is set up on your phone.</span>
 </div>
 
 <script id="mb-20-0-142-security-settings-script">
@@ -8767,7 +8768,7 @@ function openAvailableNowSpendingV88(){
       <div class="mb142-security-row">
         <div class="mb142-security-copy">
           <strong>Require fingerprint / phone lock</strong>
-          <small>When on, Android uses your phone's existing PIN/password/pattern or fingerprint. My Bills does not create a separate PIN.</small>
+          <small>When on, use the same PIN or fingerprint you already use to unlock your phone. My Bills does not have a separate PIN.</small>
         </div>
         <label class="mb142-switch" aria-label="Require fingerprint or phone lock">
           <input id="mb142AppLockToggle" type="checkbox">
@@ -8975,7 +8976,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.3 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.4 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;

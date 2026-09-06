@@ -2116,3 +2116,16 @@ label{
     flex:1 1 0;
   }
 }
+
+
+/* 20.1.4 — simplified App Lock explanation */
+.mb214-simple-security strong{
+  font-size:1.08rem;
+}
+.mb214-simple-security p{
+  margin-top:8px;
+}
+.mb214-private-note{
+  color:#9feef3!important;
+  font-weight:700;
+}

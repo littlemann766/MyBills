@@ -2,7 +2,7 @@
 
 ## Current model
 
-My Bills is local-first. Bills, income, spending, settings, and related finance data are stored in the app's WebView storage on the device. The app does not require the Android INTERNET permission in 20.1.3. User backups are created only through the explicit backup/export flow.
+My Bills is local-first. Bills, income, spending, settings, and related finance data are stored in the app's WebView storage on the device. The app does not require the Android INTERNET permission in 20.1.4. User backups are created only through the explicit backup/export flow.
 
 ## Android protections
 
@@ -31,9 +31,9 @@ The permanent signing key is part of the app's long-term identity. Keep `MYBILLS
 6. Perform a dedicated input/XSS review before adding any network sync, accounts, or remote content.
 
 
-## 20.1.3 production note
+## 20.1.4 production note
 The Android build now targets API 36 and produces an Android App Bundle for Play testing. The app remains intentionally offline/local-first. Adding Internet permission, remote content, analytics, advertising, cloud sync, or accounts should trigger a new privacy/security review.
 
 
-## 20.1.3 authentication wording
+## 20.1.4 authentication wording
 The onboarding and Settings UI explicitly state that Android device authentication is used. My Bills does not create, receive, or store a separate user PIN, device passcode, or fingerprint template.
