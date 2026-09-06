@@ -857,6 +857,25 @@ dialog button.danger{
 <link rel="apple-touch-icon" sizes="192x192" href="mybills-v125-192.png?v=125">
 <link rel="manifest" href="manifest.webmanifest?v=125">
 
+
+<style id="mb-20-0-146-spending-status-fix">
+/* 20.0.147: Autopay is a status, never a category badge. */
+.autopay-pill{display:none!important}
+/* Spending ledger shows paid bills and manual spending together. */
+.mb146-spend-type{display:inline-block;margin-left:7px;padding:2px 7px;border-radius:999px;border:1px solid var(--mb137-cyan,#00f5ff);color:var(--mb137-cyan,#00f5ff)!important;font-size:10px;font-weight:900;vertical-align:middle}
+.mb146-bill-spend .mb119-ledger-time{color:var(--mb137-muted,#c5d1e2)!important}
+</style>
+
+<style id="mb-20-0-147-refunds">
+#mb147AddFunds{
+  background:#fff!important;
+  color:var(--mb137-navy,#0b234b)!important;
+  border:2px solid var(--mb137-cyan,#00f5ff)!important;
+}
+.mb147-refund-type{background:rgba(0,245,255,.10)!important}
+.mb147-refund-amt{color:#7df7c5!important}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3715,7 +3734,11 @@ const V49_SPENDING_KEY='myBills_budget_spending_v1';
 function loadBudgetSpending(){try{const x=JSON.parse(localStorage.getItem(V49_SPENDING_KEY)||'[]');return Array.isArray(x)?x:[]}catch(e){return []}}
 function persistBudgetSpending(rows){localStorage.setItem(V49_SPENDING_KEY,JSON.stringify(rows))}
 function budgetSpendingFor(y,m){return loadBudgetSpending().filter(x=>{const d=new Date((x.date||'')+'T00:00:00');return d.getFullYear()===y&&d.getMonth()===m})}
-function otherSpendingTotal(y,m){return budgetSpendingFor(y,m).reduce((sum,x)=>sum+(Number(x.amount)||0),0)}
+function spendingSignedAmount(x){
+  const n=Number(x&&x.amount)||0;
+  return /^(refund|funds|credit)$/i.test(String(x&&x.flow||x&&x.type||'')) ? -Math.abs(n) : Math.abs(n);
+}
+function otherSpendingTotal(y,m){return budgetSpendingFor(y,m).reduce((sum,x)=>sum+spendingSignedAmount(x),0)}
 function totalBudgetSpent(y,m){const paid=(typeof monthlyCashPaidFor==='function'?monthlyCashPaidFor(y,m):monthlyPaidFor(y,m));return paid+otherSpendingTotal(y,m)}
 function resetBudgetExpenseFormV5(){
   if($('budgetExpenseEditId')) $('budgetExpenseEditId').value='';
@@ -3857,7 +3880,7 @@ function enhanceMainBillList(){
   let current=''; occurrences.forEach(({b,iso})=>{
     if(current!==iso){current=iso;const h=document.createElement('div');h.className='main-bill-date';h.textContent=fmtLong(iso);list.appendChild(h)}
     const category=(b.category||'Uncategorized').trim()||'Uncategorized',status=billStatus(b,iso),el=document.createElement('div');el.className='bill '+(status==='partial'?'partial':'');
-    el.innerHTML=`<div class="dot" style="background:${b.color||defaultColor(b.name)}"></div><div class="billmain"><div class="name">${esc(b.name)}</div><div class="meta">${b.recurring?'Recurring • ':''}${status==='partial'?'Partial payment':'Unpaid'}</div><span class="bill-category-pill">${esc(category)}</span>${b.autopay?'<span class="autopay-pill">Autopay</span>':''}${dueFlag(iso)}</div><div class="amount">${money(b.amount)}</div>`;
+    el.innerHTML=`<div class="dot" style="background:${b.color||defaultColor(b.name)}"></div><div class="billmain"><div class="name">${esc(b.name)}</div><div class="meta">${b.recurring?'Recurring • ':''}${status==='partial'?'Partial payment':'Unpaid'}${b.autopay?' • Autopay':''}</div><span class="bill-category-pill">${esc(category)}</span>${dueFlag(iso)}</div><div class="amount">${money(b.amount)}</div>`;
     let timer=null,longPressed=false; const start=e=>{if(e.target.closest('button'))return;longPressed=false;timer=setTimeout(()=>{longPressed=true;showBill(b.id,iso)},650)},cancel=()=>{if(timer){clearTimeout(timer);timer=null}};
     el.addEventListener('pointerdown',start);el.addEventListener('pointerup',e=>{cancel();if(!longPressed&&!e.target.closest('button'))showBill(b.id,iso)});el.addEventListener('pointercancel',cancel);el.addEventListener('pointerleave',cancel);list.appendChild(el);
   });
@@ -9027,13 +9050,16 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
 
   <section id="mb119Spending" class="mb119-view">
     <h2 class="mb119-title">Spending</h2>
-    <div class="mb119-sub">Manual spending is timestamped when you enter it.</div>
+    <div class="mb119-sub">Paid bills and manual spending are shown together so every dollar out is easy to track.</div>
     <div class="mb119-card mb119-spend-form">
       <div class="mb119-spend-grid">
-        <input id="mb119SpendName" placeholder="What did you spend on?" maxlength="80">
+        <input id="mb119SpendName" placeholder="Spending or refund description" maxlength="80">
         <input id="mb119SpendAmount" type="number" min="0" step="0.01" placeholder="Amount">
       </div>
-      <div class="mb119-spend-actions"><button id="mb119AddSpend" type="button">+ Add Spending</button></div>
+      <div class="mb119-spend-actions">
+        <button id="mb119AddSpend" type="button">− Add Spending</button>
+        <button id="mb147AddFunds" type="button">+ Add Refund / Funds</button>
+      </div>
     </div>
     <div class="mb119-range">
       <button class="active" data-mb119-range="week" type="button">Week</button>
@@ -9074,7 +9100,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.0.145</strong>
+      <strong>20.0.147</strong>
     </div>
   </section>
 </div>
@@ -9088,10 +9114,10 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.145';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.147';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=144, BUILD_NAME='20.0.145', BUILD_LABEL='20.0.145';
+  const BUILD_CODE=147, BUILD_NAME='20.0.147', BUILD_LABEL='20.0.147';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9172,8 +9198,36 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     const name=n.value.trim()||'Other spending',amount=Number(a.value);
     if(!(amount>0)){a.focus();return}
     const rows=loadSpend(),now=new Date();
-    rows.push({id:'sp_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,amount,date:now.toISOString().slice(0,10),enteredAt:now.toISOString(),source:'manual'});
+    rows.push({id:'sp_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,amount:Math.abs(amount),date:now.toISOString().slice(0,10),enteredAt:now.toISOString(),source:'manual',flow:'spending'});
     saveSpend(rows);n.value='';a.value='';n.focus();
+  }
+
+  function addFunds147(){
+    const n=$('mb119SpendName'),a=$('mb119SpendAmount');
+    const name=n.value.trim()||'Refund / funds added',amount=Number(a.value);
+    if(!(amount>0)){a.focus();return}
+    const rows=loadSpend(),now=new Date();
+    rows.push({id:'rf_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,amount:Math.abs(amount),date:now.toISOString().slice(0,10),enteredAt:now.toISOString(),source:'manual',flow:'refund'});
+    saveSpend(rows);n.value='';a.value='';n.focus();
+  }
+
+  function paidBillSpendRows(start,now){
+    const out=[];
+    let meta={};
+    try{meta=JSON.parse(localStorage.getItem('myBills_payment_meta_v1')||'{}')||{}}catch(e){}
+    const amounts=(typeof billPaidAmounts==='object'&&billPaidAmounts)?billPaidAmounts:{};
+    Object.keys(amounts).forEach(key=>{
+      const sep=key.lastIndexOf('|'); if(sep<0)return;
+      const id=key.slice(0,sep),dueIso=key.slice(sep+1),amount=Number(amounts[key])||0;
+      if(!(amount>0))return;
+      const b=Array.isArray(window.bills)?window.bills.find(x=>String(x.id)===String(id)):(Array.isArray(bills)?bills.find(x=>String(x.id)===String(id)):null);
+      if(!b)return;
+      const paidIso=(meta[key]&&meta[key].date)||dueIso;
+      const d=new Date(paidIso+'T12:00:00');
+      if(isNaN(d)||d<start||d>now)return;
+      out.push({kind:'bill',id:String(id),dueIso,name:b.name||'Bill',amount,_d:d,category:b.category||'',autopay:!!b.autopay});
+    });
+    return out;
   }
 
   function renderSpend(){
@@ -9181,9 +9235,23 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     const now=new Date();let start;
     if(spendRange==='week'){start=new Date(now);start.setHours(0,0,0,0);start.setDate(now.getDate()-now.getDay())}
     else start=new Date(now.getFullYear(),now.getMonth(),1);
-    const rows=loadSpend().map(x=>({...x,_d:enteredDate(x)})).filter(x=>x._d>=start&&x._d<=now).sort((a,b)=>b._d-a._d);
-    $('mb119SpendTotal').textContent=cash(rows.reduce((s,x)=>s+(Number(x.amount)||0),0))+(spendRange==='week'?' this week':' this month');
-    $('mb119SpendList').innerHTML=rows.length?rows.map(x=>`<div class="mb119-ledger-item"><div class="mb119-ledger-title">${esc(x.name||x.title||'Spending')}</div><div class="mb119-ledger-amt">${cash(x.amount)}</div><div class="mb119-ledger-time">Entered ${x._d.toLocaleString()}</div><div class="mb137-spend-actions"><button type="button" class="mb137-edit" data-mb137-edit="${esc(x.id)}">Edit</button><button type="button" class="mb137-delete" data-mb137-delete="${esc(x.id)}">Delete</button></div></div>`).join(''):'<div style="color:#b9c7da;padding:8px 0">No spending entered for this period.</div>';wireSpendActions137();
+
+    const manual=loadSpend().map(x=>({...x,kind:'manual',_d:enteredDate(x)})).filter(x=>x._d>=start&&x._d<=now);
+    const billRows=paidBillSpendRows(start,now);
+    const rows=[...manual,...billRows].sort((a,b)=>b._d-a._d);
+    const total=rows.reduce((sum,x)=>sum+(x.kind==='bill'?(Number(x.amount)||0):spendingSignedAmount(x)),0);
+    $('mb119SpendTotal').textContent=cash(total)+(spendRange==='week'?' net spent this week':' net spent this month');
+    $('mb119SpendList').innerHTML=rows.length?rows.map(x=>{
+      if(x.kind==='bill'){
+        return `<div class="mb119-ledger-item mb146-bill-spend"><div class="mb119-ledger-title">${esc(x.name||'Bill')} <span class="mb146-spend-type">Bill</span></div><div class="mb119-ledger-amt">−${cash(x.amount)}</div><div class="mb119-ledger-time">Paid ${x._d.toLocaleDateString()}${x.category?' • '+esc(x.category):''}${x.autopay?' • Autopay':''}</div><div class="mb137-spend-actions"><button type="button" class="mb137-edit" data-mb146-bill="${esc(x.id)}" data-mb146-due="${esc(x.dueIso)}">Edit Payment</button></div></div>`;
+      }
+      const isRefund=/^(refund|funds|credit)$/i.test(String(x.flow||x.type||''));
+      return `<div class="mb119-ledger-item ${isRefund?'mb147-refund-row':''}"><div class="mb119-ledger-title">${esc(x.name||x.title||(isRefund?'Refund / Funds':'Spending'))} <span class="mb146-spend-type ${isRefund?'mb147-refund-type':''}">${isRefund?'Refund / Funds':'Spending'}</span></div><div class="mb119-ledger-amt ${isRefund?'mb147-refund-amt':''}">${isRefund?'+':'−'}${cash(Math.abs(Number(x.amount)||0))}</div><div class="mb119-ledger-time">${isRefund?'Added':'Entered'} ${x._d.toLocaleString()}</div><div class="mb137-spend-actions"><button type="button" class="mb137-edit" data-mb137-edit="${esc(x.id)}">Edit</button><button type="button" class="mb137-delete" data-mb137-delete="${esc(x.id)}">Delete</button></div></div>`;
+    }).join(''):'<div style="color:#b9c7da;padding:8px 0">No spending, refunds, or paid bills for this period.</div>';
+    wireSpendActions137();
+    document.querySelectorAll('[data-mb146-bill]').forEach(btn=>btn.onclick=()=>{
+      if(typeof window.openBillPayment==='function')window.openBillPayment(btn.dataset.mb146Bill,btn.dataset.mb146Due,'budget');
+    });
   }
 
   function numberFromText(el){
@@ -9197,7 +9265,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
     const available=numberFromText($('availableNowCard')||document.querySelector('.available-now-card'));
     const savingsCard=[...document.querySelectorAll('#dashboardCards .card,#financeStatusCard .health-cell')].find(x=>/savings/i.test(x.textContent||''));
     const savings=numberFromText(savingsCard);
-    const spending=loadSpend().filter(x=>{const d=enteredDate(x),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).reduce((s,x)=>s+(Number(x.amount)||0),0);
+    const spending=loadSpend().filter(x=>{const d=enteredDate(x),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).reduce((s,x)=>s+spendingSignedAmount(x),0);
     let budget=0;
     try{budget=Number(viewedBudget())||0}catch(e){}
 
@@ -9239,6 +9307,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
   function init(){
     setupContent();wireNav();wireTools();
     $('mb119AddSpend').onclick=addSpend;
+    $('mb147AddFunds').onclick=addFunds147;
     $('mb119SpendAmount').addEventListener('keydown',e=>{if(e.key==='Enter')addSpend()});
     document.querySelectorAll('[data-mb119-range]').forEach(b=>b.onclick=()=>{spendRange=b.dataset.mb119Range;document.querySelectorAll('[data-mb119-range]').forEach(x=>x.classList.toggle('active',x===b));renderSpend()});
     $('mb119NextTip').onclick=()=>{tipIndex++;refreshTip()};
@@ -9266,7 +9335,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.0.145';
+  const VERSION='20.0.147';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9450,7 +9519,7 @@ dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.0.145';
+  const VERSION='20.0.147';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9979,7 +10048,7 @@ html,body,#mb119Shell,.mb119-view{
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.0.145';
+  const VERSION='20.0.147';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -10300,7 +10369,7 @@ html,body,#mb119Shell,.mb119-view{
 
 <style id="mb-20-0-139-shell-fix">
 /*
-  20.0.145 regression fix:
+  20.0.147 regression fix:
   the original one-page .app became visible again in 137/138.
   Its useful nodes are already moved into #mb119Shell by setupContent().
   Keep only the new tab shell visible.
@@ -10351,7 +10420,7 @@ body > .app{
 
 <script id="mb-20-0-139-shell-fix-script">
 (function(){
-  const VERSION='20.0.145';
+  const VERSION='20.0.147';
 
   function enforceOnePage(){
     const legacy=document.querySelector('body > .app');
@@ -10486,7 +10555,7 @@ body > .app{
   color:#c5d1e2!important;
 }
 
-/* 20.0.145 visual/performance polish */
+/* 20.0.147 visual/performance polish */
 #mb119HomeMount .current-week-hours-card,
 #mb119HomeMount .card[onclick*="showHoursWeeks"]{
   background:linear-gradient(145deg,var(--mb137-navy,#0b234b),var(--mb137-navy2,#071a36))!important;
