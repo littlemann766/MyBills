@@ -31,18 +31,14 @@ jobs:
 
           if [ -f MyBills_update.zip ]; then
             cp MyBills_update.zip /tmp/MyBills_update.zip
-
             git fetch origin main
             git reset --hard origin/main
-
             cp /tmp/MyBills_update.zip MyBills_update.zip
 
             rm -rf .mybills_update_tmp
             mkdir .mybills_update_tmp
             unzip -o MyBills_update.zip -d .mybills_update_tmp
 
-            # Cleanup packages may include a list of obsolete repository paths.
-            # Only relative, traversal-free paths are accepted.
             DELETE_LIST=".mybills_update_tmp/.mybills-delete-list.txt"
             if [ -f "$DELETE_LIST" ]; then
               while IFS= read -r OLD_PATH || [ -n "$OLD_PATH" ]; do
@@ -59,7 +55,6 @@ jobs:
             fi
 
             cp -a .mybills_update_tmp/. .
-
             rm -rf .mybills_update_tmp
             rm -f MyBills_update.zip
           else
@@ -70,18 +65,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add -A
-
           if ! git diff --cached --quiet; then
             git commit -m "Apply My Bills app update"
-
             git fetch origin main
             if ! git push origin HEAD:main; then
-              echo "main changed while the update was running. Rebasing and retrying..."
               git pull --rebase origin main
               git push origin HEAD:main
             fi
@@ -98,7 +88,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.11.1'
 
       - name: Verify permanent signing secrets
         shell: bash
@@ -124,16 +114,19 @@ jobs:
           echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
           echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
 
-      - name: Build permanently signed APK
-        run: gradle assembleRelease
+      - name: Build signed APK and Play App Bundle
+        run: gradle clean assembleRelease bundleRelease
 
-      - name: Find release APK
+      - name: Collect release files
         shell: bash
         run: |
           set -euo pipefail
           APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
+          AAB="$(find app/build/outputs/bundle/release -name '*.aab' | head -n 1)"
           test -n "$APK"
+          test -n "$AAB"
           cp "$APK" MyBills.apk
+          cp "$AAB" MyBills.aab
 
       - name: Verify APK signature
         shell: bash
@@ -143,9 +136,20 @@ jobs:
           test -n "$APKSIGNER"
           "$APKSIGNER" verify --verbose MyBills.apk
 
-      - name: Upload signed APK
+      - name: Verify App Bundle signature
+        shell: bash
+        run: jarsigner -verify -strict MyBills.aab
+
+      - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: MyBills-signed
+          name: MyBills-signed-APK
           path: MyBills.apk
+          if-no-files-found: error
+
+      - name: Upload Play Store App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyBills-Play-AAB
+          path: MyBills.aab
           if-no-files-found: error
