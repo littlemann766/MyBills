@@ -1890,3 +1890,83 @@ body > .app{
 .category-menu{background:#fff!important;color:var(--mb137-ink,#10203a)!important}
 .category-menu .category-option{color:var(--mb137-ink,#10203a)!important;background:#fff!important}
 .category-menu .category-option:hover,.category-menu .category-option:active{background:#eef6fa!important}
+
+
+/* 20.1.2 — First-run setup and device-security education */
+.mb212-onboarding{
+  width:min(92vw,560px);
+  max-height:88vh;
+  padding:0;
+  border:2px solid var(--mb137-cyan,#00f5ff);
+  border-radius:22px;
+  background:var(--mb137-navy,#0b234b);
+  color:var(--mb137-on-navy,#fff);
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+}
+.mb212-onboarding::backdrop{background:rgba(3,11,24,.78);backdrop-filter:blur(4px)}
+.mb212-wrap{padding:22px}
+.mb212-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:22px}
+.mb212-progress span{height:5px;border-radius:999px;background:rgba(255,255,255,.18)}
+.mb212-progress span.active{background:var(--mb137-cyan,#00f5ff)}
+.mb212-step{display:none}
+.mb212-step.active{display:block}
+.mb212-kicker{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mb137-cyan,#00f5ff);margin-bottom:5px}
+.mb212-step h2{font-size:1.65rem;line-height:1.1;margin:0 0 10px;color:#fff}
+.mb212-step>p{color:#c9d6e8;line-height:1.5;margin:0 0 18px}
+.mb212-label{display:block;font-weight:750;color:#fff;margin:14px 0 0}
+.mb212-label span{font-weight:500;color:#9fb2ca;font-size:.8rem}
+.mb212-label input,.mb212-label select{
+  display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:13px 12px;
+  border-radius:12px;border:1px solid rgba(0,245,255,.55);background:#071a36;color:#fff;
+  font:inherit;outline:none
+}
+.mb212-label input:focus,.mb212-label select:focus{border-color:var(--mb137-cyan,#00f5ff);box-shadow:0 0 0 3px rgba(0,245,255,.12)}
+.mb212-callout,.mb212-tip,.mb212-security-card{
+  border:1px solid rgba(0,245,255,.42);background:rgba(0,245,255,.07);
+  border-radius:14px;padding:14px;margin:16px 0
+}
+.mb212-callout strong,.mb212-callout span{display:block}
+.mb212-callout span{color:#c9d6e8;margin-top:5px;line-height:1.45}
+.mb212-callout.compact{margin-top:18px}
+.mb212-tip{color:#c9d6e8;line-height:1.45}
+.mb212-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.mb212-actions.split{justify-content:space-between}
+.mb212-actions.stack{flex-direction:column}
+.mb212-primary,.mb212-secondary,.mb212-link{
+  min-height:46px;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer
+}
+.mb212-primary{background:var(--mb137-cyan,#00f5ff);color:#06182f;border:1px solid var(--mb137-cyan,#00f5ff)}
+.mb212-secondary{background:#fff;color:#0b234b;border:1px solid #fff}
+.mb212-link{background:transparent;color:#c9d6e8;border:0}
+.mb212-security-card{display:flex;gap:13px;align-items:flex-start}
+.mb212-security-card p{margin:5px 0 0;color:#d6e1ee;line-height:1.48}
+.mb212-shield{
+  width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;
+  background:var(--mb137-cyan,#00f5ff);color:#06182f;font-weight:900
+}
+.mb212-lock-choice{
+  display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:13px;
+  background:#071a36;border:1px solid rgba(255,255,255,.16)
+}
+.mb212-lock-choice input{width:20px;height:20px;margin-top:1px;accent-color:var(--mb137-cyan,#00f5ff)}
+.mb212-lock-choice span,.mb212-lock-choice small{display:block}
+.mb212-lock-choice small{color:#aebfd3;margin-top:3px}
+.mb212-lock-choice.disabled{opacity:.55}
+.mb212-security-tip{
+  position:fixed;left:14px;right:14px;bottom:88px;z-index:100000;
+  max-width:560px;margin:auto;padding:14px 42px 14px 15px;border-radius:14px;
+  background:#071a36;color:#fff;border:1px solid var(--mb137-cyan,#00f5ff);
+  box-shadow:0 14px 40px rgba(0,0,0,.36);transform:translateY(18px);opacity:0;
+  transition:opacity .2s ease,transform .2s ease
+}
+.mb212-security-tip.show{opacity:1;transform:translateY(0)}
+.mb212-security-tip strong,.mb212-security-tip span{display:block}
+.mb212-security-tip span{color:#cbd8e8;margin-top:4px;line-height:1.4}
+.mb212-tip-close{
+  position:absolute;right:7px;top:6px;width:32px;height:32px;border-radius:50%;
+  border:0;background:transparent;color:#fff;font-size:24px;line-height:1
+}
+@media (max-width:420px){
+  .mb212-wrap{padding:18px}
+  .mb212-step h2{font-size:1.45rem}
+}

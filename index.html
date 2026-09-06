@@ -1,4 +1,4 @@
-<!-- 20.1.1 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.2 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2884,7 +2884,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 
     <div class="settings-section">
       <h3>Android App Security</h3>
-      <div class="settings-help">PIN or biometric locking needs to be added in the Android package so it can use the phone's secure lock screen. The web version does not store a fake PIN.</div>
+      <div class="settings-help">App Lock uses Android's secure device authentication. Any PIN/password/pattern is the same one already used to unlock your phone, and fingerprint authentication comes from your phone. My Bills does not store a separate PIN or fingerprint.</div>
     </div>
 
     <div class="settings-section">
@@ -7531,7 +7531,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.1 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.2 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7618,7 +7618,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.1</strong>
+      <strong>20.1.2</strong>
     </div>
   </section>
 </div>
@@ -7632,10 +7632,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.1';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.2';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=151, BUILD_NAME='20.1.1', BUILD_LABEL='20.1.1';
+  const BUILD_CODE=152, BUILD_NAME='20.1.2', BUILD_LABEL='20.1.2';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7889,7 +7889,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.1';
+  const VERSION='20.1.2';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8073,7 +8073,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.1';
+  const VERSION='20.1.2';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8313,7 +8313,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.1';
+  const VERSION='20.1.2';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8620,7 +8620,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.1: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.2: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -8632,6 +8632,117 @@ function openAvailableNowSpendingV88(){
 
 
 
+
+
+<dialog id="mb212Onboarding" class="mb212-onboarding">
+  <div class="mb212-wrap">
+    <div class="mb212-progress" aria-label="Setup progress">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+
+    <section class="mb212-step active" data-mb212-step="0">
+      <div class="mb212-kicker">Welcome to My Bills</div>
+      <h2>Let's get you set up</h2>
+      <p>We’ll add the basics My Bills uses for income, budget, bills, spending, and your monthly totals. You can change any of this later.</p>
+      <div class="mb212-callout">
+        <strong>Your information stays on this device.</strong>
+        <span>The current Android app does not require Internet access. Backups are only created when you choose to make one.</span>
+      </div>
+      <div class="mb212-actions">
+        <button type="button" class="mb212-primary" data-mb212-next>Get Started</button>
+      </div>
+    </section>
+
+    <section class="mb212-step" data-mb212-step="1">
+      <div class="mb212-kicker">Step 1 of 3</div>
+      <h2>Tell us about your income</h2>
+      <p>This gives My Bills a starting point for paycheck projections. If your pay changes, you can edit it anytime.</p>
+
+      <label class="mb212-label">Hourly wage <span>optional</span>
+        <input id="mb212Wage" type="number" min="0" step="0.01" inputmode="decimal" placeholder="18.50">
+      </label>
+
+      <label class="mb212-label">How often are you paid?
+        <select id="mb212Frequency">
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Every 2 weeks</option>
+          <option value="one-time">One-time / irregular</option>
+        </select>
+      </label>
+
+      <label class="mb212-label">Next or most recent payday
+        <input id="mb212Payday" type="date">
+      </label>
+
+      <label class="mb212-label">Typical take-home check <span>optional</span>
+        <input id="mb212CheckAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="750.00">
+      </label>
+
+      <div class="mb212-actions split">
+        <button type="button" class="mb212-secondary" data-mb212-back>Back</button>
+        <button type="button" class="mb212-primary" data-mb212-next>Continue</button>
+      </div>
+    </section>
+
+    <section class="mb212-step" data-mb212-step="2">
+      <div class="mb212-kicker">Step 2 of 3</div>
+      <h2>Set your starting monthly amount</h2>
+      <p>This is the amount My Bills uses as the starting point for “Available Now” this month. Paid bills and spending come out of it, while refunds add money back.</p>
+
+      <label class="mb212-label">Money available this month
+        <input id="mb212Budget" type="number" min="0" step="0.01" inputmode="decimal" placeholder="2500.00">
+      </label>
+
+      <div class="mb212-tip">
+        You can leave this blank and set it later under <strong>Budget → Monthly Budget</strong>.
+      </div>
+
+      <div class="mb212-actions split">
+        <button type="button" class="mb212-secondary" data-mb212-back>Back</button>
+        <button type="button" class="mb212-primary" data-mb212-next>Continue</button>
+      </div>
+    </section>
+
+    <section class="mb212-step" data-mb212-step="3">
+      <div class="mb212-kicker">Step 3 of 3</div>
+      <h2>Protecting My Bills</h2>
+
+      <div class="mb212-security-card">
+        <div class="mb212-shield">✓</div>
+        <div>
+          <strong>My Bills does not create a separate PIN.</strong>
+          <p>If App Lock is turned on, the PIN/password/pattern it asks for is the <strong>same device lock you already use on your phone</strong>. If your phone has fingerprint authentication set up, Android can use that too.</p>
+          <p>My Bills never sees or stores your fingerprint or phone PIN.</p>
+        </div>
+      </div>
+
+      <label id="mb212LockChoiceRow" class="mb212-lock-choice">
+        <input id="mb212EnableLock" type="checkbox">
+        <span>
+          <strong>Use my phone security to lock My Bills</strong>
+          <small>Optional. You can change this later in Settings.</small>
+        </span>
+      </label>
+
+      <div class="mb212-callout compact">
+        <strong>Next: add your bills.</strong>
+        <span>We can open the regular Add Bill screen after setup so you can enter the exact due dates, amounts, categories, recurrence, and autopay status.</span>
+      </div>
+
+      <div class="mb212-actions stack">
+        <button type="button" class="mb212-primary" id="mb212FinishAddBill">Finish & Add My First Bill</button>
+        <button type="button" class="mb212-secondary" id="mb212Finish">Finish Setup</button>
+        <button type="button" class="mb212-link" data-mb212-back>Back</button>
+      </div>
+    </section>
+  </div>
+</dialog>
+
+<div id="mb212SecurityTip" class="mb212-security-tip" hidden>
+  <button type="button" class="mb212-tip-close" aria-label="Dismiss">×</button>
+  <strong>About the My Bills lock</strong>
+  <span>Any PIN, password, pattern, or fingerprint prompt comes from <b>your phone’s existing device lock</b>. My Bills does not have or store a separate PIN.</span>
+</div>
 
 <script id="mb-20-0-142-security-settings-script">
 (function(){
@@ -8656,7 +8767,7 @@ function openAvailableNowSpendingV88(){
       <div class="mb142-security-row">
         <div class="mb142-security-copy">
           <strong>Require fingerprint / phone lock</strong>
-          <small>When on, My Bills asks for your fingerprint or device security when the app locks.</small>
+          <small>When on, Android uses your phone's existing PIN/password/pattern or fingerprint. My Bills does not create a separate PIN.</small>
         </div>
         <label class="mb142-switch" aria-label="Require fingerprint or phone lock">
           <input id="mb142AppLockToggle" type="checkbox">
@@ -8690,7 +8801,7 @@ function openAvailableNowSpendingV88(){
         AndroidBridge.setAppLockEnabled(!!toggle.checked);
         status.textContent=toggle.checked
           ? 'App Lock is on.'
-          : 'App Lock is off. My Bills will open without fingerprint authentication.';
+          : 'App Lock is off. My Bills will open without phone authentication.';
       }catch(e){
         status.textContent='Could not change App Lock.';
       }
@@ -8716,6 +8827,197 @@ function openAvailableNowSpendingV88(){
     const panel=document.getElementById('mb123SettingsPanel');
     if(panel)obs.observe(panel,{childList:true,subtree:true});
   },{once:true});
+})();
+</script>
+
+
+<script id="mb-20-1-2-onboarding-script">
+(function(){
+  const DONE_KEY='myBills_onboarding_v1_done';
+  const TIP_COUNT_KEY='myBills_security_tip_launch_count_v1';
+  const TIP_MAX=3;
+
+  function q(id){return document.getElementById(id)}
+  function nativeLockAvailable(){
+    return typeof AndroidBridge!=='undefined' &&
+      AndroidBridge &&
+      typeof AndroidBridge.isAppLockEnabled==='function' &&
+      typeof AndroidBridge.setAppLockEnabled==='function';
+  }
+
+  function safeJson(key,fallback){
+    try{
+      const v=JSON.parse(localStorage.getItem(key)||'');
+      return v==null?fallback:v;
+    }catch(e){return fallback}
+  }
+
+  function hasMeaningfulExistingData(){
+    try{
+      const bills=safeJson('myBills_v1',[]);
+      const checks=safeJson('myBills_paychecks_v1',[]);
+      const hours=safeJson('myBills_work_hours_v1',[]);
+      const spending=safeJson('myBills_budget_spending_v1',[]);
+      const budgets=safeJson('myBills_monthly_budgets_v1',{});
+      const wage=Number(localStorage.getItem('myBills_hourly_wage_v1')||0);
+      return (Array.isArray(bills)&&bills.length>0) ||
+             (Array.isArray(checks)&&checks.length>0) ||
+             (Array.isArray(hours)&&hours.length>0) ||
+             (Array.isArray(spending)&&spending.length>0) ||
+             (budgets&&typeof budgets==='object'&&Object.keys(budgets).length>0) ||
+             wage>0;
+    }catch(e){return false}
+  }
+
+  let step=0;
+  function showStep(next){
+    step=Math.max(0,Math.min(3,next));
+    document.querySelectorAll('#mb212Onboarding .mb212-step').forEach((el,i)=>{
+      el.classList.toggle('active',i===step);
+    });
+    document.querySelectorAll('#mb212Onboarding .mb212-progress span').forEach((el,i)=>{
+      el.classList.toggle('active',i<=step);
+    });
+  }
+
+  function currentDateISO(){
+    const d=new Date(),off=d.getTimezoneOffset();
+    return new Date(d.getTime()-off*60000).toISOString().slice(0,10);
+  }
+
+  function prefill(){
+    const wage=Number(localStorage.getItem('myBills_hourly_wage_v1')||0);
+    if(wage>0)q('mb212Wage').value=wage.toFixed(2);
+
+    const checks=safeJson('myBills_paychecks_v1',[]);
+    if(Array.isArray(checks)&&checks[0]){
+      q('mb212Frequency').value=checks[0].frequency||'weekly';
+      q('mb212Payday').value=checks[0].date||currentDateISO();
+      if(Number(checks[0].amount)>0)q('mb212CheckAmount').value=Number(checks[0].amount).toFixed(2);
+    }else{
+      q('mb212Payday').value=currentDateISO();
+    }
+
+    try{
+      const d=new Date();
+      const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      const budgets=safeJson('myBills_monthly_budgets_v1',{});
+      const amount=Number(budgets?.[key]||0);
+      if(amount>0)q('mb212Budget').value=amount.toFixed(2);
+    }catch(e){}
+
+    const row=q('mb212LockChoiceRow');
+    const check=q('mb212EnableLock');
+    if(!nativeLockAvailable()){
+      if(row)row.classList.add('disabled');
+      if(check)check.disabled=true;
+    }else{
+      try{check.checked=!!AndroidBridge.isAppLockEnabled()}catch(e){}
+    }
+  }
+
+  function saveSetup(){
+    const wage=Math.max(0,Number(q('mb212Wage').value)||0);
+    localStorage.setItem('myBills_hourly_wage_v1',String(wage));
+    try{hourlyWage=wage}catch(e){}
+
+    const payday=q('mb212Payday').value;
+    const frequency=q('mb212Frequency').value||'weekly';
+    const amount=Math.max(0,Number(q('mb212CheckAmount').value)||0);
+
+    if(payday){
+      let checks=safeJson('myBills_paychecks_v1',[]);
+      if(!Array.isArray(checks))checks=[];
+      if(checks.length===0){
+        const id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'pay_'+Date.now();
+        checks.push({id,amount,date:payday,frequency});
+        localStorage.setItem('myBills_paychecks_v1',JSON.stringify(checks));
+        try{paychecks=checks}catch(e){}
+      }
+    }
+
+    const budget=Math.max(0,Number(q('mb212Budget').value)||0);
+    if(budget>0){
+      const d=new Date();
+      const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      const budgets=safeJson('myBills_monthly_budgets_v1',{});
+      budgets[key]=budget;
+      localStorage.setItem('myBills_monthly_budgets_v1',JSON.stringify(budgets));
+    }
+
+    if(nativeLockAvailable()){
+      try{AndroidBridge.setAppLockEnabled(!!q('mb212EnableLock').checked)}catch(e){}
+    }
+
+    localStorage.setItem(DONE_KEY,'1');
+    try{if(typeof persistWorkHours==='function')persistWorkHours()}catch(e){}
+    try{if(typeof persistPaychecks==='function')persistPaychecks()}catch(e){}
+    try{if(typeof render==='function')render()}catch(e){}
+    try{if(typeof renderCalendar==='function')renderCalendar()}catch(e){}
+    try{if(typeof updateFinanceDashboard==='function')updateFinanceDashboard()}catch(e){}
+    try{if(typeof refreshNet137==='function')refreshNet137()}catch(e){}
+  }
+
+  function finish(addBill){
+    saveSetup();
+    const dlg=q('mb212Onboarding');
+    if(dlg?.open)dlg.close();
+    if(addBill){
+      setTimeout(()=>{
+        try{
+          if(typeof openForm==='function')openForm();
+          else document.querySelector('[data-view="bills"]')?.click();
+        }catch(e){}
+      },120);
+    }
+  }
+
+  function maybeShowOnboarding(){
+    if(localStorage.getItem(DONE_KEY)==='1')return;
+
+    // Existing users upgrading to 20.1.2 should not be forced through a first-run wizard.
+    if(hasMeaningfulExistingData()){
+      localStorage.setItem(DONE_KEY,'1');
+      return;
+    }
+
+    prefill();
+    showStep(0);
+    const dlg=q('mb212Onboarding');
+    if(dlg?.showModal)dlg.showModal();
+  }
+
+  function maybeShowSecurityTip(){
+    if(!nativeLockAvailable())return;
+    let n=Math.max(0,Number(localStorage.getItem(TIP_COUNT_KEY)||0));
+    if(n>=TIP_MAX)return;
+
+    n++;
+    localStorage.setItem(TIP_COUNT_KEY,String(n));
+    const tip=q('mb212SecurityTip');
+    if(!tip)return;
+    tip.hidden=false;
+    tip.classList.add('show');
+    tip.querySelector('.mb212-tip-close')?.addEventListener('click',()=>{
+      tip.classList.remove('show');
+      tip.hidden=true;
+      localStorage.setItem(TIP_COUNT_KEY,String(TIP_MAX));
+    },{once:true});
+  }
+
+  function init(){
+    q('mb212Onboarding')?.addEventListener('cancel',e=>e.preventDefault());
+    document.querySelectorAll('[data-mb212-next]').forEach(b=>b.addEventListener('click',()=>showStep(step+1)));
+    document.querySelectorAll('[data-mb212-back]').forEach(b=>b.addEventListener('click',()=>showStep(step-1)));
+    q('mb212Finish')?.addEventListener('click',()=>finish(false));
+    q('mb212FinishAddBill')?.addEventListener('click',()=>finish(true));
+
+    setTimeout(maybeShowOnboarding,350);
+    setTimeout(maybeShowSecurityTip,800);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
 })();
 </script>
 
