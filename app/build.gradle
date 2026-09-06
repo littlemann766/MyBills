@@ -5,14 +5,14 @@ def myBillsKeystorePassword = System.getenv('MYBILLS_KEYSTORE_PASSWORD')
 
 android {
     namespace 'com.mybills.app'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId 'com.mybills.app'
         minSdk 26
-        targetSdk 35
-        versionCode 148
-        versionName '20.0.148'
+        targetSdk 36
+        versionCode 149
+        versionName '20.0.149'
     }
 
     signingConfigs {
