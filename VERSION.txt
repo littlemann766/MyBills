@@ -1,3 +1,3 @@
 My Bills
-Version: 20.1.9
-Release: PIN Lock grace period and native default-off fix
+Version: 20.1.10
+Release: Back button, PIN Lock grace, action icons

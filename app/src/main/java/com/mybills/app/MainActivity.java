@@ -54,7 +54,8 @@ public class MainActivity extends Activity {
     private static final int DEVICE_CREDENTIAL_REQUEST = 1005;
     private static final String SECURITY_PREFS = "mybills_security";
     private static final String SECURITY_ENABLED_KEY = "app_lock_enabled";
-    private static final long RELOCK_AFTER_MS = 5 * 60 * 1000L; // 5-minute grace period
+    private static final String SECURITY_LAST_UNLOCK_KEY = "pin_lock_last_unlock_ms";
+    private static final long RELOCK_AFTER_MS = 15 * 60 * 1000L; // 15-minute grace period
     private static final int SAVE_TEXT_REQUEST = 1004;
     private static final int REQUEST_BASE = 41000;
 
@@ -73,8 +74,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        showLockedScreen();
-        if (isAppLockEnabled()) {
+        if (isAppLockEnabled() && !isWithinUnlockGracePeriod()) {
+            showLockedScreen();
             authenticateUser();
             return;
         }
@@ -84,6 +85,7 @@ public class MainActivity extends Activity {
 
     private void unlockAndCreateWebView() {
         authenticatedForSession = true;
+        if (isAppLockEnabled()) rememberSuccessfulUnlock();
         authenticationInProgress = false;
 
         webView = new WebView(this);
@@ -238,7 +240,7 @@ public class MainActivity extends Activity {
             setAppLockEnabledNative(enabled);
             runOnUiThread(() -> Toast.makeText(
                     MainActivity.this,
-                    enabled ? "PIN Lock enabled. Quick app switches stay unlocked for 5 minutes." : "PIN Lock disabled.",
+                    enabled ? "PIN Lock enabled. Brief app switches stay unlocked for 15 minutes." : "PIN Lock disabled.",
                     Toast.LENGTH_SHORT
             ).show());
         }
@@ -247,6 +249,7 @@ public class MainActivity extends Activity {
         public void lockNow() {
             runOnUiThread(() -> {
                 authenticatedForSession = false;
+                clearUnlockGracePeriod();
                 showLockedScreen();
                 authenticateUser();
             });
@@ -555,10 +558,28 @@ public class MainActivity extends Activity {
         return prefs.getBoolean(SECURITY_ENABLED_KEY, false);
     }
 
+    private boolean isWithinUnlockGracePeriod() {
+        if (!isAppLockEnabled()) return true;
+        long last = getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE)
+                .getLong(SECURITY_LAST_UNLOCK_KEY, 0L);
+        return last > 0L && (System.currentTimeMillis() - last) < RELOCK_AFTER_MS;
+    }
+
+    private void rememberSuccessfulUnlock() {
+        getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE)
+                .edit().putLong(SECURITY_LAST_UNLOCK_KEY, System.currentTimeMillis()).apply();
+    }
+
+    private void clearUnlockGracePeriod() {
+        getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE)
+                .edit().remove(SECURITY_LAST_UNLOCK_KEY).apply();
+    }
+
     private void setAppLockEnabledNative(boolean enabled) {
         getSharedPreferences(SECURITY_PREFS, MODE_PRIVATE)
                 .edit()
                 .putBoolean(SECURITY_ENABLED_KEY, enabled)
+                .remove(SECURITY_LAST_UNLOCK_KEY)
                 .apply();
     }
 
@@ -730,8 +751,9 @@ public class MainActivity extends Activity {
             showLockedScreen();
             authenticateUser();
         } else {
-            // Quick app switches stay unlocked for this session.
+            // Quick app switches stay unlocked and refresh the grace window.
             stoppedAtElapsed = 0L;
+            rememberSuccessfulUnlock();
         }
     }
 
@@ -839,6 +861,7 @@ public class MainActivity extends Activity {
         final String closeCurrentUi =
                 "(function(){" +
                 "try{" +
+                "if(window.myBillsHandleAndroidBack&&window.myBillsHandleAndroidBack())return 'closed';" +
                 // Prefer the dialog containing current focus (normally the top-most one).
                 "var a=document.activeElement;" +
                 "var d=(a&&a.closest)?a.closest('dialog[open]'):null;" +

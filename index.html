@@ -1,4 +1,4 @@
-<!-- 20.1.9 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.10 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,9 +92,9 @@
     <div class="card current-week-hours-card" onclick="showHoursWeeks()" style="cursor:pointer;grid-column:1/-1;margin-bottom:0"><div class="label">Current Week Hours</div><div class="value" id="totalHours">0.00</div><div class="meta" id="currentWeekRange">Sunday–Saturday</div><div class="meta">Tap to view/edit this week or choose another week</div></div>
 
   <div class="quick-actions" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 14px">
-    <button class="primary" type="button" onclick="openHoursForm()">+ Add Hours</button>
-    <button class="primary" type="button" onclick="openForm()">+ Add Bill</button>
-    <button class="primary" type="button" onclick="openReminderForm()">+ Add Reminder</button>
+    <button class="primary" type="button" onclick="openHoursForm()">⏱ Add Hours</button>
+    <button class="primary" type="button" onclick="openForm()">▤ Add Bill</button>
+    <button class="primary" type="button" onclick="openReminderForm()">🔔 Add Reminder</button>
   </div>
 
   <div class="finance-status" id="financeStatusCard">
@@ -245,7 +245,7 @@
  <div class="form">
   <h2>All Bills</h2>
   <div id="allBillsList"></div>
-  <div class="form-actions"><button class="ghost" type="button" onclick="allBillsDlg.close()">Done</button><button class="primary" type="button" onclick="allBillsDlg.close();openForm()">+ Add Bill</button></div>
+  <div class="form-actions"><button class="ghost" type="button" onclick="allBillsDlg.close()">Done</button><button class="primary" type="button" onclick="allBillsDlg.close();openForm()">▤ Add Bill</button></div>
  </div>
 </dialog>
 
@@ -253,7 +253,7 @@
  <div class="form">
   <h2 id="dayDlgTitle">Bills for this day</h2>
   <div id="dayDlgList"></div>
-  <div class="form-actions"><button class="ghost" onclick="dayDlg.close()">Close</button><button class="ghost" id="dayAddReminderBtn">+ Add Reminder</button><button class="ghost" id="dayAddCheckBtn">+ Add Check</button><button class="primary" id="dayAddBtn">+ Add Bill</button></div>
+  <div class="form-actions"><button class="ghost" onclick="dayDlg.close()">Close</button><button class="ghost" id="dayAddReminderBtn">🔔 Add Reminder</button><button class="ghost" id="dayAddCheckBtn">+ Add Check</button><button class="primary" id="dayAddBtn">▤ Add Bill</button></div>
  </div>
 </dialog>
 <dialog id="detailDlg">
@@ -423,7 +423,7 @@
 
     <div class="form-actions">
       <button class="ghost" type="button" onclick="hoursWeeksDlg.close()">Close</button>
-      <button class="primary" type="button" onclick="hoursWeeksDlg.close();openHoursForm()">+ Add Hours</button>
+      <button class="primary" type="button" onclick="hoursWeeksDlg.close();openHoursForm()">⏱ Add Hours</button>
     </div>
   </div>
 </dialog>
@@ -2794,7 +2794,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 <div id="hoursListContent"></div>
 <div class="form-actions">
   <button class="ghost" type="button" onclick="hoursListDlg.close()">Close</button>
-  <button class="primary" type="button" onclick="hoursListDlg.close();openHoursForm()">+ Add Hours</button>
+  <button class="primary" type="button" onclick="hoursListDlg.close();openHoursForm()">⏱ Add Hours</button>
 </div>
 </div></dialog>
 
@@ -7601,7 +7601,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.9 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.10 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7680,15 +7680,15 @@ function openAvailableNowSpendingV88(){
     <h2 class="mb119-title">Settings</h2>
     <div class="mb119-sub">Appearance, reminders, defaults, backup, and app information.</div>
     <div class="mb119-settings-grid mb123-settings-nav">
-      <button type="button" data-mb123-settings="appearance">Appearance & Colors</button>
-      <button type="button" data-mb123-settings="reminders">Bills & Reminders</button>
-      <button type="button" data-mb123-settings="calendar">Calendar & Defaults</button>
-      <button type="button" data-mb123-settings="backup">Backup & App</button>
+      <button type="button" data-mb123-settings="appearance">◐ Appearance & Colors</button>
+      <button type="button" data-mb123-settings="reminders">🔔 Bills & Reminders</button>
+      <button type="button" data-mb123-settings="calendar">▣ Calendar & Defaults</button>
+      <button type="button" data-mb123-settings="backup">↥ Backup & App</button>
     </div>
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.9</strong>
+      <strong>20.1.10</strong>
     </div>
   </section>
 </div>
@@ -7702,10 +7702,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.9';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.10';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=159, BUILD_NAME='20.1.9', BUILD_LABEL='20.1.9';
+  const BUILD_CODE=160, BUILD_NAME='20.1.10', BUILD_LABEL='20.1.10';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7964,7 +7964,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.9';
+  const VERSION='20.1.10';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8148,7 +8148,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.9';
+  const VERSION='20.1.10';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8388,7 +8388,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.9';
+  const VERSION='20.1.10';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8695,7 +8695,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.9: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.10: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9072,7 +9072,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.9 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.10 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9120,7 +9120,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.1.9 — resumable first-run setup + PIN Lock opt-in */
+/* 20.1.10 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -9212,6 +9212,29 @@ function openAvailableNowSpendingV88(){
       }catch(err){}
     }
   },true);
+})();
+</script>
+
+<script id="mb-20-1-10-android-back">
+(function(){
+  window.myBillsHandleAndroidBack=function(){
+    try{
+      var a=document.activeElement;if(a&&a.blur)a.blur();
+      var ds=[].slice.call(document.querySelectorAll('dialog[open]'));
+      if(ds.length){var d=ds[ds.length-1];try{d.close();}catch(e){d.removeAttribute('open');}return true;}
+      var cm=document.getElementById('categoryMenu');
+      if(cm&&!cm.hidden){cm.hidden=true;return true;}
+      var visible=[].slice.call(document.querySelectorAll('[role="dialog"]:not([hidden]),.modal:not([hidden]),.popup:not([hidden]),.menu.open,.dropdown.open')).filter(function(el){
+        var s=getComputedStyle(el);return s.display!=='none'&&s.visibility!=='hidden';
+      });
+      if(visible.length){
+        var el=visible[visible.length-1], c=el.querySelector('[data-close],.close,.dialog-close-x,[aria-label="Close"]');
+        if(c)c.click();else el.hidden=true;
+        return true;
+      }
+    }catch(e){}
+    return false;
+  };
 })();
 </script>
 
