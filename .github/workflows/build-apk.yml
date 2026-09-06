@@ -1,0 +1,92 @@
+name: Build My Bills APK
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'MyBills_update.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mybills-build-main
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Verify permanent signing secrets
+        shell: bash
+        env:
+          KEYSTORE_B64: ${{ secrets.MYBILLS_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "::error::Missing GitHub Actions secret MYBILLS_KEYSTORE_BASE64"
+            exit 1
+          fi
+          if [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::Missing GitHub Actions secret MYBILLS_KEYSTORE_PASSWORD"
+            exit 1
+          fi
+
+      - name: Restore permanent signing key
+        shell: bash
+        env:
+          KEYSTORE_B64: ${{ secrets.MYBILLS_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYSTORE_PATH="$RUNNER_TEMP/mybills-release.jks"
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$KEYSTORE_PATH"
+
+          echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+          echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+
+          # Prove that this is the expected keystore before building.
+          keytool -list             -keystore "$KEYSTORE_PATH"             -storepass "$KEYSTORE_PASSWORD"             -alias mybills >/dev/null
+
+      - name: Build permanently signed APK
+        run: gradle assembleRelease
+
+      - name: Verify APK signature
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
+          if [ -z "$APK" ]; then
+            echo "::error::Release APK was not created."
+            exit 1
+          fi
+
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          "$APKSIGNER" verify --verbose "$APK"
+
+          cp "$APK" "MyBills.apk"
+
+      - name: Upload signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyBills-signed
+          path: MyBills.apk
+          if-no-files-found: error
