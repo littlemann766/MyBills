@@ -1,4 +1,4 @@
-<!-- 20.1.6 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.8 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7601,7 +7601,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.6 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.8 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7688,7 +7688,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.6</strong>
+      <strong>20.1.8</strong>
     </div>
   </section>
 </div>
@@ -7702,10 +7702,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.6';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.8';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=156, BUILD_NAME='20.1.6', BUILD_LABEL='20.1.6';
+  const BUILD_CODE=158, BUILD_NAME='20.1.8', BUILD_LABEL='20.1.8';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7964,7 +7964,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.6';
+  const VERSION='20.1.8';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8148,7 +8148,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.6';
+  const VERSION='20.1.8';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8388,7 +8388,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.6';
+  const VERSION='20.1.8';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8695,7 +8695,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.6: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.8: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -8787,10 +8787,10 @@ function openAvailableNowSpendingV88(){
 
     <section class="mb212-step" data-mb212-step="3">
       <div class="mb212-kicker">Setup 4 of 4</div>
-      <h2>App Lock <span class="mb216-optional">(optional)</span></h2>
+      <h2>PIN Lock <span class="mb216-optional">(optional)</span></h2>
 
       <div class="mb216-lock-simple">
-        <strong>App Lock uses the lock already on your phone.</strong>
+        <strong>PIN Lock uses the lock already on your phone.</strong>
         <div><b>PIN:</b> use the same PIN that unlocks your phone.</div>
         <div><b>Fingerprint:</b> use the fingerprint already set up on your phone.</div>
         <small>My Bills never sees or saves either one.</small>
@@ -8799,7 +8799,7 @@ function openAvailableNowSpendingV88(){
       <label id="mb212LockChoiceRow" class="mb212-lock-choice">
         <input id="mb212EnableLock" type="checkbox">
         <span>
-          <strong>Turn on App Lock</strong>
+          <strong>Turn on PIN Lock (optional)</strong>
           <small>You can change this later in Settings.</small>
         </span>
       </label>
@@ -8819,8 +8819,8 @@ function openAvailableNowSpendingV88(){
 
 <div id="mb212SecurityTip" class="mb212-security-tip" hidden>
   <button type="button" class="mb212-tip-close" aria-label="Dismiss">×</button>
-  <strong>Using App Lock</strong>
-  <span><b>App Lock uses your phone lock.</b> Same phone PIN. Same phone fingerprint. No separate My Bills PIN.</span>
+  <strong>Using PIN Lock</strong>
+  <span><b>PIN Lock uses your phone lock.</b> Same phone PIN. Same phone fingerprint. No separate My Bills PIN.</span>
 </div>
 
 <script id="mb-20-0-142-security-settings-script">
@@ -8865,24 +8865,24 @@ function openAvailableNowSpendingV88(){
     if(!nativeAvailable()){
       toggle.disabled=true;
       lockNow.disabled=true;
-      status.textContent='App Lock controls are available in the installed Android app.';
+      status.textContent='PIN Lock controls are available in the installed Android app.';
       return;
     }
 
     try{
       toggle.checked=!!AndroidBridge.isAppLockEnabled();
     }catch(e){
-      status.textContent='Could not read App Lock status.';
+      status.textContent='Could not read PIN Lock status.';
     }
 
     toggle.addEventListener('change',()=>{
       try{
         AndroidBridge.setAppLockEnabled(!!toggle.checked);
         status.textContent=toggle.checked
-          ? 'App Lock is on.'
-          : 'App Lock is off. My Bills will open without phone authentication.';
+          ? 'PIN Lock is on.'
+          : 'PIN Lock is off. My Bills will open without phone authentication.';
       }catch(e){
-        status.textContent='Could not change App Lock.';
+        status.textContent='Could not change PIN Lock.';
       }
     });
 
@@ -9072,7 +9072,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.6 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.8 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9115,6 +9115,103 @@ function openAvailableNowSpendingV88(){
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
+})();
+</script>
+
+
+<script>
+/* 20.1.8 — resumable first-run setup + PIN Lock opt-in */
+(function(){
+  const KEY='myBills_setup_progress_v1';
+  const DONE='myBills_setup_complete_v1';
+
+  function wizard(){
+    return document.querySelector('#mbSetupWizard, #mbFirstRunSetup, .mb-setup-wizard, [data-setup-wizard]');
+  }
+  function fields(root){
+    return root ? Array.from(root.querySelectorAll('input,select,textarea')) : [];
+  }
+  function visibleStep(root){
+    if(!root) return 1;
+    const active=root.querySelector('[data-setup-step].active,[data-setup-step]:not([hidden])');
+    const n=active && parseInt(active.getAttribute('data-setup-step'),10);
+    if(n) return n;
+    const txt=root.innerText||'';
+    const m=txt.match(/SETUP\s+(\d+)\s+OF\s+\d+/i);
+    return m ? parseInt(m[1],10) : 1;
+  }
+  function save(){
+    const root=wizard(); if(!root) return;
+    const data={step:visibleStep(root), values:{}, savedAt:Date.now()};
+    fields(root).forEach((el,i)=>{
+      const k=el.id||el.name||('field_'+i);
+      data.values[k]=(el.type==='checkbox'||el.type==='radio') ? !!el.checked : el.value;
+    });
+    try{ localStorage.setItem(KEY,JSON.stringify(data)); }catch(e){}
+  }
+  function restore(){
+    const root=wizard(); if(!root) return;
+    let data=null;
+    try{data=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){}
+    if(!data||!data.values) return;
+    fields(root).forEach((el,i)=>{
+      const k=el.id||el.name||('field_'+i);
+      if(!(k in data.values)) return;
+      if(el.type==='checkbox'||el.type==='radio') el.checked=!!data.values[k];
+      else el.value=data.values[k] == null ? '' : data.values[k];
+      try{el.dispatchEvent(new Event('change',{bubbles:true}));}catch(e){}
+    });
+    // Resume at the saved step using existing setup navigation when possible.
+    const wanted=Math.max(1,parseInt(data.step||1,10));
+    setTimeout(()=>{
+      let guard=0;
+      while(visibleStep(root)<wanted && guard++<8){
+        const next=root.querySelector('[data-setup-next], .setup-next, button[id*="Continue"], button[id*="continue"]');
+        if(!next) break;
+        next.click();
+      }
+    },60);
+  }
+
+  // PIN Lock is opt-in on a genuinely new setup. Never silently enable it.
+  function defaultPinLockOff(){
+    if(localStorage.getItem(KEY)) return;
+    const root=wizard(); if(!root) return;
+    root.querySelectorAll('input[type="checkbox"]').forEach(el=>{
+      const context=((el.id||'')+' '+(el.name||'')+' '+(el.closest('label,.card,.panel,div')?.innerText||'')).toLowerCase();
+      if(context.includes('pin lock') || context.includes('app lock')) el.checked=false;
+    });
+  }
+
+  document.addEventListener('input',e=>{ if(e.target.closest && e.target.closest('#mbSetupWizard,#mbFirstRunSetup,.mb-setup-wizard,[data-setup-wizard]')) save(); },true);
+  document.addEventListener('change',e=>{ if(e.target.closest && e.target.closest('#mbSetupWizard,#mbFirstRunSetup,.mb-setup-wizard,[data-setup-wizard]')) save(); },true);
+  document.addEventListener('click',e=>{
+    const root=wizard(); if(!root) return;
+    if(e.target.closest && e.target.closest('button,[role="button"]')) setTimeout(save,0);
+  },true);
+  window.addEventListener('pagehide',save);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)save();});
+
+  function init(){
+    defaultPinLockOff();
+    restore();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(init,150));
+  else setTimeout(init,150);
+
+  // Setup completion marker: returning users skip first-run setup.
+  document.addEventListener('click',e=>{
+    const b=e.target.closest && e.target.closest('button');
+    if(!b) return;
+    const t=(b.innerText||'').trim().toLowerCase();
+    if(t.includes('finish') && t.includes('first') && t.includes('bill')){
+      try{
+        save();
+        localStorage.setItem(DONE,'true');
+        localStorage.removeItem(KEY);
+      }catch(err){}
+    }
+  },true);
 })();
 </script>
 

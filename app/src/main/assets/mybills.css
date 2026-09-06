@@ -2242,3 +2242,47 @@ dialog{
 #checkHourlyWrap[hidden]{
   display:none!important;
 }
+
+
+/* ============================================================
+   20.1.7 — Bills search/filter top-area cleanup
+   ============================================================ */
+#mb119Bills .mb119-bills-tools,
+#mb119Bills .bill-tools,
+#mb119Bills .filters,
+#mb119Bills .filter-wrap,
+#mb119Bills .search-wrap{
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Known legacy wrapper directly surrounding Search bills + category select. */
+#mb119Bills .card:has(#billSearch),
+#mb119Bills .card:has(#billCategoryFilter),
+#mb119Bills .panel:has(#billSearch),
+#mb119Bills .panel:has(#billCategoryFilter){
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Keep the actual inputs styled; only remove the white outer box. */
+#mb119Bills #billSearch,
+#mb119Bills #billCategoryFilter{
+  background:var(--mb137-navy,#0b234b)!important;
+  color:#fff!important;
+  border:1px solid rgba(0,245,255,.45)!important;
+  border-radius:14px!important;
+}
+
+/* If the wrapper is a generic div, flatten only the direct container that holds both controls. */
+#mb119Bills div:has(> #billSearch):has(+ * #billCategoryFilter),
+#mb119Bills div:has(#billSearch):has(#billCategoryFilter){
+  background:transparent!important;
+  box-shadow:none!important;
+}
