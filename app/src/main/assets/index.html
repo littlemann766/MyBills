@@ -4255,89 +4255,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 
-<script type="text/plain" id="mb-v69-current-net-left-disabled">
-(function(){
-  function money(n){
-    n = Number(n || 0);
-    return n.toLocaleString('en-US',{style:'currency',currency:'USD'});
-  }
-  function getState(){
-    return window.state || window.appState || {};
-  }
-  function currentMonthKey(){
-    try{
-      if(typeof window.viewMonthKey === 'string') return window.viewMonthKey;
-      if(typeof window.monthKey === 'string') return window.monthKey;
-    }catch(e){}
-    return null;
-  }
-  function dateVal(x){
-    const s = x && (x.date || x.payDate || x.dueDate);
-    const d = s ? new Date(s + (String(s).length<=10?'T12:00:00':'')) : null;
-    return d && !isNaN(d) ? d : null;
-  }
-  function amt(x){ return Number(x && (x.amount ?? x.total ?? x.value) || 0); }
-
-  function calcActualNet(){
-    const st=getState(), now=new Date(), mk=currentMonthKey();
-    let checks = st.checks || window.checks || [];
-    let bills = st.bills || window.bills || [];
-    let spending = st.spending || st.expenses || window.spending || window.expenses || [];
-    let savings = st.savingsEntries || st.savings || window.savingsEntries || [];
-
-    // If the app exposes its own actual-to-date calculation, prefer it.
-    for(const fn of ['getActualNet','calculateActualNet','getNetRightNow','calculateNetRightNow']){
-      try{
-        if(typeof window[fn]==='function'){
-          const v=Number(window[fn]());
-          if(Number.isFinite(v)) return v;
-        }
-      }catch(e){}
-    }
-
-    function inViewedMonth(d){
-      if(!d) return false;
-      if(!mk) return d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth();
-      const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-      return k===mk;
-    }
-    const income=checks.filter(x=>{const d=dateVal(x); return inViewedMonth(d)&&d<=now;}).reduce((s,x)=>s+amt(x),0);
-    const paidBills=bills.filter(x=>{const d=dateVal(x); return inViewedMonth(d)&&d<=now;}).reduce((s,x)=>{
-      const paid=Number(x.paidAmount ?? x.amountPaid ?? (x.paid ? amt(x):0) ?? 0);
-      return s+paid;
-    },0);
-    const spent=spending.filter(x=>{const d=dateVal(x); return !d || (inViewedMonth(d)&&d<=now);}).reduce((s,x)=>s+amt(x),0);
-    const saved=savings.filter(x=>{const d=dateVal(x); return !d || (inViewedMonth(d)&&d<=now);}).reduce((s,x)=>s+amt(x),0);
-    return income-paidBills-spent-saved;
-  }
-
-  function syncLeft(){
-    let net=calcActualNet();
-    // Best fallback: read the already-rendered "Net right now" value if available.
-    const bodyText=document.body.innerText || '';
-    const m=bodyText.match(/Net right now\s*\$([\d,]+(?:\.\d{2})?)/i);
-    if(m) net=Number(m[1].replace(/,/g,''));
-
-    // Update dashboard cards labeled Left, without touching Budget remaining or projected values.
-    document.querySelectorAll('*').forEach(el=>{
-      if(el.children.length) return;
-      if((el.textContent||'').trim()!=='Left') return;
-      const card=el.closest('.card,.stat-card,.dashboard-card,.summary-card,[class*="card"]') || el.parentElement;
-      if(!card) return;
-      const candidates=[...card.querySelectorAll('*')].filter(x=>x.children.length===0 && /^\$[\d,]+(?:\.\d{2})?$/.test((x.textContent||'').trim()));
-      if(candidates.length) candidates[0].textContent=money(net);
-    });
-  }
-
-  const obs=new MutationObserver(()=>requestAnimationFrame(syncLeft));
-  /* v144 performance: old whole-document sync observer removed; normal render/change hooks below are sufficient. */
-  document.addEventListener('change',()=>requestAnimationFrame(syncLeft),true);
-  document.addEventListener('click',()=>requestAnimationFrame(syncLeft),true);
-  window.addEventListener('pageshow',syncLeft);
-  requestAnimationFrame(syncLeft);
-})();
-</script>
-
 
 <script id="mb-v70-fixes">
 (function(){
@@ -7613,6 +7530,7 @@ function openAvailableNowSpendingV88(){
 
 
 
+<!-- 20.0.150 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7699,7 +7617,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.0.149</strong>
+      <strong>20.0.150</strong>
     </div>
   </section>
 </div>
@@ -7713,10 +7631,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.149';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.0.150';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=149, BUILD_NAME='20.0.149', BUILD_LABEL='20.0.149';
+  const BUILD_CODE=150, BUILD_NAME='20.0.150', BUILD_LABEL='20.0.150';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7767,15 +7685,51 @@ function openAvailableNowSpendingV88(){
     document.querySelectorAll('.settings-fab,#settingsBtn,.floating-settings,.floating-gear,#floatingSettings,#settingsFab,.settings-float,.fab-settings').forEach(x=>x.remove());
   }
 
+  function enforceShell150(){
+    const shell=$('mb119Shell');
+    if(shell){
+      shell.style.setProperty('display','block','important');
+      shell.style.setProperty('visibility','visible','important');
+    }
+
+    const legacy=document.querySelector('body > .app');
+    if(legacy && !legacy.contains(shell)){
+      legacy.style.setProperty('display','none','important');
+      legacy.style.setProperty('visibility','hidden','important');
+      legacy.style.setProperty('pointer-events','none','important');
+    }
+  }
+
   function showView(name){
-    document.querySelectorAll('.mb119-view').forEach(v=>v.classList.toggle('active',v.id==='mb119'+name[0].toUpperCase()+name.slice(1)));
-    document.querySelectorAll('.mb119-nav').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
+    const target='mb119'+name[0].toUpperCase()+name.slice(1);
+    enforceShell150();
+
+    document.querySelectorAll('#mb119Shell > .mb119-view').forEach(v=>{
+      const active=v.id===target;
+      v.classList.toggle('active',active);
+      v.style.setProperty('display',active?'block':'none','important');
+    });
+
+    document.querySelectorAll('#mb119BottomNav .mb119-nav').forEach(b=>{
+      b.classList.toggle('active',b.dataset.view===name);
+    });
+
     window.scrollTo({top:0,behavior:'auto'});
     if(name==='spending')renderSpend();
+
+    document.dispatchEvent(new CustomEvent('mybills:viewchange',{detail:{view:name}}));
   }
 
   function wireNav(){
-    document.querySelectorAll('.mb119-nav').forEach(b=>b.onclick=e=>{e.preventDefault();showView(b.dataset.view)});
+    const nav=$('mb119BottomNav');
+    if(!nav || nav.dataset.mb150Wired==='1')return;
+    nav.dataset.mb150Wired='1';
+    nav.addEventListener('click',e=>{
+      const b=e.target.closest('.mb119-nav');
+      if(!b || !nav.contains(b))return;
+      e.preventDefault();
+      showView(b.dataset.view);
+    });
   }
 
   function callFn(name){
@@ -7934,7 +7888,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.0.149';
+  const VERSION='20.0.150';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8118,7 +8072,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.0.149';
+  const VERSION='20.0.150';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8358,7 +8312,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.0.149';
+  const VERSION='20.0.150';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8659,16 +8613,14 @@ function openAvailableNowSpendingV88(){
       },true);
     }
 
-    document.querySelectorAll('.mb119-nav').forEach(btn=>{
-      btn.addEventListener('click',()=>setTimeout(()=>{
+    document.addEventListener('mybills:viewchange',()=>{
+      requestAnimationFrame(()=>{
         ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137();
-      },35));
+      });
     });
 
-    /* v144 performance: removed redundant full-shell MutationObserver. */
-
+    /* 20.0.150: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
-    setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},1200);
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init137,{once:true});
@@ -8676,70 +8628,6 @@ function openAvailableNowSpendingV88(){
 })();
 </script>
 
-
-
-
-<script id="mb-20-0-139-shell-fix-script">
-(function(){
-  const VERSION='20.0.149';
-
-  function enforceOnePage(){
-    const legacy=document.querySelector('body > .app');
-    if(legacy){
-      legacy.style.setProperty('display','none','important');
-      legacy.style.setProperty('visibility','hidden','important');
-      legacy.style.setProperty('pointer-events','none','important');
-    }
-
-    const shell=document.getElementById('mb119Shell');
-    if(shell){
-      shell.style.setProperty('display','block','important');
-      shell.style.setProperty('visibility','visible','important');
-    }
-
-    const active=document.querySelector('#mb119BottomNav .mb119-nav.active')?.dataset.view || 'home';
-    document.querySelectorAll('#mb119Shell > .mb119-view').forEach(view=>{
-      const target='mb119'+active.charAt(0).toUpperCase()+active.slice(1);
-      const on=view.id===target;
-      view.classList.toggle('active',on);
-      view.style.setProperty('display',on?'block':'none','important');
-    });
-  }
-
-  function forceVersion(){
-    document.querySelectorAll('#mb119Version strong,[data-app-version]').forEach(x=>x.textContent=VERSION);
-  }
-
-  function wire(){
-    document.querySelectorAll('#mb119BottomNav .mb119-nav').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        requestAnimationFrame(()=>{
-          document.querySelectorAll('#mb119BottomNav .mb119-nav')
-            .forEach(x=>x.classList.toggle('active',x===btn));
-          enforceOnePage();
-        });
-      });
-    });
-  }
-
-  function init(){
-    enforceOnePage();
-    forceVersion();
-    wire();
-
-    /* v144 performance: removed self-triggering class/style MutationObserver. Navigation already enforces one page. */
-
-    setTimeout(()=>{enforceOnePage();forceVersion()},250);
-    setTimeout(()=>{enforceOnePage();forceVersion()},1200);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init,{once:true});
-  }else{
-    init();
-  }
-})();
-</script>
 
 
 
