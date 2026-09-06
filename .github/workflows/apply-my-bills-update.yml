@@ -41,6 +41,23 @@ jobs:
             mkdir .mybills_update_tmp
             unzip -o MyBills_update.zip -d .mybills_update_tmp
 
+            # Cleanup packages may include a list of obsolete repository paths.
+            # Only relative, traversal-free paths are accepted.
+            DELETE_LIST=".mybills_update_tmp/.mybills-delete-list.txt"
+            if [ -f "$DELETE_LIST" ]; then
+              while IFS= read -r OLD_PATH || [ -n "$OLD_PATH" ]; do
+                case "$OLD_PATH" in
+                  ''|'#'*) continue ;;
+                esac
+                if [[ "$OLD_PATH" = /* || "$OLD_PATH" = *".."* ]]; then
+                  echo "::error::Unsafe cleanup path: $OLD_PATH"
+                  exit 1
+                fi
+                rm -rf -- "$OLD_PATH"
+              done < "$DELETE_LIST"
+              rm -f "$DELETE_LIST"
+            fi
+
             cp -a .mybills_update_tmp/. .
 
             rm -rf .mybills_update_tmp
