@@ -778,7 +778,37 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) webView.goBack();
-        else super.onBackPressed();
+        // My Bills is a single-page WebView app. Android's Back button should
+        // close the currently open in-app menu/dialog instead of finishing
+        // the Activity and closing the whole app.
+        if (webView == null) return;
+
+        final String closeCurrentUi =
+                "(function(){" +
+                "try{" +
+                // Prefer the dialog containing current focus (normally the top-most one).
+                "var a=document.activeElement;" +
+                "var d=(a&&a.closest)?a.closest('dialog[open]'):null;" +
+                "if(!d){var ds=document.querySelectorAll('dialog[open]');if(ds.length)d=ds[ds.length-1];}" +
+                "if(d){try{d.close();}catch(e){d.removeAttribute('open');}return 'closed';}" +
+                // Also support HTML popovers if any are added later.
+                "var ps=document.querySelectorAll('[popover]');" +
+                "for(var i=ps.length-1;i>=0;i--){try{if(ps[i].matches(':popover-open')){ps[i].hidePopover();return 'closed';}}catch(e){}}" +
+                "return 'none';" +
+                "}catch(e){return 'none';}" +
+                "})()";
+
+        webView.evaluateJavascript(closeCurrentUi, result -> {
+            if ("\"closed\"".equals(result)) return;
+
+            // If a real WebView history entry exists, go back within the app.
+            if (webView.canGoBack()) {
+                webView.goBack();
+                return;
+            }
+
+            // At a main tab/root screen, Back intentionally does nothing.
+            // This prevents an accidental press from closing My Bills.
+        });
     }
 }
