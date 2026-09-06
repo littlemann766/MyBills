@@ -1,3 +1,3 @@
 My Bills
-Version: 20.0.150
-Release: JavaScript cleanup phase 1 — navigation and app shell
+Version: 20.1.1
+Release: JavaScript cleanup phase 2 — observer/background refresh maintenance
