@@ -1,3 +1,3 @@
-# My Bills 20.0.140
+# My Bills 20.0.141
 
-20.0.140 fixes the Java compilation failure from the first biometric implementation. The app now uses Android FingerprintManager for fingerprint authentication and falls back to the phone's native PIN, pattern, or password screen when fingerprint is unavailable. The fingerprint itself is still handled by Android and is never stored by My Bills. The 20.0.139 UI shell regression fix and the existing finance/theme behavior are retained.
+20.0.141 fixes the two Java compiler errors shown by GitHub. Older repository versions left more than one MainActivity source location behind. This update keeps app/src/main/java/com/MainActivity.java as the single real com.mybills.app.MainActivity and overwrites the stale com/mybills/app/MainActivity.java and com/littlemann766/mybills/MainActivity.java locations with harmless placeholder classes. That also removes the stale BiometricPrompt.BIOMETRIC_ERROR_NEGATIVE_BUTTON reference. The FingerprintManager app lock, device PIN/pattern/password fallback, 20.0.139 tab-shell fix, theme, spending editor, and finance logic are retained.
