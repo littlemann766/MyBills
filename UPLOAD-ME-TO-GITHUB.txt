@@ -1,5 +1,13 @@
 My Bills update package
-Version: 20.0.142
+Version: 20.0.143
 
-Upload this ZIP itself to the ROOT of the GitHub repository using the exact filename MyBills_update.zip.
-Do not extract it. This update does not replace MainActivity.java; it uses the working 20.0.141 Android security bridge already in the repository.
+BEFORE uploading this update ZIP:
+1. Add GitHub Actions secret MYBILLS_KEYSTORE_BASE64.
+2. Add GitHub Actions secret MYBILLS_KEYSTORE_PASSWORD.
+Use the values in MyBills-PERMANENT-SIGNING-SECRETS.txt.
+
+Then upload this ZIP itself to the ROOT of the GitHub repository using the exact filename:
+MyBills_update.zip
+
+Do not extract it.
+The updater will apply the permanent-signing workflow and then the next build will create MyBills-signed/MyBills.apk.

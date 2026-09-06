@@ -1,5 +1,8 @@
 plugins { id 'com.android.application' }
 
+def myBillsKeystoreFile = System.getenv('MYBILLS_KEYSTORE_FILE')
+def myBillsKeystorePassword = System.getenv('MYBILLS_KEYSTORE_PASSWORD')
+
 android {
     namespace 'com.mybills.app'
     compileSdk 35
@@ -8,8 +11,30 @@ android {
         applicationId 'com.mybills.app'
         minSdk 26
         targetSdk 35
-        versionCode 142
-        versionName '20.0.142'
+        versionCode 143
+        versionName '20.0.143'
+    }
+
+    signingConfigs {
+        release {
+            if (myBillsKeystoreFile && myBillsKeystorePassword) {
+                storeFile file(myBillsKeystoreFile)
+                storePassword myBillsKeystorePassword
+                keyAlias 'mybills'
+                keyPassword myBillsKeystorePassword
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // Debug builds remain available for local troubleshooting only.
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+        }
     }
 }
 

@@ -1,3 +1,15 @@
-# My Bills 20.0.142
+# My Bills 20.0.143
 
-20.0.142 intentionally leaves the working 20.0.141 application behavior alone except for two requested refinements. Backup & App now includes an optional App Lock toggle using the existing native AndroidBridge security functions, plus a Lock My Bills Now button. Smart Money Tips now rotate automatically about every 12 seconds while the app is visible, and can display either helpful advice or warnings based on Available Now, monthly budget, spending, and savings. The existing fingerprint implementation, theme, fixed headers, navigation, bills, spending, calendar, backups, and finance calculations are unchanged.
+20.0.143 introduces permanent Android APK signing.
+
+The Android application ID remains `com.mybills.app`. GitHub Actions now reconstructs the same private release keystore from repository Actions secrets and builds `assembleRelease`, producing a consistently signed `MyBills.apk`.
+
+Once 20.0.143 is installed, future releases signed with this same key can be installed directly over the existing app, preserving Android app storage.
+
+Important: an APK already installed from the older changing/debug signing key cannot be updated by the new permanent key. Back up My Bills data first, uninstall the old build one final time, install 20.0.143, restore the backup, and then keep updating in place from 20.0.144 onward.
+
+Required GitHub Actions repository secrets:
+- `MYBILLS_KEYSTORE_BASE64`
+- `MYBILLS_KEYSTORE_PASSWORD`
+
+The signing key alias is fixed as `mybills`.
