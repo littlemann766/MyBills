@@ -37,52 +37,27 @@ jobs:
       - name: Verify permanent signing secrets
         shell: bash
         env:
-          KEYSTORE_B64: ${{ secrets.MYBILLS_KEYSTORE_BASE64 }}
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
           KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
-        run: |
-          set -euo pipefail
-          if [ -z "$KEYSTORE_B64" ]; then
-            echo "::error::Missing GitHub Actions secret MYBILLS_KEYSTORE_BASE64"
-            exit 1
-          fi
-          if [ -z "$KEYSTORE_PASSWORD" ]; then
-            echo "::error::Missing GitHub Actions secret MYBILLS_KEYSTORE_PASSWORD"
-            exit 1
-          fi
+        run: test -n "$KEYSTORE_HEX" && test -n "$KEYSTORE_PASSWORD"
 
       - name: Restore permanent signing key
         shell: bash
         env:
-          KEYSTORE_B64: ${{ secrets.MYBILLS_KEYSTORE_BASE64 }}
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
           KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
-        run: |
-          set -euo pipefail
-          KEYSTORE_PATH="$RUNNER_TEMP/mybills-release.jks"
-          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$KEYSTORE_PATH"
-
-          echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
-          echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
-
-          # Prove that this is the expected keystore before building.
-          keytool -list             -keystore "$KEYSTORE_PATH"             -storepass "$KEYSTORE_PASSWORD"             -alias mybills >/dev/null
+        run: printf '%s' "$KEYSTORE_HEX" | tr -d '[:space:]' | xxd -r -p > "$RUNNER_TEMP/mybills-release.jks" && test -s "$RUNNER_TEMP/mybills-release.jks" && keytool -list -keystore "$RUNNER_TEMP/mybills-release.jks" -storepass "$KEYSTORE_PASSWORD" -alias mybills >/dev/null && echo "MYBILLS_KEYSTORE_FILE=$RUNNER_TEMP/mybills-release.jks" >> "$GITHUB_ENV" && echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
 
       - name: Build permanently signed APK
         run: gradle assembleRelease
 
+      - name: Find release APK
+        shell: bash
+        run: APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"; test -n "$APK"; cp "$APK" MyBills.apk
+
       - name: Verify APK signature
         shell: bash
-        run: |
-          set -euo pipefail
-          APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
-          if [ -z "$APK" ]; then
-            echo "::error::Release APK was not created."
-            exit 1
-          fi
-
-          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
-          "$APKSIGNER" verify --verbose "$APK"
-
-          cp "$APK" "MyBills.apk"
+        run: APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"; test -n "$APKSIGNER"; "$APKSIGNER" verify --verbose MyBills.apk
 
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
