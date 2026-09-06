@@ -4,39 +4,59 @@ on:
   push:
     paths:
       - 'MyBills_update.zip'
-      - '.github/workflows/apply-my-bills-update.yml'
 
 permissions:
   contents: write
 
+concurrency:
+  group: mybills-apply-update-main
+  cancel-in-progress: false
+
 jobs:
   apply-update:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out repository
+      - name: Check out latest main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Apply uploaded My Bills package
         shell: bash
         run: |
+          set -euo pipefail
+
           if [ ! -f MyBills_update.zip ]; then
             echo "No MyBills_update.zip found. Nothing to apply."
             exit 0
           fi
 
+          # Keep a safe copy of the uploaded package while we sync to
+          # the newest version of main.
+          cp MyBills_update.zip /tmp/MyBills_update.zip
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          cp /tmp/MyBills_update.zip MyBills_update.zip
+
           rm -rf .mybills_update_tmp
           mkdir .mybills_update_tmp
           unzip -o MyBills_update.zip -d .mybills_update_tmp
 
-          # Copy the package into the repository root.
+          # Copy the update package into the repository root.
           cp -a .mybills_update_tmp/. .
 
           rm -rf .mybills_update_tmp
           rm -f MyBills_update.zip
 
-      - name: Commit applied update
+      - name: Commit and push applied update
         shell: bash
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -48,4 +68,13 @@ jobs:
           fi
 
           git commit -m "Apply My Bills app update"
-          git push
+
+          # If main changed while this workflow was running, rebase our
+          # update on top of the newest main before pushing.
+          git fetch origin main
+
+          if ! git push origin HEAD:main; then
+            echo "main changed while the update was running. Rebasing and retrying..."
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
