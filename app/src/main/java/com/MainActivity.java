@@ -8,8 +8,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.KeyguardManager;
-import android.hardware.biometrics.BiometricManager;
-import android.hardware.biometrics.BiometricPrompt;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.os.SystemClock;
 import android.content.SharedPreferences;
@@ -589,54 +588,36 @@ public class MainActivity extends Activity {
     }
 
     private void showBiometricPrompt() {
-        BiometricPrompt.Builder builder = new BiometricPrompt.Builder(this)
-                .setTitle("Unlock My Bills")
-                .setSubtitle("Use your fingerprint or device security");
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            builder.setAllowedAuthenticators(
-                    BiometricManager.Authenticators.BIOMETRIC_STRONG
-                            | BiometricManager.Authenticators.DEVICE_CREDENTIAL
-            );
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            builder.setDeviceCredentialAllowed(true);
-        } else {
-            builder.setNegativeButton(
-                    "Use PIN",
-                    getMainExecutor(),
-                    (dialog, which) -> showDeviceCredentialPrompt()
-            );
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            authenticationInProgress = false;
+            showDeviceCredentialPrompt();
+            return;
         }
 
-        BiometricPrompt prompt = builder.build();
+        FingerprintManager fingerprintManager =
+                (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+
+        if (fingerprintManager == null
+                || !fingerprintManager.isHardwareDetected()
+                || !fingerprintManager.hasEnrolledFingerprints()) {
+            authenticationInProgress = false;
+            showDeviceCredentialPrompt();
+            return;
+        }
+
         CancellationSignal cancellationSignal = new CancellationSignal();
 
-        prompt.authenticate(
+        fingerprintManager.authenticate(
+                null,
                 cancellationSignal,
-                getMainExecutor(),
-                new BiometricPrompt.AuthenticationCallback() {
+                0,
+                new FingerprintManager.AuthenticationCallback() {
                     @Override
-                    public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                    public void onAuthenticationSucceeded(
+                            FingerprintManager.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
                         authenticationInProgress = false;
                         unlockAndCreateWebView();
-                    }
-
-                    @Override
-                    public void onAuthenticationError(int errorCode, CharSequence errString) {
-                        super.onAuthenticationError(errorCode, errString);
-                        authenticationInProgress = false;
-
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                                && errorCode == BiometricPrompt.BIOMETRIC_ERROR_NEGATIVE_BUTTON) {
-                            return;
-                        }
-
-                        Toast.makeText(
-                                MainActivity.this,
-                                "My Bills is still locked.",
-                                Toast.LENGTH_SHORT
-                        ).show();
                     }
 
                     @Override
@@ -648,7 +629,17 @@ public class MainActivity extends Activity {
                                 Toast.LENGTH_SHORT
                         ).show();
                     }
-                }
+
+                    @Override
+                    public void onAuthenticationError(
+                            int errorCode,
+                            CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                        authenticationInProgress = false;
+                        showDeviceCredentialPrompt();
+                    }
+                },
+                null
         );
     }
 
