@@ -1,3 +1,3 @@
 My Bills
-Version: 20.0.137
-Fixed stationary navy headers, reference-style navy/cyan bottom navigation, Edit/Delete on every manual Spending entry, and Net right now based on monthly budget minus actual cash payments/spending.
+Version: 20.0.138
+Added native Android app lock using the phone's secure authentication screen (fingerprint/face/device credential where supported). The app locks again after leaving it.
