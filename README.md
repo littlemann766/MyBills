@@ -131,3 +131,11 @@ After this cleanup release is installed and tested, move the Android build to AP
 - PIN Lock only relocks after My Bills has been in the background for 5 minutes.
 - Returning within 5 minutes keeps the current authenticated session open.
 - Manual `Lock Now` behavior is unchanged and still locks immediately.
+
+
+## Calculator fix — 20.1.11
+
+- Replaced the old Function/eval-style calculator execution with a built-in arithmetic parser.
+- The calculator now supports +, -, ×, ÷, decimals, unary negatives, and parentheses safely.
+- Division by zero and malformed expressions still show Error.
+- This keeps the stricter Content Security Policy intact instead of weakening security.

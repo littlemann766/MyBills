@@ -1,4 +1,4 @@
-<!-- 20.1.10 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.1.11 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2766,13 +2766,68 @@ function calcClear(){calcExpression='';calcUpdate();}
 function calcBackspace(){calcExpression=calcExpression.slice(0,-1);calcUpdate();}
 function calcEquals(){
   try{
-    const expr=calcExpression.replace(/×/g,'*').replace(/÷/g,'/');
-    if(!/^[0-9+\-*/.() ]+$/.test(expr)) throw new Error('bad expression');
-    const result=Function('"use strict";return ('+expr+')')();
-    if(!Number.isFinite(result)) throw new Error('not finite');
+    const expr=calcExpression.replace(/×/g,'*').replace(/÷/g,'/').replace(/\s+/g,'');
+    if(!expr || !/^[0-9+\-*/.()]+$/.test(expr)) throw new Error('bad expression');
+
+    let i=0;
+
+    function parseNumber(){
+      const start=i;
+      let dots=0;
+      while(i<expr.length && /[0-9.]/.test(expr[i])){
+        if(expr[i]==='.' && ++dots>1) throw new Error('bad number');
+        i++;
+      }
+      if(start===i) throw new Error('number expected');
+      const n=Number(expr.slice(start,i));
+      if(!Number.isFinite(n)) throw new Error('bad number');
+      return n;
+    }
+
+    function parseFactor(){
+      if(expr[i]==='+'){i++;return parseFactor();}
+      if(expr[i]==='-'){i++;return -parseFactor();}
+      if(expr[i]==='('){
+        i++;
+        const v=parseExpression();
+        if(expr[i]!==')') throw new Error('missing )');
+        i++;
+        return v;
+      }
+      return parseNumber();
+    }
+
+    function parseTerm(){
+      let v=parseFactor();
+      while(i<expr.length && (expr[i]==='*' || expr[i]==='/')){
+        const op=expr[i++];
+        const rhs=parseFactor();
+        if(op==='/' && rhs===0) throw new Error('divide by zero');
+        v=op==='*' ? v*rhs : v/rhs;
+      }
+      return v;
+    }
+
+    function parseExpression(){
+      let v=parseTerm();
+      while(i<expr.length && (expr[i]==='+' || expr[i]==='-')){
+        const op=expr[i++];
+        const rhs=parseTerm();
+        v=op==='+' ? v+rhs : v-rhs;
+      }
+      return v;
+    }
+
+    const result=parseExpression();
+    if(i!==expr.length || !Number.isFinite(result)) throw new Error('bad expression');
+
     calcExpression=String(Math.round((result+Number.EPSILON)*100000000)/100000000);
     calcUpdate();
-  }catch(e){const d=$('calcDisplay');if(d)d.value='Error';calcExpression='';}
+  }catch(e){
+    const d=$('calcDisplay');
+    if(d)d.value='Error';
+    calcExpression='';
+  }
 }
 
 // v44 add an always-visible close bubble to every menu/dialog.
@@ -7601,7 +7656,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.1.10 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.1.11 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7688,7 +7743,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.1.10</strong>
+      <strong>20.1.11</strong>
     </div>
   </section>
 </div>
@@ -7702,10 +7757,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.10';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.1.11';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=160, BUILD_NAME='20.1.10', BUILD_LABEL='20.1.10';
+  const BUILD_CODE=161, BUILD_NAME='20.1.11', BUILD_LABEL='20.1.11';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -7964,7 +8019,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.1.10';
+  const VERSION='20.1.11';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8148,7 +8203,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.1.10';
+  const VERSION='20.1.11';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8388,7 +8443,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.1.10';
+  const VERSION='20.1.11';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8695,7 +8750,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.1.10: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.1.11: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9072,7 +9127,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.1.10 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.1.11 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9120,7 +9175,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.1.10 — resumable first-run setup + PIN Lock opt-in */
+/* 20.1.11 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
