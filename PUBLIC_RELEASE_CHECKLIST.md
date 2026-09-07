@@ -7,7 +7,7 @@
 - [x] Compile with API 36.
 - [x] GitHub Actions creates a signed APK.
 - [x] GitHub Actions creates a signed Android App Bundle (`.aab`).
-- [ ] Confirm 20.0.149 installs over the existing app without data loss.
+- [ ] Confirm the current release installs over the previous release without data loss.
 - [ ] Confirm fresh install works with no existing data.
 - [ ] Test Android 16 behavior.
 - [ ] Test Android 13–15 compatibility.
