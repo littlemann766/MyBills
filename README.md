@@ -1,4 +1,4 @@
-# My Bills 21.0.0
+# My Bills 21.0.1
 
 This is the clean-foundation rewrite of My Bills.
 
@@ -12,7 +12,7 @@ This is the clean-foundation rewrite of My Bills.
 
 ## Compatibility
 
-The rewrite intentionally continues reading and writing the established My Bills localStorage keys for bills, payments, paychecks, work hours, spending/refunds, budgets, reminders, income type, hourly wage, and salary. Existing installed-app data can therefore carry into 21.0.0.
+The rewrite intentionally continues reading and writing the established My Bills localStorage keys for bills, payments, paychecks, work hours, spending/refunds, budgets, reminders, income type, hourly wage, and salary. Existing installed-app data can therefore carry into 21.0.1.
 
 ## Foundation rules
 
@@ -26,3 +26,11 @@ The rewrite intentionally continues reading and writing the established My Bills
 - Core features are separated by page and rendered from one state model.
 
 This release is a foundation reset. Add future features to the clean state/render/event structure instead of appending version patches.
+
+
+## Release artifact guard — 21.0.1
+
+The GitHub build now refuses to publish an APK if the APK does not contain the
+same clean-foundation version recorded in VERSION.txt. APK/AAB artifact names
+also contain the version number, preventing old downloads from being confused
+with the newest build.
