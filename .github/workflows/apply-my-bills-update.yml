@@ -28,12 +28,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           if [ ! -f MyBills_update.zip ]; then
-            echo "No MyBills_update.zip found. Nothing to apply."
+            echo "No MyBills_update.zip found."
             exit 0
           fi
 
           cp MyBills_update.zip /tmp/MyBills_update.zip
+
           git fetch origin main
           git reset --hard origin/main
           cp /tmp/MyBills_update.zip MyBills_update.zip
@@ -45,7 +47,9 @@ jobs:
           DELETE_LIST=".mybills_update_tmp/.mybills-delete-list.txt"
           if [ -f "$DELETE_LIST" ]; then
             while IFS= read -r OLD_PATH || [ -n "$OLD_PATH" ]; do
-              case "$OLD_PATH" in ''|'#'*) continue ;; esac
+              case "$OLD_PATH" in
+                ''|'#'*) continue ;;
+              esac
               if [[ "$OLD_PATH" = /* || "$OLD_PATH" = *".."* ]]; then
                 echo "::error::Unsafe cleanup path: $OLD_PATH"
                 exit 1
@@ -63,27 +67,30 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           test -f VERSION.txt
+          test -f app/build.gradle
           test -f app/src/main/assets/index.html
-          test -f app/src/main/assets/app.css
-          test -f app/src/main/assets/app.js
+          test -f app/src/main/assets/mybills.css
+
           EXPECTED_VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
           test -n "$EXPECTED_VERSION"
+
           grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
-          grep -F "const VERSION='$EXPECTED_VERSION';" app/src/main/assets/app.js
-          if [ -f app/src/main/assets/mybills.css ]; then
-            echo "::error::Legacy mybills.css survived the update."
-            exit 1
-          fi
-          echo "Applied My Bills ${EXPECTED_VERSION}"
+          grep -F "$EXPECTED_VERSION" app/src/main/assets/index.html >/dev/null
+
+          echo "Applied My Bills $EXPECTED_VERSION preservation update"
 
       - name: Commit and push applied update
         shell: bash
         run: |
           set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add -A
+
           if ! git diff --cached --quiet; then
             VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
             git commit -m "Apply My Bills ${VERSION} update"

@@ -26,37 +26,31 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Show source being built
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Commit: $(git rev-parse HEAD)"
-          echo "VERSION.txt:"
-          cat VERSION.txt
-          echo "Gradle version:"
-          grep -E 'versionCode|versionName' app/build.gradle
-          echo "Asset sizes:"
-          wc -c app/src/main/assets/index.html app/src/main/assets/app.css app/src/main/assets/app.js
-
-      - name: Verify clean-foundation source
+      - name: Read app version
         shell: bash
         run: |
           set -euo pipefail
           EXPECTED_VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
           test -n "$EXPECTED_VERSION"
-          grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
-          grep -F "const VERSION='$EXPECTED_VERSION';" app/src/main/assets/app.js
-          test -f app/src/main/assets/app.css
-          test -f app/src/main/assets/app.js
-          if [ -f app/src/main/assets/mybills.css ]; then
-            echo "::error::Legacy mybills.css is still present in Android assets."
-            exit 1
-          fi
-          if grep -q "20.1.11" app/src/main/assets/index.html app/src/main/assets/app.js; then
-            echo "::error::Stale 20.1.11 source detected."
-            exit 1
-          fi
           echo "EXPECTED_VERSION=$EXPECTED_VERSION" >> "$GITHUB_ENV"
+          echo "Building My Bills $EXPECTED_VERSION"
+
+      - name: Verify preservation source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f VERSION.txt
+          test -f app/build.gradle
+          test -f app/src/main/assets/index.html
+          test -f app/src/main/assets/mybills.css
+
+          grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
+
+          if [ -f app/src/main/assets/app.js ] || [ -f app/src/main/assets/app.css ]; then
+            echo "Note: clean-foundation files are present, but preservation build will use index.html + mybills.css."
+          fi
+
+          echo "Source files verified for My Bills $EXPECTED_VERSION"
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -107,26 +101,20 @@ jobs:
           cp "$APK" "MyBills-${EXPECTED_VERSION}.apk"
           cp "$AAB" "MyBills-${EXPECTED_VERSION}.aab"
 
-      - name: Verify APK contains the expected app
+      - name: Verify APK contains preservation app
         shell: bash
         run: |
           set -euo pipefail
           rm -rf /tmp/mybills-apk-check
           mkdir -p /tmp/mybills-apk-check
           unzip -q "MyBills-${EXPECTED_VERSION}.apk" -d /tmp/mybills-apk-check
+
           test -f /tmp/mybills-apk-check/assets/index.html
-          test -f /tmp/mybills-apk-check/assets/app.css
-          test -f /tmp/mybills-apk-check/assets/app.js
-          grep -F "const VERSION='$EXPECTED_VERSION';" /tmp/mybills-apk-check/assets/app.js
-          if [ -f /tmp/mybills-apk-check/assets/mybills.css ]; then
-            echo "::error::Built APK contains legacy mybills.css."
-            exit 1
-          fi
-          if grep -q "20.1.11" /tmp/mybills-apk-check/assets/index.html /tmp/mybills-apk-check/assets/app.js; then
-            echo "::error::Built APK contains stale 20.1.11 assets."
-            exit 1
-          fi
-          echo "APK verified as My Bills ${EXPECTED_VERSION}"
+          test -f /tmp/mybills-apk-check/assets/mybills.css
+
+          grep -F "$EXPECTED_VERSION" /tmp/mybills-apk-check/assets/index.html >/dev/null
+
+          echo "APK verified as My Bills $EXPECTED_VERSION preservation build"
 
       - name: Verify APK signature
         shell: bash
