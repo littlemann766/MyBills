@@ -1,4 +1,4 @@
-<!-- 20.3.6 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.7 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.6 Ease-of-Use Home */
+/* 20.3.7 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.6 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.7 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.6 compact Settings pop-up menus */
+/* 20.3.7 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.6 settings modal reliability fixes */
+/* 20.3.7 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.3.6 — unified themed dialogs / menus */
+/* 20.3.7 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -307,6 +307,117 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
   background:var(--mb-dialog-bg)!important;
   color:var(--mb-dialog-text)!important;
   border-color:var(--mb-dialog-border)!important;
+}
+</style>
+<style>
+/* 20.3.7 cleanup */
+
+/* Backup/App version card */
+#mb123SettingsPanel .mb119-card,
+#mb123SettingsPanel .mb2034-version-copy{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  padding:16px 18px!important;
+  min-height:auto!important;
+  border:2px solid rgba(22,228,234,.7)!important;
+  border-radius:18px!important;
+  background:#14376b!important;
+}
+#mb123SettingsPanel .mb119-card > div,
+#mb123SettingsPanel .mb2034-version-copy > div{
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+#mb123SettingsPanel .mb119-card b,
+#mb123SettingsPanel .mb2034-version-copy b{
+  display:block!important;
+  font-size:1.05rem!important;
+  line-height:1.15!important;
+}
+#mb123SettingsPanel .mb119-card strong,
+#mb123SettingsPanel .mb2034-version-copy strong{
+  flex:0 0 auto!important;
+  font-size:1.25rem!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  color:#fff!important;
+}
+
+/* Smaller edit/remove buttons in spending/history style lists */
+.budget-expense-buttons{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:7px!important;
+}
+.budget-expense-buttons .budget-edit{
+  min-width:0!important;
+  min-height:38px!important;
+  width:auto!important;
+  padding:7px 11px!important;
+  font-size:.86rem!important;
+  border-radius:12px!important;
+}
+.budget-expense-buttons .budget-remove{
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  min-height:38px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  font-size:1.15rem!important;
+  line-height:34px!important;
+}
+.dialog-close-x{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  padding:0!important;
+  border-radius:14px!important;
+  font-size:1.2rem!important;
+  line-height:38px!important;
+}
+
+/* Categories */
+#categorySummaryDlg .form,
+#categorySummaryDlg .category-row,
+#categorySummaryDlg .mb2037-category-row{
+  background:#0d2a55!important;
+  color:#fff!important;
+}
+#categorySummaryDlg .mb2037-category-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 2px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+#categorySummaryDlg .mb2037-category-row:last-child{border-bottom:0}
+#categorySummaryDlg .mb2037-category-meta{
+  color:#d8e0ee!important;
+  font-size:.82rem;
+  margin-top:2px;
+}
+
+/* Paycheck planner edit controls */
+.mb2037-planner-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:12px 0 14px;
+}
+.mb2037-planner-actions button{
+  min-height:44px!important;
+  padding:9px 11px!important;
+  font-size:.9rem!important;
+  border-radius:13px!important;
+}
+@media(max-width:480px){
+  .mb2037-planner-actions{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -7929,7 +8040,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.6 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.7 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8065,7 +8176,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.6</strong>
+      <strong>20.3.7</strong>
     </div>
   </section>
 </div>
@@ -8079,10 +8190,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.6';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.7';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=177, BUILD_NAME='20.3.6', BUILD_LABEL='20.3.6';
+  const BUILD_CODE=178, BUILD_NAME='20.3.7', BUILD_LABEL='20.3.7';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8341,7 +8452,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.6';
+  const VERSION='20.3.7';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8531,7 +8642,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.6';
+  const VERSION='20.3.7';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8771,7 +8882,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.6';
+  const VERSION='20.3.7';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9106,7 +9217,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.6: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.7: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9483,7 +9594,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.6 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.7 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9531,7 +9642,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.6 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.7 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -10067,6 +10178,236 @@ function openAvailableNowSpendingV88(){
 
   const obs=new MutationObserver(themeVisibleModals);
   obs.observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
+
+
+<script id="mb2037-fixes">
+(function(){
+  function moneyFmt(n){
+    try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}
+  }
+
+  /* --- Settings categories: move the REAL settings sections, don't clone them --- */
+  const moved=[];
+  function restoreMovedSettings2037(){
+    while(moved.length){
+      const x=moved.pop();
+      if(x.node && x.parent) x.parent.insertBefore(x.node,x.next || null);
+    }
+  }
+  const previousClose=window.mb2034CloseSettings;
+  window.mb2034CloseSettings=function(){
+    restoreMovedSettings2037();
+    try{ if(typeof previousClose==='function') previousClose(); }catch(e){}
+    const p=document.getElementById('mb123SettingsPanel');
+    if(p)p.innerHTML='';
+    document.body.classList.remove('mb2034-settings-open');
+    const x=document.getElementById('mb2034SettingsClose');
+    if(x)x.style.display='none';
+  };
+
+  function settingsSections(){
+    const dlg=document.getElementById('settingsDlg');
+    return dlg ? [...dlg.querySelectorAll('.settings-section')] : [];
+  }
+  function sectionNamed(title){
+    return settingsSections().find(s=>(s.querySelector('h3')?.textContent||'').trim()===title) || null;
+  }
+  function moveSection(panel,title){
+    const s=sectionNamed(title);
+    if(!s)return false;
+    moved.push({node:s,parent:s.parentNode,next:s.nextSibling});
+    panel.appendChild(s);
+    return true;
+  }
+  function modalHeader(panel,title){
+    const h=document.createElement('h3');
+    h.textContent=title;
+    panel.appendChild(h);
+  }
+  function saveFooter(panel){
+    const row=document.createElement('div');
+    row.className='form-actions';
+    row.style.marginTop='14px';
+    const save=document.createElement('button');
+    save.type='button';
+    save.className='primary';
+    save.textContent='Save Changes';
+    save.onclick=()=>{
+      try{ if(typeof saveSettings==='function') saveSettings(); }catch(e){}
+      window.mb2034CloseSettings();
+    };
+    row.appendChild(save);
+    panel.appendChild(row);
+  }
+
+  window.openSettingsSection=function(name){
+    restoreMovedSettings2037();
+    const panel=document.getElementById('mb123SettingsPanel');
+    if(!panel)return;
+    panel.innerHTML='';
+    if(typeof mb2034OpenSettingsShell==='function')mb2034OpenSettingsShell();
+
+    if(name==='appearance'){
+      if(typeof showAppearance137==='function'){ showAppearance137(); }
+      return;
+    }
+
+    if(name==='bills'){
+      modalHeader(panel,'Bills & Reminders');
+      moveSection(panel,'Default Bill Settings');
+      moveSection(panel,'Notifications');
+      saveFooter(panel);
+      return;
+    }
+
+    if(name==='calendar'){
+      modalHeader(panel,'Calendar & Defaults');
+      moveSection(panel,'Calendar Display');
+      saveFooter(panel);
+      return;
+    }
+
+    if(name==='backup'){
+      modalHeader(panel,'Backup & App');
+      moveSection(panel,'Safety');
+      moveSection(panel,'Android App Security');
+      moveSection(panel,'Save & Backup');
+
+      const original=document.getElementById('mb119Version');
+      if(original){
+        const copy=original.cloneNode(true);
+        copy.removeAttribute('id');
+        copy.classList.add('mb2034-version-copy');
+        panel.appendChild(copy);
+      }
+      return;
+    }
+  };
+
+  /* --- Categories: reliable summary of bill categories + tracked spending --- */
+  window.showCategorySummary=function(){
+    const y=calDate.getFullYear(),m=calDate.getMonth();
+    const totals={};
+
+    try{
+      monthBillOccurrencesV47(y,m,true).forEach(({b})=>{
+        const c=((b.category||'Uncategorized').trim()||'Uncategorized');
+        if(!totals[c])totals[c]={bills:0,spending:0,count:0};
+        totals[c].bills += Number(b.amount)||0;
+        totals[c].count++;
+      });
+    }catch(e){}
+
+    try{
+      const rows=typeof loadBudgetSpending==='function'?loadBudgetSpending():[];
+      rows.forEach(r=>{
+        const d=new Date((r.date||'')+'T00:00:00');
+        if(d.getFullYear()!==y||d.getMonth()!==m)return;
+        const c=((r.category||'Spending').trim()||'Spending');
+        if(!totals[c])totals[c]={bills:0,spending:0,count:0};
+        totals[c].spending += Number(r.amount)||0;
+      });
+    }catch(e){}
+
+    const title=document.getElementById('categorySummaryTitle');
+    const content=document.getElementById('categorySummaryContent');
+    if(title)title.textContent=`Categories — ${new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'})}`;
+    if(content){
+      const rows=Object.entries(totals).sort((a,b)=>(b[1].bills+b[1].spending)-(a[1].bills+a[1].spending));
+      content.innerHTML=rows.length?rows.map(([name,v])=>{
+        const total=(v.bills||0)+(v.spending||0);
+        const parts=[];
+        if(v.bills)parts.push(`Bills ${moneyFmt(v.bills)}`);
+        if(v.spending)parts.push(`Spending ${moneyFmt(v.spending)}`);
+        return `<div class="mb2037-category-row">
+          <div><b>${esc(name)}</b><div class="mb2037-category-meta">${parts.join(' • ')||'No activity'}</div></div>
+          <b>${moneyFmt(total)}</b>
+        </div>`;
+      }).join(''):'<div class="empty">No categorized activity in this month.</div>';
+    }
+    if(window.categorySummaryDlg)categorySummaryDlg.showModal();
+  };
+
+  /* --- Paycheck Planner: add Edit Paycheck + Edit Schedule --- */
+  window.openPaycheckPlanner=function(){
+    const today=toISO(new Date()),next=nextPaycheckAfter(today);
+    const title=document.getElementById('paycheckPlannerTitle');
+    const content=document.getElementById('paycheckPlannerContent');
+    if(title)title.textContent='Paycheck Planner';
+    if(!next){
+      if(content)content.innerHTML='<div class="empty">Add a paycheck schedule first.</div>';
+      paycheckPlannerDlg.showModal();
+      return;
+    }
+
+    const following=nextPaycheckAfter(toISO(new Date(new Date(next.iso+'T00:00:00').getTime()+86400000)));
+    const endIso=following?following.iso:toISO(new Date(new Date(next.iso+'T00:00:00').getTime()+13*86400000));
+    const due=[];
+    for(let d=new Date(next.iso+'T00:00:00');d<new Date(endIso+'T00:00:00');d.setDate(d.getDate()+1)){
+      const iso=toISO(d);
+      bills.forEach(b=>{
+        if(isRecurringOnDate(b,d)&&billStatus(b,iso)!=='paid'){
+          due.push({b,iso,rem:Math.max(0,Number(b.amount||0)-billPaidAmount(b,iso))});
+        }
+      });
+    }
+
+    const saved=typeof loadObj==='function'?loadObj(ASSIGN_KEY):{};
+    const amt=Number(next.amount||0);
+
+    content.innerHTML=`
+      <div class="summary-stat-grid">
+        <div class="summary-stat"><div class="label">Paycheck</div><div class="value">${moneyFmt(amt)}</div><div class="meta">${fmtLong(next.iso)}</div></div>
+        <div class="summary-stat"><div class="label">After assigned bills</div><div class="value" id="plannerLeft">${moneyFmt(amt)}</div></div>
+      </div>
+      <div class="mb2037-planner-actions">
+        <button type="button" class="primary" id="mb2037EditPaycheck">Edit This Paycheck</button>
+        <button type="button" class="ghost" id="mb2037EditSchedule">Edit Paycheck Schedule</button>
+      </div>
+      <div class="settings-section">
+        <h3>Assign bills to this paycheck</h3>
+        ${due.length?due.map(x=>{
+          const k=assignmentId(next.iso,x.b.id,x.iso);
+          return `<label class="planner-assign"><input type="checkbox" data-assign="${k}" data-amount="${x.rem}" ${saved[k]?'checked':''}>
+            <div class="planner-assign-main"><b>${esc(x.b.name)}</b><div class="meta">${fmtLong(x.iso)} • ${esc(x.b.category||'Uncategorized')}</div></div>
+            <b>${moneyFmt(x.rem)}</b></label>`;
+        }).join(''):'<div class="empty">No bills due before the following paycheck.</div>'}
+        <div class="planner-assigned-total"><b>Assigned total</b><b id="plannerAssigned">$0.00</b></div>
+      </div>`;
+
+    document.getElementById('mb2037EditPaycheck').onclick=()=>{
+      paycheckPlannerDlg.close();
+      openPaycheckOccurrenceForm(next.p.id,next.iso);
+    };
+    document.getElementById('mb2037EditSchedule').onclick=()=>{
+      paycheckPlannerDlg.close();
+      openPaycheckForm(next.p.id);
+    };
+
+    function recalc(){
+      let total=0;
+      document.querySelectorAll('#paycheckPlannerContent [data-assign]').forEach(c=>{
+        if(c.checked)total+=Number(c.dataset.amount)||0;
+      });
+      const a=document.getElementById('plannerAssigned');
+      const l=document.getElementById('plannerLeft');
+      if(a)a.textContent=moneyFmt(total);
+      if(l)l.textContent=moneyFmt(amt-total);
+    }
+    document.querySelectorAll('#paycheckPlannerContent [data-assign]').forEach(c=>{
+      c.onchange=()=>{
+        const obj=loadObj(ASSIGN_KEY);
+        obj[c.dataset.assign]=c.checked;
+        if(!c.checked)delete obj[c.dataset.assign];
+        saveObj(ASSIGN_KEY,obj);
+        recalc();
+      };
+    });
+    recalc();
+    paycheckPlannerDlg.showModal();
+  };
 })();
 </script>
 
