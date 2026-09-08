@@ -133,7 +133,7 @@ After this cleanup release is installed and tested, move the Android build to AP
 - Manual `Lock Now` behavior is unchanged and still locks immediately.
 
 
-## Calculator fix — 20.3.8
+## Calculator fix — 20.3.9
 
 - Replaced the old Function/eval-style calculator execution with a built-in arithmetic parser.
 - The calculator now supports +, -, ×, ÷, decimals, unary negatives, and parentheses safely.
@@ -141,7 +141,7 @@ After this cleanup release is installed and tested, move the Android build to AP
 - This keeps the stricter Content Security Policy intact instead of weakening security.
 
 
-## Preservation baseline — 20.3.8
+## Preservation baseline — 20.3.9
 
 This build intentionally preserves the 20.1.11 visual design and main workflows.
 
