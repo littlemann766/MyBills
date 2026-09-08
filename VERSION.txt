@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.15
-Release: Restored 20.4.12 base with corrected weekly Safe to Spend math
+Version: 20.4.16
+Release: Stable Payday Health display update
