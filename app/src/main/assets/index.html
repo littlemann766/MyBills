@@ -1,4 +1,4 @@
-<!-- 20.3.7 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.8 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.7 Ease-of-Use Home */
+/* 20.3.8 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.7 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.8 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.7 compact Settings pop-up menus */
+/* 20.3.8 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.7 settings modal reliability fixes */
+/* 20.3.8 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.3.7 — unified themed dialogs / menus */
+/* 20.3.8 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.7 cleanup */
+/* 20.3.8 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -418,6 +418,85 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 @media(max-width:480px){
   .mb2037-planner-actions{grid-template-columns:1fr}
+}
+</style>
+<style>
+/* 20.3.8 readability cleanup */
+
+/* Home summary cards: give label/value more room and stack the meta cleanly */
+.mb203-stat{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-areas:
+    "label value"
+    "meta meta"!important;
+  column-gap:18px!important;
+  row-gap:8px!important;
+  padding:18px 20px!important;
+  min-height:118px!important;
+  align-items:start!important;
+}
+.mb203-stat span{
+  font-size:1.08rem!important;
+  line-height:1.18!important;
+  padding-top:3px!important;
+}
+.mb203-stat b{
+  font-size:1.55rem!important;
+  line-height:1!important;
+  align-self:start!important;
+}
+.mb203-stat small{
+  font-size:.9rem!important;
+  line-height:1.25!important;
+  margin-top:2px!important;
+}
+@media(max-width:600px){
+  .mb203-stat{
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "label"
+      "value"
+      "meta"!important;
+    min-height:0!important;
+    gap:6px!important;
+    padding:16px 18px!important;
+  }
+  .mb203-stat b{
+    font-size:1.7rem!important;
+  }
+}
+
+/* Spending history rows: make description and amount visually obvious */
+.budget-expense-row,
+.spending-history-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:8px 12px!important;
+  align-items:start!important;
+}
+.mb2038-spending-main{
+  min-width:0;
+}
+.mb2038-spending-title{
+  display:block;
+  font-size:1rem;
+  font-weight:900;
+  color:#111827;
+  line-height:1.2;
+  margin:2px 0 4px;
+  overflow-wrap:anywhere;
+}
+.mb2038-spending-meta{
+  color:#6b7280;
+  font-size:.86rem;
+  line-height:1.25;
+}
+.mb2038-spending-amount{
+  font-size:1rem;
+  font-weight:900;
+  color:#111827;
+  white-space:nowrap;
+  padding-top:2px;
 }
 </style>
 </head>
@@ -8040,7 +8119,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.7 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.8 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8176,7 +8255,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.7</strong>
+      <strong>20.3.8</strong>
     </div>
   </section>
 </div>
@@ -8190,10 +8269,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.7';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.8';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=178, BUILD_NAME='20.3.7', BUILD_LABEL='20.3.7';
+  const BUILD_CODE=179, BUILD_NAME='20.3.8', BUILD_LABEL='20.3.8';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8452,7 +8531,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.7';
+  const VERSION='20.3.8';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8642,7 +8721,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.7';
+  const VERSION='20.3.8';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8882,7 +8961,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.7';
+  const VERSION='20.3.8';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9217,7 +9296,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.7: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.8: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9594,7 +9673,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.7 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.8 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9642,7 +9721,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.7 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.8 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -10408,6 +10487,131 @@ function openAvailableNowSpendingV88(){
     recalc();
     paycheckPlannerDlg.showModal();
   };
+})();
+</script>
+
+
+<script id="mb2038-readability-fix">
+(function(){
+
+  function money2038(n){
+    try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}
+  }
+
+  /* Improve tracked spending list after it renders */
+  function enhanceTrackedSpending2038(){
+    const dlg =
+      document.getElementById('budgetSpendingDlg') ||
+      document.getElementById('spendingHistoryDlg') ||
+      [...document.querySelectorAll('dialog')].find(d=>{
+        const txt=(d.textContent||'').toLowerCase();
+        return txt.includes('tracked spending');
+      });
+
+    if(!dlg)return;
+
+    const rows=[...dlg.querySelectorAll('.budget-expense-row,.spending-history-row')];
+    rows.forEach(row=>{
+      if(row.dataset.mb2038Done==='1')return;
+
+      const editBtn=[...row.querySelectorAll('button')].find(b=>(b.textContent||'').trim().toLowerCase()==='edit');
+      const removeBtn=[...row.querySelectorAll('button')].find(b=>{
+        const s=(b.textContent||'').trim().toLowerCase();
+        return s==='×' || s==='x' || s.includes('remove');
+      });
+
+      /* Try to identify the source record from existing data attributes */
+      let rec=null;
+      const idxRaw =
+        row.dataset.index ??
+        row.getAttribute('data-index') ??
+        editBtn?.dataset?.index ??
+        editBtn?.getAttribute('data-index');
+
+      if(idxRaw!==undefined && idxRaw!==null && idxRaw!==''){
+        try{
+          const arr=typeof loadBudgetSpending==='function'?loadBudgetSpending():[];
+          rec=arr[Number(idxRaw)]||null;
+        }catch(e){}
+      }
+
+      /* Fallback: use visible text if record cannot be resolved */
+      const existingText=[...row.childNodes]
+        .filter(n=>n.nodeType===3 || (n.nodeType===1 && n.tagName!=='BUTTON'))
+        .map(n=>(n.textContent||'').trim())
+        .filter(Boolean)
+        .join(' ');
+
+      const title =
+        rec?.description ||
+        rec?.name ||
+        rec?.merchant ||
+        rec?.note ||
+        rec?.category ||
+        'Spending';
+
+      const amount = rec?.amount!=null ? money2038(rec.amount) : '';
+
+      /* Do not disturb special bill-payment rows */
+      const isBill=(row.textContent||'').toLowerCase().includes('edit payment');
+      if(isBill){
+        row.dataset.mb2038Done='1';
+        return;
+      }
+
+      const main=document.createElement('div');
+      main.className='mb2038-spending-main';
+
+      const titleEl=document.createElement('span');
+      titleEl.className='mb2038-spending-title';
+      titleEl.textContent=title || 'Spending';
+      main.appendChild(titleEl);
+
+      const meta=document.createElement('div');
+      meta.className='mb2038-spending-meta';
+
+      const parts=[];
+      if(rec?.category && rec.category!==title) parts.push(rec.category);
+      if(rec?.date){
+        try{
+          parts.push(new Date(rec.date+'T00:00:00').toLocaleDateString('en-US',{
+            weekday:'long',month:'long',day:'numeric',year:'numeric'
+          }));
+        }catch(e){}
+      }
+      if(rec?.account) parts.push(rec.account);
+      if(rec?.family) parts.push(rec.family);
+      meta.textContent=parts.join(' • ') || existingText;
+      main.appendChild(meta);
+
+      const amt=document.createElement('div');
+      amt.className='mb2038-spending-amount';
+      amt.textContent=amount;
+
+      /* Remove old non-button content so duplicate date/category text isn't left behind */
+      [...row.childNodes].forEach(n=>{
+        if(n===editBtn || n===removeBtn)return;
+        if(n.nodeType===1 && n.querySelector && n.querySelector('button'))return;
+        try{row.removeChild(n)}catch(e){}
+      });
+
+      row.prepend(main);
+      if(amount) row.insertBefore(amt, row.querySelector('.budget-expense-buttons') || editBtn || removeBtn || null);
+
+      row.dataset.mb2038Done='1';
+    });
+  }
+
+  const obs=new MutationObserver(()=>enhanceTrackedSpending2038());
+  obs.observe(document.documentElement,{childList:true,subtree:true});
+
+  document.addEventListener('click',()=>setTimeout(enhanceTrackedSpending2038,50),true);
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(enhanceTrackedSpending2038,200),{once:true});
+  }else{
+    setTimeout(enhanceTrackedSpending2038,200);
+  }
 })();
 </script>
 
