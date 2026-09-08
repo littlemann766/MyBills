@@ -1,4 +1,4 @@
-<!-- 20.3.12 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.13 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.12 Ease-of-Use Home */
+/* 20.3.13 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.12 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.13 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.12 compact Settings pop-up menus */
+/* 20.3.13 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.12 settings modal reliability fixes */
+/* 20.3.13 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.3.12 — unified themed dialogs / menus */
+/* 20.3.13 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.12 cleanup */
+/* 20.3.13 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.12 readability cleanup */
+/* 20.3.13 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.12 settings modal reopen fix */
+/* 20.3.13 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -554,6 +554,92 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 @media(max-width:600px){
   #mb123SettingsPanel .settings-row{align-items:flex-start!important;flex-direction:column!important}
   #mb123SettingsPanel select,#mb123SettingsPanel input[type=time]{width:100%!important;max-width:100%!important}
+}
+</style>
+
+
+<style id="mb20313-final-usability-css">
+/* 20.3.13 — final Ease-of-Use cleanup */
+
+/* Keep every app dialog on the MyBills theme. */
+dialog > .form,
+dialog > form.form,
+dialog .mb132-editor,
+dialog .mb136-editor,
+dialog .mb137-editor{
+  background:#0d2a55!important;
+  color:#fff!important;
+}
+dialog > .form,
+dialog > form.form{
+  border:0!important;
+}
+dialog .meta,
+dialog small,
+dialog .settings-help{
+  color:#d8e0ee!important;
+}
+dialog input,
+dialog select,
+dialog textarea{
+  background:#0b2447!important;
+  color:#fff!important;
+  border:2px solid #117b91!important;
+}
+dialog input::placeholder,
+dialog textarea::placeholder{color:#b8c5d8!important}
+
+/* Simple Spending: description + amount first, optional details tucked away. */
+#mb20313SpendMore{
+  margin-top:12px;
+  border:2px solid rgba(22,228,234,.38);
+  border-radius:16px;
+  padding:8px 12px 12px;
+}
+#mb20313SpendMore > summary{
+  cursor:pointer;
+  font-weight:900;
+  padding:7px 2px;
+}
+
+/* Income: keep setup readable and hide history unless requested. */
+#mb20313IncomeMore{
+  margin-top:14px;
+  border:2px solid rgba(22,228,234,.38);
+  border-radius:16px;
+  padding:8px 12px 12px;
+}
+#mb20313IncomeMore > summary{
+  cursor:pointer;
+  font-weight:900;
+  padding:7px 2px;
+}
+
+/* Accessibility controls inside the visible Appearance popup. */
+.mb20313-access{
+  border:2px solid rgba(22,228,234,.42);
+  border-radius:18px;
+  padding:14px;
+  margin:14px 0;
+}
+.mb20313-access h4{margin:0 0 10px}
+.mb20313-access-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:9px 0;
+}
+.mb20313-access-row select{max-width:46%}
+body.mb-high-contrast .card,
+body.mb-high-contrast dialog > .form,
+body.mb-high-contrast #mb123SettingsPanel,
+body.mb-high-contrast .settings-section{
+  border-width:3px!important;
+}
+@media(max-width:600px){
+  .mb20313-access-row{align-items:flex-start;flex-direction:column}
+  .mb20313-access-row select{max-width:100%;width:100%}
 }
 </style>
 
@@ -8178,7 +8264,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.12 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.13 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8314,7 +8400,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.12</strong>
+      <strong>20.3.13</strong>
     </div>
   </section>
 </div>
@@ -8328,10 +8414,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.12';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.13';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=183, BUILD_NAME='20.3.12', BUILD_LABEL='20.3.12';
+  const BUILD_CODE=184, BUILD_NAME='20.3.13', BUILD_LABEL='20.3.13';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8590,7 +8676,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.12';
+  const VERSION='20.3.13';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8780,7 +8866,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.12';
+  const VERSION='20.3.13';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9020,7 +9106,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.12';
+  const VERSION='20.3.13';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9355,7 +9441,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.12: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.13: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9732,7 +9818,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.12 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.13 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9780,7 +9866,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.12 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.13 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11071,7 +11157,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.3.12');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.3.13');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11278,7 +11364,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.3.12</strong>
+        <strong>20.3.13</strong>
       </div>
       ${done()}`);
 
@@ -11334,6 +11420,128 @@ body.mb-high-contrast textarea{border-width:2px!important}
   // Re-wire after view changes in case older code resets the handlers.
   setTimeout(wire,100);
   setTimeout(wire,500);
+})();
+</script>
+
+
+<script id="mb20313-final-usability-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  const HC='mybills_high_contrast_v20310';
+
+  function applyHighContrast(on){
+    document.body.classList.toggle('mb-high-contrast',!!on);
+    try{localStorage.setItem(HC,on?'1':'0')}catch(e){}
+    const a=$('mb20313HighContrast'); if(a)a.checked=!!on;
+    const b=$('mb20310HighContrast'); if(b)b.checked=!!on;
+  }
+
+  function simplifySpending(){
+    const box=document.querySelector('#budgetDlg .budget-expense-box');
+    if(!box || $('mb20313SpendMore'))return;
+
+    const date=$('budgetExpenseDate');
+    const notes=$('budgetExpenseNotes');
+    if(!date || !notes)return;
+
+    const dateLabel=date.previousElementSibling;
+    const notesLabel=notes.previousElementSibling;
+
+    const details=document.createElement('details');
+    details.id='mb20313SpendMore';
+    const summary=document.createElement('summary');
+    summary.textContent='More Options';
+    details.appendChild(summary);
+
+    if(dateLabel)details.appendChild(dateLabel);
+    details.appendChild(date);
+    if(notesLabel)details.appendChild(notesLabel);
+    details.appendChild(notes);
+
+    const actions=box.querySelector('.budget-spending-edit-actions');
+    box.insertBefore(details,actions);
+
+    // When editing an old entry, show all details automatically.
+    const editId=$('budgetExpenseEditId');
+    const observer=new MutationObserver(()=>{ if(editId && editId.value)details.open=true; });
+    if(editId)observer.observe(editId,{attributes:true,attributeFilter:['value']});
+  }
+
+  function simplifyIncome(){
+    const form=document.querySelector('#paycheckDlg form.form');
+    if(!form || $('mb20313IncomeMore'))return;
+
+    const previous=$('previousChecksWrap');
+    const list=$('paycheckList');
+    if(!previous || !list)return;
+
+    const details=document.createElement('details');
+    details.id='mb20313IncomeMore';
+    const summary=document.createElement('summary');
+    summary.textContent='Previous Checks & More';
+    details.appendChild(summary);
+    details.appendChild(previous);
+    details.appendChild(list);
+
+    const actions=form.querySelector('.form-actions');
+    form.insertBefore(details,actions);
+  }
+
+  function upgradeAppearance(){
+    const panel=$('mb123SettingsPanel');
+    if(!panel)return;
+    if(!$('mb203ModeEasy') || $('mb20313Access'))return;
+
+    const anchor=$('mb203ModeEasy').closest('.mb203-mode-card');
+    if(!anchor)return;
+
+    const box=document.createElement('div');
+    box.id='mb20313Access';
+    box.className='mb20313-access';
+    box.innerHTML=`
+      <h4>Accessibility</h4>
+      <div class="mb20313-access-row">
+        <label for="mb20313TextSize"><b>Text size</b></label>
+        <select id="mb20313TextSize">
+          <option value="small">Small</option>
+          <option value="normal">Normal</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+      <div class="mb20313-access-row">
+        <label for="mb20313HighContrast"><b>High contrast</b></label>
+        <input id="mb20313HighContrast" class="settings-switch" type="checkbox">
+      </div>`;
+    anchor.insertAdjacentElement('afterend',box);
+
+    const text=$('mb20313TextSize');
+    text.value=appSettings.textSize||'normal';
+    text.onchange=()=>{
+      appSettings.textSize=text.value;
+      try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings))}catch(e){}
+      try{applyTheme()}catch(e){}
+    };
+
+    let hc=false;
+    try{hc=localStorage.getItem(HC)==='1'}catch(e){}
+    applyHighContrast(hc);
+    $('mb20313HighContrast').onchange=e=>applyHighContrast(e.target.checked);
+  }
+
+  function boot(){
+    simplifySpending();
+    simplifyIncome();
+    let hc=false;try{hc=localStorage.getItem(HC)==='1'}catch(e){}
+    applyHighContrast(hc);
+
+    // Appearance is dynamically rendered, so upgrade it after settings clicks.
+    document.addEventListener('click',e=>{
+      if(e.target.closest?.('[data-mb123-settings="appearance"]'))setTimeout(upgradeAppearance,80);
+    },true);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);
+  else boot();
 })();
 </script>
 
