@@ -1,4 +1,4 @@
-<!-- 20.3.2 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,17 +60,17 @@
 
 
 <style>
-/* 20.3.2 Ease-of-Use Home */
+/* 20.3.3 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
 .mb203-kicker,.mb203-safe span{font-size:.78rem;font-weight:900;letter-spacing:.08em;color:#55f4f5}
 .mb203-hero-value{font-size:2.65rem;font-weight:950;line-height:1.05;margin:7px 0}
-.mb203-help,.mb203-stat small,.mb203-safe small,.mb203-section-head p{display:block;color:#d8e0ee;font-size:.88rem;line-height:1.3}
+.mb203-help,.mb203-stat small,.mb203-safe small,.mb203-section-head p{display:block;color:#d8e0ee;font-size:.88rem;line-height:1.3}.mb203-stat small{grid-area:meta;margin-top:4px}
 .mb203-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mb203-stat{min-width:0;text-align:left;background:#0d2a55;color:#fff;border:3px solid #16e4ea;border-radius:22px;padding:17px}
-.mb203-stat span{display:block;font-weight:800;font-size:.95rem}
-.mb203-stat b{display:block;font-size:1.65rem;margin:5px 0}
+.mb203-stat{min-width:0;text-align:left;background:#0d2a55;color:#fff;border:3px solid #16e4ea;border-radius:22px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"label value" "meta meta";align-items:center;gap:4px 12px;overflow:hidden}
+.mb203-stat span{grid-area:label;display:block;font-weight:900;font-size:1rem;line-height:1.15;min-width:0}
+.mb203-stat b{grid-area:value;display:block;font-size:1.65rem;margin:0;white-space:nowrap}
 .mb203-safe{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .mb203-safe>div{min-width:0}.mb203-safe b{font-size:2rem;white-space:nowrap}
 .mb203-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
@@ -87,7 +87,27 @@
 body.mb-home-easy #mb119HomeMount{display:none!important}
 body.mb-home-advanced #mb203HomeDashboard{display:none!important}
 body.mb-home-advanced #mb119HomeMount{display:block!important}
-@media(max-width:480px){.mb203-grid{grid-template-columns:1fr 1fr}.mb203-hero-value{font-size:2.35rem}.mb203-actions button{font-size:.82rem;padding:13px 4px}.mb203-safe{align-items:flex-start;flex-direction:column}.mb203-safe b{font-size:1.8rem}}
+@media(max-width:600px){
+.mb203-grid{grid-template-columns:1fr}
+.mb203-stat{grid-template-columns:minmax(0,1fr) auto;padding:17px 18px}
+.mb203-stat span{font-size:1.02rem}
+.mb203-stat b{font-size:1.75rem}
+.mb203-hero-value{font-size:2.35rem}
+.mb203-actions{grid-template-columns:1fr 1fr 1fr}
+.mb203-actions button{font-size:.82rem;padding:13px 4px}
+.mb203-safe{align-items:flex-start;flex-direction:column}
+.mb203-safe b{font-size:1.8rem}
+}
+</style>
+<style>
+/* 20.3.3 Home mode chooser in the visible Settings > Appearance panel */
+.mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
+.mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
+.mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
+.mb203-mode-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mb203-mode-buttons button{border:2px solid #117b91;background:#0b2447;color:#fff;border-radius:15px;padding:13px 8px;font-weight:900}
+.mb203-mode-buttons button.active{border-color:#16e4ea;box-shadow:0 0 0 2px rgba(22,228,234,.14) inset;color:#55f4f5}
+.mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 </head>
 <body>
@@ -7709,7 +7729,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.2 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7845,7 +7865,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.2</strong>
+      <strong>20.3.3</strong>
     </div>
   </section>
 </div>
@@ -7859,10 +7879,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.2';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.3';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=173, BUILD_NAME='20.3.2', BUILD_LABEL='20.3.2';
+  const BUILD_CODE=174, BUILD_NAME='20.3.3', BUILD_LABEL='20.3.3';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8121,7 +8141,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.2';
+  const VERSION='20.3.3';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8305,7 +8325,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.2';
+  const VERSION='20.3.3';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8545,7 +8565,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.2';
+  const VERSION='20.3.3';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8772,15 +8792,42 @@ function openAvailableNowSpendingV88(){
     const t=theme();
     const box=document.createElement('div');
     box.id='mb137Appearance';
+    const currentMode=(typeof appSettings!=='undefined'&&appSettings.homeMode==='advanced')?'advanced':'easy';
     box.innerHTML=`
       <h3 style="margin:0 0 5px">Appearance</h3>
-      <p style="margin:0 0 12px">Four colors control the whole app.</p>
+      <p style="margin:0 0 12px">Choose how Home works, then customize the app colors.</p>
+
+      <div class="mb203-mode-card">
+        <h4>Home Screen Layout</h4>
+        <p><b>Easy</b> shows the simple money-at-a-glance Home. <b>Advanced</b> restores the original full dashboard.</p>
+        <div class="mb203-mode-buttons">
+          <button id="mb203ModeEasy" type="button" class="${currentMode==='easy'?'active':''}">Easy</button>
+          <button id="mb203ModeAdvanced" type="button" class="${currentMode==='advanced'?'active':''}">Advanced</button>
+        </div>
+        <span id="mb203ModeStatus" class="mb203-mode-status">${currentMode==='easy'?'Easy Home is on':'Advanced Home is on'}</span>
+      </div>
+
       <div class="mb137-color-row"><label>Navy tabs, cards & headers</label><input id="mb137Navy" type="color" value="${t.navy}"></div>
       <div class="mb137-color-row"><label>Cyan borders & active icons</label><input id="mb137Cyan" type="color" value="${t.cyan}"></div>
       <div class="mb137-color-row"><label>Background behind tabs</label><input id="mb137Page" type="color" value="${t.page}"></div>
       <div class="mb137-color-row"><label>Text on navy</label><input id="mb137Text" type="color" value="${t.text}"></div>
       <div class="mb137-theme-actions"><button id="mb137SaveTheme" type="button">Save Colors</button><button id="mb137ResetTheme" type="button">Official Colors</button></div>`;
     panel.appendChild(box);
+
+    function setHomeMode2033(mode){
+      mode=mode==='advanced'?'advanced':'easy';
+      if(typeof appSettings!=='undefined'){
+        appSettings.homeMode=mode;
+        try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));}catch(e){}
+      }
+      try{ if(typeof applyHomeMode==='function') applyHomeMode(); }catch(e){}
+      document.getElementById('mb203ModeEasy')?.classList.toggle('active',mode==='easy');
+      document.getElementById('mb203ModeAdvanced')?.classList.toggle('active',mode==='advanced');
+      const status=document.getElementById('mb203ModeStatus');
+      if(status)status.textContent=mode==='easy'?'Easy Home is on':'Advanced Home is on';
+    }
+    document.getElementById('mb203ModeEasy').onclick=()=>setHomeMode2033('easy');
+    document.getElementById('mb203ModeAdvanced').onclick=()=>setHomeMode2033('advanced');
 
     function vals(){return {
       navy:document.getElementById('mb137Navy').value,
@@ -8852,7 +8899,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.2: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9229,7 +9276,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.2 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.3 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9277,7 +9324,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.2 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.3 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
