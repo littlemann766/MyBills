@@ -1,11 +1,23 @@
 name: Build My Bills Release
 
 on:
+  # Normal manual/user commits can still build automatically.
   push:
     branches:
       - main
     paths-ignore:
       - 'MyBills_update.zip'
+
+  # IMPORTANT: commits pushed by the Apply workflow use GITHUB_TOKEN.
+  # GitHub does not start another normal push-triggered Actions workflow
+  # from that bot push, so this explicitly starts the APK build after
+  # Apply My Bills Update finishes successfully.
+  workflow_run:
+    workflows:
+      - "Apply My Bills Update"
+    types:
+      - completed
+
   workflow_dispatch:
 
 permissions:
@@ -17,10 +29,16 @@ concurrency:
 
 jobs:
   build:
+    # For workflow_run, only build after Apply succeeded.
+    # For push/manual runs, build normally.
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout exact main commit
+      - name: Checkout latest main
         uses: actions/checkout@v4
         with:
           ref: main
@@ -45,10 +63,7 @@ jobs:
           test -f app/src/main/assets/mybills.css
 
           grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
-
-          if [ -f app/src/main/assets/app.js ] || [ -f app/src/main/assets/app.css ]; then
-            echo "Note: clean-foundation files are present, but preservation build will use index.html + mybills.css."
-          fi
+          grep -F "$EXPECTED_VERSION" app/src/main/assets/index.html >/dev/null
 
           echo "Source files verified for My Bills $EXPECTED_VERSION"
 
@@ -84,6 +99,7 @@ jobs:
           printf '%s' "$KEYSTORE_HEX" | tr -d '[:space:]' | xxd -r -p > "$KEYSTORE_PATH"
           test -s "$KEYSTORE_PATH"
           keytool -list -keystore "$KEYSTORE_PATH" -storepass "$KEYSTORE_PASSWORD" -alias mybills >/dev/null
+
           echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
           echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
 
@@ -94,19 +110,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
           AAB="$(find app/build/outputs/bundle/release -name '*.aab' | head -n 1)"
+
           test -n "$APK"
           test -n "$AAB"
+
           cp "$APK" "MyBills-${EXPECTED_VERSION}.apk"
           cp "$AAB" "MyBills-${EXPECTED_VERSION}.aab"
 
-      - name: Verify APK contains preservation app
+      - name: Verify APK contents
         shell: bash
         run: |
           set -euo pipefail
+
           rm -rf /tmp/mybills-apk-check
           mkdir -p /tmp/mybills-apk-check
+
           unzip -q "MyBills-${EXPECTED_VERSION}.apk" -d /tmp/mybills-apk-check
 
           test -f /tmp/mybills-apk-check/assets/index.html
@@ -114,14 +135,16 @@ jobs:
 
           grep -F "$EXPECTED_VERSION" /tmp/mybills-apk-check/assets/index.html >/dev/null
 
-          echo "APK verified as My Bills $EXPECTED_VERSION preservation build"
+          echo "APK verified as My Bills $EXPECTED_VERSION"
 
       - name: Verify APK signature
         shell: bash
         run: |
           set -euo pipefail
+
           APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
           test -n "$APKSIGNER"
+
           "$APKSIGNER" verify --verbose "MyBills-${EXPECTED_VERSION}.apk"
 
       - name: Verify App Bundle signature
