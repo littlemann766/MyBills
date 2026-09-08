@@ -1,4 +1,4 @@
-<!-- 20.4.0 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.1 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.0 Ease-of-Use Home */
+/* 20.4.1 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.0 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.1 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.0 compact Settings pop-up menus */
+/* 20.4.1 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.0 settings modal reliability fixes */
+/* 20.4.1 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.0 — unified themed dialogs / menus */
+/* 20.4.1 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.0 cleanup */
+/* 20.4.1 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.0 readability cleanup */
+/* 20.4.1 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.0 settings modal reopen fix */
+/* 20.4.1 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.0 — final Ease-of-Use cleanup */
+/* 20.4.1 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -664,6 +664,135 @@ body.mb-high-contrast .settings-section{
 #mb2040SafeDlg .mb2040-bill small{color:#d8e0ee}
 #mb2040SafeDlg .mb2040-mode-note{color:#d8e0ee;font-size:.9rem;margin:0 0 12px}
 @media(max-width:600px){#mb2040AdvancedSafe{align-items:flex-start;flex-direction:column}}
+</style>
+
+
+<style id="mb2041-safe-style-fix">
+/* 20.4.1 — Safe to Spend modal styling + scrolling repair */
+#mb2040SafeDlg{
+  width:min(92vw,680px)!important;
+  max-width:680px!important;
+  max-height:86vh!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:3px solid #16e4ea!important;
+  border-radius:24px!important;
+}
+#mb2040SafeDlg::backdrop{
+  background:rgba(0,0,0,.68)!important;
+  backdrop-filter:blur(3px);
+}
+#mb2040SafeDlg > form.form{
+  display:block!important;
+  margin:0!important;
+  width:100%!important;
+  max-width:none!important;
+  max-height:86vh!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  padding:20px!important;
+  box-sizing:border-box!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:0!important;
+  border-radius:20px!important;
+}
+#mb2040SafeDlg #mb2040SafeTitle{
+  display:block!important;
+  margin:0 0 14px!important;
+  padding:0!important;
+  min-height:0!important;
+  background:transparent!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+  font-size:1.45rem!important;
+  line-height:1.2!important;
+}
+#mb2040SafeDlg #mb2040SafeBody{
+  display:block!important;
+  background:transparent!important;
+  color:#fff!important;
+}
+#mb2040SafeDlg .mb2040-mode-note{
+  display:block!important;
+  color:#d8e0ee!important;
+  background:transparent!important;
+}
+#mb2040SafeDlg .mb2040-hero{
+  background:#14376b!important;
+  color:#fff!important;
+}
+#mb2040SafeDlg .settings-section{
+  display:block!important;
+  margin:14px 0!important;
+  padding:16px!important;
+  background:#14376b!important;
+  color:#fff!important;
+  border:2px solid rgba(22,228,234,.45)!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+}
+#mb2040SafeDlg .settings-section h3,
+#mb2040SafeDlg .settings-section span,
+#mb2040SafeDlg .settings-section b,
+#mb2040SafeDlg .settings-section strong{
+  color:#fff!important;
+}
+#mb2040SafeDlg .mb2040-row{
+  color:#fff!important;
+  background:transparent!important;
+}
+#mb2040SafeDlg .mb2040-bills,
+#mb2040SafeDlg .mb2040-bill{
+  background:transparent!important;
+  color:#fff!important;
+}
+#mb2040SafeDlg .mb2040-bill small{
+  display:block!important;
+  color:#d8e0ee!important;
+}
+#mb2040SafeDlg .empty{
+  background:#0b2447!important;
+  color:#d8e0ee!important;
+  border:1px solid rgba(22,228,234,.28)!important;
+  border-radius:14px!important;
+  padding:14px!important;
+}
+#mb2040SafeDlg .form-actions{
+  position:sticky!important;
+  bottom:-20px!important;
+  z-index:2!important;
+  margin:18px -20px -20px!important;
+  padding:12px 20px 16px!important;
+  background:#0d2a55!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+#mb2040SafeDlg .form-actions .primary{
+  width:100%!important;
+  min-height:48px!important;
+  background:#16e4ea!important;
+  color:#07172d!important;
+  border:0!important;
+  font-weight:900!important;
+}
+@media(max-width:600px){
+  #mb2040SafeDlg{
+    width:94vw!important;
+    max-height:84vh!important;
+  }
+  #mb2040SafeDlg > form.form{
+    max-height:84vh!important;
+    padding:16px!important;
+  }
+  #mb2040SafeDlg .form-actions{
+    bottom:-16px!important;
+    margin:16px -16px -16px!important;
+    padding:12px 16px 14px!important;
+  }
+}
 </style>
 
 </head>
@@ -8287,7 +8416,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.0 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.1 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8423,7 +8552,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.0</strong>
+      <strong>20.4.1</strong>
     </div>
   </section>
 </div>
@@ -8437,10 +8566,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.0';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.1';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=185, BUILD_NAME='20.4.0', BUILD_LABEL='20.4.0';
+  const BUILD_CODE=186, BUILD_NAME='20.4.1', BUILD_LABEL='20.4.1';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8699,7 +8828,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.0';
+  const VERSION='20.4.1';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8889,7 +9018,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.0';
+  const VERSION='20.4.1';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9129,7 +9258,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.0';
+  const VERSION='20.4.1';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9464,7 +9593,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.0: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.1: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9841,7 +9970,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.0 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.1 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9889,7 +10018,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.0 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.1 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11180,7 +11309,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.0');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.1');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11387,7 +11516,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.0</strong>
+        <strong>20.4.1</strong>
       </div>
       ${done()}`);
 
