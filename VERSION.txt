@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.21
-Release: Prepaint menu theming, Add Funds, simplified spending controls, meter pill labels
+Version: 20.4.22
+Release: Payday Health meter replaces Easy Home summary; stable readable meter pill

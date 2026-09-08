@@ -2481,3 +2481,27 @@ dialog .primary{
   font-size:.78rem!important;
   border-radius:16px!important;
 }
+
+
+/* 20.4.22 — one Home experience: Payday Health meter replaces Easy dashboard */
+body.mb-home-easy #mb203HomeDashboard{
+  display:none!important;
+}
+body.mb-home-easy #mb20419HealthCard,
+body.mb-home-advanced #mb20419HealthCard{
+  display:block!important;
+}
+
+/* The status word must be readable inside the moving pill. */
+#mb20419MeterPill{
+  color:#fff!important;
+  min-width:104px!important;
+  max-width:168px!important;
+  text-align:center!important;
+  justify-content:center!important;
+}
+
+/* Keep the old scale words hidden; the active word lives in the pill. */
+#mb20419ScaleLabels{
+  display:none!important;
+}
