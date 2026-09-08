@@ -1,4 +1,4 @@
-<!-- 20.4.2 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.2 Ease-of-Use Home */
+/* 20.4.3 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.2 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.3 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.2 compact Settings pop-up menus */
+/* 20.4.3 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.2 settings modal reliability fixes */
+/* 20.4.3 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.2 — unified themed dialogs / menus */
+/* 20.4.3 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.2 cleanup */
+/* 20.4.3 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.2 readability cleanup */
+/* 20.4.3 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.2 settings modal reopen fix */
+/* 20.4.3 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.2 — final Ease-of-Use cleanup */
+/* 20.4.3 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -668,7 +668,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.4.2 — Safe to Spend modal styling + scrolling repair */
+/* 20.4.3 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -797,7 +797,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.4.2 — Can I Afford This? */
+/* 20.4.3 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -931,6 +931,148 @@ body.mb-high-contrast .settings-section{
   #mb2042AffordDlg{width:94vw!important;max-height:84vh!important}
   #mb2042AffordDlg > form.form{max-height:84vh!important;padding:16px!important}
   #mb2042AffordDlg .form-actions{
+    bottom:-16px!important;
+    margin:16px -16px -16px!important;
+    padding:12px 16px 14px!important;
+  }
+}
+</style>
+
+
+<style id="mb2043-payday-health-css">
+/* 20.4.3 — Payday Health meter */
+#mb2043HealthCard{
+  margin:14px 0;
+  width:100%;
+  border:3px solid #16e4ea;
+  border-radius:20px;
+  background:#0d2a55;
+  color:#fff;
+  padding:16px 18px;
+  text-align:left;
+  cursor:pointer;
+}
+#mb2043HealthTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+#mb2043HealthTop .title{font-weight:900;font-size:1rem}
+#mb2043HealthStatus{
+  font-weight:900;
+  font-size:.88rem;
+  letter-spacing:.04em;
+}
+#mb2043HealthBarWrap{position:relative;padding-top:14px}
+#mb2043HealthBar{
+  height:18px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d62d2d 0 33.333%,#d6b22d 33.333% 66.666%,#2e9e4d 66.666% 100%);
+  border:2px solid rgba(255,255,255,.26);
+  overflow:hidden;
+}
+#mb2043HealthMarker{
+  position:absolute;
+  top:5px;
+  width:4px;
+  height:36px;
+  border-radius:4px;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(0,0,0,.30);
+  transform:translateX(-2px);
+}
+#mb2043HealthLabels{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:7px;
+  font-size:.75rem;
+  font-weight:900;
+}
+#mb2043HealthMoney{
+  margin-top:10px;
+  font-size:1.05rem;
+  font-weight:900;
+}
+#mb2043HealthExplain{
+  margin-top:4px;
+  color:#d8e0ee;
+  font-size:.9rem;
+  line-height:1.35;
+}
+
+#mb2043HealthDlg{
+  width:min(92vw,680px)!important;
+  max-width:680px!important;
+  max-height:86vh!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:3px solid #16e4ea!important;
+  border-radius:24px!important;
+}
+#mb2043HealthDlg::backdrop{background:rgba(0,0,0,.68)!important;backdrop-filter:blur(3px)}
+#mb2043HealthDlg > form.form{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  max-height:86vh!important;
+  overflow-y:auto!important;
+  padding:20px!important;
+  box-sizing:border-box!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:0!important;
+}
+#mb2043HealthDlg h2{margin:0 0 8px!important;color:#fff!important;background:transparent!important}
+#mb2043HealthDlg .mb2043-note{color:#d8e0ee;margin:0 0 14px}
+#mb2043HealthDlg .mb2043-panel{
+  margin:14px 0;
+  padding:16px;
+  background:#14376b;
+  border:2px solid rgba(22,228,234,.45);
+  border-radius:18px;
+}
+#mb2043HealthDlg .mb2043-row{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+#mb2043HealthDlg .mb2043-row:last-child{border-bottom:0}
+#mb2043HealthDlg .mb2043-bill{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:4px 12px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+#mb2043HealthDlg .mb2043-bill small{display:block;color:#d8e0ee}
+#mb2043HealthDlg .form-actions{
+  position:sticky!important;
+  bottom:-20px!important;
+  z-index:2!important;
+  margin:18px -20px -20px!important;
+  padding:12px 20px 16px!important;
+  background:#0d2a55!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+#mb2043HealthDlg .form-actions .primary{
+  width:100%!important;
+  min-height:48px!important;
+  background:#16e4ea!important;
+  color:#07172d!important;
+  border:0!important;
+  font-weight:900!important;
+}
+@media(max-width:600px){
+  #mb2043HealthDlg{width:94vw!important;max-height:84vh!important}
+  #mb2043HealthDlg > form.form{max-height:84vh!important;padding:16px!important}
+  #mb2043HealthDlg .form-actions{
     bottom:-16px!important;
     margin:16px -16px -16px!important;
     padding:12px 16px 14px!important;
@@ -8559,7 +8701,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.2 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8695,7 +8837,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.2</strong>
+      <strong>20.4.3</strong>
     </div>
   </section>
 </div>
@@ -8709,10 +8851,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.2';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.3';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=187, BUILD_NAME='20.4.2', BUILD_LABEL='20.4.2';
+  const BUILD_CODE=188, BUILD_NAME='20.4.3', BUILD_LABEL='20.4.3';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8971,7 +9113,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.2';
+  const VERSION='20.4.3';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9161,7 +9303,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.2';
+  const VERSION='20.4.3';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9401,7 +9543,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.2';
+  const VERSION='20.4.3';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9736,7 +9878,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.2: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -10113,7 +10255,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.2 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.3 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -10161,7 +10303,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.2 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.3 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11452,7 +11594,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.2');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.3');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11659,7 +11801,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.2</strong>
+        <strong>20.4.3</strong>
       </div>
       ${done()}`);
 
@@ -12121,6 +12263,205 @@ body.mb-high-contrast textarea{border-width:2px!important}
   }else setTimeout(ensureHomeCard,250);
 
   setInterval(ensureHomeCard,1800);
+})();
+</script>
+
+
+<script id="mb2043-payday-health-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  const moneyFmt=n=>typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2);
+  const iso=d=>typeof toISO==='function'?toISO(d):d.toISOString().slice(0,10);
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  function mode(){
+    try{return appSettings && appSettings.homeMode==='advanced'?'advanced':'easy'}catch(e){return 'easy'}
+  }
+  function available(){
+    try{
+      const d=new Date();
+      const x=typeof myBillsActualNowV99==='function'?myBillsActualNowV99(d.getFullYear(),d.getMonth()):null;
+      if(x && Number.isFinite(Number(x.left))) return Number(x.left);
+    }catch(e){}
+    return 0;
+  }
+  function nextPay(){
+    try{return nextPaycheckAfter(iso(new Date()))||null}catch(e){return null}
+  }
+  function rowsUntil(endIso){
+    const rows=[],today=iso(new Date());
+    if(!endIso)return rows;
+    try{
+      for(let d=new Date(today+'T00:00:00'); d<=new Date(endIso+'T00:00:00'); d.setDate(d.getDate()+1)){
+        const di=iso(d);
+        bills.forEach(b=>{
+          if(isRecurringOnDate(b,d) && !billOccurrenceDeleted(b,di)){
+            const rem=Math.max(0,(Number(b.amount)||0)-(Number(billPaidAmount(b,di))||0));
+            if(rem>0) rows.push({name:b.name||'Bill',iso:di,amount:rem,category:b.category||'Uncategorized'});
+          }
+        });
+      }
+    }catch(e){}
+    return rows.sort((a,b)=>a.iso.localeCompare(b.iso));
+  }
+  function daysBetween(a,b){
+    try{return Math.max(0,Math.ceil((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000))}catch(e){return 0}
+  }
+  function calc(){
+    const av=available(), pay=nextPay(), rows=pay?rowsUntil(pay.iso):[];
+    const protectedTotal=rows.reduce((s,r)=>s+r.amount,0);
+    const safe=av-protectedTotal;
+    const today=iso(new Date());
+    const days=pay?daysBetween(today,pay.iso):0;
+
+    // Dollar-aware thresholds:
+    // RED: projected shortage before payday.
+    // YELLOW: covered, but cushion is less than 25% of protected bills or less than $100.
+    // GREEN: obligations covered with a stronger cushion.
+    const yellowFloor=Math.max(100, protectedTotal*0.25);
+    let status, score, label, sentence, moneyLine;
+    if(!pay){
+      status='unknown'; score=50; label='PAYCHECK NEEDED';
+      sentence='Add your next paycheck so My Bills can calculate your Payday Health.';
+      moneyLine='Forecast unavailable';
+    }else if(safe<0){
+      status='red';
+      const shortage=Math.abs(safe);
+      score=Math.max(0, 33 - Math.min(33, shortage/Math.max(1,protectedTotal||shortage)*33));
+      label='SHORT';
+      moneyLine=moneyFmt(shortage)+' short';
+      sentence='Your forecast drops below what is needed to cover bills before payday.';
+    }else if(safe<yellowFloor){
+      status='yellow';
+      const ratio=yellowFloor?Math.max(0,Math.min(1,safe/yellowFloor)):0;
+      score=34 + ratio*31;
+      label='GETTING TIGHT';
+      moneyLine=moneyFmt(safe)+' cushion';
+      sentence='Your bills are covered, but your remaining cushion before payday is getting thin.';
+    }else{
+      status='green';
+      const extra=Math.max(0,safe-yellowFloor);
+      score=67 + Math.min(33, extra/Math.max(1,yellowFloor)*33);
+      label='GOOD';
+      moneyLine=moneyFmt(safe)+' cushion';
+      sentence='Your upcoming bills are covered with money left over before payday.';
+    }
+    return {av,pay,rows,protectedTotal,safe,days,yellowFloor,status,score,label,sentence,moneyLine};
+  }
+
+  function fmtDate(s){
+    if(!s)return 'Not set';
+    try{return new Date(s+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}catch(e){return s}
+  }
+
+  function ensureCard(){
+    let card=$('mb2043HealthCard');
+    if(!card){
+      card=document.createElement('button');
+      card.id='mb2043HealthCard';
+      card.type='button';
+      card.onclick=openPaydayHealth2043;
+      card.innerHTML=`
+        <div id="mb2043HealthTop">
+          <div class="title">PAYDAY HEALTH</div>
+          <div id="mb2043HealthStatus">--</div>
+        </div>
+        <div id="mb2043HealthBarWrap">
+          <div id="mb2043HealthBar"></div>
+          <div id="mb2043HealthMarker"></div>
+        </div>
+        <div id="mb2043HealthLabels"><span>SHORT</span><span>GETTING TIGHT</span><span>GOOD</span></div>
+        <div id="mb2043HealthMoney">--</div>
+        <div id="mb2043HealthExplain">Checking your forecast…</div>`;
+      const afford=$('mb2042AffordCard');
+      const safe=$('mb2040AdvancedSafe');
+      if(afford) afford.insertAdjacentElement('afterend',card);
+      else if(safe) safe.insertAdjacentElement('afterend',card);
+      else {
+        const mount=$('mb119HomeMount');
+        if(mount) mount.insertAdjacentElement('afterend',card);
+      }
+    }
+    refreshCard();
+  }
+
+  function refreshCard(){
+    const x=calc();
+    if(!$('mb2043HealthCard'))return;
+    $('mb2043HealthStatus').textContent=x.label;
+    $('mb2043HealthMoney').textContent=x.moneyLine;
+    $('mb2043HealthExplain').textContent=x.sentence;
+    $('mb2043HealthMarker').style.left=Math.max(1,Math.min(99,x.score))+'%';
+  }
+
+  function ensureDialog(){
+    if($('mb2043HealthDlg'))return;
+    const d=document.createElement('dialog');
+    d.id='mb2043HealthDlg';
+    d.innerHTML=`
+      <form method="dialog" class="form">
+        <h2>Payday Health</h2>
+        <p class="mb2043-note" id="mb2043ModeNote"></p>
+        <div id="mb2043HealthBody"></div>
+        <div class="form-actions"><button class="primary" value="cancel">Done</button></div>
+      </form>`;
+    document.body.appendChild(d);
+  }
+
+  window.openPaydayHealth2043=function(){
+    ensureDialog();
+    const x=calc(), advanced=mode()==='advanced';
+    $('mb2043ModeNote').textContent=advanced
+      ?'Advanced mode shows the forecast math, payday timing, and the bills affecting your health meter.'
+      :'Easy mode shows whether your money looks Good, Getting Tight, or Short before payday.';
+
+    let html=`
+      <div class="mb2043-panel">
+        <div class="mb2043-row"><span>Status</span><b>${esc(x.label)}</b></div>
+        <div class="mb2043-row"><span>${x.safe<0?'Shortage':'Cushion'}</span><b>${x.safe<0?moneyFmt(Math.abs(x.safe)):moneyFmt(x.safe)}</b></div>
+        <div class="mb2043-row"><span>Next payday</span><b>${x.pay?fmtDate(x.pay.iso):'Not set'}</b></div>
+      </div>`;
+
+    if(advanced){
+      html+=`
+        <div class="mb2043-panel">
+          <h3>Forecast breakdown</h3>
+          <div class="mb2043-row"><span>Available now</span><b>${moneyFmt(x.av)}</b></div>
+          <div class="mb2043-row"><span>Bills before payday</span><b>−${moneyFmt(x.protectedTotal)}</b></div>
+          <div class="mb2043-row"><span>Safe to spend</span><b>${x.safe>=0?moneyFmt(x.safe):'−'+moneyFmt(Math.abs(x.safe))}</b></div>
+          <div class="mb2043-row"><span>Days until payday</span><b>${x.pay?x.days:'—'}</b></div>
+          <div class="mb2043-row"><span>Yellow-zone cushion threshold</span><b>${moneyFmt(x.yellowFloor)}</b></div>
+        </div>`;
+      if(x.rows.length){
+        html+=`<div class="mb2043-panel"><h3>Bills affecting Payday Health</h3>${
+          x.rows.map(r=>`<div class="mb2043-bill">
+            <div><b>${esc(r.name)}</b><small>${fmtDate(r.iso)} • ${esc(r.category)}</small></div>
+            <b>${moneyFmt(r.amount)}</b>
+          </div>`).join('')
+        }</div>`;
+      }
+    }
+
+    $('mb2043HealthBody').innerHTML=html;
+    $('mb2043HealthDlg').showModal();
+  };
+
+  const oldApply=window.applyHomeMode;
+  if(typeof oldApply==='function' && !oldApply.mb2043){
+    const wrapped=function(){
+      const r=oldApply.apply(this,arguments);
+      setTimeout(ensureCard,0);
+      return r;
+    };
+    wrapped.mb2043=true;
+    window.applyHomeMode=wrapped;
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(ensureCard,250));
+  } else setTimeout(ensureCard,250);
+
+  setInterval(refreshCard,1500);
 })();
 </script>
 
