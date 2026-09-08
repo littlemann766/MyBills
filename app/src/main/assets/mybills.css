@@ -2505,3 +2505,129 @@ body.mb-home-advanced #mb20419HealthCard{
 #mb20419ScaleLabels{
   display:none!important;
 }
+
+
+/* 20.4.23 — universal menu structure: fixed header, separate scrollable content box */
+dialog[open]{
+  width:min(92vw,760px)!important;
+  max-width:760px!important;
+  max-height:88vh!important;
+  box-sizing:border-box!important;
+  padding:18px!important;
+  overflow:hidden!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  gap:14px!important;
+  background:#103462!important;
+  color:#fff!important;
+  border:4px solid #20dce8!important;
+  border-radius:34px!important;
+}
+dialog[open].mb20423-structured{display:grid!important}
+
+dialog .mb20423-header{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:16px!important;
+  min-width:0!important;
+  padding:2px 2px 0!important;
+  background:#103462!important;
+  color:#fff!important;
+  position:relative!important;
+  z-index:30!important;
+}
+dialog .mb20423-header h1,
+dialog .mb20423-header h2,
+dialog .mb20423-header h3{
+  margin:0!important;
+  padding:0!important;
+  min-width:0!important;
+  flex:1 1 auto!important;
+  background:transparent!important;
+  color:#fff!important;
+  line-height:1.08!important;
+  font-size:clamp(1.55rem,5vw,2.15rem)!important;
+  overflow-wrap:anywhere!important;
+}
+dialog .mb20423-header .dialog-close-x,
+dialog .mb20423-header .mb20423-close{
+  position:static!important;
+  inset:auto!important;
+  flex:0 0 56px!important;
+  width:56px!important;
+  height:56px!important;
+  min-width:56px!important;
+  min-height:56px!important;
+  margin:0!important;
+  padding:0!important;
+  border:3px solid #168ca0!important;
+  border-radius:18px!important;
+  background:#0d2b53!important;
+  color:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:1.35rem!important;
+  font-weight:950!important;
+  z-index:35!important;
+}
+dialog .mb20423-menu-box{
+  min-height:0!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  box-sizing:border-box!important;
+  padding:18px 18px 30px!important;
+  border:2px solid rgba(31,215,232,.48)!important;
+  border-radius:24px!important;
+  background:#14376b!important;
+  color:#fff!important;
+}
+dialog .mb20423-menu-box > form,
+dialog .mb20423-menu-box > .form,
+dialog .mb20423-menu-box form.form{
+  width:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  min-height:0!important;
+  overflow:visible!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#fff!important;
+  display:block!important;
+}
+dialog.mb20423-structured .form-actions,
+dialog.mb20423-structured .budget-actions,
+dialog.mb20423-structured [class*="sticky-actions"]{
+  position:static!important;
+  inset:auto!important;
+  margin-top:18px!important;
+  padding:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+@media(max-width:520px){
+  dialog[open]{
+    width:calc(100vw - 20px)!important;
+    max-height:90vh!important;
+    padding:14px!important;
+    border-radius:28px!important;
+    gap:12px!important;
+  }
+  dialog .mb20423-menu-box{
+    padding:14px 14px 26px!important;
+    border-radius:20px!important;
+  }
+  dialog .mb20423-header .dialog-close-x,
+  dialog .mb20423-header .mb20423-close{
+    flex-basis:52px!important;
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    min-height:52px!important;
+  }
+}
