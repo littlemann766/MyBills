@@ -1,4 +1,4 @@
-<!-- 20.4.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.7 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.5 Ease-of-Use Home */
+/* 20.4.7 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.5 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.7 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.5 compact Settings pop-up menus */
+/* 20.4.7 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.5 settings modal reliability fixes */
+/* 20.4.7 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.5 — unified themed dialogs / menus */
+/* 20.4.7 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.5 cleanup */
+/* 20.4.7 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.5 readability cleanup */
+/* 20.4.7 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.5 settings modal reopen fix */
+/* 20.4.7 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.5 — final Ease-of-Use cleanup */
+/* 20.4.7 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -668,7 +668,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.4.5 — Safe to Spend modal styling + scrolling repair */
+/* 20.4.7 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -797,7 +797,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.4.5 — Can I Afford This? */
+/* 20.4.7 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -940,7 +940,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2043-payday-health-css">
-/* 20.4.5 — Payday Health meter */
+/* 20.4.7 — Payday Health meter */
 #mb2043HealthCard{
   margin:14px 0;
   width:100%;
@@ -1082,7 +1082,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2044-real-meter-css">
-/* 20.4.5 — Payday Health redesigned as a true gauge/meter */
+/* 20.4.7 — Payday Health redesigned as a true gauge/meter */
 #mb2043HealthCard{
   display:block!important;
   width:100%!important;
@@ -1246,7 +1246,7 @@ body.mb-home-easy #mb2043HealthExplain{
 
 
 <style id="mb2045-cushion-css">
-/* 20.4.5 — Payday Health fit + custom cushion */
+/* 20.4.7 — Payday Health fit + custom cushion */
 #mb2043HealthCard{
   overflow:hidden!important;
 }
@@ -1399,6 +1399,241 @@ body.mb-home-easy #mb2043HealthExplain{
   #mb2045CushionDlg select{
     width:100%!important;
     max-width:100%!important;
+  }
+}
+</style>
+
+
+<style id="mb2046-meter-pointer-fix-css">
+/* 20.4.7 — make the floating Payday Health marker look like a real labeled pointer */
+#mb2043HealthTop{
+  margin-bottom:8px!important;
+}
+#mb2043HealthStatus{
+  display:none!important; /* avoid duplicate GOOD/SHORT text at top-right */
+}
+#mb2043HealthBarWrap{
+  padding-top:46px!important;
+}
+#mb2043HealthMarker{
+  top:4px!important;
+}
+#mb2043HealthMarker::before{
+  content:attr(data-label)!important;
+  display:block!important;
+  min-width:78px!important;
+  max-width:118px!important;
+  padding:7px 10px!important;
+  border-radius:12px!important;
+  background:var(--mb2044-marker-bg,#2aa84a)!important;
+  color:#fff!important;
+  text-align:center!important;
+  font-size:.72rem!important;
+  font-weight:900!important;
+  line-height:1.05!important;
+  letter-spacing:.02em!important;
+  white-space:nowrap!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.30)!important;
+}
+#mb2043HealthMarker::after{
+  bottom:-10px!important;
+}
+@media(max-width:600px){
+  #mb2043HealthBarWrap{padding-top:44px!important}
+  #mb2043HealthMarker::before{
+    min-width:70px!important;
+    max-width:104px!important;
+    padding:6px 8px!important;
+    font-size:.66rem!important;
+  }
+}
+</style>
+
+
+<style id="mb2047-dialog-planner-fix-css">
+/* 20.4.7 — unified modal/menu theme */
+dialog{
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:3px solid #16e4ea!important;
+  border-radius:24px!important;
+}
+dialog::backdrop{
+  background:rgba(0,0,0,.68)!important;
+  backdrop-filter:blur(3px);
+}
+dialog > .form,
+dialog > form.form,
+dialog > div.form{
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+dialog h1,
+dialog h2,
+dialog h3,
+dialog h4{
+  background:transparent!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+dialog .summary-stat,
+dialog .settings-section,
+dialog .card{
+  background:#14376b!important;
+  color:#fff!important;
+  border:2px solid rgba(22,228,234,.42)!important;
+}
+dialog .summary-stat .label,
+dialog .summary-stat .value,
+dialog .summary-stat .meta,
+dialog .settings-section,
+dialog .settings-section *,
+dialog .card,
+dialog .card *{
+  color:#fff!important;
+}
+dialog .meta,
+dialog .settings-help{
+  color:#d8e0ee!important;
+}
+dialog .empty{
+  background:#0b2447!important;
+  color:#d8e0ee!important;
+  border:1px solid rgba(22,228,234,.28)!important;
+  border-radius:14px!important;
+}
+dialog input,
+dialog select,
+dialog textarea{
+  background:#0b2447!important;
+  color:#fff!important;
+  border:2px solid #117b91!important;
+}
+dialog input::placeholder,
+dialog textarea::placeholder{color:#b8c5d8!important}
+
+/* Keep modal title bars from becoming white blocks */
+dialog .form > h2:first-child,
+dialog form.form > h2:first-child,
+#paycheckPlannerTitle,
+#paycheckTitle,
+#paycheckOccurrenceTitle{
+  display:block!important;
+  width:auto!important;
+  min-height:0!important;
+  margin:0 0 14px!important;
+  padding:0!important;
+  background:transparent!important;
+  color:#fff!important;
+}
+
+/* Paycheck Planner */
+#paycheckPlannerDlg{
+  width:min(94vw,720px)!important;
+  max-width:720px!important;
+  max-height:86vh!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+#paycheckPlannerDlg > .form{
+  max-height:86vh!important;
+  overflow-y:auto!important;
+  padding:20px!important;
+  box-sizing:border-box!important;
+}
+#paycheckPlannerContent .summary-stat-grid{
+  gap:12px!important;
+}
+#paycheckPlannerContent .summary-stat{
+  min-width:0!important;
+  padding:15px!important;
+}
+#paycheckPlannerContent .mb2037-planner-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+  margin:14px 0!important;
+}
+#paycheckPlannerContent .mb2037-planner-actions button{
+  width:100%!important;
+  min-height:48px!important;
+}
+#mb2047InlinePaycheckEdit{
+  margin:12px 0!important;
+  padding:16px!important;
+  border:2px solid rgba(22,228,234,.45)!important;
+  border-radius:18px!important;
+  background:#14376b!important;
+}
+#mb2047InlinePaycheckEdit label{
+  display:block!important;
+  margin-bottom:8px!important;
+  font-weight:900!important;
+}
+#mb2047InlinePaycheckEdit .row{
+  display:flex!important;
+  gap:9px!important;
+  align-items:center!important;
+}
+#mb2047InlinePaycheckEdit input{
+  flex:1 1 auto!important;
+  min-width:0!important;
+}
+#mb2047InlinePaycheckEdit button{
+  flex:0 0 auto!important;
+  min-height:44px!important;
+}
+#paycheckPlannerDlg .form-actions{
+  position:sticky!important;
+  bottom:-20px!important;
+  margin:18px -20px -20px!important;
+  padding:12px 20px 16px!important;
+  background:#0d2a55!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+#paycheckPlannerDlg .form-actions .primary{
+  width:100%!important;
+  min-height:48px!important;
+}
+
+/* Other paycheck editors get the same clean mobile sizing */
+#paycheckDlg,
+#paycheckOccurrenceDlg{
+  width:min(94vw,680px)!important;
+  max-width:680px!important;
+  max-height:86vh!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+#paycheckDlg > form.form,
+#paycheckOccurrenceDlg > form.form{
+  max-height:86vh!important;
+  overflow-y:auto!important;
+  padding:20px!important;
+  box-sizing:border-box!important;
+}
+
+@media(max-width:600px){
+  #paycheckPlannerDlg > .form,
+  #paycheckDlg > form.form,
+  #paycheckOccurrenceDlg > form.form{
+    padding:16px!important;
+  }
+  #paycheckPlannerContent .summary-stat-grid{
+    grid-template-columns:1fr!important;
+  }
+  #paycheckPlannerContent .mb2037-planner-actions{
+    grid-template-columns:1fr!important;
+  }
+  #mb2047InlinePaycheckEdit .row{
+    align-items:stretch!important;
+    flex-direction:column!important;
+  }
+  #mb2047InlinePaycheckEdit button{
+    width:100%!important;
   }
 }
 </style>
@@ -9024,7 +9259,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.7 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -9160,7 +9395,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.5</strong>
+      <strong>20.4.7</strong>
     </div>
   </section>
 </div>
@@ -9174,10 +9409,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.5';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.7';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=190, BUILD_NAME='20.4.5', BUILD_LABEL='20.4.5';
+  const BUILD_CODE=192, BUILD_NAME='20.4.7', BUILD_LABEL='20.4.7';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9436,7 +9671,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.5';
+  const VERSION='20.4.7';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9626,7 +9861,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.5';
+  const VERSION='20.4.7';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9866,7 +10101,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.5';
+  const VERSION='20.4.7';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -10201,7 +10436,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.7: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -10578,7 +10813,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.5 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.7 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -10626,7 +10861,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.5 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.7 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11917,7 +12152,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.5');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.7');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -12124,7 +12359,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.5</strong>
+        <strong>20.4.7</strong>
       </div>
       ${done()}`);
 
@@ -13007,6 +13242,141 @@ body.mb-high-contrast textarea{border-width:2px!important}
   else setTimeout(boot,350);
 
   setInterval(()=>{refreshCushionLabel();clampMarker()},1800);
+})();
+</script>
+
+
+<script id="mb2046-meter-pointer-fix-js">
+(function(){
+  function syncMarkerLabel(){
+    const marker=document.getElementById('mb2043HealthMarker');
+    const status=document.getElementById('mb2043HealthStatus');
+    if(!marker)return;
+
+    let label='';
+    if(status) label=(status.textContent||'').trim().toUpperCase();
+
+    if(!label){
+      const money=document.getElementById('mb2043HealthMoney');
+      const explain=document.getElementById('mb2043HealthExplain');
+      const combined=((money?.textContent||'')+' '+(explain?.textContent||'')).toLowerCase();
+      if(combined.includes('short')) label='SHORT';
+      else if(combined.includes('tight')) label='GETTING TIGHT';
+      else label='GOOD';
+    }
+
+    marker.dataset.label=label;
+    if(label.includes('SHORT')) marker.dataset.zone='red';
+    else if(label.includes('TIGHT')) marker.dataset.zone='yellow';
+    else marker.dataset.zone='green';
+  }
+
+  function boot(){
+    syncMarkerLabel();
+    const status=document.getElementById('mb2043HealthStatus');
+    if(status){
+      new MutationObserver(syncMarkerLabel).observe(status,{
+        childList:true,subtree:true,characterData:true
+      });
+    }
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
+  }else setTimeout(boot,350);
+
+  setInterval(syncMarkerLabel,1200);
+})();
+</script>
+
+
+<script id="mb2047-paycheck-planner-js">
+(function(){
+  const $=id=>document.getElementById(id);
+
+  function moneyFmt(n){
+    try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}
+  }
+
+  function saveSinglePaycheckAmount(p,iso,amount){
+    const val=Math.max(0,Number(amount)||0);
+    const key=`${p.id}|${iso}`;
+    if(!paycheckOverrides || typeof paycheckOverrides!=='object') paycheckOverrides={};
+    paycheckOverrides[key]={...(paycheckOverrides[key]||{}),amount:val,deleted:false};
+    persistPaychecks();
+    try{render()}catch(e){}
+    try{renderCalendar()}catch(e){}
+    try{renderFinanceSummary()}catch(e){}
+    return val;
+  }
+
+  /* Keep "Edit This Paycheck" inside Paycheck Planner.
+     Schedule editing still opens the full paycheck schedule editor. */
+  const oldPlanner=window.openPaycheckPlanner;
+  window.openPaycheckPlanner=function(){
+    if(typeof oldPlanner!=='function')return;
+    oldPlanner();
+
+    setTimeout(()=>{
+      const editBtn=$('mb2037EditPaycheck');
+      const scheduleBtn=$('mb2037EditSchedule');
+      if(!editBtn)return;
+
+      editBtn.textContent='Edit This Paycheck';
+      editBtn.onclick=()=>{
+        const today=toISO(new Date());
+        const next=nextPaycheckAfter(today);
+        if(!next)return;
+
+        let box=$('mb2047InlinePaycheckEdit');
+        if(box){
+          box.remove();
+          return;
+        }
+
+        box=document.createElement('div');
+        box.id='mb2047InlinePaycheckEdit';
+        box.innerHTML=`
+          <label for="mb2047PaycheckAmount">Paycheck amount for ${fmtLong(next.iso)}</label>
+          <div class="row">
+            <input id="mb2047PaycheckAmount" type="number" min="0" step="0.01" inputmode="decimal" value="${Number(next.amount||0).toFixed(2)}">
+            <button type="button" class="primary" id="mb2047SavePaycheckAmount">Save Amount</button>
+          </div>
+          <div class="meta" style="margin-top:8px">This changes only this paycheck. Use Edit Paycheck Schedule to change future checks.</div>`;
+
+        const actions=document.querySelector('#paycheckPlannerContent .mb2037-planner-actions');
+        if(actions)actions.insertAdjacentElement('afterend',box);
+        else $('paycheckPlannerContent')?.prepend(box);
+
+        $('mb2047SavePaycheckAmount').onclick=()=>{
+          const amount=saveSinglePaycheckAmount(next.p,next.iso,$('mb2047PaycheckAmount').value);
+          const firstValue=document.querySelector('#paycheckPlannerContent .summary-stat .value');
+          if(firstValue)firstValue.textContent=moneyFmt(amount);
+
+          // Recalculate "after assigned bills" using current checked assignments.
+          let assigned=0;
+          document.querySelectorAll('#paycheckPlannerContent [data-assign]').forEach(c=>{
+            if(c.checked)assigned+=Number(c.dataset.amount)||0;
+          });
+          if($('plannerLeft'))$('plannerLeft').textContent=moneyFmt(amount-assigned);
+          box.remove();
+        };
+      };
+
+      if(scheduleBtn){
+        scheduleBtn.textContent='Edit Paycheck Schedule';
+        // Leave existing behavior: schedule button edits the recurring paycheck setup.
+      }
+    },40);
+  };
+
+  /* Some places call the planner immediately after page load; re-assert our
+     final override after older scripts finish binding. */
+  setTimeout(()=>{
+    document.querySelectorAll('button[onclick*="openPaycheckPlanner"]').forEach(b=>{
+      b.addEventListener('click',()=>setTimeout(()=>{},0));
+    });
+  },300);
 })();
 </script>
 
