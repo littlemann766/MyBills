@@ -1,4 +1,4 @@
-<!-- 20.3.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.6 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.5 Ease-of-Use Home */
+/* 20.3.6 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.5 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.6 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.5 compact Settings pop-up menus */
+/* 20.3.6 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -166,7 +166,7 @@ body.mb2034-settings-open::before{
 }
 #mb119Settings .mb123-settings-nav{margin-bottom:14px}
 #mb119Settings .mb123-settings-nav button{min-height:86px}
-#mb119Settings > #mb119Version{display:flex!important}
+
 @media(max-width:600px){
   #mb123SettingsPanel.mb2034-modal-open{
     left:10px!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.5 settings modal reliability fixes */
+/* 20.3.6 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -190,6 +190,123 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
   border-radius:16px;
   color:#d8e0ee;
   line-height:1.35;
+}
+</style>
+<style>
+/* 20.3.6 — unified themed dialogs / menus */
+:root{
+  --mb-dialog-bg:#0d2a55;
+  --mb-dialog-border:#16e4ea;
+  --mb-dialog-text:#ffffff;
+  --mb-dialog-muted:#d8e0ee;
+  --mb-dialog-control:#0b2447;
+  --mb-dialog-control-border:#117b91;
+}
+
+/* Hide duplicate version card from main Settings only */
+#mb119Settings > #mb119Version{display:none!important}
+
+/* Native dialog elements */
+dialog,
+dialog.modal,
+dialog.sheet{
+  background:var(--mb-dialog-bg)!important;
+  color:var(--mb-dialog-text)!important;
+  border:3px solid var(--mb-dialog-border)!important;
+  border-radius:24px!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.55)!important;
+}
+dialog::backdrop{
+  background:rgba(0,0,0,.64)!important;
+  backdrop-filter:blur(2px);
+}
+dialog h1,dialog h2,dialog h3,dialog h4,
+dialog label,dialog strong,dialog b,dialog p,dialog span{
+  color:var(--mb-dialog-text);
+}
+dialog .muted,dialog small,dialog .hint,dialog .help,dialog .settings-help{
+  color:var(--mb-dialog-muted)!important;
+}
+dialog input,dialog select,dialog textarea{
+  background:var(--mb-dialog-control)!important;
+  color:var(--mb-dialog-text)!important;
+  border:2px solid var(--mb-dialog-control-border)!important;
+  border-radius:14px!important;
+}
+dialog input::placeholder,dialog textarea::placeholder{
+  color:#b9c6d9!important;
+}
+dialog button{
+  border-radius:14px;
+}
+dialog button:not(.danger):not(.delete):not(.destructive){
+  background:var(--mb-dialog-control)!important;
+  color:var(--mb-dialog-text)!important;
+  border:2px solid var(--mb-dialog-control-border)!important;
+}
+
+/* Common custom modal/sheet patterns */
+.modal-content,.modal-card,.popup-card,.sheet-card,.snapshot-card,
+.mb-card-modal,.dialog-card,[role="dialog"]{
+  background:var(--mb-dialog-bg)!important;
+  color:var(--mb-dialog-text)!important;
+  border-color:var(--mb-dialog-border)!important;
+}
+.modal-content h1,.modal-content h2,.modal-content h3,
+.modal-card h1,.modal-card h2,.modal-card h3,
+.popup-card h1,.popup-card h2,.popup-card h3,
+.sheet-card h1,.sheet-card h2,.sheet-card h3,
+.snapshot-card h1,.snapshot-card h2,.snapshot-card h3,
+[role="dialog"] h1,[role="dialog"] h2,[role="dialog"] h3{
+  color:var(--mb-dialog-text)!important;
+}
+.modal-content p,.modal-card p,.popup-card p,.sheet-card p,.snapshot-card p,
+[role="dialog"] p,[role="dialog"] small{
+  color:var(--mb-dialog-muted)!important;
+}
+
+/* Monthly snapshot and white analytics cards */
+#financialSnapshotDlg,
+#financialSnapshotDlg .card,
+#financialSnapshotDlg .snapshot-box,
+#financialSnapshotDlg .summary-card,
+#financialSnapshotDlg .stat-card,
+#financialSnapshotDlg section,
+#financialSnapshotDlg article{
+  background:var(--mb-dialog-bg)!important;
+  color:var(--mb-dialog-text)!important;
+  border-color:rgba(22,228,234,.42)!important;
+}
+#financialSnapshotDlg .card,
+#financialSnapshotDlg .snapshot-box,
+#financialSnapshotDlg .summary-card,
+#financialSnapshotDlg .stat-card{
+  border:1.5px solid rgba(22,228,234,.38)!important;
+  border-radius:18px!important;
+}
+#financialSnapshotDlg h1,#financialSnapshotDlg h2,#financialSnapshotDlg h3,
+#financialSnapshotDlg b,#financialSnapshotDlg strong,
+#financialSnapshotDlg .value{
+  color:var(--mb-dialog-text)!important;
+}
+#financialSnapshotDlg p,#financialSnapshotDlg small,#financialSnapshotDlg .muted,
+#financialSnapshotDlg .label{
+  color:var(--mb-dialog-muted)!important;
+}
+
+/* Generic close buttons: keep theme instead of gray/white */
+dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
+[role="dialog"] .close, [role="dialog"] .close-btn, [role="dialog"] [aria-label*="Close"]{
+  background:var(--mb-dialog-control)!important;
+  color:#fff!important;
+  border:2px solid var(--mb-dialog-border)!important;
+}
+
+/* Keep themed popup panels consistent with settings popup */
+#mb123SettingsPanel.mb2034-modal-open{
+  background:var(--mb-dialog-bg)!important;
+  color:var(--mb-dialog-text)!important;
+  border-color:var(--mb-dialog-border)!important;
 }
 </style>
 </head>
@@ -7812,7 +7929,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.6 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7948,7 +8065,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.5</strong>
+      <strong>20.3.6</strong>
     </div>
   </section>
 </div>
@@ -7962,10 +8079,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.5';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.6';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=176, BUILD_NAME='20.3.5', BUILD_LABEL='20.3.5';
+  const BUILD_CODE=177, BUILD_NAME='20.3.6', BUILD_LABEL='20.3.6';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8224,7 +8341,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.5';
+  const VERSION='20.3.6';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8414,7 +8531,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.5';
+  const VERSION='20.3.6';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8654,7 +8771,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.5';
+  const VERSION='20.3.6';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8989,7 +9106,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.6: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9366,7 +9483,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.5 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.6 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9414,7 +9531,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.5 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.6 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -9930,6 +10047,26 @@ function openAvailableNowSpendingV88(){
       try{return oldOpenSection(name)}catch(e){}
     }
   };
+})();
+</script>
+
+
+<script id="mb2036-theme-dialog-fix">
+(function(){
+  function themeVisibleModals(){
+    document.querySelectorAll('dialog,[role="dialog"],.modal-content,.modal-card,.popup-card,.sheet-card,.snapshot-card').forEach(el=>{
+      el.classList.add('mb2036-themed-menu');
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',themeVisibleModals,{once:true});
+  } else {
+    themeVisibleModals();
+  }
+
+  const obs=new MutationObserver(themeVisibleModals);
+  obs.observe(document.documentElement,{subtree:true,childList:true});
 })();
 </script>
 
