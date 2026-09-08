@@ -1,4 +1,4 @@
-<!-- 20.4.18 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.19 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.18 Ease-of-Use Home */
+/* 20.4.19 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.18 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.19 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.18 compact Settings pop-up menus */
+/* 20.4.19 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.18 settings modal reliability fixes */
+/* 20.4.19 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.18 — unified themed dialogs / menus */
+/* 20.4.19 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.18 cleanup */
+/* 20.4.19 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.18 readability cleanup */
+/* 20.4.19 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.18 settings modal reopen fix */
+/* 20.4.19 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.18 — final Ease-of-Use cleanup */
+/* 20.4.19 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -668,7 +668,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.4.18 — Safe to Spend modal styling + scrolling repair */
+/* 20.4.19 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -797,7 +797,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.4.18 — Can I Afford This? */
+/* 20.4.19 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -939,519 +939,8 @@ body.mb-high-contrast .settings-section{
 </style>
 
 
-<style id="mb2043-payday-health-css">
-/* 20.4.18 — Payday Health meter */
-#mb2043HealthCard{
-  margin:14px 0;
-  width:100%;
-  border:3px solid #16e4ea;
-  border-radius:20px;
-  background:#0d2a55;
-  color:#fff;
-  padding:16px 18px;
-  text-align:left;
-  cursor:pointer;
-}
-#mb2043HealthTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:10px;
-}
-#mb2043HealthTop .title{font-weight:900;font-size:1rem}
-#mb2043HealthStatus{
-  font-weight:900;
-  font-size:.88rem;
-  letter-spacing:.04em;
-}
-#mb2043HealthBarWrap{position:relative;padding-top:14px}
-#mb2043HealthBar{
-  height:18px;
-  border-radius:999px;
-  background:linear-gradient(90deg,#d62d2d 0 33.333%,#d6b22d 33.333% 66.666%,#2e9e4d 66.666% 100%);
-  border:2px solid rgba(255,255,255,.26);
-  overflow:hidden;
-}
-#mb2043HealthMarker{
-  position:absolute;
-  top:5px;
-  width:4px;
-  height:36px;
-  border-radius:4px;
-  background:#fff;
-  box-shadow:0 0 0 2px rgba(0,0,0,.30);
-  transform:translateX(-2px);
-}
-#mb2043HealthLabels{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:7px;
-  font-size:.75rem;
-  font-weight:900;
-}
-#mb2043HealthMoney{
-  margin-top:10px;
-  font-size:1.05rem;
-  font-weight:900;
-}
-#mb2043HealthExplain{
-  margin-top:4px;
-  color:#d8e0ee;
-  font-size:.9rem;
-  line-height:1.35;
-}
-
-#mb2043HealthDlg{
-  width:min(92vw,680px)!important;
-  max-width:680px!important;
-  max-height:86vh!important;
-  padding:0!important;
-  overflow:hidden!important;
-  background:#0d2a55!important;
-  color:#fff!important;
-  border:3px solid #16e4ea!important;
-  border-radius:24px!important;
-}
-#mb2043HealthDlg::backdrop{background:rgba(0,0,0,.68)!important;backdrop-filter:blur(3px)}
-#mb2043HealthDlg > form.form{
-  display:block!important;
-  width:100%!important;
-  max-width:none!important;
-  max-height:86vh!important;
-  overflow-y:auto!important;
-  padding:20px!important;
-  box-sizing:border-box!important;
-  background:#0d2a55!important;
-  color:#fff!important;
-  border:0!important;
-}
-#mb2043HealthDlg h2{margin:0 0 8px!important;color:#fff!important;background:transparent!important}
-#mb2043HealthDlg .mb2043-note{color:#d8e0ee;margin:0 0 14px}
-#mb2043HealthDlg .mb2043-panel{
-  margin:14px 0;
-  padding:16px;
-  background:#14376b;
-  border:2px solid rgba(22,228,234,.45);
-  border-radius:18px;
-}
-#mb2043HealthDlg .mb2043-row{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.12);
-}
-#mb2043HealthDlg .mb2043-row:last-child{border-bottom:0}
-#mb2043HealthDlg .mb2043-bill{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:4px 12px;
-  padding:9px 0;
-  border-bottom:1px solid rgba(255,255,255,.10);
-}
-#mb2043HealthDlg .mb2043-bill small{display:block;color:#d8e0ee}
-#mb2043HealthDlg .form-actions{
-  position:sticky!important;
-  bottom:-20px!important;
-  z-index:2!important;
-  margin:18px -20px -20px!important;
-  padding:12px 20px 16px!important;
-  background:#0d2a55!important;
-  border-top:1px solid rgba(255,255,255,.10)!important;
-}
-#mb2043HealthDlg .form-actions .primary{
-  width:100%!important;
-  min-height:48px!important;
-  background:#16e4ea!important;
-  color:#07172d!important;
-  border:0!important;
-  font-weight:900!important;
-}
-@media(max-width:600px){
-  #mb2043HealthDlg{width:94vw!important;max-height:84vh!important}
-  #mb2043HealthDlg > form.form{max-height:84vh!important;padding:16px!important}
-  #mb2043HealthDlg .form-actions{
-    bottom:-16px!important;
-    margin:16px -16px -16px!important;
-    padding:12px 16px 14px!important;
-  }
-}
-</style>
-
-
-<style id="mb2044-real-meter-css">
-/* 20.4.18 — Payday Health redesigned as a true gauge/meter */
-#mb2043HealthCard{
-  display:block!important;
-  width:100%!important;
-  min-height:0!important;
-  padding:18px 18px 16px!important;
-  margin:14px 0!important;
-  overflow:visible!important;
-  border:3px solid #16e4ea!important;
-  border-radius:22px!important;
-  background:#0d2a55!important;
-  color:#fff!important;
-  box-sizing:border-box!important;
-}
-#mb2043HealthTop{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:space-between!important;
-  gap:12px!important;
-  margin-bottom:18px!important;
-}
-#mb2043HealthTop .title{
-  font-size:1rem!important;
-  font-weight:900!important;
-  white-space:nowrap!important;
-}
-#mb2043HealthStatus{
-  font-size:.95rem!important;
-  font-weight:900!important;
-  white-space:nowrap!important;
-}
-
-#mb2043HealthBarWrap{
-  position:relative!important;
-  padding:34px 4px 0!important;
-  margin:0!important;
-  min-height:92px!important;
-  overflow:visible!important;
-}
-#mb2043HealthBar{
-  position:relative!important;
-  width:100%!important;
-  height:28px!important;
-  border-radius:999px!important;
-  background:linear-gradient(
-    90deg,
-    #d82929 0%,
-    #f26b22 20%,
-    #f3c623 48%,
-    #a9d83d 70%,
-    #2aa84a 100%
-  )!important;
-  border:3px solid rgba(255,255,255,.78)!important;
-  box-shadow:
-    inset 0 2px 7px rgba(0,0,0,.28),
-    0 4px 12px rgba(0,0,0,.24)!important;
-  overflow:hidden!important;
-}
-
-#mb2043HealthMarker{
-  position:absolute!important;
-  top:0!important;
-  width:0!important;
-  height:0!important;
-  background:none!important;
-  box-shadow:none!important;
-  transform:translateX(-50%)!important;
-  z-index:5!important;
-}
-#mb2043HealthMarker::before{
-  content:attr(data-label)!important;
-  position:absolute!important;
-  left:50%!important;
-  bottom:12px!important;
-  transform:translateX(-50%)!important;
-  min-width:92px!important;
-  padding:8px 12px!important;
-  border-radius:12px!important;
-  background:var(--mb2044-marker-bg,#2aa84a)!important;
-  color:#fff!important;
-  text-align:center!important;
-  font-size:.78rem!important;
-  font-weight:900!important;
-  letter-spacing:.02em!important;
-  white-space:nowrap!important;
-  box-shadow:0 4px 12px rgba(0,0,0,.28)!important;
-}
-#mb2043HealthMarker::after{
-  content:""!important;
-  position:absolute!important;
-  left:50%!important;
-  bottom:2px!important;
-  transform:translateX(-50%)!important;
-  border-left:8px solid transparent!important;
-  border-right:8px solid transparent!important;
-  border-top:10px solid var(--mb2044-marker-bg,#2aa84a)!important;
-}
-#mb2043HealthMarker[data-zone="red"]{--mb2044-marker-bg:#d82929}
-#mb2043HealthMarker[data-zone="yellow"]{--mb2044-marker-bg:#d6a91d}
-#mb2043HealthMarker[data-zone="green"]{--mb2044-marker-bg:#2aa84a}
-#mb2043HealthMarker[data-zone="unknown"]{--mb2044-marker-bg:#5f6f86}
-
-#mb2043HealthLabels{
-  display:grid!important;
-  grid-template-columns:1fr 1fr 1fr!important;
-  width:100%!important;
-  margin-top:10px!important;
-  gap:4px!important;
-  color:#fff!important;
-  font-size:.72rem!important;
-  font-weight:900!important;
-  line-height:1.15!important;
-}
-#mb2043HealthLabels span:nth-child(1){text-align:left!important}
-#mb2043HealthLabels span:nth-child(2){text-align:center!important}
-#mb2043HealthLabels span:nth-child(3){text-align:right!important}
-
-#mb2043HealthMoney{
-  margin-top:14px!important;
-  font-size:1.15rem!important;
-  font-weight:900!important;
-  line-height:1.25!important;
-}
-#mb2043HealthExplain{
-  display:block!important;
-  margin-top:5px!important;
-  max-width:none!important;
-  color:#d8e0ee!important;
-  font-size:.9rem!important;
-  line-height:1.35!important;
-  text-align:left!important;
-  white-space:normal!important;
-}
-
-body.mb-home-easy #mb2043HealthCard{
-  padding:16px!important;
-}
-body.mb-home-easy #mb2043HealthExplain{
-  font-size:.88rem!important;
-}
-
-@media(max-width:600px){
-  #mb2043HealthTop{
-    align-items:flex-start!important;
-    margin-bottom:16px!important;
-  }
-  #mb2043HealthTop .title{font-size:.95rem!important}
-  #mb2043HealthStatus{font-size:.84rem!important}
-  #mb2043HealthBarWrap{
-    padding-top:34px!important;
-    min-height:88px!important;
-  }
-  #mb2043HealthBar{height:26px!important}
-  #mb2043HealthMarker::before{
-    min-width:82px!important;
-    padding:7px 9px!important;
-    font-size:.72rem!important;
-  }
-  #mb2043HealthLabels{font-size:.66rem!important}
-}
-</style>
-
-
-<style id="mb2045-cushion-css">
-/* 20.4.18 — Payday Health fit + custom cushion */
-#mb2043HealthCard{
-  overflow:hidden!important;
-}
-#mb2043HealthTop{
-  margin-bottom:10px!important;
-}
-#mb2043HealthStatus{
-  font-size:.82rem!important;
-}
-#mb2043HealthBarWrap{
-  width:100%!important;
-  box-sizing:border-box!important;
-  padding:38px 8px 0!important;
-  min-height:88px!important;
-  overflow:visible!important;
-}
-#mb2043HealthBar{
-  width:100%!important;
-  box-sizing:border-box!important;
-}
-#mb2043HealthMarker::before{
-  min-width:74px!important;
-  max-width:110px!important;
-  padding:7px 9px!important;
-  font-size:.68rem!important;
-}
-#mb2043HealthLabels{
-  width:100%!important;
-  box-sizing:border-box!important;
-  padding:0 2px!important;
-  font-size:.64rem!important;
-}
-#mb2043HealthMoney{
-  margin-top:10px!important;
-  font-size:1.05rem!important;
-}
-#mb2043HealthExplain{
-  font-size:.84rem!important;
-  line-height:1.3!important;
-}
-#mb2043CushionEdit{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:space-between!important;
-  gap:10px!important;
-  margin-top:12px!important;
-  padding-top:11px!important;
-  border-top:1px solid rgba(255,255,255,.12)!important;
-}
-#mb2043CushionEdit .cushion-label{
-  color:#d8e0ee!important;
-  font-size:.78rem!important;
-  font-weight:800!important;
-}
-#mb2043CushionEdit button{
-  flex:0 0 auto!important;
-  min-height:36px!important;
-  padding:7px 11px!important;
-  border-radius:10px!important;
-  border:1px solid rgba(22,228,234,.55)!important;
-  background:#14376b!important;
-  color:#fff!important;
-  font-weight:900!important;
-}
-
-/* Cushion editor */
-#mb2045CushionDlg{
-  width:min(92vw,560px)!important;
-  max-width:560px!important;
-  max-height:84vh!important;
-  padding:0!important;
-  overflow:hidden!important;
-  background:#0d2a55!important;
-  color:#fff!important;
-  border:3px solid #16e4ea!important;
-  border-radius:24px!important;
-}
-#mb2045CushionDlg::backdrop{
-  background:rgba(0,0,0,.68)!important;
-  backdrop-filter:blur(3px);
-}
-#mb2045CushionDlg > form.form{
-  display:block!important;
-  max-height:84vh!important;
-  overflow-y:auto!important;
-  padding:20px!important;
-  background:#0d2a55!important;
-  color:#fff!important;
-  border:0!important;
-  box-sizing:border-box!important;
-}
-#mb2045CushionDlg h2{margin:0 0 8px!important}
-#mb2045CushionDlg .mb2045-note{color:#d8e0ee;margin:0 0 14px}
-#mb2045CushionDlg .mb2045-panel{
-  padding:16px;
-  border:2px solid rgba(22,228,234,.45);
-  border-radius:18px;
-  background:#14376b;
-  margin-bottom:14px;
-}
-#mb2045CushionDlg .mb2045-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 0;
-}
-#mb2045CushionDlg .mb2045-row label{font-weight:900}
-#mb2045CushionDlg input,
-#mb2045CushionDlg select{
-  width:min(48%,180px)!important;
-  background:#0b2447!important;
-  color:#fff!important;
-  border:2px solid #117b91!important;
-}
-#mb2045CushionDlg .form-actions{
-  position:sticky!important;
-  bottom:-20px!important;
-  margin:16px -20px -20px!important;
-  padding:12px 20px 16px!important;
-  background:#0d2a55!important;
-}
-#mb2045CushionDlg .form-actions button{
-  width:100%!important;
-  min-height:46px!important;
-  background:#16e4ea!important;
-  color:#07172d!important;
-  border:0!important;
-  font-weight:900!important;
-}
-@media(max-width:600px){
-  #mb2043HealthCard{padding:15px!important}
-  #mb2043HealthBarWrap{padding:36px 5px 0!important}
-  #mb2043HealthMarker::before{
-    min-width:68px!important;
-    max-width:92px!important;
-    padding:6px 7px!important;
-    font-size:.64rem!important;
-  }
-  #mb2043HealthLabels{font-size:.59rem!important}
-  #mb2043CushionEdit{
-    align-items:flex-start!important;
-    flex-direction:column!important;
-  }
-  #mb2045CushionDlg .mb2045-row{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  #mb2045CushionDlg input,
-  #mb2045CushionDlg select{
-    width:100%!important;
-    max-width:100%!important;
-  }
-}
-</style>
-
-
-<style id="mb2046-meter-pointer-fix-css">
-/* 20.4.18 — make the floating Payday Health marker look like a real labeled pointer */
-#mb2043HealthTop{
-  margin-bottom:8px!important;
-}
-#mb2043HealthStatus{
-  display:none!important; /* avoid duplicate GOOD/SHORT text at top-right */
-}
-#mb2043HealthBarWrap{
-  padding-top:46px!important;
-}
-#mb2043HealthMarker{
-  top:4px!important;
-}
-#mb2043HealthMarker::before{
-  content:attr(data-label)!important;
-  display:block!important;
-  min-width:78px!important;
-  max-width:118px!important;
-  padding:7px 10px!important;
-  border-radius:12px!important;
-  background:var(--mb2044-marker-bg,#2aa84a)!important;
-  color:#fff!important;
-  text-align:center!important;
-  font-size:.72rem!important;
-  font-weight:900!important;
-  line-height:1.05!important;
-  letter-spacing:.02em!important;
-  white-space:nowrap!important;
-  box-shadow:0 4px 12px rgba(0,0,0,.30)!important;
-}
-#mb2043HealthMarker::after{
-  bottom:-10px!important;
-}
-@media(max-width:600px){
-  #mb2043HealthBarWrap{padding-top:44px!important}
-  #mb2043HealthMarker::before{
-    min-width:70px!important;
-    max-width:104px!important;
-    padding:6px 8px!important;
-    font-size:.66rem!important;
-  }
-}
-</style>
-
-
 <style id="mb2047-dialog-planner-fix-css">
-/* 20.4.18 — unified modal/menu theme */
+/* 20.4.19 — unified modal/menu theme */
 dialog{
   background:#0d2a55!important;
   color:#fff!important;
@@ -1640,7 +1129,7 @@ dialog form.form > h2:first-child,
 
 
 <style id="mb2048-advance-bills-css">
-/* 20.4.18 — Paycheck Planner can fund future bills */
+/* 20.4.19 — Paycheck Planner can fund future bills */
 #mb2048FutureBills{
   margin-top:14px!important;
   padding:16px!important;
@@ -1715,7 +1204,7 @@ dialog form.form > h2:first-child,
 
 
 <style id="mb2049-home-menu-cleanup-css">
-/* 20.4.18 — Home cleanup + weekly hours menu fix */
+/* 20.4.19 — Home cleanup + weekly hours menu fix */
 
 /* Weekly Hours: stop light cards/white-on-white text */
 #hoursWeeksDlg{
@@ -1829,7 +1318,7 @@ body.mb-home-advanced #mb2049QuickSpending{
 
 
 <style id="mb20410-connected-money-css">
-/* 20.4.18 — finish modal theme + connect spending, cushion, planner and Home */
+/* 20.4.19 — finish modal theme + connect spending, cushion, planner and Home */
 
 /* Remaining light modal/card surfaces */
 dialog .summary-stat,
@@ -1924,290 +1413,316 @@ body.mb-home-advanced #mb2049QuickSpending{
 </style>
 
 
-<style id="mb20411-unified-health-css">
-/* 20.4.18 — combine Safe to Spend, Spending and Payday Health into one Home card */
 
-/* Separate Home cards are now folded into Payday Health. */
-body.mb-home-advanced #mb2040AdvancedSafe,
-body.mb-home-advanced #mb2049QuickSpending{
-  display:none!important;
+<style id="mb20419-consolidated-money-css">
+/* 20.4.19 — one authoritative Payday Health / Safe to Spend UI */
+
+#mb2040AdvancedSafe,
+#mb2042AffordCard,
+#mb2049QuickSpending{display:none!important}
+
+#mb20419HealthCard{
+  width:calc(100% - 32px);
+  max-width:760px;
+  margin:20px auto;
+  padding:26px 26px 24px;
+  box-sizing:border-box;
+  border:4px solid rgba(19,126,151,.85);
+  border-radius:38px;
+  background:#103462;
+  color:#fff;
+  text-align:left;
+}
+#mb20419HealthHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:12px;
+}
+#mb20419HealthHeader .title{
+  font-size:1.5rem;
+  font-weight:950;
+  letter-spacing:.01em;
+}
+#mb20419MeterStage{
+  position:relative;
+  padding-top:58px;
+  margin-top:2px;
+}
+#mb20419Meter{
+  height:36px;
+  border-radius:999px;
+  border:5px solid rgba(255,255,255,.88);
+  box-shadow:0 1px 5px rgba(0,0,0,.35);
+}
+#mb20419MeterPill{
+  position:absolute;
+  top:0;
+  width:108px;
+  min-height:42px;
+  padding:8px 10px;
+  box-sizing:border-box;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:.78rem;
+  line-height:1.05;
+  font-weight:950;
+  color:#fff;
+  transform:translateX(-50%);
+  transition:left .25s ease;
+  white-space:normal;
+}
+#mb20419MeterPill::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-13px;
+  transform:translateX(-50%);
+  width:0;height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-top:13px solid currentColor;
+  filter:brightness(.85);
+}
+#mb20419ScaleLabels{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-top:18px;
+  font-size:.78rem;
+  font-weight:900;
+}
+#mb20419ScaleLabels span:nth-child(1){text-align:left}
+#mb20419ScaleLabels span:nth-child(2),
+#mb20419ScaleLabels span:nth-child(3){text-align:center}
+#mb20419ScaleLabels span:nth-child(4){text-align:right}
+
+#mb20419HealthSummary{
+  margin-top:20px;
+  padding-top:4px;
+}
+#mb20419SafeBig{
+  font-size:1.55rem;
+  font-weight:950;
+  margin-bottom:4px;
+}
+#mb20419HealthLine,
+#mb20419HealthExplain{
+  font-weight:750;
+  color:#dce5f1;
+  line-height:1.45;
+}
+#mb20419HealthExplain{margin-top:6px}
+
+#mb20419Forecast{
+  border-top:1px solid rgba(255,255,255,.14);
+  margin-top:24px;
+  padding-top:22px;
+}
+#mb20419ForecastTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+#mb20419ForecastTitle strong{
+  font-size:1.28rem;
+  font-weight:950;
+}
+#mb20419ForecastTitle button{
+  min-height:46px;
+  border:2px solid #168ca0;
+  border-radius:16px;
+  background:transparent;
+  color:#fff;
+  padding:10px 16px;
+  font-weight:900;
+}
+#mb20419ForecastGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.mb20419MoneyCell{
+  padding:16px;
+  border:2px solid rgba(19,126,151,.65);
+  border-radius:24px;
+  background:#173f77;
+}
+.mb20419MoneyCell.full{grid-column:1/-1}
+.mb20419MoneyCell .label{
+  color:#d6dfeb;
+  font-size:.9rem;
+  font-weight:800;
+}
+.mb20419MoneyCell .value{
+  margin-top:4px;
+  font-size:1.4rem;
+  font-weight:950;
+}
+#mb20419SavingsToggleRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:14px 0 0;
+  padding:12px 14px;
+  border:2px solid rgba(19,126,151,.52);
+  border-radius:18px;
+  background:#0d2d58;
+}
+#mb20419SavingsToggleRow .txt b{display:block}
+#mb20419SavingsToggleRow .txt small{
+  display:block;
+  margin-top:3px;
+  color:#d4deea;
+  line-height:1.25;
+}
+#mb20419UseSavings{
+  width:25px;
+  height:25px;
+  accent-color:#24d2e6;
+  flex:0 0 auto;
+}
+#mb20419Actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:16px;
+}
+#mb20419Actions button{
+  min-height:64px;
+  border-radius:22px;
+  font-size:1.05rem;
+  font-weight:950;
+}
+#mb20419EditCushion{
+  background:#153d74;
+  color:#fff;
+  border:2px solid #168ca0;
+}
+#mb20419AddSpending{
+  background:#25d4e5;
+  color:#071a33;
+  border:0;
+}
+#mb20419FormulaNote{
+  margin-top:12px;
+  color:#dce5f1;
+  font-weight:750;
+  line-height:1.35;
 }
 
-#mb2043HealthCard{
-  padding:18px!important;
-  min-height:0!important;
-}
-
-#mb20411Forecast{
-  margin-top:14px!important;
-  padding-top:14px!important;
-  border-top:1px solid rgba(255,255,255,.13)!important;
-}
-
-#mb20411ForecastTitle{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:space-between!important;
-  gap:12px!important;
-  margin-bottom:9px!important;
-}
-
-#mb20411ForecastTitle strong{
-  font-size:.9rem!important;
-  color:#fff!important;
-}
-
-#mb20411ForecastTitle button{
-  flex:0 0 auto!important;
-  min-height:34px!important;
-  padding:6px 10px!important;
-  border-radius:10px!important;
-  border:1px solid rgba(22,228,234,.55)!important;
-  background:#14376b!important;
-  color:#fff!important;
-  font-size:.76rem!important;
-  font-weight:900!important;
-}
-
-#mb20411ForecastGrid{
-  display:grid!important;
-  grid-template-columns:1fr 1fr 1fr!important;
-  gap:8px!important;
-}
-
-#mb20411ForecastGrid .cell{
-  min-width:0!important;
-  padding:10px!important;
-  border-radius:13px!important;
-  background:#14376b!important;
-  border:1px solid rgba(22,228,234,.28)!important;
-}
-
-#mb20411ForecastGrid .label{
-  color:#d8e0ee!important;
-  font-size:.68rem!important;
-  font-weight:800!important;
-  line-height:1.15!important;
-}
-
-#mb20411ForecastGrid .value{
-  margin-top:4px!important;
-  color:#fff!important;
-  font-size:.94rem!important;
-  font-weight:900!important;
-  line-height:1.15!important;
-  overflow-wrap:anywhere!important;
-}
-
-#mb20411HealthActions{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-  gap:10px!important;
-  margin-top:13px!important;
-}
-
-#mb20411HealthActions button{
-  width:100%!important;
-  min-height:46px!important;
-  margin:0!important;
-  border-radius:13px!important;
-  font-weight:900!important;
-}
-
-#mb20411AddSpending{
-  border:0!important;
-  background:#16e4ea!important;
-  color:#07172d!important;
-}
-
-#mb20411EditCushion{
-  border:1px solid rgba(22,228,234,.60)!important;
-  background:#14376b!important;
-  color:#fff!important;
-}
-
-/* Hide old standalone cushion button/row once unified controls exist. */
-#mb2043CushionEdit{
-  display:none!important;
-}
-
-/* The card is intentionally longer now so forecast lives under the meter cleanly. */
-#mb2043HealthExplain{
-  margin-bottom:0!important;
-}
-
-@media(max-width:600px){
-  #mb2043HealthCard{
-    padding:16px!important;
-  }
-  #mb20411ForecastGrid{
-    grid-template-columns:1fr 1fr!important;
-  }
-  #mb20411ForecastGrid .cell:last-child{
-    grid-column:1 / -1!important;
-  }
-  #mb20411HealthActions{
-    grid-template-columns:1fr 1fr!important;
-  }
-}
-</style>
-
-
-<style id="mb20412-money-math-css">
-/* 20.4.18 — money math alignment + remaining white-on-white cleanup */
-
-/* Force remaining light summary surfaces to the app theme. */
-#budgetDlg .budget-summary,
-#budgetDlg .budget-summary *,
-#budgetDlg .summary-stat-grid,
-#budgetDlg .summary-stat-grid *,
-#budgetDlg [class*="summary"],
-#budgetDlg [class*="summary"] *,
-#mb2040SafeDlg .settings-section,
-#mb2040SafeDlg .settings-section *,
-#mb2043HealthDlg .mb2043-panel,
-#mb2043HealthDlg .mb2043-panel *{
-  background-color:#14376b!important;
-  color:#fff!important;
-  border-color:rgba(22,228,234,.40)!important;
-}
-#budgetDlg .budget-summary progress,
-#budgetDlg progress{
-  background:#0b2447!important;
-}
-#budgetDlg progress::-webkit-progress-bar{
-  background:#0b2447!important;
-}
-#budgetDlg progress::-webkit-progress-value{
-  background:#16e4ea!important;
-}
-#budgetDlg .budget-summary .meta,
-#budgetDlg .budget-summary small{
-  color:#d8e0ee!important;
-}
-
-/* Explicitly target the visible Spent / Budget left card. */
-#budgetDlg .budget-summary,
-#budgetDlg .budget-progress-card,
-#budgetDlg .budget-overview,
-#budgetDlg .budget-totals{
-  background:#14376b!important;
-  color:#fff!important;
-  border:2px solid rgba(22,228,234,.40)!important;
-}
-#budgetDlg .budget-summary * ,
-#budgetDlg .budget-progress-card *,
-#budgetDlg .budget-overview *,
-#budgetDlg .budget-totals *{
-  color:#fff!important;
-}
-
-/* Safe-to-spend reserve callout */
-#mb20412SavingsReserve{
-  margin-top:10px!important;
-  padding:10px 12px!important;
-  border-radius:12px!important;
-  background:#0b2447!important;
-  border:1px solid rgba(22,228,234,.28)!important;
-  color:#d8e0ee!important;
-  font-size:.82rem!important;
-  line-height:1.35!important;
-}
-</style>
-
-
-<style id="mb20415-weekly-money-css">
-#mb20415PercentBox{
-  margin:14px 0;padding:14px;border-radius:16px;
-  border:1px solid rgba(31,215,232,.45);
-  background:#14376b;color:#fff;
-}
-#mb20415PercentBox .mb20415-row{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);
-}
-#mb20415PercentBox .mb20415-row:last-child{border-bottom:0}
-#mb20415PercentBox label{font-weight:800;color:#fff}
-#mb20415PercentBox input{
-  width:105px;background:#0b2447;color:#fff;
-  border:1px solid #1fd7e8;border-radius:10px;padding:10px;
-}
-#mb20415PercentNote{font-size:.82rem;color:#d8e1ee;margin-top:8px}
-#mb20412SavingsReserve{display:none!important}
-</style>
-
-
-<style id="mb20417-cushion-modes-css">
-#mb20417CushionEditor{
+/* Cushion editor */
+#mb20419CushionEditor{
   margin:14px 0;
   padding:14px;
   border-radius:16px;
   border:1px solid rgba(31,215,232,.45);
-  background:#14376b;
-  color:#fff;
+  background:#14376b!important;
+  color:#fff!important;
 }
-#mb20417CushionEditor .mb20417-mode-grid{
+#mb20419CushionEditor .mode-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
   margin:10px 0 14px;
 }
-#mb20417CushionEditor .mb20417-mode{
+#mb20419CushionEditor .mode-btn{
   min-height:46px;
-  border:1px solid #1fd7e8;
+  border:2px solid #168ca0;
   border-radius:12px;
-  background:#0b2447;
-  color:#fff;
-  font-weight:800;
+  background:#0d2b53!important;
+  color:#fff!important;
+  font-weight:900;
 }
-#mb20417CushionEditor .mb20417-mode.active{
-  background:#1fd7e8;
-  color:#071a33;
+#mb20419CushionEditor .mode-btn.active{
+  background:#22d3e6!important;
+  color:#071a33!important;
+  border-color:#22d3e6!important;
 }
-#mb20417CushionEditor label{
+#mb20419CushionEditor label{
   display:block;
-  font-weight:800;
-  margin:8px 0 6px;
+  margin:10px 0 6px;
+  color:#fff!important;
+  font-weight:900;
 }
-#mb20417CushionEditor input{
-  width:100%;
-  box-sizing:border-box;
-  background:#0b2447;
-  color:#fff;
-  border:1px solid #1fd7e8;
-  border-radius:12px;
-  padding:12px;
-  font-size:1rem;
+#mb20419CushionEditor input{
+  width:100%!important;
+  box-sizing:border-box!important;
+  background:#0b2447!important;
+  color:#fff!important;
+  border:2px solid #168ca0!important;
+  border-radius:12px!important;
+  padding:12px!important;
+  font-size:1rem!important;
 }
-#mb20417CushionPreview{
+#mb20419CushionPreview,
+#mb20419ScaleSettings{
+  margin-top:14px;
+  padding:13px;
+  border-radius:14px;
+  background:#0b2447!important;
+  border:1px solid rgba(31,215,232,.35)!important;
+  color:#fff!important;
+}
+#mb20419ScaleSettings summary{
+  cursor:pointer;
+  font-weight:950;
+}
+#mb20419ScaleSettings .scale-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
   margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:#0b2447;
-  border:1px solid rgba(31,215,232,.3);
-  line-height:1.45;
 }
-#mb20415PercentBox{display:none!important}
-</style>
+#mb20419ScaleSettings small{
+  display:block;
+  color:#d3dce8;
+  line-height:1.35;
+  margin-top:8px;
+}
 
+/* dark-theme repair: stop white-on-white cards in Savings/History/Budget */
+dialog .savings-goal,
+dialog .history-item,
+dialog .payment-history-card,
+dialog .summary-stat,
+dialog .budget-stat-row,
+dialog .goal-card,
+dialog .snapshot-row{
+  background:#14376b!important;
+  color:#fff!important;
+  border-color:rgba(31,215,232,.38)!important;
+}
+dialog .savings-goal *,
+dialog .history-item *,
+dialog .payment-history-card *,
+dialog .summary-stat *,
+dialog .budget-stat-row *,
+dialog .goal-card *,
+dialog .snapshot-row *{
+  color:#fff!important;
+}
+dialog input,
+dialog select,
+dialog textarea{
+  background:#0b2447!important;
+  color:#fff!important;
+  border-color:#168ca0!important;
+}
 
-<style id="mb20418-money-ui-css">
-#mb20417CushionEditor{display:none!important}
-#mb20418CushionEditor{margin:14px 0;padding:14px;border-radius:16px;border:1px solid rgba(31,215,232,.45);background:#14376b!important;color:#fff!important}
-#mb20418CushionEditor .mb20418-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 14px}
-#mb20418CushionEditor .mb20418-mode{min-height:46px;border:2px solid #168ca0;border-radius:12px;background:#0d2b53!important;color:#fff!important;font-weight:900}
-#mb20418CushionEditor .mb20418-mode.active{background:#22d3e6!important;color:#071a33!important;border-color:#22d3e6!important}
-#mb20418CushionEditor label{display:block;color:#fff!important;font-weight:900;margin:10px 0 6px}
-#mb20418CushionEditor input{width:100%!important;box-sizing:border-box!important;background:#0b2447!important;color:#fff!important;border:2px solid #168ca0!important;border-radius:12px!important;padding:12px!important;font-size:1rem!important}
-#mb20418CushionPreview{margin-top:12px;padding:12px;border-radius:12px;background:#0b2447!important;border:1px solid rgba(31,215,232,.35)!important;color:#fff!important;line-height:1.45}
-#mb20418UseSavingsRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:12px;border-radius:12px;background:#0b2447!important;border:1px solid rgba(31,215,232,.35)!important}
-#mb20418UseSavingsRow label{margin:0}
-#mb20418UseSavings{width:24px!important;height:24px!important;accent-color:#22d3e6}
-
-/* dark-theme cleanup for legacy white cards */
-dialog .form,dialog .settings-section,dialog .summary-stat,dialog .savings-goal,dialog .snapshot-row,dialog .budget-stat-row,dialog .payment-history-card,dialog .history-item,dialog .goal-card,#savingsDlg .savings-goal,#paymentHistoryDlg .history-item,#paymentHistoryDlg .payment-history-card{background:#14376b!important;color:#fff!important;border-color:rgba(31,215,232,.35)!important}
-dialog .form *,dialog .settings-section *,dialog .summary-stat *,dialog .savings-goal *,dialog .snapshot-row *,dialog .budget-stat-row *,dialog .payment-history-card *,dialog .history-item *,dialog .goal-card *,#savingsDlg .savings-goal *,#paymentHistoryDlg .history-item *,#paymentHistoryDlg .payment-history-card *{color:#fff!important}
-dialog input,dialog select,dialog textarea{background:#0b2447!important;color:#fff!important;border-color:#168ca0!important}
+@media(max-width:560px){
+  #mb20419HealthCard{width:calc(100% - 24px);padding:22px 18px 20px;border-radius:32px}
+  #mb20419ForecastGrid{grid-template-columns:1fr 1fr}
+  #mb20419ScaleLabels{font-size:.67rem}
+  #mb20419MeterPill{width:94px;font-size:.7rem}
+}
 </style>
 
 </head>
@@ -9831,7 +9346,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.18 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.19 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -9967,7 +9482,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.18</strong>
+      <strong>20.4.19</strong>
     </div>
   </section>
 </div>
@@ -9981,10 +9496,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.18';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.19';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=203, BUILD_NAME='20.4.18', BUILD_LABEL='20.4.18';
+  const BUILD_CODE=204, BUILD_NAME='20.4.19', BUILD_LABEL='20.4.19';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -10243,7 +9758,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.18';
+  const VERSION='20.4.19';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10433,7 +9948,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.18';
+  const VERSION='20.4.19';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10673,7 +10188,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.18';
+  const VERSION='20.4.19';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11008,7 +10523,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.18: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.19: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -11385,7 +10900,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.18 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.19 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -11433,7 +10948,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.18 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.19 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -12724,7 +12239,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.18');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.19');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -12931,7 +12446,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.18</strong>
+        <strong>20.4.19</strong>
       </div>
       ${done()}`);
 
@@ -13393,471 +12908,6 @@ body.mb-high-contrast textarea{border-width:2px!important}
   }else setTimeout(ensureHomeCard,250);
 
   setInterval(ensureHomeCard,1800);
-})();
-</script>
-
-
-<script id="mb2043-payday-health-js">
-(function(){
-  const $=id=>document.getElementById(id);
-  const moneyFmt=n=>typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2);
-  const iso=d=>typeof toISO==='function'?toISO(d):d.toISOString().slice(0,10);
-  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-
-  function mode(){
-    try{return appSettings && appSettings.homeMode==='advanced'?'advanced':'easy'}catch(e){return 'easy'}
-  }
-  function available(){
-    try{
-      const d=new Date();
-      const x=typeof myBillsActualNowV99==='function'?myBillsActualNowV99(d.getFullYear(),d.getMonth()):null;
-      if(x && Number.isFinite(Number(x.left))) return Number(x.left);
-    }catch(e){}
-    return 0;
-  }
-  function nextPay(){
-    try{return nextPaycheckAfter(iso(new Date()))||null}catch(e){return null}
-  }
-  function rowsUntil(endIso){
-    const rows=[],today=iso(new Date());
-    if(!endIso)return rows;
-    try{
-      for(let d=new Date(today+'T00:00:00'); d<=new Date(endIso+'T00:00:00'); d.setDate(d.getDate()+1)){
-        const di=iso(d);
-        bills.forEach(b=>{
-          if(isRecurringOnDate(b,d) && !billOccurrenceDeleted(b,di)){
-            const rem=Math.max(0,(Number(b.amount)||0)-(Number(billPaidAmount(b,di))||0));
-            if(rem>0) rows.push({name:b.name||'Bill',iso:di,amount:rem,category:b.category||'Uncategorized'});
-          }
-        });
-      }
-    }catch(e){}
-    return rows.sort((a,b)=>a.iso.localeCompare(b.iso));
-  }
-  function daysBetween(a,b){
-    try{return Math.max(0,Math.ceil((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000))}catch(e){return 0}
-  }
-  function calc(){
-    const av=available(), pay=nextPay(), rows=pay?rowsUntil(pay.iso):[];
-    const protectedTotal=rows.reduce((s,r)=>s+r.amount,0);
-    const safe=av-protectedTotal;
-    const today=iso(new Date());
-    const days=pay?daysBetween(today,pay.iso):0;
-
-    // Dollar-aware thresholds:
-    // RED: projected shortage before payday.
-    // YELLOW: covered, but cushion is less than 25% of protected bills or less than $100.
-    // GREEN: obligations covered with a stronger cushion.
-    const yellowFloor=Math.max(100, protectedTotal*0.25);
-    let status, score, label, sentence, moneyLine;
-    if(!pay){
-      status='unknown'; score=50; label='PAYCHECK NEEDED';
-      sentence='Add your next paycheck so My Bills can calculate your Payday Health.';
-      moneyLine='Forecast unavailable';
-    }else if(safe<0){
-      status='red';
-      const shortage=Math.abs(safe);
-      score=Math.max(0, 33 - Math.min(33, shortage/Math.max(1,protectedTotal||shortage)*33));
-      label='SHORT';
-      moneyLine=moneyFmt(shortage)+' short';
-      sentence='Your forecast drops below what is needed to cover bills before payday.';
-    }else if(safe<yellowFloor){
-      status='yellow';
-      const ratio=yellowFloor?Math.max(0,Math.min(1,safe/yellowFloor)):0;
-      score=34 + ratio*31;
-      label='GETTING TIGHT';
-      moneyLine=moneyFmt(safe)+' cushion';
-      sentence='Your bills are covered, but your remaining cushion before payday is getting thin.';
-    }else{
-      status='green';
-      const extra=Math.max(0,safe-yellowFloor);
-      score=67 + Math.min(33, extra/Math.max(1,yellowFloor)*33);
-      label='GOOD';
-      moneyLine=moneyFmt(safe)+' cushion';
-      sentence='Your upcoming bills are covered with money left over before payday.';
-    }
-    return {av,pay,rows,protectedTotal,safe,days,yellowFloor,status,score,label,sentence,moneyLine};
-  }
-
-  function fmtDate(s){
-    if(!s)return 'Not set';
-    try{return new Date(s+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}catch(e){return s}
-  }
-
-  function ensureCard(){
-    let card=$('mb2043HealthCard');
-    if(!card){
-      card=document.createElement('button');
-      card.id='mb2043HealthCard';
-      card.type='button';
-      card.onclick=openPaydayHealth2043;
-      card.innerHTML=`
-        <div id="mb2043HealthTop">
-          <div class="title">PAYDAY HEALTH</div>
-          <div id="mb2043HealthStatus">--</div>
-        </div>
-        <div id="mb2043HealthBarWrap">
-          <div id="mb2043HealthBar"></div>
-          <div id="mb2043HealthMarker"></div>
-        </div>
-        <div id="mb2043HealthLabels"><span>SHORT</span><span>GETTING TIGHT</span><span>GOOD</span></div>
-        <div id="mb2043HealthMoney">--</div>
-        <div id="mb2043HealthExplain">Checking your forecast…</div>`;
-      const afford=$('mb2042AffordCard');
-      const safe=$('mb2040AdvancedSafe');
-      if(afford) afford.insertAdjacentElement('afterend',card);
-      else if(safe) safe.insertAdjacentElement('afterend',card);
-      else {
-        const mount=$('mb119HomeMount');
-        if(mount) mount.insertAdjacentElement('afterend',card);
-      }
-    }
-    refreshCard();
-  }
-
-  function refreshCard(){
-    const x=calc();
-    if(!$('mb2043HealthCard'))return;
-    $('mb2043HealthStatus').textContent=x.label;
-    $('mb2043HealthMoney').textContent=x.moneyLine;
-    $('mb2043HealthExplain').textContent=x.sentence;
-    $('mb2043HealthMarker').style.left=Math.max(1,Math.min(99,x.score))+'%';
-  }
-
-  function ensureDialog(){
-    if($('mb2043HealthDlg'))return;
-    const d=document.createElement('dialog');
-    d.id='mb2043HealthDlg';
-    d.innerHTML=`
-      <form method="dialog" class="form">
-        <h2>Payday Health</h2>
-        <p class="mb2043-note" id="mb2043ModeNote"></p>
-        <div id="mb2043HealthBody"></div>
-        <div class="form-actions"><button class="primary" value="cancel">Done</button></div>
-      </form>`;
-    document.body.appendChild(d);
-  }
-
-  window.openPaydayHealth2043=function(){
-    ensureDialog();
-    const x=calc(), advanced=mode()==='advanced';
-    $('mb2043ModeNote').textContent=advanced
-      ?'Advanced mode shows the forecast math, payday timing, and the bills affecting your health meter.'
-      :'Easy mode shows whether your money looks Good, Getting Tight, or Short before payday.';
-
-    let html=`
-      <div class="mb2043-panel">
-        <div class="mb2043-row"><span>Status</span><b>${esc(x.label)}</b></div>
-        <div class="mb2043-row"><span>${x.safe<0?'Shortage':'Cushion'}</span><b>${x.safe<0?moneyFmt(Math.abs(x.safe)):moneyFmt(x.safe)}</b></div>
-        <div class="mb2043-row"><span>Next payday</span><b>${x.pay?fmtDate(x.pay.iso):'Not set'}</b></div>
-      </div>`;
-
-    if(advanced){
-      html+=`
-        <div class="mb2043-panel">
-          <h3>Forecast breakdown</h3>
-          <div class="mb2043-row"><span>Available now</span><b>${moneyFmt(x.av)}</b></div>
-          <div class="mb2043-row"><span>Bills before payday</span><b>−${moneyFmt(x.protectedTotal)}</b></div>
-          <div class="mb2043-row"><span>Safe to spend</span><b>${x.safe>=0?moneyFmt(x.safe):'−'+moneyFmt(Math.abs(x.safe))}</b></div>
-          <div class="mb2043-row"><span>Days until payday</span><b>${x.pay?x.days:'—'}</b></div>
-          <div class="mb2043-row"><span>Yellow-zone cushion threshold</span><b>${moneyFmt(x.yellowFloor)}</b></div>
-        </div>`;
-      if(x.rows.length){
-        html+=`<div class="mb2043-panel"><h3>Bills affecting Payday Health</h3>${
-          x.rows.map(r=>`<div class="mb2043-bill">
-            <div><b>${esc(r.name)}</b><small>${fmtDate(r.iso)} • ${esc(r.category)}</small></div>
-            <b>${moneyFmt(r.amount)}</b>
-          </div>`).join('')
-        }</div>`;
-      }
-    }
-
-    $('mb2043HealthBody').innerHTML=html;
-    $('mb2043HealthDlg').showModal();
-  };
-
-  const oldApply=window.applyHomeMode;
-  if(typeof oldApply==='function' && !oldApply.mb2043){
-    const wrapped=function(){
-      const r=oldApply.apply(this,arguments);
-      setTimeout(ensureCard,0);
-      return r;
-    };
-    wrapped.mb2043=true;
-    window.applyHomeMode=wrapped;
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(ensureCard,250));
-  } else setTimeout(ensureCard,250);
-
-  setInterval(refreshCard,1500);
-})();
-</script>
-
-
-<script id="mb2044-real-meter-js">
-(function(){
-  function updateTrueMeter(){
-    try{
-      if(typeof calc!=='function')return;
-    }catch(e){}
-
-    const marker=document.getElementById('mb2043HealthMarker');
-    const status=document.getElementById('mb2043HealthStatus');
-    if(!marker || !status)return;
-
-    // Read the current text/status produced by the existing 20.4.3 engine.
-    const label=(status.textContent||'').trim().toUpperCase();
-    let zone='unknown';
-    if(label.includes('SHORT')) zone='red';
-    else if(label.includes('TIGHT')) zone='yellow';
-    else if(label.includes('GOOD')) zone='green';
-
-    marker.dataset.zone=zone;
-    marker.dataset.label=label || 'CHECKING';
-  }
-
-  // Patch the existing refresh function's visible marker with the bubble label.
-  const observer=new MutationObserver(updateTrueMeter);
-
-  function boot(){
-    const status=document.getElementById('mb2043HealthStatus');
-    if(status) observer.observe(status,{childList:true,subtree:true,characterData:true});
-    updateTrueMeter();
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,400));
-  else setTimeout(boot,400);
-
-  setInterval(updateTrueMeter,1500);
-})();
-</script>
-
-
-<script id="mb2045-cushion-js">
-(function(){
-  const KEY='mybills_payday_cushion_v2045';
-  const $=id=>document.getElementById(id);
-  const moneyFmt=n=>typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2);
-
-  function mode(){
-    try{return appSettings && appSettings.homeMode==='advanced'?'advanced':'easy'}catch(e){return 'easy'}
-  }
-
-  function load(){
-    let v={type:'dollar',amount:100,percent:20};
-    try{
-      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
-      if(saved && typeof saved==='object')v={...v,...saved};
-    }catch(e){}
-    v.amount=Math.max(0,Number(v.amount)||0);
-    v.percent=Math.max(0,Math.min(100,Number(v.percent)||0));
-    if(v.type!=='percent')v.type='dollar';
-    return v;
-  }
-  function save(v){
-    try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}
-  }
-  function desiredCushion(av){
-    const s=load();
-    return s.type==='percent' ? Math.max(0,av*(s.percent/100)) : Math.max(0,s.amount);
-  }
-
-  // Override the 20.4.3 calc so Payday Health uses the user's own cushion.
-  const oldCalc=window.calc;
-  if(typeof oldCalc==='function' && !oldCalc.mb2045){
-    const wrapped=function(){
-      const x=oldCalc.apply(this,arguments);
-      const wanted=desiredCushion(Number(x.av)||0);
-
-      if(!x.pay){
-        x.yellowFloor=wanted;
-        return x;
-      }
-
-      x.yellowFloor=wanted;
-      if(x.safe<0){
-        x.status='red';
-        x.label='SHORT';
-        const shortage=Math.abs(x.safe);
-        x.score=Math.max(4, 32-Math.min(28,shortage/Math.max(1,x.protectedTotal||shortage)*28));
-        x.moneyLine=moneyFmt(shortage)+' short';
-        x.sentence='Your forecast drops below what is needed to cover bills before payday.';
-      }else if(x.safe<wanted){
-        x.status='yellow';
-        x.label='GETTING TIGHT';
-        const ratio=wanted?Math.max(0,Math.min(1,x.safe/wanted)):1;
-        x.score=35+ratio*29;
-        x.moneyLine=moneyFmt(x.safe)+' cushion';
-        x.sentence='Your bills are covered, but you are below the cushion you chose.';
-      }else{
-        x.status='green';
-        x.label='GOOD';
-        const extra=x.safe-wanted;
-        x.score=68+Math.min(28,extra/Math.max(1,wanted||100)*28);
-        x.moneyLine=moneyFmt(x.safe)+' cushion';
-        x.sentence='Your upcoming bills are covered and your chosen cushion is protected.';
-      }
-      return x;
-    };
-    wrapped.mb2045=true;
-    window.calc=wrapped;
-  }
-
-  function ensureEditRow(){
-    const card=$('mb2043HealthCard');
-    if(!card || $('mb2043CushionEdit'))return;
-    const row=document.createElement('div');
-    row.id='mb2043CushionEdit';
-    row.innerHTML='<div class="cushion-label" id="mb2043CushionLabel">Cushion target</div><button type="button" id="mb2043EditCushion">Edit Cushion</button>';
-    card.appendChild(row);
-    $('mb2043EditCushion').onclick=e=>{
-      e.preventDefault();e.stopPropagation();openCushion2045();
-    };
-  }
-
-  function refreshCushionLabel(){
-    ensureEditRow();
-    const el=$('mb2043CushionLabel');
-    if(!el)return;
-    const s=load();
-    if(s.type==='percent'){
-      el.textContent=`Cushion target: ${s.percent}% of Available Now`;
-    }else{
-      el.textContent=`Cushion target: ${moneyFmt(s.amount)}`;
-    }
-  }
-
-  function ensureDialog(){
-    if($('mb2045CushionDlg'))return;
-    const d=document.createElement('dialog');
-    d.id='mb2045CushionDlg';
-    d.innerHTML=`
-      <form method="dialog" class="form">
-        <h2>Payday Cushion</h2>
-        <p class="mb2045-note" id="mb2045ModeNote"></p>
-        <div class="mb2045-panel">
-          <div class="mb2045-row">
-            <label for="mb2045CushionType">Cushion type</label>
-            <select id="mb2045CushionType">
-              <option value="dollar">Dollar amount</option>
-              <option value="percent">Percentage</option>
-            </select>
-          </div>
-          <div class="mb2045-row" id="mb2045DollarRow">
-            <label for="mb2045CushionAmount">Keep at least</label>
-            <input id="mb2045CushionAmount" type="number" min="0" step="1" inputmode="decimal">
-          </div>
-          <div class="mb2045-row" id="mb2045PercentRow">
-            <label for="mb2045CushionPercent">Keep this % of Available Now</label>
-            <input id="mb2045CushionPercent" type="number" min="0" max="100" step="1" inputmode="decimal">
-          </div>
-        </div>
-        <div class="form-actions"><button type="button" id="mb2045SaveCushion">Save Cushion</button></div>
-      </form>`;
-    document.body.appendChild(d);
-
-    $('mb2045CushionType').onchange=syncRows;
-    $('mb2045SaveCushion').onclick=()=>{
-      const v={
-        type:$('mb2045CushionType').value==='percent'?'percent':'dollar',
-        amount:Math.max(0,Number($('mb2045CushionAmount').value)||0),
-        percent:Math.max(0,Math.min(100,Number($('mb2045CushionPercent').value)||0))
-      };
-      save(v);
-      refreshCushionLabel();
-      try{ if(typeof refreshCard==='function')refreshCard(); }catch(e){}
-      $('mb2045CushionDlg').close();
-    };
-  }
-
-  function syncRows(){
-    const isPct=$('mb2045CushionType')?.value==='percent';
-    if($('mb2045PercentRow'))$('mb2045PercentRow').style.display=isPct?'flex':'none';
-    if($('mb2045DollarRow'))$('mb2045DollarRow').style.display=isPct?'none':'flex';
-  }
-
-  window.openCushion2045=function(){
-    ensureDialog();
-    const s=load();
-    const advanced=mode()==='advanced';
-    $('mb2045ModeNote').textContent=advanced
-      ?'Advanced mode lets you protect either a fixed dollar cushion or a percentage of Available Now.'
-      :'Easy mode uses a dollar cushion. Switch to Advanced mode if you want to use a percentage.';
-    $('mb2045CushionType').value=advanced?s.type:'dollar';
-    $('mb2045CushionType').disabled=!advanced;
-    $('mb2045CushionAmount').value=s.amount;
-    $('mb2045CushionPercent').value=s.percent;
-    syncRows();
-    $('mb2045CushionDlg').showModal();
-  };
-
-  // Keep the marker bubble inside the card edges.
-  function clampMarker(){
-    const marker=$('mb2043HealthMarker');
-    if(!marker)return;
-    const raw=parseFloat(marker.style.left)||50;
-    marker.style.left=Math.max(9,Math.min(91,raw))+'%';
-  }
-
-  const mo=new MutationObserver(()=>{clampMarker();refreshCushionLabel()});
-  function boot(){
-    ensureEditRow();
-    refreshCushionLabel();
-    const marker=$('mb2043HealthMarker');
-    if(marker)mo.observe(marker,{attributes:true,attributeFilter:['style','data-label','data-zone']});
-    clampMarker();
-  }
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
-  else setTimeout(boot,350);
-
-  setInterval(()=>{refreshCushionLabel();clampMarker()},1800);
-})();
-</script>
-
-
-<script id="mb2046-meter-pointer-fix-js">
-(function(){
-  function syncMarkerLabel(){
-    const marker=document.getElementById('mb2043HealthMarker');
-    const status=document.getElementById('mb2043HealthStatus');
-    if(!marker)return;
-
-    let label='';
-    if(status) label=(status.textContent||'').trim().toUpperCase();
-
-    if(!label){
-      const money=document.getElementById('mb2043HealthMoney');
-      const explain=document.getElementById('mb2043HealthExplain');
-      const combined=((money?.textContent||'')+' '+(explain?.textContent||'')).toLowerCase();
-      if(combined.includes('short')) label='SHORT';
-      else if(combined.includes('tight')) label='GETTING TIGHT';
-      else label='GOOD';
-    }
-
-    marker.dataset.label=label;
-    if(label.includes('SHORT')) marker.dataset.zone='red';
-    else if(label.includes('TIGHT')) marker.dataset.zone='yellow';
-    else marker.dataset.zone='green';
-  }
-
-  function boot(){
-    syncMarkerLabel();
-    const status=document.getElementById('mb2043HealthStatus');
-    if(status){
-      new MutationObserver(syncMarkerLabel).observe(status,{
-        childList:true,subtree:true,characterData:true
-      });
-    }
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
-  }else setTimeout(boot,350);
-
-  setInterval(syncMarkerLabel,1200);
 })();
 </script>
 
@@ -14534,403 +13584,55 @@ body.mb-high-contrast textarea{border-width:2px!important}
 </script>
 
 
-<script id="mb20411-unified-health-js">
+
+<script id="mb20419-consolidated-money-js">
 (function(){
   const $=id=>document.getElementById(id);
-  const moneyFmt=n=>{try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}};
+  const STORE='mybills_money_settings_v20419';
+  let editorHydrated=false;
 
-  function currentForecast(){
-    try{
-      const x=calc();
-      return {
-        available:Number(x.av)||0,
-        protected:Number(x.protectedTotal)||0,
-        safe:Number(x.safe)||0,
-        payday:x.pay?.iso||''
-      };
-    }catch(e){
-      return {available:0,protected:0,safe:0,payday:''};
-    }
+  function fmt(n){
+    try{return money(Number(n)||0)}
+    catch(e){return '$'+(Number(n)||0).toFixed(2)}
   }
-
-  function fmtDate(s){
-    if(!s)return 'Not set';
-    try{
-      return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    }catch(e){return s}
-  }
-
-  function openSpending20411(){
-    try{
-      openBudgetDlg();
-      setTimeout(()=>{
-        const name=$('budgetExpenseName');
-        const box=name?.closest('.budget-expense-box');
-        if(box){
-          try{box.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}
-        }
-        setTimeout(()=>name?.focus(),100);
-      },120);
-    }catch(e){}
-  }
-
-  function ensureUnifiedHealth(){
-    const health=$('mb2043HealthCard');
-    if(!health)return;
-
-    let forecast=$('mb20411Forecast');
-    if(!forecast){
-      forecast=document.createElement('div');
-      forecast.id='mb20411Forecast';
-      forecast.innerHTML=`
-        <div id="mb20411ForecastTitle">
-          <strong>SAFE TO SPEND FORECAST</strong>
-          <button type="button" id="mb20411OpenForecast">View Details</button>
-        </div>
-        <div id="mb20411ForecastGrid">
-          <div class="cell">
-            <div class="label">Available now</div>
-            <div class="value" id="mb20411Available">$0.00</div>
-          </div>
-          <div class="cell">
-            <div class="label">Protected</div>
-            <div class="value" id="mb20411Protected">$0.00</div>
-          </div>
-          <div class="cell">
-            <div class="label">Safe to spend</div>
-            <div class="value" id="mb20411Safe">$0.00</div>
-          </div>
-        </div>
-        <div id="mb20411HealthActions">
-          <button type="button" id="mb20411EditCushion">Edit Cushion</button>
-          <button type="button" id="mb20411AddSpending">+ Add Spending</button>
-        </div>`;
-      health.appendChild(forecast);
-
-      $('mb20411OpenForecast').onclick=e=>{
-        e.preventDefault(); e.stopPropagation();
-        try{openSafeToSpend2040()}catch(err){}
-      };
-      $('mb20411EditCushion').onclick=e=>{
-        e.preventDefault(); e.stopPropagation();
-        try{openCushion2045()}catch(err){}
-      };
-      $('mb20411AddSpending').onclick=e=>{
-        e.preventDefault(); e.stopPropagation();
-        openSpending20411();
-      };
-    }
-
-    refreshUnifiedHealth();
-  }
-
-  function refreshUnifiedHealth(){
-    if(window.mb20415MoneyState)return;
-    if(!$('mb20411Forecast'))return;
-    const f=currentForecast();
-    if($('mb20411Available'))$('mb20411Available').textContent=moneyFmt(f.available);
-    if($('mb20411Protected'))$('mb20411Protected').textContent=moneyFmt(f.protected);
-    if($('mb20411Safe'))$('mb20411Safe').textContent=(f.safe<0?'−':'')+moneyFmt(Math.abs(f.safe));
-
-    const title=$('mb20411ForecastTitle');
-    if(title){
-      title.title=f.payday ? ('Next payday '+fmtDate(f.payday)) : 'Next payday not set';
-    }
-  }
-
-  /* If Safe to Spend opens, keep Can I Afford This inside it as before. */
-  const oldSafe=window.openSafeToSpend2040;
-  if(typeof oldSafe==='function' && !oldSafe.mb20411){
-    const wrapped=function(){
-      const r=oldSafe.apply(this,arguments);
-      setTimeout(()=>{
-        const body=$('mb2040SafeBody');
-        if(body && !$('mb2049AffordInsideSafe')){
-          const btn=document.createElement('button');
-          btn.id='mb2049AffordInsideSafe';
-          btn.type='button';
-          btn.textContent='Can I Afford This?';
-          btn.onclick=()=>{
-            try{$('mb2040SafeDlg')?.close()}catch(e){}
-            setTimeout(()=>{try{openCanIAfford2042()}catch(e){}},80);
-          };
-          body.appendChild(btn);
-        }
-      },40);
-      return r;
-    };
-    wrapped.mb20411=true;
-    window.openSafeToSpend2040=wrapped;
-  }
-
-  const oldApply=window.applyHomeMode;
-  if(typeof oldApply==='function' && !oldApply.mb20411){
-    const wrapped=function(){
-      const r=oldApply.apply(this,arguments);
-      setTimeout(ensureUnifiedHealth,0);
-      return r;
-    };
-    wrapped.mb20411=true;
-    window.applyHomeMode=wrapped;
-  }
-
-  function boot(){
-    ensureUnifiedHealth();
-    setInterval(()=>{
-      ensureUnifiedHealth();
-      refreshUnifiedHealth();
-    },1200);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
-  }else setTimeout(boot,350);
-})();
-</script>
-
-
-<script id="mb20412-money-math-js">
-(function(){
-  const $=id=>document.getElementById(id);
-  const moneyFmt=n=>{try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}};
-
-  function nextCheck(){
-    try{return nextPaycheckAfter(toISO(new Date()))||null}catch(e){return null}
-  }
-
-  function actualAvailableNow(){
-    try{
-      const d=new Date();
-      const x=typeof myBillsActualNowV99==='function'?myBillsActualNowV99(d.getFullYear(),d.getMonth()):null;
-      if(x && Number.isFinite(Number(x.left)))return Number(x.left);
-    }catch(e){}
-    return 0;
-  }
-
-  function protectedBeforePayday(payIso){
-    if(!payIso)return 0;
-    let total=0;
-    try{
-      for(let d=new Date(toISO(new Date())+'T00:00:00'); d<=new Date(payIso+'T00:00:00'); d.setDate(d.getDate()+1)){
-        const di=toISO(d);
-        bills.forEach(b=>{
-          if(isRecurringOnDate(b,d) && !billOccurrenceDeleted(b,di)){
-            const paid=Math.max(0,Number(billPaidAmount(b,di))||0);
-            total+=Math.max(0,(Number(b.amount)||0)-paid);
-          }
-        });
-      }
-    }catch(e){}
-    return total;
-  }
-
-  function assignedFutureTotal(payIso){
-    if(!payIso)return 0;
-    const STORE='mybills_paycheck_advance_assignments_v2048';
-    let keys=[];
-    try{
-      const obj=JSON.parse(localStorage.getItem(STORE)||'{}')||{};
-      keys=obj[payIso]||[];
-    }catch(e){}
-    let total=0;
-    keys.forEach(key=>{
-      const [id,...rest]=String(key).split('|');
-      const iso=rest.join('|');
-      try{
-        const b=bills.find(x=>String(x.id)===String(id));
-        if(!b)return;
-        const paid=Math.max(0,Number(billPaidAmount(b,iso))||0);
-        total+=Math.max(0,(Number(b.amount)||0)-paid);
-      }catch(e){}
-    });
-    return total;
-  }
-
-  function moneyState(){
-    const pay=nextCheck();
-    const checkAmount=Math.max(0,Number(pay?.amount)||0);
-    const available=Math.max(0,actualAvailableNow());
-    const before=Math.max(0,protectedBeforePayday(pay?.iso));
-    const futureAssigned=Math.max(0,assignedFutureTotal(pay?.iso));
-    const protectedTotal=before+futureAssigned;
-
-    // Payday Health cushion: based on the paycheck, not Available Now.
-    const cushion=Math.max(0,checkAmount*0.20);
-
-    // Safe to Spend always leaves a 27% savings reserve from the paycheck.
-    const savingsReserve=Math.max(0,checkAmount*0.27);
-
-    const afterBills=available-protectedTotal;
-    const safe=Math.max(0,afterBills-savingsReserve);
-
-    let status='GOOD';
-    if(afterBills<0)status='SHORT';
-    else if(afterBills<cushion)status='GETTING TIGHT';
-
-    return {pay,checkAmount,available,before,futureAssigned,protectedTotal,cushion,savingsReserve,afterBills,safe,status};
-  }
-
-  window.mb20412MoneyState=moneyState;
-
-  /* Replace Payday Health calculation with the aligned math. */
-  const priorCalc=window.calc;
-  window.calc=function(){
-    const m=moneyState();
-    let base={};
-    try{base=typeof priorCalc==='function'?priorCalc():{}}catch(e){}
-    base.av=m.available;
-    base.pay=m.pay;
-    base.protectedTotal=m.protectedTotal;
-    base.safe=m.afterBills; // health uses money after protected bills
-    base.yellowFloor=m.cushion;
-    base.label=m.status;
-    base.status=m.status==='SHORT'?'red':(m.status==='GETTING TIGHT'?'yellow':'green');
-    if(m.status==='SHORT'){
-      base.moneyLine=moneyFmt(Math.abs(m.afterBills))+' short';
-      base.sentence='Your available money does not fully cover what is protected before payday.';
-      base.score=15;
-    }else if(m.status==='GETTING TIGHT'){
-      base.moneyLine=moneyFmt(m.afterBills)+' cushion';
-      base.sentence='Your bills are covered, but you are below 20% of your next paycheck.';
-      base.score=50;
-    }else{
-      base.moneyLine=moneyFmt(m.afterBills)+' cushion';
-      base.sentence='Your protected bills are covered and your payday cushion is healthy.';
-      base.score=82;
-    }
-    return base;
-  };
-
-  function updateHomeForecast(){
-    if(window.mb20415MoneyState)return;
-    const m=moneyState();
-
-    if($('mb20411Available'))$('mb20411Available').textContent=moneyFmt(m.available);
-    if($('mb20411Protected'))$('mb20411Protected').textContent=moneyFmt(m.protectedTotal);
-    if($('mb20411Safe'))$('mb20411Safe').textContent=moneyFmt(m.safe);
-
-    const label=$('mb2043CushionLabel');
-    if(label)label.textContent=`Cushion target: 20% of next paycheck (${moneyFmt(m.cushion)})`;
-
-    let reserve=$('mb20412SavingsReserve');
-    const forecast=$('mb20411Forecast');
-    if(forecast && !reserve){
-      reserve=document.createElement('div');
-      reserve.id='mb20412SavingsReserve';
-      forecast.insertBefore(reserve,$('mb20411HealthActions'));
-    }
-    if(reserve){
-      reserve.textContent=`Safe to Spend keeps ${moneyFmt(m.savingsReserve)} (27% of the next paycheck) reserved for savings.`;
-    }
-  }
-
-  /* Keep Safe to Spend dialog on the new 27%-reserve math. */
-  const oldSafe=window.openSafeToSpend2040;
-  if(typeof oldSafe==='function'){
-    window.openSafeToSpend2040=function(){
-      const r=oldSafe.apply(this,arguments);
-      setTimeout(()=>{
-        const m=moneyState();
-        const body=$('mb2040SafeBody');
-        if(!body)return;
-
-        const hero=body.querySelector('.mb2040-hero b');
-        if(hero)hero.textContent=moneyFmt(m.safe);
-
-        const status=body.querySelector('.mb2040-status');
-        if(status){
-          status.textContent=m.safe>0
-            ? `${moneyFmt(m.safe)} is safe to spend after protected bills and your savings reserve.`
-            : `Your protected bills and savings reserve currently use all available money.`;
-        }
-
-        const rows=[...body.querySelectorAll('.mb2040-row')];
-        rows.forEach(row=>{
-          const text=(row.firstElementChild?.textContent||'').toLowerCase();
-          const val=row.lastElementChild;
-          if(!val)return;
-          if(text.includes('available now'))val.textContent=moneyFmt(m.available);
-          else if(text.includes('bills protected'))val.textContent='−'+moneyFmt(m.protectedTotal);
-          else if(text.includes('next paycheck'))val.textContent=moneyFmt(m.checkAmount);
-        });
-
-        let reserve=body.querySelector('#mb20412SafeReserveRow');
-        if(!reserve){
-          reserve=document.createElement('div');
-          reserve.id='mb20412SafeReserveRow';
-          reserve.className='mb2040-row';
-          reserve.innerHTML='<span>Savings reserve</span><b></b>';
-          const section=body.querySelector('.settings-section');
-          if(section)section.appendChild(reserve);
-        }
-        reserve.lastElementChild.textContent='−'+moneyFmt(m.savingsReserve);
-      },60);
-      return r;
-    };
-  }
-
-  /* The cushion editor remains available, but percentage mode is now paycheck-based.
-     Force 20% as the standard health target shown/used by Payday Health. */
-  function retitleCushionEditor(){
-    const dlg=$('mb2045CushionDlg');
-    if(!dlg || !dlg.open)return;
-    const note=$('mb2045ModeNote');
-    if(note)note.textContent='Payday Health uses a 20% cushion based on your next paycheck.';
-    const type=$('mb2045CushionType');
-    const pct=$('mb2045CushionPercent');
-    if(type){type.value='percent';type.disabled=true}
-    if(pct){pct.value='20';pct.disabled=true}
-  }
-
-  function forceDarkSummary(){
-    const dlg=$('budgetDlg');
-    if(!dlg)return;
-    dlg.querySelectorAll('*').forEach(el=>{
-      const cs=getComputedStyle(el);
-      const bg=cs.backgroundColor;
-      const color=cs.color;
-      if((bg==='rgb(255, 255, 255)' || bg==='rgba(255, 255, 255, 1)') &&
-         (color==='rgb(255, 255, 255)' || color==='rgba(255, 255, 255, 1)')){
-        el.style.background='#14376b';
-        el.style.color='#fff';
-      }
-    });
-  }
-
-  function boot(){
-    updateHomeForecast();
-    setInterval(()=>{
-      if(!window.mb20415MoneyState){
-        updateHomeForecast();
-        retitleCushionEditor();
-        try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-      }
-      forceDarkSummary();
-    },900);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
-  }else setTimeout(boot,350);
-})();
-</script>
-
-
-<script id="mb20415-weekly-money-js">
-(function(){
-  const $=id=>document.getElementById(id);
-  const STORE='mybills_money_percent_settings_v20415';
-  const fmt=n=>{try{return money(Number(n)||0)}catch(e){return '$'+(Number(n)||0).toFixed(2)}};
 
   function settings(){
-    let x={cushionPct:20,savingsPct:27};
-    try{x={...x,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(e){}
-    x.cushionPct=Math.max(0,Math.min(100,Number(x.cushionPct)||20));
-    x.savingsPct=Math.max(0,Math.min(100,Number(x.savingsPct)||27));
-    return x;
+    let s={
+      cushionMode:'percent',
+      cushionPercent:20,
+      cushionDollar:100,
+      useSavings:false,
+      redMax:50,
+      orangeMax:250,
+      yellowMax:500,
+      greenMax:1000
+    };
+
+    try{
+      const old=JSON.parse(localStorage.getItem('mybills_money_settings_v20418')||'{}')||{};
+      if(old.mode==='dollar'||old.mode==='percent') s.cushionMode=old.mode;
+      if(Number.isFinite(Number(old.percent))) s.cushionPercent=Number(old.percent);
+      if(Number.isFinite(Number(old.dollar))) s.cushionDollar=Number(old.dollar);
+      if(typeof old.useSavings==='boolean') s.useSavings=old.useSavings;
+    }catch(e){}
+
+    try{s={...s,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(e){}
+
+    s.cushionMode=s.cushionMode==='dollar'?'dollar':'percent';
+    s.cushionPercent=Math.max(0,Math.min(100,Number(s.cushionPercent)||0));
+    s.cushionDollar=Math.max(0,Number(s.cushionDollar)||0);
+    s.useSavings=!!s.useSavings;
+
+    s.redMax=Math.max(1,Number(s.redMax)||50);
+    s.orangeMax=Math.max(s.redMax+1,Number(s.orangeMax)||250);
+    s.yellowMax=Math.max(s.orangeMax+1,Number(s.yellowMax)||500);
+    s.greenMax=Math.max(s.yellowMax+1,Number(s.greenMax)||1000);
+
+    return s;
   }
-  function saveSettings(x){
-    try{localStorage.setItem(STORE,JSON.stringify(x))}catch(e){}
+
+  function saveSettings(s){
+    try{localStorage.setItem(STORE,JSON.stringify(s))}catch(e){}
   }
 
   function availableNow(){
@@ -14944,867 +13646,432 @@ body.mb-high-contrast textarea{border-width:2px!important}
     return 0;
   }
 
-  function nextCheck(){
-    try{return nextPaycheckAfter(toISO(new Date()))||null}catch(e){return null}
+  function savingsTotal(){
+    try{
+      if(typeof totalSavedAcrossGoals==='function'){
+        const n=Number(totalSavedAcrossGoals());
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+    }catch(e){}
+    return 0;
   }
 
-  // Find the most recent actual paycheck occurrence. This makes the
-  // weekly percentages use the check that funded the current week.
-  function currentWeekCheck(){
+  function recentCheck(){
     let best=null;
     try{
       const today=new Date();
       (paychecks||[]).forEach(p=>{
-        for(let i=0;i<=45;i++){
+        for(let i=0;i<=60;i++){
           const d=new Date(today);
           d.setDate(d.getDate()-i);
           let on=false;
           try{on=paycheckOnDate(p,d)}catch(e){}
           if(!on) continue;
+
           const iso=toISO(d);
           try{if(paycheckOccurrenceDeleted(p,iso)) continue}catch(e){}
+
           let amount=0;
-          try{amount=Math.max(0,Number(paycheckAmountOnDate(p,iso))||0)}catch(e){
-            amount=Math.max(0,Number(p.amount)||0);
-          }
-          if(amount>0 && (!best || iso>best.iso)){
-            best={p,iso,amount};
-          }
+          try{amount=Math.max(0,Number(paycheckAmountOnDate(p,iso))||0)}
+          catch(e){amount=Math.max(0,Number(p.amount)||0)}
+
+          if(amount>0 && (!best || iso>best.iso)) best={iso,amount,p};
           break;
         }
       });
     }catch(e){}
-    if(best) return best;
 
-    // Fallback only when there is no past check occurrence.
-    const n=nextCheck();
-    if(n) return {p:n.p||null,iso:n.iso,amount:Math.max(0,Number(n.amount)||0)};
-    return {p:null,iso:null,amount:0};
-  }
+    if(best)return best;
 
-  function billsProtectedBefore(payIso){
-    if(!payIso)return 0;
-    let total=0;
     try{
-      for(let d=new Date(toISO(new Date())+'T00:00:00');
-          d<=new Date(payIso+'T00:00:00');
-          d.setDate(d.getDate()+1)){
-        const di=toISO(d);
-        bills.forEach(b=>{
-          if(isRecurringOnDate(b,d) && !billOccurrenceDeleted(b,di)){
-            const paid=Math.max(0,Number(billPaidAmount(b,di))||0);
-            total+=Math.max(0,(Number(b.amount)||0)-paid);
-          }
-        });
-      }
+      const n=nextPaycheckAfter(toISO(new Date()));
+      if(n)return {iso:n.iso,amount:Math.max(0,Number(n.amount)||0),p:n.p||null};
     }catch(e){}
-    return total;
-  }
 
-  function assignedFuture(payIso){
-    if(!payIso)return 0;
-    let keys=[];
-    try{
-      const obj=JSON.parse(localStorage.getItem('mybills_paycheck_advance_assignments_v2048')||'{}')||{};
-      keys=obj[payIso]||[];
-    }catch(e){}
-    let total=0;
-    keys.forEach(key=>{
-      const [id,...rest]=String(key).split('|');
-      const iso=rest.join('|');
-      try{
-        const b=bills.find(x=>String(x.id)===String(id));
-        if(!b)return;
-        const paid=Math.max(0,Number(billPaidAmount(b,iso))||0);
-        total+=Math.max(0,(Number(b.amount)||0)-paid);
-      }catch(e){}
-    });
-    return total;
+    return {iso:null,amount:0,p:null};
   }
 
   function state(){
     const s=settings();
-    const funding=currentWeekCheck();
-    const next=nextCheck();
-    const checkAmount=Math.max(0,Number(funding.amount)||0);
+    const funding=recentCheck();
     const available=availableNow();
+    const savings=savingsTotal();
 
-    const billReserve=
-      Math.max(0,billsProtectedBefore(next?.iso))+
-      Math.max(0,assignedFuture(next?.iso));
+    const cushion=s.cushionMode==='dollar'
+      ? s.cushionDollar
+      : funding.amount*(s.cushionPercent/100);
 
-    const cushion=Math.max(0,checkAmount*(s.cushionPct/100));
-    const savingsReserve=Math.max(0,checkAmount*(s.savingsPct/100));
+    const base=available+(s.useSavings?savings:0);
+    const safe=Math.max(0,base-cushion);
 
-    // Savings belongs inside Protected.
-    const protectedTotal=billReserve+savingsReserve;
-
-    // Safe to Spend is the actual money left after everything protected.
-    const safe=Math.max(0,available-protectedTotal);
-
-    let status='GOOD';
-    if(safe<=0)status='SHORT';
-    else if(safe<cushion)status='GETTING TIGHT';
-
-    return {
-      settings:s,funding,next,checkAmount,available,
-      billReserve,savingsReserve,protectedTotal,
-      cushion,safe,status
-    };
-  }
-
-  window.mb20415MoneyState=state;
-  window.mb20412MoneyState=state;
-
-  // Payday Health meter is based on SAFE TO SPEND.
-  window.calc=function(){
-    const m=state();
-    let score=82;
-    if(m.status==='SHORT')score=12;
-    else if(m.status==='GETTING TIGHT'){
-      score=m.cushion>0
-        ? Math.max(30,Math.min(65,30+(m.safe/m.cushion)*35))
-        : 50;
-    }else if(m.cushion>0){
-      score=Math.max(66,Math.min(100,66+((m.safe-m.cushion)/Math.max(m.cushion,1))*20));
+    let zone='green',label='STRONG',explain='Strong cushion for day-to-day spending.';
+    if(safe < s.redMax){
+      zone='red'; label='TIGHT';
+      explain='Pretty tight — one unexpected expense could cause trouble.';
+    }else if(safe <= s.orangeMax){
+      zone='orange'; label='BREATHING';
+      explain='Some breathing room for everyday spending and small surprises.';
+    }else if(safe <= s.yellowMax){
+      zone='yellow'; label='COMFORTABLE';
+      explain='Generally comfortable for day-to-day life.';
     }
 
+    return {s,funding,available,savings,cushion,base,safe,zone,label,explain};
+  }
+
+  function zoneColor(zone){
+    return zone==='red'?'#e33a2e':
+      zone==='orange'?'#f28b24':
+      zone==='yellow'?'#d6b920':
+      '#2dad51';
+  }
+
+  function positionFor(x){
+    const m=x.s.greenMax;
+    if(m<=0)return 0;
+    return Math.max(0,Math.min(100,(x.safe/m)*100));
+  }
+
+  function gradientFor(x){
+    const max=x.s.greenMax;
+    const r=Math.max(0,Math.min(100,(x.s.redMax/max)*100));
+    const o=Math.max(r,Math.min(100,(x.s.orangeMax/max)*100));
+    const y=Math.max(o,Math.min(100,(x.s.yellowMax/max)*100));
+    return `linear-gradient(90deg,
+      #dc3a2d 0%, #dc3a2d ${r}%,
+      #f08a24 ${Math.min(100,r+.5)}%, #f08a24 ${o}%,
+      #d9be23 ${Math.min(100,o+.5)}%, #d9be23 ${y}%,
+      #2dad51 ${Math.min(100,y+.5)}%, #2dad51 100%)`;
+  }
+
+  function ensureCard(){
+    let card=$('mb20419HealthCard');
+    if(card)return card;
+
+    card=document.createElement('section');
+    card.id='mb20419HealthCard';
+    card.innerHTML=`
+      <div id="mb20419HealthHeader">
+        <div class="title">PAYDAY HEALTH</div>
+      </div>
+
+      <div id="mb20419MeterStage">
+        <div id="mb20419MeterPill">CHECKING</div>
+        <div id="mb20419Meter"></div>
+      </div>
+
+      <div id="mb20419ScaleLabels">
+        <span>TIGHT</span><span>BREATHING</span><span>COMFORTABLE</span><span>STRONG</span>
+      </div>
+
+      <div id="mb20419HealthSummary">
+        <div id="mb20419SafeBig">$0.00 safe to spend</div>
+        <div id="mb20419HealthLine"></div>
+        <div id="mb20419HealthExplain"></div>
+      </div>
+
+      <div id="mb20419Forecast">
+        <div id="mb20419ForecastTitle">
+          <strong>SAFE TO SPEND FORECAST</strong>
+          <button type="button" id="mb20419ViewDetails">View Details</button>
+        </div>
+
+        <div id="mb20419ForecastGrid">
+          <div class="mb20419MoneyCell">
+            <div class="label">Available now</div>
+            <div class="value" id="mb20419Available">$0.00</div>
+          </div>
+          <div class="mb20419MoneyCell">
+            <div class="label">Savings</div>
+            <div class="value" id="mb20419Savings">$0.00</div>
+          </div>
+          <div class="mb20419MoneyCell full">
+            <div class="label">Safe to spend</div>
+            <div class="value" id="mb20419Safe">$0.00</div>
+          </div>
+        </div>
+
+        <div id="mb20419SavingsToggleRow">
+          <div class="txt">
+            <b>With Savings</b>
+            <small>Include money you deliberately put into Savings when calculating Safe to Spend.</small>
+          </div>
+          <input id="mb20419UseSavings" type="checkbox" aria-label="Include savings in Safe to Spend">
+        </div>
+
+        <div id="mb20419Actions">
+          <button type="button" id="mb20419EditCushion">Edit Cushion</button>
+          <button type="button" id="mb20419AddSpending">+ Add Spending</button>
+        </div>
+
+        <div id="mb20419FormulaNote"></div>
+      </div>`;
+
+    const old=$('mb2043HealthCard');
+    if(old)old.remove();
+
+    const mount=$('mb119HomeMount');
+    const easy=$('mb203HomeDashboard');
+    const anchor=easy||mount;
+    if(anchor)anchor.insertAdjacentElement('afterend',card);
+    else document.querySelector('main')?.prepend(card);
+
+    $('mb20419EditCushion').addEventListener('click',openCushionEditor);
+    $('mb20419ViewDetails').addEventListener('click',openHealthDetails);
+    $('mb20419AddSpending').addEventListener('click',()=>{
+      try{
+        if(typeof openBudgetDlg==='function'){
+          openBudgetDlg();
+          setTimeout(()=>$('budgetExpenseName')?.focus(),100);
+        }
+      }catch(e){}
+    });
+    $('mb20419UseSavings').addEventListener('change',e=>{
+      const s=settings();
+      s.useSavings=!!e.target.checked;
+      saveSettings(s);
+      refresh();
+    });
+
+    return card;
+  }
+
+  function refresh(){
+    ensureCard();
+    const x=state();
+
+    const meter=$('mb20419Meter');
+    const pill=$('mb20419MeterPill');
+
+    meter.style.background=gradientFor(x);
+    pill.style.background=zoneColor(x.zone);
+    pill.style.color=zoneColor(x.zone);
+    pill.textContent=x.label;
+    pill.style.left=`clamp(47px, ${positionFor(x)}%, calc(100% - 47px))`;
+
+    $('mb20419SafeBig').textContent=`${fmt(x.safe)} safe to spend`;
+    $('mb20419HealthLine').textContent=
+      `${fmt(x.available)} available • ${fmt(x.savings)} savings • ${fmt(x.cushion)} cushion`;
+    $('mb20419HealthExplain').textContent=x.explain;
+
+    $('mb20419Available').textContent=fmt(x.available);
+    $('mb20419Savings').textContent=fmt(x.savings);
+    $('mb20419Safe').textContent=fmt(x.safe);
+    $('mb20419UseSavings').checked=x.s.useSavings;
+
+    $('mb20419FormulaNote').textContent=x.s.useSavings
+      ? `Safe to Spend = Available Now + Savings − Cushion (${fmt(x.available)} + ${fmt(x.savings)} − ${fmt(x.cushion)}).`
+      : `Safe to Spend = Available Now − Cushion (${fmt(x.available)} − ${fmt(x.cushion)}). Savings stays untouched.`;
+  }
+
+  function ensureCushionDialog(){
+    let dlg=$('mb20419CushionDlg');
+    if(dlg)return dlg;
+
+    dlg=document.createElement('dialog');
+    dlg.id='mb20419CushionDlg';
+    dlg.innerHTML=`
+      <form method="dialog" class="form">
+        <h2>Payday Cushion</h2>
+        <p>Choose a cushion by percentage or exact dollar amount. Safe to Spend will stay above that cushion.</p>
+
+        <div id="mb20419CushionEditor">
+          <div style="font-weight:950;font-size:1.05rem">Cushion type</div>
+
+          <div class="mode-grid">
+            <button type="button" class="mode-btn" id="mb20419PercentMode">Percentage</button>
+            <button type="button" class="mode-btn" id="mb20419DollarMode">Dollar amount</button>
+          </div>
+
+          <div id="mb20419PercentWrap">
+            <label for="mb20419Percent">Cushion percentage</label>
+            <input id="mb20419Percent" type="number" min="0" max="100" step="1" inputmode="decimal">
+          </div>
+
+          <div id="mb20419DollarWrap">
+            <label for="mb20419Dollar">Cushion dollar amount</label>
+            <input id="mb20419Dollar" type="number" min="0" step="0.01" inputmode="decimal">
+          </div>
+
+          <div id="mb20419CushionPreview"></div>
+
+          <details id="mb20419ScaleSettings">
+            <summary>Advanced: customize Payday Health scale</summary>
+            <div class="scale-grid">
+              <div>
+                <label for="mb20419RedMax">Tight under</label>
+                <input id="mb20419RedMax" type="number" min="1" step="1">
+              </div>
+              <div>
+                <label for="mb20419OrangeMax">Breathing up to</label>
+                <input id="mb20419OrangeMax" type="number" min="1" step="1">
+              </div>
+              <div>
+                <label for="mb20419YellowMax">Comfortable up to</label>
+                <input id="mb20419YellowMax" type="number" min="1" step="1">
+              </div>
+              <div>
+                <label for="mb20419GreenMax">Meter maximum</label>
+                <input id="mb20419GreenMax" type="number" min="1" step="1">
+              </div>
+            </div>
+            <small>Defaults: under $50 Tight, $50–$250 Breathing, $251–$500 Comfortable, $501+ Strong. Change these numbers to fit your own comfort level.</small>
+          </details>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary" type="button" id="mb20419SaveCushion">Save Cushion</button>
+          <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
+        </div>
+      </form>`;
+    document.body.appendChild(dlg);
+
+    $('mb20419PercentMode').addEventListener('click',()=>setEditorMode('percent'));
+    $('mb20419DollarMode').addEventListener('click',()=>setEditorMode('dollar'));
+    ['mb20419Percent','mb20419Dollar','mb20419RedMax','mb20419OrangeMax','mb20419YellowMax','mb20419GreenMax']
+      .forEach(id=>$(id).addEventListener('input',previewEditor));
+
+    $('mb20419SaveCushion').addEventListener('click',()=>{
+      const mode=$('mb20419DollarMode').classList.contains('active')?'dollar':'percent';
+      let red=Math.max(1,Number($('mb20419RedMax').value)||50);
+      let orange=Math.max(red+1,Number($('mb20419OrangeMax').value)||250);
+      let yellow=Math.max(orange+1,Number($('mb20419YellowMax').value)||500);
+      let green=Math.max(yellow+1,Number($('mb20419GreenMax').value)||1000);
+
+      const s=settings();
+      Object.assign(s,{
+        cushionMode:mode,
+        cushionPercent:Math.max(0,Math.min(100,Number($('mb20419Percent').value)||0)),
+        cushionDollar:Math.max(0,Number($('mb20419Dollar').value)||0),
+        redMax:red,
+        orangeMax:orange,
+        yellowMax:yellow,
+        greenMax:green
+      });
+      saveSettings(s);
+      dlg.close();
+      editorHydrated=false;
+      refresh();
+    });
+
+    dlg.addEventListener('close',()=>{editorHydrated=false});
+    return dlg;
+  }
+
+  function setEditorMode(mode){
+    const pct=mode==='percent';
+    $('mb20419PercentMode').classList.toggle('active',pct);
+    $('mb20419DollarMode').classList.toggle('active',!pct);
+    $('mb20419PercentWrap').style.display=pct?'block':'none';
+    $('mb20419DollarWrap').style.display=pct?'none':'block';
+    previewEditor();
+  }
+
+  function previewEditor(){
+    if(!editorHydrated)return;
+    const x=state();
+    const mode=$('mb20419DollarMode').classList.contains('active')?'dollar':'percent';
+    const pct=Math.max(0,Math.min(100,Number($('mb20419Percent').value)||0));
+    const dollars=Math.max(0,Number($('mb20419Dollar').value)||0);
+    const cushion=mode==='dollar'?dollars:x.funding.amount*(pct/100);
+    const safe=Math.max(0,x.available+(x.s.useSavings?x.savings:0)-cushion);
+
+    $('mb20419CushionPreview').innerHTML=
+      `<b>Current paycheck used:</b> ${fmt(x.funding.amount)}<br>`+
+      `<b>Cushion:</b> ${fmt(cushion)}<br>`+
+      `<b>Safe to Spend:</b> ${fmt(safe)}<br>`+
+      `<span style="opacity:.86">You can spend up to ${fmt(safe)} without going below this cushion.</span>`;
+  }
+
+  function openCushionEditor(){
+    const dlg=ensureCushionDialog();
+    const s=settings();
+
+    $('mb20419Percent').value=s.cushionPercent;
+    $('mb20419Dollar').value=s.cushionDollar;
+    $('mb20419RedMax').value=s.redMax;
+    $('mb20419OrangeMax').value=s.orangeMax;
+    $('mb20419YellowMax').value=s.yellowMax;
+    $('mb20419GreenMax').value=s.greenMax;
+
+    editorHydrated=true;
+    setEditorMode(s.cushionMode);
+    dlg.showModal();
+  }
+
+  function openHealthDetails(){
+    let dlg=$('mb20419HealthDlg');
+    if(!dlg){
+      dlg=document.createElement('dialog');
+      dlg.id='mb20419HealthDlg';
+      dlg.innerHTML=`
+        <form method="dialog" class="form">
+          <h2>Payday Health</h2>
+          <div id="mb20419HealthBody"></div>
+          <div class="form-actions"><button class="primary" value="cancel">Done</button></div>
+        </form>`;
+      document.body.appendChild(dlg);
+    }
+
+    const x=state();
+    $('mb20419HealthBody').innerHTML=`
+      <div class="settings-section">
+        <div class="snapshot-row"><span>Available now</span><b>${fmt(x.available)}</b></div>
+        <div class="snapshot-row"><span>Savings</span><b>${fmt(x.savings)}</b></div>
+        <div class="snapshot-row"><span>Cushion</span><b>${fmt(x.cushion)}</b></div>
+        <div class="snapshot-row"><span>With Savings</span><b>${x.s.useSavings?'On':'Off'}</b></div>
+        <div class="snapshot-row"><span>Safe to Spend</span><b>${fmt(x.safe)}</b></div>
+        <div class="snapshot-row"><span>Payday Health</span><b>${x.label}</b></div>
+      </div>`;
+    dlg.showModal();
+  }
+
+  // Compatibility names used elsewhere in the app.
+  window.openCushion2045=openCushionEditor;
+  window.openPaydayHealth2043=openHealthDetails;
+  window.mb20419MoneyState=state;
+  window.calc=function(){
+    const x=state();
     return {
-      av:m.safe,
-      pay:m.next,
+      av:x.safe,
+      protectedTotal:x.savings,
+      safe:x.safe,
+      yellowFloor:x.cushion,
+      label:x.label,
+      status:x.zone,
+      score:positionFor(x),
+      moneyLine:`${fmt(x.safe)} safe to spend`,
+      sentence:x.explain,
       rows:[],
-      protectedTotal:m.protectedTotal,
-      safe:m.safe,
-      yellowFloor:m.cushion,
-      label:m.status,
-      status:m.status==='SHORT'?'red':(m.status==='GETTING TIGHT'?'yellow':'green'),
-      score,
-      moneyLine:fmt(m.safe)+' safe to spend',
-      sentence:
-        m.status==='SHORT' ? 'No money is currently safe to spend.' :
-        m.status==='GETTING TIGHT' ? `Safe to Spend is below your ${m.settings.cushionPct}% cushion target.` :
-        'Safe to Spend is above your cushion target.',
-      days:m.next?Math.max(0,Math.ceil(
-        (new Date(m.next.iso+'T00:00:00')-new Date(toISO(new Date())+'T00:00:00'))/86400000
-      )):0
+      pay:null,
+      days:0
     };
   };
 
-  function refreshHome(){
-    if(window.mb20417MoneyState)return;
-    const m=state();
-    if($('mb20411Available')) $('mb20411Available').textContent=fmt(m.available);
-    if($('mb20411Protected')) $('mb20411Protected').textContent=fmt(m.protectedTotal);
-    if($('mb20411Safe')) $('mb20411Safe').textContent=fmt(m.safe);
-
-    const label=$('mb2043CushionLabel');
-    if(label) label.textContent=
-      `Cushion target: ${m.settings.cushionPct}% of this week's ${fmt(m.checkAmount)} check (${fmt(m.cushion)})`;
-
-    const oldReserve=$('mb20412SavingsReserve');
-    if(oldReserve) oldReserve.style.display='none';
-
-    // Add a small protected breakdown under the forecast if not already there.
-    let note=$('mb20415ProtectedNote');
-    const forecast=$('mb20411Forecast');
-    if(forecast && !note){
-      note=document.createElement('div');
-      note.id='mb20415ProtectedNote';
-      note.style.cssText='margin:10px 0 2px;color:#d8e1ee;font-weight:700;font-size:.82rem;line-height:1.35';
-      const actions=$('mb20411HealthActions');
-      if(actions) forecast.insertBefore(note,actions);
-      else forecast.appendChild(note);
-    }
-    if(note){
-      note.textContent=
-        `Protected includes ${fmt(m.billReserve)} for bills + ${fmt(m.savingsReserve)} savings (${m.settings.savingsPct}% of this week's check).`;
-    }
-  }
-
-  function patchSafeDialog(){
-    const body=$('mb2040SafeBody');
-    if(!body)return;
-    const m=state();
-
-    const hero=body.querySelector('.mb2040-hero b');
-    if(hero)hero.textContent=fmt(m.safe);
-
-    const status=body.querySelector('.mb2040-status');
-    if(status)status.textContent=
-      `${fmt(m.safe)} is safe to spend after protected bills and savings.`;
-
-    [...body.querySelectorAll('.mb2040-row')].forEach(row=>{
-      const key=(row.firstElementChild?.textContent||'').toLowerCase();
-      const val=row.lastElementChild;
-      if(!val)return;
-      if(key.includes('available now')) val.textContent=fmt(m.available);
-      else if(key.includes('bills protected')) val.textContent='−'+fmt(m.billReserve);
-    });
-
-    let row=$('mb20415SavingsProtectedRow');
-    if(!row){
-      row=document.createElement('div');
-      row.id='mb20415SavingsProtectedRow';
-      row.className='mb2040-row';
-      row.innerHTML='<span>Savings protected</span><b></b>';
-      body.querySelector('.settings-section')?.appendChild(row);
-    }
-    if(row.lastElementChild)row.lastElementChild.textContent='−'+fmt(m.savingsReserve);
-  }
-
-  const priorSafe=window.openSafeToSpend2040;
-  if(typeof priorSafe==='function' && !priorSafe.mb20415){
-    const wrapped=function(){
-      const r=priorSafe.apply(this,arguments);
-      setTimeout(patchSafeDialog,70);
-      return r;
-    };
-    wrapped.mb20415=true;
-    window.openSafeToSpend2040=wrapped;
-  }
-
-  function setupPercentEditor(){
-    const dlg=$('mb2045CushionDlg');
-    if(!dlg || !dlg.open)return;
-
-    let box=$('mb20415PercentBox');
-    if(!box){
-      box=document.createElement('div');
-      box.id='mb20415PercentBox';
-      box.innerHTML=`
-        <div class="mb20415-row">
-          <label for="mb20415CushionPct">Cushion percentage</label>
-          <input id="mb20415CushionPct" type="number" min="0" max="100" step="1" inputmode="decimal">
-        </div>
-        <div class="mb20415-row">
-          <label for="mb20415SavingsPct">Protected savings percentage</label>
-          <input id="mb20415SavingsPct" type="number" min="0" max="100" step="1" inputmode="decimal">
-        </div>
-        <div id="mb20415PercentNote"></div>`;
-
-      const form=dlg.querySelector('form');
-      const actions=form?.querySelector('.form-actions');
-      if(actions) form.insertBefore(box,actions);
-      else form?.appendChild(box);
-    }
-
-    const m=state();
-    $('mb20415CushionPct').value=m.settings.cushionPct;
-    $('mb20415SavingsPct').value=m.settings.savingsPct;
-    $('mb20415PercentNote').textContent=
-      `Using this week's ${fmt(m.checkAmount)} paycheck.`;
-
-    // Hide old dollar/Available-Now cushion UI.
-    ['mb2045CushionType','mb2045DollarRow','mb2045PercentRow'].forEach(id=>{
-      const el=$(id);
-      if(el){
-        const row=el.closest('.mb2045-row')||el;
-        row.style.display='none';
-      }
-    });
-
-    const note=$('mb2045ModeNote');
-    if(note)note.textContent='Choose the percentages used by Payday Health and protected savings.';
-
-    const save=$('mb2045SaveCushion');
-    if(save && !save.mb20415){
-      save.mb20415=true;
-      save.onclick=function(){
-        saveSettings({
-          cushionPct:Math.max(0,Math.min(100,Number($('mb20415CushionPct').value)||20)),
-          savingsPct:Math.max(0,Math.min(100,Number($('mb20415SavingsPct').value)||27))
-        });
-        refreshHome();
-        try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-        dlg.close();
-      };
-    }
-  }
-
-  function boot(){
-    refreshHome();
-    try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-    setInterval(()=>{
-      refreshHome();
-      setupPercentEditor();
-      try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-    },1200);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
-  }else{
-    setTimeout(boot,350);
-  }
-})();
-</script>
-
-
-<script id="mb20417-cushion-modes-js">
-(function(){
-  const $=id=>document.getElementById(id);
-  const STORE='mybills_cushion_settings_v20417';
-
-  function fmt(n){
-    try{return money(Number(n)||0)}
-    catch(e){return '$'+(Number(n)||0).toFixed(2)}
-  }
-
-  function load(){
-    let x={mode:'percent',percent:20,dollar:0,savingsPct:27};
-    try{
-      const old=JSON.parse(localStorage.getItem('mybills_money_percent_settings_v20415')||'{}')||{};
-      if(Number.isFinite(Number(old.cushionPct))) x.percent=Number(old.cushionPct);
-      if(Number.isFinite(Number(old.savingsPct))) x.savingsPct=Number(old.savingsPct);
-    }catch(e){}
-    try{x={...x,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(e){}
-    x.mode=x.mode==='dollar'?'dollar':'percent';
-    x.percent=Math.max(0,Math.min(100,Number(x.percent)||20));
-    x.dollar=Math.max(0,Number(x.dollar)||0);
-    x.savingsPct=Math.max(0,Math.min(100,Number(x.savingsPct)||27));
-    return x;
-  }
-
-  function save(x){
-    try{localStorage.setItem(STORE,JSON.stringify(x))}catch(e){}
-  }
-
-  const priorState = window.mb20415MoneyState;
-
-  function state(){
-    let base={};
-    try{base=typeof priorState==='function'?priorState():{}}catch(e){}
-    const cfg=load();
-
-    const checkAmount=Math.max(0,Number(base.checkAmount)||0);
-    const available=Math.max(0,Number(base.available)||0);
-    const billReserve=Math.max(0,Number(base.billReserve)||0);
-    const savingsReserve=Math.max(0,Number(base.savingsReserve)||0);
-    const protectedTotal=Math.max(0,Number(base.protectedTotal)||0);
-
-    const cushion=cfg.mode==='dollar'
-      ? Math.max(0,cfg.dollar)
-      : Math.max(0,checkAmount*(cfg.percent/100));
-
-    // Safe to Spend now leaves the cushion untouched.
-    const safe=Math.max(0,available-protectedTotal-cushion);
-
-    let status='GOOD';
-    if(safe<=0) status='SHORT';
-    else if(cushion>0 && safe<cushion) status='GETTING TIGHT';
-
-    return {
-      ...base,
-      settings:{
-        ...(base.settings||{}),
-        cushionMode:cfg.mode,
-        cushionPct:cfg.percent,
-        cushionDollar:cfg.dollar,
-        savingsPct:cfg.savingsPct
-      },
-      cushion,
-      safe,
-      status,
-      protectedTotal,
-      available,
-      billReserve,
-      savingsReserve,
-      checkAmount
-    };
-  }
-
-  window.mb20417MoneyState=state;
-  window.mb20415MoneyState=state;
-  window.mb20412MoneyState=state;
-
-  // Final meter calculation: Safe to Spend is the meter input.
-  window.calc=function(){
-    const m=state();
-    let score=82;
-    if(m.status==='SHORT') score=12;
-    else if(m.status==='GETTING TIGHT'){
-      score=m.cushion>0
-        ? Math.max(30,Math.min(65,30+(m.safe/m.cushion)*35))
-        : 50;
-    }else if(m.cushion>0){
-      score=Math.max(66,Math.min(100,66+((m.safe-m.cushion)/Math.max(m.cushion,1))*20));
-    }
-
-    return {
-      av:m.safe,
-      pay:m.next,
-      rows:[],
-      protectedTotal:m.protectedTotal,
-      safe:m.safe,
-      yellowFloor:m.cushion,
-      label:m.status,
-      status:m.status==='SHORT'?'red':(m.status==='GETTING TIGHT'?'yellow':'green'),
-      score,
-      moneyLine:fmt(m.safe)+' safe to spend',
-      sentence:
-        m.status==='SHORT'
-          ? 'No money is currently safe to spend without touching your cushion.'
-          : m.status==='GETTING TIGHT'
-            ? 'Safe to Spend is getting close to your cushion.'
-            : 'You can spend this amount and still keep your cushion untouched.',
-      days:m.next?Math.max(0,Math.ceil(
-        (new Date(m.next.iso+'T00:00:00')-new Date(toISO(new Date())+'T00:00:00'))/86400000
-      )):0
-    };
-  };
-
-  function refreshHome(){
-    if(window.mb20418MoneyState)return;
-    const m=state();
-    if($('mb20411Available')) $('mb20411Available').textContent=fmt(m.available);
-    if($('mb20411Protected')) $('mb20411Protected').textContent=fmt(m.protectedTotal);
-    if($('mb20411Safe')) $('mb20411Safe').textContent=fmt(m.safe);
-
-    const label=$('mb2043CushionLabel');
-    if(label){
-      label.textContent=m.settings.cushionMode==='dollar'
-        ? `Cushion: ${fmt(m.cushion)} fixed amount`
-        : `Cushion: ${m.settings.cushionPct}% of this week's ${fmt(m.checkAmount)} check (${fmt(m.cushion)})`;
-    }
-
-    let note=$('mb20417SafeNote');
-    const forecast=$('mb20411Forecast');
-    if(forecast && !note){
-      note=document.createElement('div');
-      note.id='mb20417SafeNote';
-      note.style.cssText='margin:8px 0;color:#d8e1ee;font-weight:700;font-size:.82rem;line-height:1.35';
-      forecast.appendChild(note);
-    }
-    if(note){
-      note.textContent=`Safe to Spend leaves your ${fmt(m.cushion)} cushion untouched.`;
-    }
-  }
-
-  function renderEditor(){
-    if(window.mb20418MoneyState)return;
-    const dlg=$('mb2045CushionDlg');
-    if(!dlg || !dlg.open) return;
-
-    let box=$('mb20417CushionEditor');
-    if(!box){
-      box=document.createElement('div');
-      box.id='mb20417CushionEditor';
-      box.innerHTML=`
-        <div style="font-weight:900;font-size:1.05rem">Choose how you want your cushion set</div>
-        <div class="mb20417-mode-grid">
-          <button type="button" id="mb20417PercentMode" class="mb20417-mode">Percentage</button>
-          <button type="button" id="mb20417DollarMode" class="mb20417-mode">Dollar amount</button>
-        </div>
-
-        <div id="mb20417PercentWrap">
-          <label for="mb20417Percent">Cushion percentage</label>
-          <input id="mb20417Percent" type="number" min="0" max="100" step="1" inputmode="decimal">
-        </div>
-
-        <div id="mb20417DollarWrap">
-          <label for="mb20417Dollar">Cushion dollar amount</label>
-          <input id="mb20417Dollar" type="number" min="0" step="0.01" inputmode="decimal">
-        </div>
-
-        <label for="mb20417SavingsPct">Protected savings percentage</label>
-        <input id="mb20417SavingsPct" type="number" min="0" max="100" step="1" inputmode="decimal">
-
-        <div id="mb20417CushionPreview"></div>`;
-
-      const form=dlg.querySelector('form');
-      const actions=form?.querySelector('.form-actions');
-      if(actions) form.insertBefore(box,actions);
-      else form?.appendChild(box);
-
-      $('mb20417PercentMode').addEventListener('click',()=>setMode('percent'));
-      $('mb20417DollarMode').addEventListener('click',()=>setMode('dollar'));
-      $('mb20417Percent').addEventListener('input',preview);
-      $('mb20417Dollar').addEventListener('input',preview);
-      $('mb20417SavingsPct').addEventListener('input',preview);
-    }
-
-    const cfg=load();
-    $('mb20417Percent').value=cfg.percent;
-    $('mb20417Dollar').value=cfg.dollar;
-    $('mb20417SavingsPct').value=cfg.savingsPct;
-    setMode(cfg.mode,false);
-
-    ['mb2045CushionType','mb2045DollarRow','mb2045PercentRow','mb20415PercentBox'].forEach(id=>{
-      const el=$(id);
-      if(el) el.style.display='none';
-    });
-
-    const note=$('mb2045ModeNote');
-    if(note) note.textContent='Set a cushion by percentage or exact dollar amount. Safe to Spend will never include that cushion.';
-
-    const saveBtn=$('mb2045SaveCushion');
-    if(saveBtn && !saveBtn.mb20417){
-      saveBtn.mb20417=true;
-      saveBtn.onclick=function(){
-        const mode=$('mb20417DollarMode').classList.contains('active')?'dollar':'percent';
-        const cfg={
-          mode,
-          percent:Math.max(0,Math.min(100,Number($('mb20417Percent').value)||0)),
-          dollar:Math.max(0,Number($('mb20417Dollar').value)||0),
-          savingsPct:Math.max(0,Math.min(100,Number($('mb20417SavingsPct').value)||0))
-        };
-        save(cfg);
-        refreshHome();
-        try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-        dlg.close();
-      };
-    }
-
-    function setMode(mode,doPreview=true){
-      const pct=mode==='percent';
-      $('mb20417PercentMode').classList.toggle('active',pct);
-      $('mb20417DollarMode').classList.toggle('active',!pct);
-      $('mb20417PercentWrap').style.display=pct?'block':'none';
-      $('mb20417DollarWrap').style.display=pct?'none':'block';
-      if(doPreview) preview();
-    }
-
-    function preview(){
-      const current=load();
-      const mode=$('mb20417DollarMode').classList.contains('active')?'dollar':'percent';
-      const temp={
-        ...current,
-        mode,
-        percent:Math.max(0,Math.min(100,Number($('mb20417Percent').value)||0)),
-        dollar:Math.max(0,Number($('mb20417Dollar').value)||0),
-        savingsPct:Math.max(0,Math.min(100,Number($('mb20417SavingsPct').value)||0))
-      };
-
-      let base={};
-      try{base=typeof priorState==='function'?priorState():{}}catch(e){}
-      const checkAmount=Math.max(0,Number(base.checkAmount)||0);
-      const available=Math.max(0,Number(base.available)||0);
-      const billReserve=Math.max(0,Number(base.billReserve)||0);
-      const savingsReserve=checkAmount*(temp.savingsPct/100);
-      const protectedTotal=billReserve+savingsReserve;
-      const cushion=temp.mode==='dollar'?temp.dollar:checkAmount*(temp.percent/100);
-      const safe=Math.max(0,available-protectedTotal-cushion);
-
-      $('mb20417CushionPreview').innerHTML=
-        `<b>Cushion:</b> ${fmt(cushion)}<br>`+
-        `<b>Protected:</b> ${fmt(protectedTotal)}<br>`+
-        `<b>Safe to Spend:</b> ${fmt(safe)}<br>`+
-        `<span style="opacity:.85">You can spend up to ${fmt(safe)} without touching the cushion.</span>`;
-    }
-
-    preview();
-  }
-
-  function boot(){
-    refreshHome();
-    try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-    setInterval(()=>{
-      refreshHome();
-      renderEditor();
-      try{if(typeof refreshCard==='function')refreshCard()}catch(e){}
-    },1200);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,400));
-  }else{
-    setTimeout(boot,400);
-  }
-})();
-</script>
-
-
-<script id="mb20418-money-logic-js">
-(function(){
-  const $=id=>document.getElementById(id);
-  const STORE='mybills_money_settings_v20418';
-
-  function fmt(n){
-    try{return money(Number(n)||0)}
-    catch(e){return '$'+(Number(n)||0).toFixed(2)}
-  }
-
-  function load(){
-    let cfg={mode:'percent',percent:20,dollar:0,useSavings:false};
-    try{
-      const p17=JSON.parse(localStorage.getItem('mybills_cushion_settings_v20417')||'{}')||{};
-      if(p17.mode==='dollar'||p17.mode==='percent') cfg.mode=p17.mode;
-      if(Number.isFinite(Number(p17.percent))) cfg.percent=Number(p17.percent);
-      if(Number.isFinite(Number(p17.dollar))) cfg.dollar=Number(p17.dollar);
-    }catch(e){}
-    try{cfg={...cfg,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(e){}
-    cfg.mode=cfg.mode==='dollar'?'dollar':'percent';
-    cfg.percent=Math.max(0,Math.min(100,Number(cfg.percent)||20));
-    cfg.dollar=Math.max(0,Number(cfg.dollar)||0);
-    cfg.useSavings=!!cfg.useSavings;
-    return cfg;
-  }
-
-  function save(cfg){
-    try{localStorage.setItem(STORE,JSON.stringify(cfg))}catch(e){}
-  }
-
-  const prior17=window.mb20417MoneyState;
-  const prior15=window.mb20415MoneyState;
-
-  function rawBase(){
-    let m={};
-    try{
-      if(typeof prior15==='function') m=prior15();
-      else if(typeof prior17==='function') m=prior17();
-    }catch(e){}
-    const available=Math.max(0,Number(m.available)||0);
-    let savings=Math.max(0,Number(m.protectedTotal)||0);
-    if(!savings) savings=Math.max(0,Number(m.savingsReserve)||0);
-    const checkAmount=Math.max(0,Number(m.checkAmount)||0);
-    return {...m,available,savings,checkAmount};
-  }
-
-  function state(){
-    const base=rawBase();
-    const cfg=load();
-    const cushion=cfg.mode==='dollar'
-      ? cfg.dollar
-      : base.checkAmount*(cfg.percent/100);
-
-    const spendBase=base.available+(cfg.useSavings?base.savings:0);
-    const safe=Math.max(0,spendBase-cushion);
-
-    let status='GOOD';
-    if(safe<=0) status='SHORT';
-    else if(cushion>0 && safe<cushion) status='GETTING TIGHT';
-
-    return {
-      ...base,
-      cushion,
-      safe,
-      status,
-      spendBase,
-      useSavings:cfg.useSavings,
-      settings:{
-        ...(base.settings||{}),
-        cushionMode:cfg.mode,
-        cushionPct:cfg.percent,
-        cushionDollar:cfg.dollar,
-        useSavings:cfg.useSavings
-      }
-    };
-  }
-
-  window.mb20418MoneyState=state;
-  window.mb20417MoneyState=state;
-  window.mb20415MoneyState=state;
-  window.mb20412MoneyState=state;
-
-  window.calc=function(){
-    const m=state();
-    let score=82;
-    if(m.status==='SHORT') score=12;
-    else if(m.status==='GETTING TIGHT'){
-      score=m.cushion>0 ? Math.max(30,Math.min(65,30+(m.safe/m.cushion)*35)) : 50;
-    }else if(m.cushion>0){
-      score=Math.max(66,Math.min(100,66+((m.safe-m.cushion)/Math.max(m.cushion,1))*20));
-    }
-
-    return {
-      av:m.safe,
-      pay:m.next,
-      rows:[],
-      protectedTotal:m.savings,
-      safe:m.safe,
-      yellowFloor:m.cushion,
-      label:m.status,
-      status:m.status==='SHORT'?'red':(m.status==='GETTING TIGHT'?'yellow':'green'),
-      score,
-      moneyLine:fmt(m.safe)+' safe to spend',
-      sentence:m.status==='SHORT'
-        ? 'Your cushion currently uses all spendable money.'
-        : m.status==='GETTING TIGHT'
-          ? 'Safe to Spend is getting close to your cushion.'
-          : 'You can spend this amount without touching your cushion.',
-      days:m.next?Math.max(0,Math.ceil((new Date(m.next.iso+'T00:00:00')-new Date(toISO(new Date())+'T00:00:00'))/86400000)):0
-    };
-  };
-
-  function relabelForecast(){
-    const v=$('mb20411Protected');
-    if(!v)return;
-    const card=v.closest('.mb2040-stat,.mb20411-stat,.stat,.summary-stat')||v.parentElement;
-    if(!card)return;
-    const label=[...card.querySelectorAll('*')].find(el=>(el.textContent||'').trim().toLowerCase()==='protected');
-    if(label) label.textContent='Savings';
-  }
-
-  function refreshHome(){
-    const m=state();
-    if($('mb20411Available')) $('mb20411Available').textContent=fmt(m.available);
-    if($('mb20411Protected')) $('mb20411Protected').textContent=fmt(m.savings);
-    if($('mb20411Safe')) $('mb20411Safe').textContent=fmt(m.safe);
-    relabelForecast();
-
-    const label=$('mb2043CushionLabel');
-    if(label){
-      label.textContent=m.settings.cushionMode==='dollar'
-        ? `Cushion: ${fmt(m.cushion)} fixed amount`
-        : `Cushion: ${m.settings.cushionPct}% of this week's ${fmt(m.checkAmount)} check (${fmt(m.cushion)})`;
-    }
-
-    let note=$('mb20418SafeNote');
-    const forecast=$('mb20411Forecast');
-    if(forecast && !note){
-      note=document.createElement('div');
-      note.id='mb20418SafeNote';
-      note.style.cssText='margin:8px 0;color:#d8e1ee;font-weight:700;font-size:.82rem;line-height:1.35';
-      forecast.appendChild(note);
-    }
-    if(note){
-      note.textContent=m.useSavings
-        ? `With Savings is ON: Safe to Spend includes ${fmt(m.savings)} savings and still leaves your ${fmt(m.cushion)} cushion untouched.`
-        : `Safe to Spend leaves your ${fmt(m.cushion)} cushion untouched. Savings stays separate.`;
-    }
-  }
-
-  function ensureEditor(){
-    const dlg=$('mb2045CushionDlg');
-    if(!dlg || !dlg.open) return;
-
-    ['mb20415PercentBox','mb20417CushionEditor'].forEach(id=>{
-      const el=$(id);
-      if(el) el.style.display='none';
-    });
-
-    let box=$('mb20418CushionEditor');
-    if(!box){
-      box=document.createElement('div');
-      box.id='mb20418CushionEditor';
-      box.innerHTML=`
-        <div style="font-weight:900;font-size:1.05rem">Choose how you want your cushion set</div>
-        <div class="mb20418-mode-grid">
-          <button type="button" id="mb20418PercentMode" class="mb20418-mode">Percentage</button>
-          <button type="button" id="mb20418DollarMode" class="mb20418-mode">Dollar amount</button>
-        </div>
-
-        <div id="mb20418PercentWrap">
-          <label for="mb20418Percent">Cushion percentage</label>
-          <input id="mb20418Percent" type="number" min="0" max="100" step="1" inputmode="decimal">
-        </div>
-
-        <div id="mb20418DollarWrap">
-          <label for="mb20418Dollar">Cushion dollar amount</label>
-          <input id="mb20418Dollar" type="number" min="0" step="0.01" inputmode="decimal">
-        </div>
-
-        <div id="mb20418UseSavingsRow">
-          <label for="mb20418UseSavings">With Savings</label>
-          <input id="mb20418UseSavings" type="checkbox">
-        </div>
-
-        <div id="mb20418CushionPreview"></div>`;
-
-      const form=dlg.querySelector('form');
-      const actions=form?.querySelector('.form-actions');
-      if(actions) form.insertBefore(box,actions);
-      else form?.appendChild(box);
-
-      $('mb20418PercentMode').addEventListener('click',()=>setMode('percent'));
-      $('mb20418DollarMode').addEventListener('click',()=>setMode('dollar'));
-      $('mb20418Percent').addEventListener('input',preview);
-      $('mb20418Dollar').addEventListener('input',preview);
-      $('mb20418UseSavings').addEventListener('change',preview);
-    }
-
-    if(!box.dataset.hydrated){
-      const cfg=load();
-      $('mb20418Percent').value=cfg.percent;
-      $('mb20418Dollar').value=cfg.dollar;
-      $('mb20418UseSavings').checked=cfg.useSavings;
-      setMode(cfg.mode,false);
-      box.dataset.hydrated='1';
-      preview();
-    }
-
-    const note=$('mb2045ModeNote');
-    if(note) note.textContent='Set your cushion by percentage or dollar amount. Turn on With Savings only when you want savings included in Safe to Spend.';
-
-    const saveBtn=$('mb2045SaveCushion');
-    if(saveBtn && !saveBtn.mb20418){
-      saveBtn.mb20418=true;
-      saveBtn.onclick=function(){
-        const cfg={
-          mode:$('mb20418DollarMode').classList.contains('active')?'dollar':'percent',
-          percent:Math.max(0,Math.min(100,Number($('mb20418Percent').value)||0)),
-          dollar:Math.max(0,Number($('mb20418Dollar').value)||0),
-          useSavings:!!$('mb20418UseSavings').checked
-        };
-        save(cfg);
-        refreshHome();
-        try{if(typeof refreshCard==='function') refreshCard()}catch(e){}
-        delete box.dataset.hydrated;
-        dlg.close();
-      };
-    }
-
-    function setMode(mode,doPreview=true){
-      const pct=mode==='percent';
-      $('mb20418PercentMode').classList.toggle('active',pct);
-      $('mb20418DollarMode').classList.toggle('active',!pct);
-      $('mb20418PercentWrap').style.display=pct?'block':'none';
-      $('mb20418DollarWrap').style.display=pct?'none':'block';
-      if(doPreview) preview();
-    }
-
-    function preview(){
-      const base=rawBase();
-      const mode=$('mb20418DollarMode').classList.contains('active')?'dollar':'percent';
-      const cushion=mode==='dollar'
-        ? Math.max(0,Number($('mb20418Dollar').value)||0)
-        : base.checkAmount*(Math.max(0,Math.min(100,Number($('mb20418Percent').value)||0))/100);
-      const useSavings=!!$('mb20418UseSavings').checked;
-      const spendBase=base.available+(useSavings?base.savings:0);
-      const safe=Math.max(0,spendBase-cushion);
-
-      $('mb20418CushionPreview').innerHTML=
-        `<b>Available now:</b> ${fmt(base.available)}<br>`+
-        `<b>Savings:</b> ${fmt(base.savings)}<br>`+
-        `<b>Cushion:</b> ${fmt(cushion)}<br>`+
-        `<b>Safe to Spend:</b> ${fmt(safe)}<br>`+
-        `<span style="opacity:.85">${useSavings?'Savings is included. ':'Savings is not included. '}You can spend up to ${fmt(safe)} without touching the cushion.</span>`;
-    }
-  }
-
-  function resetEditorWhenClosed(){
-    const box=$('mb20418CushionEditor');
-    const dlg=$('mb2045CushionDlg');
-    if(box && (!dlg || !dlg.open)) delete box.dataset.hydrated;
-  }
-
-  function darkenWhiteCards(){
-    document.querySelectorAll('dialog[open] div,dialog[open] section').forEach(el=>{
-      const cs=getComputedStyle(el);
-      if(cs.backgroundColor==='rgb(255, 255, 255)' && cs.color==='rgb(255, 255, 255)'){
+  function darkRepair(){
+    document.querySelectorAll('dialog[open] .savings-goal,dialog[open] .history-item,dialog[open] .payment-history-card,dialog[open] .summary-stat,dialog[open] .budget-stat-row,dialog[open] .goal-card')
+      .forEach(el=>{
         el.style.setProperty('background','#14376b','important');
         el.style.setProperty('color','#fff','important');
         el.querySelectorAll('*').forEach(x=>x.style.setProperty('color','#fff','important'));
-      }
-    });
+      });
   }
 
   function boot(){
-    refreshHome();
-    try{if(typeof refreshCard==='function') refreshCard()}catch(e){}
+    ensureCard();
+    refresh();
+
+    // Only one periodic refresh owns this UI. No competing meter/forecast writers.
     setInterval(()=>{
-      refreshHome();
-      ensureEditor();
-      resetEditorWhenClosed();
-      darkenWhiteCards();
-      try{if(typeof refreshCard==='function') refreshCard()}catch(e){}
-    },1400);
+      refresh();
+      darkRepair();
+    },2000);
   }
 
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,450));
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,300));
   }else{
-    setTimeout(boot,450);
+    setTimeout(boot,300);
   }
 })();
 </script>
