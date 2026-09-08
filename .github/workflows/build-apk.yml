@@ -1,1 +1,146 @@
+name: Build My Bills Release
 
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'MyBills_update.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mybills-build-main
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout exact main commit
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Read app version
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED_VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
+          test -n "$EXPECTED_VERSION"
+          echo "EXPECTED_VERSION=$EXPECTED_VERSION" >> "$GITHUB_ENV"
+          echo "Building My Bills $EXPECTED_VERSION"
+
+      - name: Verify preservation source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f VERSION.txt
+          test -f app/build.gradle
+          test -f app/src/main/assets/index.html
+          test -f app/src/main/assets/mybills.css
+
+          grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
+
+          if [ -f app/src/main/assets/app.js ] || [ -f app/src/main/assets/app.css ]; then
+            echo "Note: clean-foundation files are present, but preservation build will use index.html + mybills.css."
+          fi
+
+          echo "Source files verified for My Bills $EXPECTED_VERSION"
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Verify permanent signing secrets
+        shell: bash
+        env:
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_HEX" || { echo "::error::Missing MYBILLS_KEYSTORE_HEX"; exit 1; }
+          test -n "$KEYSTORE_PASSWORD" || { echo "::error::Missing MYBILLS_KEYSTORE_PASSWORD"; exit 1; }
+
+      - name: Restore permanent signing key
+        shell: bash
+        env:
+          KEYSTORE_HEX: ${{ secrets.MYBILLS_KEYSTORE_HEX }}
+          KEYSTORE_PASSWORD: ${{ secrets.MYBILLS_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYSTORE_PATH="$RUNNER_TEMP/mybills-release.jks"
+          printf '%s' "$KEYSTORE_HEX" | tr -d '[:space:]' | xxd -r -p > "$KEYSTORE_PATH"
+          test -s "$KEYSTORE_PATH"
+          keytool -list -keystore "$KEYSTORE_PATH" -storepass "$KEYSTORE_PASSWORD" -alias mybills >/dev/null
+          echo "MYBILLS_KEYSTORE_FILE=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+          echo "MYBILLS_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+
+      - name: Build signed APK and Play App Bundle
+        run: gradle clean assembleRelease bundleRelease
+
+      - name: Collect release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)"
+          AAB="$(find app/build/outputs/bundle/release -name '*.aab' | head -n 1)"
+          test -n "$APK"
+          test -n "$AAB"
+          cp "$APK" "MyBills-${EXPECTED_VERSION}.apk"
+          cp "$AAB" "MyBills-${EXPECTED_VERSION}.aab"
+
+      - name: Verify APK contains preservation app
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/mybills-apk-check
+          mkdir -p /tmp/mybills-apk-check
+          unzip -q "MyBills-${EXPECTED_VERSION}.apk" -d /tmp/mybills-apk-check
+
+          test -f /tmp/mybills-apk-check/assets/index.html
+          test -f /tmp/mybills-apk-check/assets/mybills.css
+
+          grep -F "$EXPECTED_VERSION" /tmp/mybills-apk-check/assets/index.html >/dev/null
+
+          echo "APK verified as My Bills $EXPECTED_VERSION preservation build"
+
+      - name: Verify APK signature
+        shell: bash
+        run: |
+          set -euo pipefail
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -n "$APKSIGNER"
+          "$APKSIGNER" verify --verbose "MyBills-${EXPECTED_VERSION}.apk"
+
+      - name: Verify App Bundle signature
+        shell: bash
+        run: |
+          set -euo pipefail
+          jarsigner -verify "MyBills-${EXPECTED_VERSION}.aab"
+          keytool -printcert -jarfile "MyBills-${EXPECTED_VERSION}.aab" >/dev/null
+
+      - name: Upload versioned APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyBills-${{ env.EXPECTED_VERSION }}-signed-APK
+          path: MyBills-${{ env.EXPECTED_VERSION }}.apk
+          if-no-files-found: error
+
+      - name: Upload versioned Play App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyBills-${{ env.EXPECTED_VERSION }}-Play-AAB
+          path: MyBills-${{ env.EXPECTED_VERSION }}.aab
+          if-no-files-found: error

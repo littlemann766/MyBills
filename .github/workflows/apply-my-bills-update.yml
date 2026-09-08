@@ -1,1 +1,101 @@
+name: Apply My Bills Update
 
+on:
+  push:
+    paths:
+      - 'MyBills_update.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mybills-apply-update-main
+  cancel-in-progress: false
+
+jobs:
+  apply-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Apply uploaded My Bills package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f MyBills_update.zip ]; then
+            echo "No MyBills_update.zip found."
+            exit 0
+          fi
+
+          cp MyBills_update.zip /tmp/MyBills_update.zip
+
+          git fetch origin main
+          git reset --hard origin/main
+          cp /tmp/MyBills_update.zip MyBills_update.zip
+
+          rm -rf .mybills_update_tmp
+          mkdir .mybills_update_tmp
+          unzip -o MyBills_update.zip -d .mybills_update_tmp
+
+          DELETE_LIST=".mybills_update_tmp/.mybills-delete-list.txt"
+          if [ -f "$DELETE_LIST" ]; then
+            while IFS= read -r OLD_PATH || [ -n "$OLD_PATH" ]; do
+              case "$OLD_PATH" in
+                ''|'#'*) continue ;;
+              esac
+              if [[ "$OLD_PATH" = /* || "$OLD_PATH" = *".."* ]]; then
+                echo "::error::Unsafe cleanup path: $OLD_PATH"
+                exit 1
+              fi
+              rm -rf -- "$OLD_PATH"
+            done < "$DELETE_LIST"
+            rm -f "$DELETE_LIST"
+          fi
+
+          cp -a .mybills_update_tmp/. .
+          rm -rf .mybills_update_tmp
+          rm -f MyBills_update.zip
+
+      - name: Verify update before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f VERSION.txt
+          test -f app/build.gradle
+          test -f app/src/main/assets/index.html
+          test -f app/src/main/assets/mybills.css
+
+          EXPECTED_VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
+          test -n "$EXPECTED_VERSION"
+
+          grep -F "versionName '$EXPECTED_VERSION'" app/build.gradle
+          grep -F "$EXPECTED_VERSION" app/src/main/assets/index.html >/dev/null
+
+          echo "Applied My Bills $EXPECTED_VERSION preservation update"
+
+      - name: Commit and push applied update
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            VERSION="$(awk '/^Version:/{print $2}' VERSION.txt)"
+            git commit -m "Apply My Bills ${VERSION} update"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo "No repository changes to commit."
+          fi
