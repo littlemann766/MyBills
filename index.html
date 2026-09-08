@@ -1,4 +1,4 @@
-<!-- 20.4.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.4 Ease-of-Use Home */
+/* 20.4.5 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.4 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.5 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.4 compact Settings pop-up menus */
+/* 20.4.5 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.4 settings modal reliability fixes */
+/* 20.4.5 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.4 — unified themed dialogs / menus */
+/* 20.4.5 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.4 cleanup */
+/* 20.4.5 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.4 readability cleanup */
+/* 20.4.5 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.4 settings modal reopen fix */
+/* 20.4.5 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.4 — final Ease-of-Use cleanup */
+/* 20.4.5 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -668,7 +668,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.4.4 — Safe to Spend modal styling + scrolling repair */
+/* 20.4.5 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -797,7 +797,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.4.4 — Can I Afford This? */
+/* 20.4.5 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -940,7 +940,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2043-payday-health-css">
-/* 20.4.4 — Payday Health meter */
+/* 20.4.5 — Payday Health meter */
 #mb2043HealthCard{
   margin:14px 0;
   width:100%;
@@ -1082,7 +1082,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2044-real-meter-css">
-/* 20.4.4 — Payday Health redesigned as a true gauge/meter */
+/* 20.4.5 — Payday Health redesigned as a true gauge/meter */
 #mb2043HealthCard{
   display:block!important;
   width:100%!important;
@@ -1241,6 +1241,165 @@ body.mb-home-easy #mb2043HealthExplain{
     font-size:.72rem!important;
   }
   #mb2043HealthLabels{font-size:.66rem!important}
+}
+</style>
+
+
+<style id="mb2045-cushion-css">
+/* 20.4.5 — Payday Health fit + custom cushion */
+#mb2043HealthCard{
+  overflow:hidden!important;
+}
+#mb2043HealthTop{
+  margin-bottom:10px!important;
+}
+#mb2043HealthStatus{
+  font-size:.82rem!important;
+}
+#mb2043HealthBarWrap{
+  width:100%!important;
+  box-sizing:border-box!important;
+  padding:38px 8px 0!important;
+  min-height:88px!important;
+  overflow:visible!important;
+}
+#mb2043HealthBar{
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+#mb2043HealthMarker::before{
+  min-width:74px!important;
+  max-width:110px!important;
+  padding:7px 9px!important;
+  font-size:.68rem!important;
+}
+#mb2043HealthLabels{
+  width:100%!important;
+  box-sizing:border-box!important;
+  padding:0 2px!important;
+  font-size:.64rem!important;
+}
+#mb2043HealthMoney{
+  margin-top:10px!important;
+  font-size:1.05rem!important;
+}
+#mb2043HealthExplain{
+  font-size:.84rem!important;
+  line-height:1.3!important;
+}
+#mb2043CushionEdit{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  margin-top:12px!important;
+  padding-top:11px!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+}
+#mb2043CushionEdit .cushion-label{
+  color:#d8e0ee!important;
+  font-size:.78rem!important;
+  font-weight:800!important;
+}
+#mb2043CushionEdit button{
+  flex:0 0 auto!important;
+  min-height:36px!important;
+  padding:7px 11px!important;
+  border-radius:10px!important;
+  border:1px solid rgba(22,228,234,.55)!important;
+  background:#14376b!important;
+  color:#fff!important;
+  font-weight:900!important;
+}
+
+/* Cushion editor */
+#mb2045CushionDlg{
+  width:min(92vw,560px)!important;
+  max-width:560px!important;
+  max-height:84vh!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:3px solid #16e4ea!important;
+  border-radius:24px!important;
+}
+#mb2045CushionDlg::backdrop{
+  background:rgba(0,0,0,.68)!important;
+  backdrop-filter:blur(3px);
+}
+#mb2045CushionDlg > form.form{
+  display:block!important;
+  max-height:84vh!important;
+  overflow-y:auto!important;
+  padding:20px!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  border:0!important;
+  box-sizing:border-box!important;
+}
+#mb2045CushionDlg h2{margin:0 0 8px!important}
+#mb2045CushionDlg .mb2045-note{color:#d8e0ee;margin:0 0 14px}
+#mb2045CushionDlg .mb2045-panel{
+  padding:16px;
+  border:2px solid rgba(22,228,234,.45);
+  border-radius:18px;
+  background:#14376b;
+  margin-bottom:14px;
+}
+#mb2045CushionDlg .mb2045-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+}
+#mb2045CushionDlg .mb2045-row label{font-weight:900}
+#mb2045CushionDlg input,
+#mb2045CushionDlg select{
+  width:min(48%,180px)!important;
+  background:#0b2447!important;
+  color:#fff!important;
+  border:2px solid #117b91!important;
+}
+#mb2045CushionDlg .form-actions{
+  position:sticky!important;
+  bottom:-20px!important;
+  margin:16px -20px -20px!important;
+  padding:12px 20px 16px!important;
+  background:#0d2a55!important;
+}
+#mb2045CushionDlg .form-actions button{
+  width:100%!important;
+  min-height:46px!important;
+  background:#16e4ea!important;
+  color:#07172d!important;
+  border:0!important;
+  font-weight:900!important;
+}
+@media(max-width:600px){
+  #mb2043HealthCard{padding:15px!important}
+  #mb2043HealthBarWrap{padding:36px 5px 0!important}
+  #mb2043HealthMarker::before{
+    min-width:68px!important;
+    max-width:92px!important;
+    padding:6px 7px!important;
+    font-size:.64rem!important;
+  }
+  #mb2043HealthLabels{font-size:.59rem!important}
+  #mb2043CushionEdit{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+  }
+  #mb2045CushionDlg .mb2045-row{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  #mb2045CushionDlg input,
+  #mb2045CushionDlg select{
+    width:100%!important;
+    max-width:100%!important;
+  }
 }
 </style>
 
@@ -8865,7 +9024,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -9001,7 +9160,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.4</strong>
+      <strong>20.4.5</strong>
     </div>
   </section>
 </div>
@@ -9015,10 +9174,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.4';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.5';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=189, BUILD_NAME='20.4.4', BUILD_LABEL='20.4.4';
+  const BUILD_CODE=190, BUILD_NAME='20.4.5', BUILD_LABEL='20.4.5';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9277,7 +9436,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.4';
+  const VERSION='20.4.5';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9467,7 +9626,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.4';
+  const VERSION='20.4.5';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9707,7 +9866,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.4';
+  const VERSION='20.4.5';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -10042,7 +10201,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -10419,7 +10578,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.4 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.5 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -10467,7 +10626,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.4 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.5 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11758,7 +11917,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.4');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.5');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11965,7 +12124,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.4</strong>
+        <strong>20.4.5</strong>
       </div>
       ${done()}`);
 
@@ -12665,6 +12824,189 @@ body.mb-high-contrast textarea{border-width:2px!important}
   else setTimeout(boot,400);
 
   setInterval(updateTrueMeter,1500);
+})();
+</script>
+
+
+<script id="mb2045-cushion-js">
+(function(){
+  const KEY='mybills_payday_cushion_v2045';
+  const $=id=>document.getElementById(id);
+  const moneyFmt=n=>typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2);
+
+  function mode(){
+    try{return appSettings && appSettings.homeMode==='advanced'?'advanced':'easy'}catch(e){return 'easy'}
+  }
+
+  function load(){
+    let v={type:'dollar',amount:100,percent:20};
+    try{
+      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(saved && typeof saved==='object')v={...v,...saved};
+    }catch(e){}
+    v.amount=Math.max(0,Number(v.amount)||0);
+    v.percent=Math.max(0,Math.min(100,Number(v.percent)||0));
+    if(v.type!=='percent')v.type='dollar';
+    return v;
+  }
+  function save(v){
+    try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}
+  }
+  function desiredCushion(av){
+    const s=load();
+    return s.type==='percent' ? Math.max(0,av*(s.percent/100)) : Math.max(0,s.amount);
+  }
+
+  // Override the 20.4.3 calc so Payday Health uses the user's own cushion.
+  const oldCalc=window.calc;
+  if(typeof oldCalc==='function' && !oldCalc.mb2045){
+    const wrapped=function(){
+      const x=oldCalc.apply(this,arguments);
+      const wanted=desiredCushion(Number(x.av)||0);
+
+      if(!x.pay){
+        x.yellowFloor=wanted;
+        return x;
+      }
+
+      x.yellowFloor=wanted;
+      if(x.safe<0){
+        x.status='red';
+        x.label='SHORT';
+        const shortage=Math.abs(x.safe);
+        x.score=Math.max(4, 32-Math.min(28,shortage/Math.max(1,x.protectedTotal||shortage)*28));
+        x.moneyLine=moneyFmt(shortage)+' short';
+        x.sentence='Your forecast drops below what is needed to cover bills before payday.';
+      }else if(x.safe<wanted){
+        x.status='yellow';
+        x.label='GETTING TIGHT';
+        const ratio=wanted?Math.max(0,Math.min(1,x.safe/wanted)):1;
+        x.score=35+ratio*29;
+        x.moneyLine=moneyFmt(x.safe)+' cushion';
+        x.sentence='Your bills are covered, but you are below the cushion you chose.';
+      }else{
+        x.status='green';
+        x.label='GOOD';
+        const extra=x.safe-wanted;
+        x.score=68+Math.min(28,extra/Math.max(1,wanted||100)*28);
+        x.moneyLine=moneyFmt(x.safe)+' cushion';
+        x.sentence='Your upcoming bills are covered and your chosen cushion is protected.';
+      }
+      return x;
+    };
+    wrapped.mb2045=true;
+    window.calc=wrapped;
+  }
+
+  function ensureEditRow(){
+    const card=$('mb2043HealthCard');
+    if(!card || $('mb2043CushionEdit'))return;
+    const row=document.createElement('div');
+    row.id='mb2043CushionEdit';
+    row.innerHTML='<div class="cushion-label" id="mb2043CushionLabel">Cushion target</div><button type="button" id="mb2043EditCushion">Edit Cushion</button>';
+    card.appendChild(row);
+    $('mb2043EditCushion').onclick=e=>{
+      e.preventDefault();e.stopPropagation();openCushion2045();
+    };
+  }
+
+  function refreshCushionLabel(){
+    ensureEditRow();
+    const el=$('mb2043CushionLabel');
+    if(!el)return;
+    const s=load();
+    if(s.type==='percent'){
+      el.textContent=`Cushion target: ${s.percent}% of Available Now`;
+    }else{
+      el.textContent=`Cushion target: ${moneyFmt(s.amount)}`;
+    }
+  }
+
+  function ensureDialog(){
+    if($('mb2045CushionDlg'))return;
+    const d=document.createElement('dialog');
+    d.id='mb2045CushionDlg';
+    d.innerHTML=`
+      <form method="dialog" class="form">
+        <h2>Payday Cushion</h2>
+        <p class="mb2045-note" id="mb2045ModeNote"></p>
+        <div class="mb2045-panel">
+          <div class="mb2045-row">
+            <label for="mb2045CushionType">Cushion type</label>
+            <select id="mb2045CushionType">
+              <option value="dollar">Dollar amount</option>
+              <option value="percent">Percentage</option>
+            </select>
+          </div>
+          <div class="mb2045-row" id="mb2045DollarRow">
+            <label for="mb2045CushionAmount">Keep at least</label>
+            <input id="mb2045CushionAmount" type="number" min="0" step="1" inputmode="decimal">
+          </div>
+          <div class="mb2045-row" id="mb2045PercentRow">
+            <label for="mb2045CushionPercent">Keep this % of Available Now</label>
+            <input id="mb2045CushionPercent" type="number" min="0" max="100" step="1" inputmode="decimal">
+          </div>
+        </div>
+        <div class="form-actions"><button type="button" id="mb2045SaveCushion">Save Cushion</button></div>
+      </form>`;
+    document.body.appendChild(d);
+
+    $('mb2045CushionType').onchange=syncRows;
+    $('mb2045SaveCushion').onclick=()=>{
+      const v={
+        type:$('mb2045CushionType').value==='percent'?'percent':'dollar',
+        amount:Math.max(0,Number($('mb2045CushionAmount').value)||0),
+        percent:Math.max(0,Math.min(100,Number($('mb2045CushionPercent').value)||0))
+      };
+      save(v);
+      refreshCushionLabel();
+      try{ if(typeof refreshCard==='function')refreshCard(); }catch(e){}
+      $('mb2045CushionDlg').close();
+    };
+  }
+
+  function syncRows(){
+    const isPct=$('mb2045CushionType')?.value==='percent';
+    if($('mb2045PercentRow'))$('mb2045PercentRow').style.display=isPct?'flex':'none';
+    if($('mb2045DollarRow'))$('mb2045DollarRow').style.display=isPct?'none':'flex';
+  }
+
+  window.openCushion2045=function(){
+    ensureDialog();
+    const s=load();
+    const advanced=mode()==='advanced';
+    $('mb2045ModeNote').textContent=advanced
+      ?'Advanced mode lets you protect either a fixed dollar cushion or a percentage of Available Now.'
+      :'Easy mode uses a dollar cushion. Switch to Advanced mode if you want to use a percentage.';
+    $('mb2045CushionType').value=advanced?s.type:'dollar';
+    $('mb2045CushionType').disabled=!advanced;
+    $('mb2045CushionAmount').value=s.amount;
+    $('mb2045CushionPercent').value=s.percent;
+    syncRows();
+    $('mb2045CushionDlg').showModal();
+  };
+
+  // Keep the marker bubble inside the card edges.
+  function clampMarker(){
+    const marker=$('mb2043HealthMarker');
+    if(!marker)return;
+    const raw=parseFloat(marker.style.left)||50;
+    marker.style.left=Math.max(9,Math.min(91,raw))+'%';
+  }
+
+  const mo=new MutationObserver(()=>{clampMarker();refreshCushionLabel()});
+  function boot(){
+    ensureEditRow();
+    refreshCushionLabel();
+    const marker=$('mb2043HealthMarker');
+    if(marker)mo.observe(marker,{attributes:true,attributeFilter:['style','data-label','data-zone']});
+    clampMarker();
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,350));
+  else setTimeout(boot,350);
+
+  setInterval(()=>{refreshCushionLabel();clampMarker()},1800);
 })();
 </script>
 
