@@ -1,4 +1,4 @@
-<!-- 20.3.9 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.10 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.9 Ease-of-Use Home */
+/* 20.3.10 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.9 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.10 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.9 compact Settings pop-up menus */
+/* 20.3.10 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.9 settings modal reliability fixes */
+/* 20.3.10 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.3.9 — unified themed dialogs / menus */
+/* 20.3.10 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.9 cleanup */
+/* 20.3.10 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.9 readability cleanup */
+/* 20.3.10 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.9 settings modal reopen fix */
+/* 20.3.10 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -3396,6 +3396,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
       </div>
       <div class="settings-row"><label for="textSizeSelect">App text size</label><select id="textSizeSelect"><option value="small">Small</option><option value="normal">Normal</option><option value="large">Large</option></select></div>
       <div class="settings-row"><label for="cardDensitySelect">Card spacing</label><select id="cardDensitySelect"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></div>
+<div class="settings-row"><label for="mb20310HighContrast">High contrast</label><input id="mb20310HighContrast" class="settings-switch" type="checkbox"></div>
     </div>
 
     <div class="settings-section">
@@ -8128,7 +8129,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.9 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.10 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8264,7 +8265,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.9</strong>
+      <strong>20.3.10</strong>
     </div>
   </section>
 </div>
@@ -8278,10 +8279,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.9';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.10';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=180, BUILD_NAME='20.3.9', BUILD_LABEL='20.3.9';
+  const BUILD_CODE=180, BUILD_NAME='20.3.10', BUILD_LABEL='20.3.10';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8540,7 +8541,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.9';
+  const VERSION='20.3.10';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8730,7 +8731,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.9';
+  const VERSION='20.3.10';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8970,7 +8971,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.9';
+  const VERSION='20.3.10';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9305,7 +9306,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.9: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.10: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9682,7 +9683,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.9 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.10 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9730,7 +9731,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.9 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.10 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -10793,5 +10794,84 @@ function openAvailableNowSpendingV88(){
 })();
 </script>
 
+
+<style id="mb20310-usability-css">
+body.mb-high-contrast .card,
+body.mb-high-contrast .settings-section,
+body.mb-high-contrast dialog .form,
+body.mb-high-contrast #mb123SettingsPanel{border-width:3px!important}
+body.mb-high-contrast button,
+body.mb-high-contrast input,
+body.mb-high-contrast select,
+body.mb-high-contrast textarea{border-width:2px!important}
+#mb20310MoreBillOptions{
+  margin-top:12px;
+  border:1px solid rgba(30,220,235,.45);
+  border-radius:16px;
+  padding:10px 12px 14px
+}
+#mb20310MoreBillOptions>summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:1.05rem;
+  padding:6px 2px 10px
+}
+#dlg .mb20310-essential-note{
+  margin:2px 0 10px;
+  opacity:.8;
+  font-size:.92rem
+}
+</style>
+<script id="mb20310-usability-js">
+(function(){
+  const HC='mybills_high_contrast_v20310';
+  function applyHC(on){
+    document.body.classList.toggle('mb-high-contrast',!!on);
+    try{localStorage.setItem(HC,on?'1':'0')}catch(e){}
+    const x=document.getElementById('mb20310HighContrast');
+    if(x)x.checked=!!on;
+  }
+  function boot(){
+    let on=false;
+    try{on=localStorage.getItem(HC)==='1'}catch(e){}
+    applyHC(on);
+    document.addEventListener('change',e=>{
+      if(e.target&&e.target.id==='mb20310HighContrast')applyHC(e.target.checked);
+    });
+
+    const form=document.querySelector('#dlg form.form');
+    const category=document.getElementById('category');
+    if(form&&category&&!document.getElementById('mb20310MoreBillOptions')){
+      const actions=form.querySelector('.form-actions');
+      const picker=category.closest('.category-picker');
+      if(actions&&picker){
+        let start=(picker.previousElementSibling&&picker.previousElementSibling.tagName==='LABEL')
+          ? picker.previousElementSibling : picker;
+        const d=document.createElement('details');
+        d.id='mb20310MoreBillOptions';
+        const s=document.createElement('summary');
+        s.textContent='More Options';
+        d.appendChild(s);
+
+        let n=start;
+        while(n&&n!==actions){
+          const nx=n.nextSibling;
+          d.appendChild(n);
+          n=nx;
+        }
+        form.insertBefore(d,actions);
+
+        const note=document.createElement('div');
+        note.className='mb20310-essential-note';
+        note.textContent='Just enter the bill name, amount, and due date. Everything else is optional.';
+        form.insertBefore(note,d);
+        form.addEventListener('reset',()=>d.open=false);
+      }
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
 </body>
 </html>
