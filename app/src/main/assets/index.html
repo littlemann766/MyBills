@@ -1,4 +1,4 @@
-<!-- 20.3.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.5 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.4 Ease-of-Use Home */
+/* 20.3.5 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.4 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.5 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.4 compact Settings pop-up menus */
+/* 20.3.5 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -176,6 +176,20 @@ body.mb2034-settings-open::before{
     border-radius:22px!important;
   }
   .mb2034-settings-close{top:82px;right:22px}
+}
+</style>
+<style>
+/* 20.3.5 settings modal reliability fixes */
+#mb2034SettingsClose{display:none}
+body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
+#mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
+#mb123SettingsPanel .mb2035-empty-note{
+  padding:16px;
+  margin-top:8px;
+  border:2px dashed rgba(22,228,234,.45);
+  border-radius:16px;
+  color:#d8e0ee;
+  line-height:1.35;
 }
 </style>
 </head>
@@ -7798,7 +7812,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.5 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7934,7 +7948,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.4</strong>
+      <strong>20.3.5</strong>
     </div>
   </section>
 </div>
@@ -7948,10 +7962,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.4';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.5';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=175, BUILD_NAME='20.3.4', BUILD_LABEL='20.3.4';
+  const BUILD_CODE=176, BUILD_NAME='20.3.5', BUILD_LABEL='20.3.5';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8210,7 +8224,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.4';
+  const VERSION='20.3.5';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8400,7 +8414,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.4';
+  const VERSION='20.3.5';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8640,7 +8654,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.4';
+  const VERSION='20.3.5';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8975,7 +8989,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.5: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9352,7 +9366,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.4 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.5 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9400,7 +9414,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.4 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.5 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -9706,6 +9720,216 @@ function openAvailableNowSpendingV88(){
       mb2034CloseSettings();
     }
   });
+})();
+</script>
+
+
+<script id="mb2035-settings-fix">
+(function(){
+  const getPanel=()=>document.getElementById('mb123SettingsPanel');
+
+  function hideClose(){
+    const x=document.getElementById('mb2034SettingsClose');
+    if(x)x.style.display='none';
+  }
+
+  const oldClose=window.mb2034CloseSettings;
+  window.mb2034CloseSettings=function(){
+    try{ if(typeof oldClose==='function') oldClose(); }catch(e){}
+    const p=getPanel();
+    if(p){
+      p.classList.remove('mb2034-modal-open');
+      p.innerHTML='';
+    }
+    document.body.classList.remove('mb2034-settings-open');
+    hideClose();
+  };
+
+  const oldOpenShell=window.mb2034OpenSettingsShell;
+  window.mb2034OpenSettingsShell=function(){
+    try{ if(typeof oldOpenShell==='function') oldOpenShell(); }catch(e){}
+    const x=document.getElementById('mb2034SettingsClose');
+    if(x)x.style.display='block';
+  };
+
+  // If user leaves Settings with bottom nav, force-close any open settings modal.
+  document.addEventListener('click',function(e){
+    const nav=e.target.closest('.mb119-nav');
+    if(nav && nav.dataset && nav.dataset.view && nav.dataset.view!=='settings'){
+      window.mb2034CloseSettings();
+    }
+  },true);
+
+  // Make sure stale close button is hidden on initial load.
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',hideClose,{once:true});
+  }else{
+    hideClose();
+  }
+
+  // Build category content using the existing settings controls.
+  function addHeading(panel,title){
+    const h=document.createElement('h3');
+    h.textContent=title;
+    panel.appendChild(h);
+  }
+
+  function appendExisting(panel, ids){
+    let count=0;
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){
+        panel.appendChild(el.cloneNode(true));
+        count++;
+      }
+    });
+    return count;
+  }
+
+  const oldOpenSection=window.openSettingsSection;
+  window.openSettingsSection=function(name){
+    const panel=getPanel();
+    if(!panel)return;
+
+    // Appearance still uses the dedicated custom renderer because it includes
+    // Easy/Advanced Home and the color controls.
+    if(name==='appearance' && typeof showAppearance137==='function'){
+      showAppearance137();
+      return;
+    }
+
+    panel.innerHTML='';
+    if(typeof mb2034OpenSettingsShell==='function')mb2034OpenSettingsShell();
+
+    if(name==='bills'){
+      addHeading(panel,'Bills & Reminders');
+      let added=0;
+
+      // Reuse the legacy settings rows if they exist.
+      const selectors=[
+        '#settingsDlg .settings-row',
+        '#settingsDlg .settings-help',
+        '#settingsDlg .btn-row',
+        '#settingsDlg button'
+      ];
+      const source=document.getElementById('settingsDlg');
+      if(source){
+        const nodes=[...source.querySelectorAll('.settings-row')];
+        nodes.forEach(n=>{
+          const text=(n.textContent||'').toLowerCase();
+          if(text.includes('reminder') || text.includes('notification') || text.includes('bill')){
+            panel.appendChild(n.cloneNode(true)); added++;
+          }
+        });
+      }
+
+      // Pull newer reminder/bill setting blocks if present.
+      added += appendExisting(panel,[
+        'mb119ReminderSettings',
+        'mb119BillDefaults',
+        'mb137ReminderSettings',
+        'mb137BillSettings'
+      ]);
+
+      const save=document.createElement('button');
+      save.type='button';
+      save.className='primary';
+      save.textContent='Save Changes';
+      save.onclick=function(){
+        try{
+          if(typeof saveSettings==='function')saveSettings();
+          if(typeof mb2034CloseSettings==='function')mb2034CloseSettings();
+        }catch(e){}
+      };
+      panel.appendChild(save);
+
+      if(!added){
+        const note=document.createElement('div');
+        note.className='mb2035-empty-note';
+        note.textContent='Reminder and bill options are managed from the existing bill/reminder controls. This section will be expanded as we continue simplifying Settings.';
+        panel.insertBefore(note,save);
+      }
+      return;
+    }
+
+    if(name==='calendar'){
+      addHeading(panel,'Calendar & Defaults');
+      let added=0;
+      const source=document.getElementById('settingsDlg');
+      if(source){
+        [...source.querySelectorAll('.settings-row')].forEach(n=>{
+          const text=(n.textContent||'').toLowerCase();
+          if(text.includes('calendar') || text.includes('week') || text.includes('default') || text.includes('pay')){
+            panel.appendChild(n.cloneNode(true)); added++;
+          }
+        });
+      }
+      added += appendExisting(panel,[
+        'mb119CalendarSettings',
+        'mb119DefaultSettings',
+        'mb137CalendarSettings'
+      ]);
+
+      const save=document.createElement('button');
+      save.type='button';
+      save.className='primary';
+      save.textContent='Save Changes';
+      save.onclick=function(){
+        try{
+          if(typeof saveSettings==='function')saveSettings();
+          if(typeof mb2034CloseSettings==='function')mb2034CloseSettings();
+        }catch(e){}
+      };
+      panel.appendChild(save);
+
+      if(!added){
+        const note=document.createElement('div');
+        note.className='mb2035-empty-note';
+        note.textContent='Calendar and default options are still using the app’s original controls. They will be moved into this menu as we continue the cleanup.';
+        panel.insertBefore(note,save);
+      }
+      return;
+    }
+
+    if(name==='backup'){
+      addHeading(panel,'Backup & App');
+      let added=0;
+
+      // Clone the actual backup / restore controls from wherever they exist.
+      const allButtons=[...document.querySelectorAll('button')];
+      allButtons.forEach(btn=>{
+        const text=(btn.textContent||'').trim().toLowerCase();
+        if(text.includes('backup') || text.includes('restore')){
+          const clone=btn.cloneNode(true);
+          clone.onclick=btn.onclick;
+          panel.appendChild(clone);
+          added++;
+        }
+      });
+
+      // Add current app version.
+      const version=document.getElementById('mb119Version');
+      if(version){
+        const copy=version.cloneNode(true);
+        copy.removeAttribute('id');
+        panel.appendChild(copy);
+        added++;
+      }
+
+      if(!added){
+        const note=document.createElement('div');
+        note.className='mb2035-empty-note';
+        note.textContent='Backup and restore controls could not be found on this build.';
+        panel.appendChild(note);
+      }
+      return;
+    }
+
+    // fallback to old handler for any future category
+    if(typeof oldOpenSection==='function'){
+      try{return oldOpenSection(name)}catch(e){}
+    }
+  };
 })();
 </script>
 
