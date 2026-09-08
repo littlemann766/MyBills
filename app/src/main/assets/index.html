@@ -1,4 +1,4 @@
-<!-- 20.3.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.3 Ease-of-Use Home */
+/* 20.3.4 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.3 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.4 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -108,6 +108,75 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-buttons button{border:2px solid #117b91;background:#0b2447;color:#fff;border-radius:15px;padding:13px 8px;font-weight:900}
 .mb203-mode-buttons button.active{border-color:#16e4ea;box-shadow:0 0 0 2px rgba(22,228,234,.14) inset;color:#55f4f5}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
+</style>
+<style>
+/* 20.3.4 compact Settings pop-up menus */
+#mb123SettingsPanel{display:none}
+#mb123SettingsPanel.mb2034-modal-open{
+  display:block!important;
+  position:fixed!important;
+  z-index:10050!important;
+  left:14px!important;
+  right:14px!important;
+  top:7vh!important;
+  bottom:86px!important;
+  width:auto!important;
+  max-width:720px!important;
+  margin:0 auto!important;
+  padding:58px 16px 22px!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  background:#0d2a55!important;
+  border:3px solid #16e4ea!important;
+  border-radius:26px!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.55)!important;
+}
+body.mb2034-settings-open::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:10040;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(2px);
+}
+#mb123SettingsPanel.mb2034-modal-open > h3{
+  position:sticky;
+  top:-58px;
+  z-index:3;
+  margin:-58px -16px 16px!important;
+  padding:18px 58px 14px 18px;
+  background:#0d2a55;
+  border-bottom:2px solid rgba(22,228,234,.48);
+  font-size:1.35rem;
+}
+.mb2034-settings-close{
+  position:fixed;
+  z-index:10070;
+  top:calc(7vh + 10px);
+  right:28px;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  border:2px solid #16e4ea;
+  background:#0b2447;
+  color:#fff;
+  font-size:1.35rem;
+  font-weight:900;
+  line-height:1;
+}
+#mb119Settings .mb123-settings-nav{margin-bottom:14px}
+#mb119Settings .mb123-settings-nav button{min-height:86px}
+#mb119Settings > #mb119Version{display:flex!important}
+@media(max-width:600px){
+  #mb123SettingsPanel.mb2034-modal-open{
+    left:10px!important;
+    right:10px!important;
+    top:72px!important;
+    bottom:82px!important;
+    border-radius:22px!important;
+  }
+  .mb2034-settings-close{top:82px;right:22px}
+}
 </style>
 </head>
 <body>
@@ -7729,7 +7798,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7865,7 +7934,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.3</strong>
+      <strong>20.3.4</strong>
     </div>
   </section>
 </div>
@@ -7879,10 +7948,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.3';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.4';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=174, BUILD_NAME='20.3.3', BUILD_LABEL='20.3.3';
+  const BUILD_CODE=175, BUILD_NAME='20.3.4', BUILD_LABEL='20.3.4';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8141,7 +8210,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.3';
+  const VERSION='20.3.4';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8207,6 +8276,7 @@ function openAvailableNowSpendingV88(){
     const panel=document.getElementById('mb123SettingsPanel');
     if(!panel)return;
     panel.innerHTML='';
+    if(typeof mb2034OpenSettingsShell==='function')mb2034OpenSettingsShell();
     document.querySelectorAll('[data-mb123-settings]').forEach(b=>b.classList.toggle('active',b.dataset.mb123Settings===name));
 
     const sections=settingsSections();
@@ -8234,10 +8304,15 @@ function openAvailableNowSpendingV88(){
       if(sections['Save & Backup'])panel.appendChild(sections['Save & Backup']);
       if(sections['Android App Security'])panel.appendChild(sections['Android App Security']);
       const version=document.getElementById('mb119Version');
-      if(version)panel.appendChild(version);
+      if(version){
+        const copy=version.cloneNode(true);
+        copy.removeAttribute('id');
+        copy.classList.add('mb2034-version-copy');
+        panel.appendChild(copy);
+      }
     }
 
-    panel.scrollIntoView({block:'nearest',behavior:'smooth'});
+
   }
 
   function setupSettings(){
@@ -8325,7 +8400,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.3';
+  const VERSION='20.3.4';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8565,7 +8640,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.3';
+  const VERSION='20.3.4';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8789,6 +8864,7 @@ function openAvailableNowSpendingV88(){
     const panel=document.getElementById('mb123SettingsPanel');
     if(!panel)return;
     panel.innerHTML='';
+    if(typeof mb2034OpenSettingsShell==='function')mb2034OpenSettingsShell();
     const t=theme();
     const box=document.createElement('div');
     box.id='mb137Appearance';
@@ -8899,7 +8975,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9276,7 +9352,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.3 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.4 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9324,7 +9400,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.3 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.4 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -9583,6 +9659,53 @@ function openAvailableNowSpendingV88(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{applyHomeMode();setTimeout(refresh,250)},{once:true});
   else setTimeout(refresh,250);
   setInterval(refresh,1500);
+})();
+</script>
+
+
+<script id="mb2034-settings-popup-helper">
+(function(){
+  function panel(){return document.getElementById('mb123SettingsPanel')}
+  window.mb2034CloseSettings=function(){
+    const p=panel();
+    if(!p)return;
+    p.classList.remove('mb2034-modal-open');
+    document.body.classList.remove('mb2034-settings-open');
+    document.querySelectorAll('[data-mb123-settings]').forEach(b=>b.classList.remove('active'));
+  };
+  window.mb2034OpenSettingsShell=function(){
+    const p=panel();
+    if(!p)return;
+    p.classList.add('mb2034-modal-open');
+    document.body.classList.add('mb2034-settings-open');
+    let close=document.getElementById('mb2034SettingsClose');
+    if(!close){
+      close=document.createElement('button');
+      close.id='mb2034SettingsClose';
+      close.type='button';
+      close.className='mb2034-settings-close';
+      close.setAttribute('aria-label','Close settings menu');
+      close.textContent='×';
+      close.onclick=window.mb2034CloseSettings;
+      document.body.appendChild(close);
+    }
+    close.style.display='block';
+  };
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && document.body.classList.contains('mb2034-settings-open')){
+      mb2034CloseSettings();
+    }
+  });
+  document.addEventListener('click',e=>{
+    const p=panel();
+    if(!p)return;
+    if(document.body.classList.contains('mb2034-settings-open') &&
+       !p.contains(e.target) &&
+       !e.target.closest('[data-mb123-settings]') &&
+       !e.target.closest('#mb2034SettingsClose')){
+      mb2034CloseSettings();
+    }
+  });
 })();
 </script>
 
