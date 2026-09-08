@@ -1,4 +1,4 @@
-<!-- 20.3.0 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.2 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +59,36 @@
 
 
 
+<style>
+/* 20.3.2 Ease-of-Use Home */
+.mb203-home{display:grid;gap:14px;margin-top:12px}
+.mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
+.mb203-hero{padding:24px}
+.mb203-kicker,.mb203-safe span{font-size:.78rem;font-weight:900;letter-spacing:.08em;color:#55f4f5}
+.mb203-hero-value{font-size:2.65rem;font-weight:950;line-height:1.05;margin:7px 0}
+.mb203-help,.mb203-stat small,.mb203-safe small,.mb203-section-head p{display:block;color:#d8e0ee;font-size:.88rem;line-height:1.3}
+.mb203-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mb203-stat{min-width:0;text-align:left;background:#0d2a55;color:#fff;border:3px solid #16e4ea;border-radius:22px;padding:17px}
+.mb203-stat span{display:block;font-weight:800;font-size:.95rem}
+.mb203-stat b{display:block;font-size:1.65rem;margin:5px 0}
+.mb203-safe{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.mb203-safe>div{min-width:0}.mb203-safe b{font-size:2rem;white-space:nowrap}
+.mb203-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.mb203-actions button,.mb203-section-head button,.mb203-detail-actions button{background:#0b2447;border:2px solid #117b91;color:#fff;border-radius:16px;font-weight:850;padding:14px 8px}
+.mb203-coming{padding:18px}
+.mb203-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.mb203-section-head h3{margin:0;font-size:1.35rem}.mb203-section-head p{margin:3px 0 0}
+.mb203-event{display:flex;align-items:center;gap:12px;padding:13px 2px;border-top:1px solid rgba(255,255,255,.14)}
+.mb203-event:first-child{border-top:0}.mb203-event-date{width:58px;flex:0 0 58px;text-align:center;font-weight:900;color:#55f4f5}
+.mb203-event-main{min-width:0;flex:1}.mb203-event-main b,.mb203-event-main small{display:block}.mb203-event-main small{color:#cbd5e1;margin-top:2px}
+.mb203-event-amount{font-weight:950;white-space:nowrap}.mb203-pay .mb203-event-amount{color:#78f0aa}
+.mb203-empty{padding:14px 2px;color:#d8e0ee}
+.mb203-details summary{font-weight:900;cursor:pointer}.mb203-detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+body.mb-home-easy #mb119HomeMount{display:none!important}
+body.mb-home-advanced #mb203HomeDashboard{display:none!important}
+body.mb-home-advanced #mb119HomeMount{display:block!important}
+@media(max-width:480px){.mb203-grid{grid-template-columns:1fr 1fr}.mb203-hero-value{font-size:2.35rem}.mb203-actions button{font-size:.82rem;padding:13px 4px}.mb203-safe{align-items:flex-start;flex-direction:column}.mb203-safe b{font-size:1.8rem}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2507,7 +2537,7 @@ function deleteBill(id){if(appSettings.confirmDelete!==false && !confirm('Delete
 function clearAll(){if(!bills.length)return;if(appSettings.confirmClearAll!==false && !confirm('Delete all bills? This cannot be undone.'))return;bills=[];save();setUnsaved();render();renderCalendar()}
 
 const SETTINGS_KEY='myBills_settings_v2';
-let appSettings={theme:'light',textSize:'normal',cardDensity:'comfortable',notificationsEnabled:false,reminderNotificationsEnabled:true,notificationDays:3,notificationTime:'09:00',notificationVibrate:true,notificationSound:'default',defaultBillNotify:false,defaultBillDays:3,defaultBillTime:'09:00',defaultBillSound:'default',defaultBillVibrate:true,calendarRangeDefault:1,showCalendarPaid:true,showCalendarPaychecks:true,showCalendarReminders:true,confirmDelete:true,confirmClearAll:true};
+let appSettings={homeMode:'easy',theme:'light',textSize:'normal',cardDensity:'comfortable',notificationsEnabled:false,reminderNotificationsEnabled:true,notificationDays:3,notificationTime:'09:00',notificationVibrate:true,notificationSound:'default',defaultBillNotify:false,defaultBillDays:3,defaultBillTime:'09:00',defaultBillSound:'default',defaultBillVibrate:true,calendarRangeDefault:1,showCalendarPaid:true,showCalendarPaychecks:true,showCalendarReminders:true,confirmDelete:true,confirmClearAll:true};
 
 function loadSettings(){
   try{appSettings={...appSettings,...JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}}catch(e){}
@@ -2515,7 +2545,16 @@ function loadSettings(){
   const rs=$('rangeSelect'); if(rs)rs.value=String(calendarRange);
   applyTheme();
 }
+function applyHomeMode(){
+  const mode=appSettings.homeMode==='advanced'?'advanced':'easy';
+  document.body.classList.toggle('mb-home-easy',mode==='easy');
+  document.body.classList.toggle('mb-home-advanced',mode==='advanced');
+  const select=$('homeModeSelect');
+  if(select) select.value=mode;
+  if(mode==='easy' && typeof refreshEaseHome2031==='function') setTimeout(refreshEaseHome2031,0);
+}
 function applyTheme(){
+  applyHomeMode();
   const systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.body.classList.toggle('theme-dark',appSettings.theme==='dark'||(appSettings.theme==='system'&&systemDark));
   document.body.classList.toggle('text-small',appSettings.textSize==='small');
@@ -2594,6 +2633,7 @@ function testNotification(){
 }
 
 function openSettings(){
+  if($('homeModeSelect')) $('homeModeSelect').value=appSettings.homeMode==='advanced'?'advanced':'easy';
   $('themeSelect').value=appSettings.theme||'light';
   $('textSizeSelect').value=appSettings.textSize||'normal';
   $('cardDensitySelect').value=appSettings.cardDensity||'comfortable';
@@ -2619,6 +2659,7 @@ function openSettings(){
   if(dlg) dlg.showModal();
 }
 function saveSettings(){
+  appSettings.homeMode=($('homeModeSelect')&&$('homeModeSelect').value==='advanced')?'advanced':'easy';
   appSettings.theme=$('themeSelect').value;
   appSettings.textSize=$('textSizeSelect').value||'normal';
   appSettings.cardDensity=$('cardDensitySelect').value||'comfortable';
@@ -2914,6 +2955,18 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
     <div class="settings-section">
       <h3>Appearance</h3>
       <div class="settings-help">Choose how My Bills looks. Dark mode automatically changes text and cards for easy visibility.</div>
+
+      <div class="settings-row mb-home-mode-row">
+        <div>
+          <label for="homeModeSelect">Home screen</label>
+          <div class="settings-help" style="margin-top:4px">Easy keeps Home simple. Advanced shows the full dashboard with all of your numbers and shortcuts.</div>
+        </div>
+        <select id="homeModeSelect" onchange="appSettings.homeMode=this.value==='advanced'?'advanced':'easy';applyHomeMode()">
+          <option value="easy">Easy</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+
       <div class="settings-row">
         <label for="themeSelect">Theme</label>
         <select id="themeSelect">
@@ -7656,7 +7709,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.0 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.2 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -7668,6 +7721,55 @@ function openAvailableNowSpendingV88(){
     <h2 class="mb119-title">Home</h2>
     <div class="mb119-sub">Your important numbers at a glance.</div>
     <div id="mb119HomeMount"></div>
+
+    <div id="mb203HomeDashboard" class="mb203-home">
+      <div class="mb203-hero">
+        <div class="mb203-kicker">AVAILABLE NOW</div>
+        <div id="mb203Available" class="mb203-hero-value">$0.00</div>
+        <div class="mb203-help">Money available from the budget you entered, after paid bills and spending.</div>
+      </div>
+
+      <div class="mb203-grid">
+        <button class="mb203-stat" type="button" onclick="openPaycheckPlanner()">
+          <span>Bills Before Payday</span><b id="mb203BillsBefore">$0.00</b>
+          <small id="mb203BillsBeforeMeta">Upcoming unpaid bills</small>
+        </button>
+        <button class="mb203-stat" type="button" onclick="openPaycheckForm()">
+          <span>Next Paycheck</span><b id="mb203NextPay">$0.00</b>
+          <small id="mb203NextPayMeta">Add a paycheck schedule</small>
+        </button>
+      </div>
+
+      <div class="mb203-safe">
+        <div><span>SAFE TO SPEND</span><small>Available now minus bills due before payday</small></div>
+        <b id="mb203Safe">$0.00</b>
+      </div>
+
+      <div class="mb203-actions">
+        <button type="button" onclick="openForm()">＋ Add Bill</button>
+        <button type="button" onclick="document.querySelector('.mb119-nav[data-view=&quot;spending&quot;]')?.click()">− Spending</button>
+        <button type="button" onclick="openPaycheckForm()">＋ Income</button>
+      </div>
+
+      <section class="mb203-coming">
+        <div class="mb203-section-head">
+          <div><h3>Coming Up</h3><p>Bills and paydays in one simple timeline.</p></div>
+          <button type="button" onclick="document.querySelector('.mb119-nav[data-view=&quot;calendar&quot;]')?.click()">Calendar</button>
+        </div>
+        <div id="mb203Timeline"></div>
+      </section>
+
+      <details class="mb203-details">
+        <summary>More details</summary>
+        <div class="mb203-detail-actions">
+          <button type="button" onclick="showHoursWeeks()">Work Hours</button>
+          <button type="button" onclick="showYTDIncome()">YTD Income</button>
+          <button type="button" onclick="showFinancialSnapshot()">Monthly Snapshot</button>
+          <button type="button" onclick="openBudgetDlg()">Budget</button>
+        </div>
+      </details>
+    </div>
+
     <section id="mb119Tips" class="mb119-card">
       <div class="mb119-tip-kicker" id="mb142TipKicker">💡 Smart Money Tip</div>
       <h3 id="mb119TipTitle">Protect your breathing room</h3>
@@ -7743,7 +7845,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.0</strong>
+      <strong>20.3.2</strong>
     </div>
   </section>
 </div>
@@ -7757,10 +7859,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.0';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.2';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=170, BUILD_NAME='20.3.0', BUILD_LABEL='20.3.0';
+  const BUILD_CODE=173, BUILD_NAME='20.3.2', BUILD_LABEL='20.3.2';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8019,7 +8121,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.0';
+  const VERSION='20.3.2';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8203,7 +8305,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.0';
+  const VERSION='20.3.2';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8443,7 +8545,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.0';
+  const VERSION='20.3.2';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -8750,7 +8852,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.0: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.2: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9127,7 +9229,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.0 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.2 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9175,7 +9277,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.0 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.2 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -9349,6 +9451,91 @@ function openAvailableNowSpendingV88(){
     if(changed)save(rows);
   }
   normalize();
+})();
+</script>
+
+
+<script id="mb-2031-home-script">
+(function(){
+  const $=id=>document.getElementById(id);
+  const cash=n=>typeof money==='function'?money(Number(n)||0):'$'+(Number(n)||0).toFixed(2);
+  const iso=d=>typeof toISO==='function'?toISO(d):d.toISOString().slice(0,10);
+  const dayLabel=s=>new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const longLabel=s=>new Date(s+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+  function availableNow(){
+    try{
+      const d=new Date(), y=d.getFullYear(), m=d.getMonth();
+      if(typeof myBillsActualNowV99==='function'){
+        const x=myBillsActualNowV99(y,m);
+        if(x && Number.isFinite(Number(x.left))) return Number(x.left);
+      }
+    }catch(e){}
+    return 0;
+  }
+
+  function nextPay(){
+    try{
+      const n=nextPaycheckAfter(iso(new Date()));
+      return n||null;
+    }catch(e){return null}
+  }
+
+  function unpaidBillsBetween(startIso,endIso){
+    const rows=[];
+    try{
+      const start=new Date(startIso+'T00:00:00'), end=new Date(endIso+'T00:00:00');
+      for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+        const di=iso(d);
+        bills.forEach(b=>{
+          if(isRecurringOnDate(b,d) && !billOccurrenceDeleted(b,di)){
+            const rem=Math.max(0,(Number(b.amount)||0)-(Number(billPaidAmount(b,di))||0));
+            if(rem>0)rows.push({type:'bill',iso:di,name:b.name||'Bill',amount:rem});
+          }
+        });
+      }
+    }catch(e){}
+    return rows;
+  }
+
+  function timeline(){
+    const today=iso(new Date()), end=new Date(); end.setDate(end.getDate()+35);
+    const rows=unpaidBillsBetween(today,iso(end));
+    try{
+      paycheckOccurrencesThrough(end).forEach(x=>{
+        if(x.iso>=today && !paycheckOccurrenceDeleted(x.p,x.iso))
+          rows.push({type:'pay',iso:x.iso,name:'Payday',amount:Number(x.amount)||0});
+      });
+    }catch(e){}
+    rows.sort((a,b)=>a.iso.localeCompare(b.iso)||(a.type==='pay'?-1:1));
+    return rows.slice(0,7);
+  }
+
+  function refresh(){
+    if(!$('mb203HomeDashboard'))return;
+    const avail=availableNow(), next=nextPay(), today=iso(new Date());
+    let due=0;
+    if(next) due=unpaidBillsBetween(today,next.iso).reduce((s,x)=>s+x.amount,0);
+    $('mb203Available').textContent=cash(avail);
+    $('mb203BillsBefore').textContent=cash(due);
+    $('mb203BillsBeforeMeta').textContent=next?'Due through '+longLabel(next.iso):'Add a paycheck to calculate this';
+    $('mb203NextPay').textContent=next?cash(next.amount):'—';
+    $('mb203NextPayMeta').textContent=next?longLabel(next.iso):'Add a paycheck schedule';
+    $('mb203Safe').textContent=cash(avail-due);
+
+    const box=$('mb203Timeline'), rows=timeline();
+    box.innerHTML=rows.length?rows.map(x=>`
+      <div class="mb203-event ${x.type==='pay'?'mb203-pay':''}">
+        <div class="mb203-event-date">${dayLabel(x.iso)}</div>
+        <div class="mb203-event-main"><b>${x.type==='pay'?'💵 Payday':'▤ '+String(x.name).replace(/[<>&"]/g,'')}</b><small>${x.type==='pay'?'Money coming in':'Upcoming bill'}</small></div>
+        <div class="mb203-event-amount">${x.type==='pay'?'+':'−'}${cash(x.amount)}</div>
+      </div>`).join(''):'<div class="mb203-empty">Nothing scheduled in the next 35 days.</div>';
+  }
+
+  window.refreshEaseHome2031=refresh;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{applyHomeMode();setTimeout(refresh,250)},{once:true});
+  else setTimeout(refresh,250);
+  setInterval(refresh,1500);
 })();
 </script>
 
