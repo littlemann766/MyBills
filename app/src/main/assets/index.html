@@ -1,4 +1,4 @@
-<!-- 20.4.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.4.4 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.4.3 Ease-of-Use Home */
+/* 20.4.4 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.4.3 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.4.4 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.4.3 compact Settings pop-up menus */
+/* 20.4.4 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.4.3 settings modal reliability fixes */
+/* 20.4.4 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.4.3 — unified themed dialogs / menus */
+/* 20.4.4 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.3 cleanup */
+/* 20.4.4 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.3 readability cleanup */
+/* 20.4.4 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.4.3 settings modal reopen fix */
+/* 20.4.4 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -559,7 +559,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.4.3 — final Ease-of-Use cleanup */
+/* 20.4.4 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -668,7 +668,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.4.3 — Safe to Spend modal styling + scrolling repair */
+/* 20.4.4 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -797,7 +797,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.4.3 — Can I Afford This? */
+/* 20.4.4 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -940,7 +940,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2043-payday-health-css">
-/* 20.4.3 — Payday Health meter */
+/* 20.4.4 — Payday Health meter */
 #mb2043HealthCard{
   margin:14px 0;
   width:100%;
@@ -1077,6 +1077,170 @@ body.mb-high-contrast .settings-section{
     margin:16px -16px -16px!important;
     padding:12px 16px 14px!important;
   }
+}
+</style>
+
+
+<style id="mb2044-real-meter-css">
+/* 20.4.4 — Payday Health redesigned as a true gauge/meter */
+#mb2043HealthCard{
+  display:block!important;
+  width:100%!important;
+  min-height:0!important;
+  padding:18px 18px 16px!important;
+  margin:14px 0!important;
+  overflow:visible!important;
+  border:3px solid #16e4ea!important;
+  border-radius:22px!important;
+  background:#0d2a55!important;
+  color:#fff!important;
+  box-sizing:border-box!important;
+}
+#mb2043HealthTop{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  margin-bottom:18px!important;
+}
+#mb2043HealthTop .title{
+  font-size:1rem!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+#mb2043HealthStatus{
+  font-size:.95rem!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+
+#mb2043HealthBarWrap{
+  position:relative!important;
+  padding:34px 4px 0!important;
+  margin:0!important;
+  min-height:92px!important;
+  overflow:visible!important;
+}
+#mb2043HealthBar{
+  position:relative!important;
+  width:100%!important;
+  height:28px!important;
+  border-radius:999px!important;
+  background:linear-gradient(
+    90deg,
+    #d82929 0%,
+    #f26b22 20%,
+    #f3c623 48%,
+    #a9d83d 70%,
+    #2aa84a 100%
+  )!important;
+  border:3px solid rgba(255,255,255,.78)!important;
+  box-shadow:
+    inset 0 2px 7px rgba(0,0,0,.28),
+    0 4px 12px rgba(0,0,0,.24)!important;
+  overflow:hidden!important;
+}
+
+#mb2043HealthMarker{
+  position:absolute!important;
+  top:0!important;
+  width:0!important;
+  height:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  transform:translateX(-50%)!important;
+  z-index:5!important;
+}
+#mb2043HealthMarker::before{
+  content:attr(data-label)!important;
+  position:absolute!important;
+  left:50%!important;
+  bottom:12px!important;
+  transform:translateX(-50%)!important;
+  min-width:92px!important;
+  padding:8px 12px!important;
+  border-radius:12px!important;
+  background:var(--mb2044-marker-bg,#2aa84a)!important;
+  color:#fff!important;
+  text-align:center!important;
+  font-size:.78rem!important;
+  font-weight:900!important;
+  letter-spacing:.02em!important;
+  white-space:nowrap!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.28)!important;
+}
+#mb2043HealthMarker::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  bottom:2px!important;
+  transform:translateX(-50%)!important;
+  border-left:8px solid transparent!important;
+  border-right:8px solid transparent!important;
+  border-top:10px solid var(--mb2044-marker-bg,#2aa84a)!important;
+}
+#mb2043HealthMarker[data-zone="red"]{--mb2044-marker-bg:#d82929}
+#mb2043HealthMarker[data-zone="yellow"]{--mb2044-marker-bg:#d6a91d}
+#mb2043HealthMarker[data-zone="green"]{--mb2044-marker-bg:#2aa84a}
+#mb2043HealthMarker[data-zone="unknown"]{--mb2044-marker-bg:#5f6f86}
+
+#mb2043HealthLabels{
+  display:grid!important;
+  grid-template-columns:1fr 1fr 1fr!important;
+  width:100%!important;
+  margin-top:10px!important;
+  gap:4px!important;
+  color:#fff!important;
+  font-size:.72rem!important;
+  font-weight:900!important;
+  line-height:1.15!important;
+}
+#mb2043HealthLabels span:nth-child(1){text-align:left!important}
+#mb2043HealthLabels span:nth-child(2){text-align:center!important}
+#mb2043HealthLabels span:nth-child(3){text-align:right!important}
+
+#mb2043HealthMoney{
+  margin-top:14px!important;
+  font-size:1.15rem!important;
+  font-weight:900!important;
+  line-height:1.25!important;
+}
+#mb2043HealthExplain{
+  display:block!important;
+  margin-top:5px!important;
+  max-width:none!important;
+  color:#d8e0ee!important;
+  font-size:.9rem!important;
+  line-height:1.35!important;
+  text-align:left!important;
+  white-space:normal!important;
+}
+
+body.mb-home-easy #mb2043HealthCard{
+  padding:16px!important;
+}
+body.mb-home-easy #mb2043HealthExplain{
+  font-size:.88rem!important;
+}
+
+@media(max-width:600px){
+  #mb2043HealthTop{
+    align-items:flex-start!important;
+    margin-bottom:16px!important;
+  }
+  #mb2043HealthTop .title{font-size:.95rem!important}
+  #mb2043HealthStatus{font-size:.84rem!important}
+  #mb2043HealthBarWrap{
+    padding-top:34px!important;
+    min-height:88px!important;
+  }
+  #mb2043HealthBar{height:26px!important}
+  #mb2043HealthMarker::before{
+    min-width:82px!important;
+    padding:7px 9px!important;
+    font-size:.72rem!important;
+  }
+  #mb2043HealthLabels{font-size:.66rem!important}
 }
 </style>
 
@@ -8701,7 +8865,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.4.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.4.4 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8837,7 +9001,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.4.3</strong>
+      <strong>20.4.4</strong>
     </div>
   </section>
 </div>
@@ -8851,10 +9015,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.3';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.4.4';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=188, BUILD_NAME='20.4.3', BUILD_LABEL='20.4.3';
+  const BUILD_CODE=189, BUILD_NAME='20.4.4', BUILD_LABEL='20.4.4';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9113,7 +9277,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.4.3';
+  const VERSION='20.4.4';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9303,7 +9467,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.4.3';
+  const VERSION='20.4.4';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9543,7 +9707,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.4.3';
+  const VERSION='20.4.4';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9878,7 +10042,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.4.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.4.4: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -10255,7 +10419,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.4.3 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.4.4 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -10303,7 +10467,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.4.3 — resumable first-run setup + PIN Lock opt-in */
+/* 20.4.4 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11594,7 +11758,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.3');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.4.4');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11801,7 +11965,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.4.3</strong>
+        <strong>20.4.4</strong>
       </div>
       ${done()}`);
 
@@ -12462,6 +12626,45 @@ body.mb-high-contrast textarea{border-width:2px!important}
   } else setTimeout(ensureCard,250);
 
   setInterval(refreshCard,1500);
+})();
+</script>
+
+
+<script id="mb2044-real-meter-js">
+(function(){
+  function updateTrueMeter(){
+    try{
+      if(typeof calc!=='function')return;
+    }catch(e){}
+
+    const marker=document.getElementById('mb2043HealthMarker');
+    const status=document.getElementById('mb2043HealthStatus');
+    if(!marker || !status)return;
+
+    // Read the current text/status produced by the existing 20.4.3 engine.
+    const label=(status.textContent||'').trim().toUpperCase();
+    let zone='unknown';
+    if(label.includes('SHORT')) zone='red';
+    else if(label.includes('TIGHT')) zone='yellow';
+    else if(label.includes('GOOD')) zone='green';
+
+    marker.dataset.zone=zone;
+    marker.dataset.label=label || 'CHECKING';
+  }
+
+  // Patch the existing refresh function's visible marker with the bubble label.
+  const observer=new MutationObserver(updateTrueMeter);
+
+  function boot(){
+    const status=document.getElementById('mb2043HealthStatus');
+    if(status) observer.observe(status,{childList:true,subtree:true,characterData:true});
+    updateTrueMeter();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,400));
+  else setTimeout(boot,400);
+
+  setInterval(updateTrueMeter,1500);
 })();
 </script>
 
