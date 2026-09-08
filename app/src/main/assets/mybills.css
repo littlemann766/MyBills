@@ -1,0 +1,2350 @@
+/* ===== legacy-style-1 ===== */
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f3f4f6;color:#111827}
+.app{max-width:720px;margin:auto;padding:18px 16px calc(190px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{margin:0;font-size:28px}.sub{color:#6b7280;font-size:14px;margin-top:3px}
+button{border:0;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer}
+.primary{background:#111827;color:white}.save-status{font-size:12px;color:#6b7280;margin-left:8px}.unsaved{color:#b45309;font-weight:700}.saved{color:#15803d;font-weight:700}.danger{background:#fee2e2;color:#991b1b}.ghost{background:#e5e7eb;color:#111827}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.card{background:white;border-radius:16px;padding:15px;box-shadow:0 2px 10px #0000000b}.label{font-size:13px;color:#6b7280}.value{font-size:24px;font-weight:800;margin-top:5px}
+.next{margin-bottom:18px}.next .value{font-size:18px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-head h2{font-size:19px;margin:0}
+.bill{background:white;border-radius:16px;padding:14px;margin:9px 0;display:flex;gap:12px;align-items:center;box-shadow:0 2px 10px #0000000b}
+.bill.done{opacity:.62}.bill{user-select:none;-webkit-user-select:none}.bill:active{transform:scale(.995)}.dot{width:12px;height:12px;border-radius:50%;background:#f59e0b;flex:none}.done .dot{background:#22c55e}
+.billmain{flex:1;min-width:0}.name{font-weight:800}.meta{font-size:13px;color:#6b7280;margin-top:3px}.amount{font-weight:800;white-space:nowrap}
+.actions{display:flex;gap:6px;margin-top:9px}.actions button{padding:7px 9px;font-size:12px}
+.empty{background:white;border-radius:16px;padding:25px;text-align:center;color:#6b7280}
+dialog{border:0;border-radius:18px;width:min(92%,480px);padding:0;box-shadow:0 20px 70px #0005}dialog::backdrop{background:#0008}
+.form{padding:20px}.form h2{margin-top:0}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:13px;font-weight:700;margin:10px 0 5px}input{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;font-size:16px}
+.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.check{display:flex;align-items:center;gap:8px;margin-top:12px}.check input{width:auto}
+@media(min-width:600px){.cards{grid-template-columns:repeat(4,1fr)}}
+
+.calendar-wrap{background:white;border-radius:16px;padding:14px;margin-bottom:18px;box-shadow:0 2px 10px #0000000b}
+.calendar-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:42px;flex-wrap:wrap}
+.calendar-title{display:none}
+.calendar-nav{display:flex;gap:6px}
+.calendar-nav button{padding:7px 10px}
+#calendarGrid{display:block}.calendar-month{margin-bottom:18px}.calendar-month:last-child{margin-bottom:0}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.calendar-month-name{text-align:center;font-size:18px;font-weight:800;margin:8px 0 9px}
+.cal-weekday{text-align:center;font-size:11px;font-weight:800;color:#6b7280;padding:5px 0}
+.cal-day{min-height:58px;border:1px solid #eef0f3;border-radius:10px;padding:5px;background:#fafafa;cursor:pointer;overflow:hidden}
+.cal-day.muted{opacity:.42}
+.cal-day.today{outline:2px solid #111827;outline-offset:-2px}.cal-day.partial-payment{border:3px solid #dc2626}.cal-day.overpaid-payment{border:3px solid #16a34a}.bill.partial{border:2px solid #dc2626}
+.cal-num{font-size:11px;font-weight:800}
+.cal-event{font-size:10px;font-weight:800;color:white;border-radius:6px;padding:3px 4px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;background:#f3f4f6;margin-top:10px;padding:9px 11px;border-radius:10px}
+.legend{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;background:#f9fafb;border-radius:9px;padding:6px 7px}.color-actions{display:flex;gap:4px}.mini-btn{padding:5px 7px;font-size:11px;background:#e5e7eb;border-radius:8px}
+.color-input{width:28px;height:28px;padding:2px;border:0;background:transparent;cursor:pointer}
+.calendar-help{font-size:12px;color:#6b7280;margin-top:7px}.cal-hours{font-size:10px;font-weight:800;color:#111827;background:#e5e7eb;border-radius:6px;padding:3px 4px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.week-total{font-size:12px;color:#6b7280;margin-top:8px}
+@media(max-width:430px){.cal-day{min-height:52px;padding:4px}.cal-event{font-size:9px}.calendar-title{font-size:16px}}
+
+.hours-button-wrap{text-align:center;margin:12px 0 18px}.hours-button-wrap button{min-width:150px}.wage-note{font-size:12px;color:#6b7280;margin-top:6px}
+
+#color{width:100%;height:48px;padding:4px;border:1px solid #d1d5db;border-radius:10px;background:white;cursor:pointer}
+
+.top{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}
+#topAdd{display:inline-block!important;visibility:visible!important;opacity:1!important;flex:0 0 auto}
+@media(max-width:430px){
+  .top{align-items:flex-start!important}
+  #topAdd{padding:10px 12px!important;font-size:13px!important}
+}
+
+
+:root{
+  --bg:#f3f4f6; --surface:#ffffff; --surface-2:#f9fafb; --text:#111827;
+  --muted:#6b7280; --border:#e5e7eb; --button:#111827; --button-text:#ffffff;
+  --ghost:#e5e7eb; --danger-bg:#fee2e2; --danger-text:#991b1b;
+}
+body{background:var(--bg)!important;color:var(--text)!important}
+.card,.calendar-wrap,.bill,.empty,.backup-card,dialog .form{background:var(--surface)!important;color:var(--text)!important}
+.label,.meta,.sub,.calendar-help,.week-total,.wage-note{color:var(--muted)!important}
+.ghost{background:var(--ghost)!important;color:var(--text)!important}
+.primary{background:var(--button)!important;color:var(--button-text)!important}
+.danger{background:var(--danger-bg)!important;color:var(--danger-text)!important}
+.cal-day{background:var(--surface-2)!important;border-color:var(--border)!important}
+input,select{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}
+body.theme-dark{
+  --bg:#0f1115; --surface:#191c22; --surface-2:#15181d; --text:#f5f7fb;
+  --muted:#a7afbd; --border:#343a46; --button:#f5f7fb; --button-text:#111827;
+  --ghost:#2a2f38; --danger-bg:#4b1f24; --danger-text:#ffd7db;
+}
+body.theme-dark .cal-event{color:white!important}
+body.theme-dark dialog::backdrop{background:#000b}
+.settings-fab{position:fixed;right:18px;bottom:calc(82px + env(safe-area-inset-bottom));z-index:40;width:52px;height:52px;border-radius:50%;font-size:23px;box-shadow:0 8px 24px #0003}
+.settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0}
+.settings-row label{margin:0;flex:1}
+.settings-row select,.settings-row input{width:auto;min-width:130px}
+
+
+.split-card{padding:0!important;display:grid!important;grid-template-columns:1fr 1fr;overflow:hidden}
+.split-card .split-half{padding:15px;cursor:pointer;min-width:0}
+.split-card .split-half+ .split-half{border-left:1px solid var(--border,#e5e7eb)}
+.split-card .split-half:active{background:var(--surface-2,#f9fafb)}
+.week-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.week-stat{background:var(--surface-2,#f9fafb);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:12px}
+.week-stat .value{font-size:22px}
+.week-row{display:flex;align-items:center;gap:10px;padding:11px 12px;margin:6px 0;border-radius:12px;background:var(--surface-2,#f9fafb);border:1px solid var(--border,#e5e7eb)}
+.week-row .billmain{flex:1}
+.weekend-hidden .weekend-row{display:none}
+@media(max-width:430px){.split-card .split-half{padding:13px}.split-card .value{font-size:20px}}
+
+
+.calendar-week-tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:2px 0 10px;
+  margin:0 0 8px;
+  scrollbar-width:none;
+}
+.calendar-week-tabs::-webkit-scrollbar{display:none}
+.calendar-week-tab{
+  flex:0 0 auto;
+  border:1px solid var(--border,#e5e7eb);
+  background:var(--surface-2,#f9fafb);
+  color:var(--text,#111827);
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:12px;
+  font-weight:800;
+}
+.calendar-week-tab.active{
+  background:var(--button,#111827);
+  color:var(--button-text,#fff);
+  border-color:var(--button,#111827);
+}
+
+
+.reminder-event{background:#7c3aed!important}
+
+/* ===== legacy-style-2 ===== */
+/* v31: keep dashboard sections together; do not stretch quick actions toward bottom */
+.app{justify-content:flex-start!important;}
+.quick-actions{margin-top:22px!important;}
+
+/* ===== legacy-style-3 ===== */
+/* v32: compact dashboard spacing */
+.top{min-height:0!important;height:auto!important;}
+.app{min-height:0!important;height:auto!important;justify-content:flex-start!important;}
+.actions{
+  margin-top:18px!important;
+  padding-top:0!important;
+  position:static!important;
+  transform:none!important;
+}
+
+/* ===== legacy-style-4 ===== */
+/* v34: keep quick-action buttons tight below Current Week Hours */
+.quick-actions{margin:8px 0 14px!important;}
+.top{margin-bottom:0!important;padding-bottom:0!important;}
+/* v36: lower top content further so the page title clears the fixed app header */
+.app{padding-top:118px!important;}
+
+/* ===== legacy-style-5 ===== */
+/* v37 settings menu */
+.settings-section{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  border-radius:14px;
+  padding:14px;
+  margin:12px 0;
+}
+.settings-section h3{
+  margin:0 0 6px;
+  font-size:16px;
+}
+.settings-help{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin:3px 0 10px;
+}
+.settings-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:12px 0;
+}
+.settings-row label{
+  margin:0;
+  flex:1;
+  font-size:14px;
+}
+.settings-row select,.settings-row input{
+  width:auto;
+  min-width:145px;
+  max-width:55%;
+}
+.settings-switch{
+  width:22px!important;
+  min-width:22px!important;
+  height:22px;
+}
+.settings-test{
+  width:100%;
+  margin-top:8px;
+}
+#settingsStatus{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:8px;
+  min-height:18px;
+}
+
+.date-bill-group{margin:12px 0 18px;}
+.date-bill-header{
+  text-align:left;
+  font-size:14px;
+  font-weight:800;
+  color:var(--text,#111827);
+  padding:4px 2px 7px;
+  border-bottom:1px solid var(--border,#e5e7eb);
+  margin-bottom:8px;
+}
+.date-bill-group:first-child{margin-top:4px;}
+
+.notification-options{
+  margin-top:10px;
+  padding:12px;
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:12px;
+  background:var(--surface-2,#f9fafb);
+}
+.notification-options.disabled{opacity:.55}
+.notification-options select,.notification-options input[type="time"]{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border,#d1d5db);
+  border-radius:10px;
+  font-size:16px;
+}
+
+/* ===== legacy-style-6 ===== */
+/* v40: keep every modal/menu clear of the fixed app header and bottom controls */
+dialog{
+  top:calc(112px + env(safe-area-inset-top))!important;
+  bottom:calc(88px + env(safe-area-inset-bottom))!important;
+  margin:auto!important;
+  max-height:calc(100dvh - 200px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+  overflow:hidden!important;
+}
+dialog .form{
+  max-height:calc(100dvh - 200px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding-top:24px!important;
+  padding-bottom:28px!important;
+}
+@supports not (height:100dvh){
+  dialog{max-height:calc(100vh - 200px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important}
+  dialog .form{max-height:calc(100vh - 200px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important}
+}
+@media(max-height:700px){
+  dialog{
+    top:calc(100px + env(safe-area-inset-top))!important;
+    bottom:calc(76px + env(safe-area-inset-bottom))!important;
+    max-height:calc(100dvh - 176px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+  }
+  dialog .form{max-height:calc(100dvh - 176px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important}
+}
+
+/* ===== legacy-style-7 ===== */
+/* v42: compact three-dot bill edit controls in bill-list menus */
+.bill-menu-card{position:relative;padding-right:52px!important;}
+.bill-menu-dots{position:absolute;top:10px;right:10px;width:38px;height:38px;padding:0!important;border-radius:50%!important;font-size:26px!important;line-height:34px!important;background:var(--ghost,#e5e7eb)!important;color:var(--text,#111827)!important;display:flex;align-items:center;justify-content:center;}
+.bill-menu-card .amount{margin-right:2px;}
+
+/* ===== legacy-style-8 ===== */
+/* v44: uniform bill controls, modal close bubbles, safer scrolling, grouped main bill dates, calculator */
+.bill-menu-dots{width:32px!important;height:32px!important;top:10px!important;right:10px!important;font-size:21px!important;line-height:30px!important;}
+.bill-menu-card{padding-right:48px!important;}
+.bill-paid-menu-btn{min-width:62px!important;height:38px!important;padding:0 10px!important;border-radius:12px!important;font-size:13px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+.main-bill-date{font-size:16px;font-weight:800;margin:18px 4px 7px;padding:0 4px 8px;border-bottom:1px solid var(--border,#e5e7eb);text-align:left;}
+.main-bill-date:first-child{margin-top:4px;}
+
+dialog{position:fixed!important;overflow:hidden!important;}
+dialog .form{padding-top:30px!important;padding-bottom:88px!important;scroll-padding-top:24px;scroll-padding-bottom:88px;overscroll-behavior:contain;}
+.dialog-close-x{position:absolute;top:10px;right:10px;z-index:100;width:34px;height:34px;padding:0!important;border-radius:50%!important;background:var(--ghost,#e5e7eb)!important;color:var(--text,#111827)!important;font-size:21px!important;font-weight:900!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 2px 8px #0002;}
+dialog .form>h2:first-of-type{padding-right:42px;}
+@media(max-height:700px){dialog .form{padding-bottom:96px!important;}}
+
+.calculator-card{margin-top:18px;margin-bottom:36px;background:var(--surface,#fff);border-radius:16px;padding:14px;box-shadow:0 2px 10px #0000000b;}
+.calc-display{width:100%!important;text-align:right;font-size:28px!important;font-weight:800!important;padding:14px!important;margin-bottom:10px;background:var(--surface-2,#f9fafb)!important;}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.calc-grid button{height:48px;font-size:18px;}
+.calc-zero{grid-column:span 2;}
+.calc-equals{grid-row:span 2;height:auto!important;}
+
+/* ===== legacy-style-9 ===== */
+/* v46: keep the All Bills menu title and close bubble stationary while bills scroll */
+#allBillsDlg .form{
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  padding-top:0!important;
+}
+#allBillsDlg .form>h2:first-of-type{
+  flex:0 0 auto;
+  margin:0!important;
+  padding:28px 54px 18px 0!important;
+  background:var(--surface,#fff)!important;
+  position:relative;
+  z-index:3;
+}
+#allBillsDlg #allBillsList{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding:0 0 110px;
+  scroll-padding-bottom:110px;
+}
+#allBillsDlg .form-actions{
+  flex:0 0 auto;
+  margin-top:0!important;
+  padding-top:10px;
+  background:var(--surface,#fff)!important;
+  position:relative;
+  z-index:3;
+}
+#allBillsDlg>.dialog-close-x{position:absolute!important;top:10px!important;right:10px!important;z-index:120!important;}
+
+/* ===== legacy-style-10 ===== */
+/* v47: finance tools, search/filter, budget dashboard, categories */
+.finance-status{margin:8px 0 12px;padding:12px 14px;border:1px solid var(--border,#e5e7eb);border-radius:14px;background:var(--surface,#fff);box-shadow:0 2px 10px #0000000b}
+.finance-status .finance-main{font-size:15px;font-weight:800;line-height:1.35}
+.finance-status .finance-sub{font-size:12px;color:var(--muted,#6b7280);margin-top:4px}
+.finance-tools{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0 16px}
+.finance-tools button{padding:10px 8px;font-size:12px}
+.bill-filter-bar{position:sticky;top:0;z-index:3;background:var(--bg,#f3f4f6);padding:6px 0 9px;margin-bottom:4px}
+.bill-filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bill-filter-grid input,.bill-filter-grid select{width:100%!important;min-width:0!important;padding:10px!important;border-radius:10px!important}
+.bill-category-pill{display:inline-block;margin-top:5px;padding:3px 7px;border-radius:999px;background:var(--surface-2,#f9fafb);border:1px solid var(--border,#e5e7eb);font-size:11px;font-weight:700}
+.bill-due-flag{font-size:11px;font-weight:800;margin-top:4px}
+.bill-due-flag.late{color:#b91c1c}.bill-due-flag.soon{color:#b45309}
+.cal-count-badge{position:absolute;top:3px;right:3px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--button,#111827);color:var(--button-text,#fff);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cal-day{position:relative}
+#category,#billNotes{width:100%;padding:12px;border:1px solid var(--border,#d1d5db);border-radius:10px;font-size:16px;background:var(--surface,#fff);color:var(--text,#111827)}
+#billNotes{min-height:76px;resize:vertical}
+.summary-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.summary-stat{padding:12px;border-radius:12px;background:var(--surface-2,#f9fafb);border:1px solid var(--border,#e5e7eb)}
+.summary-stat .label{font-size:11px}.summary-stat .value{font-size:18px}
+.category-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border,#e5e7eb)}
+.category-row:last-child{border-bottom:0}
+@media(max-width:430px){.finance-tools{grid-template-columns:1fr 1fr}.bill-filter-grid{grid-template-columns:1fr}.finance-status .finance-main{font-size:14px}}
+
+/* ===== legacy-style-11 ===== */
+/* v48 — professional UI polish + consistent action controls */
+:root{
+  --ui-radius-sm:10px;
+  --ui-radius-md:14px;
+  --ui-radius-lg:20px;
+  --ui-shadow:0 8px 28px rgba(17,24,39,.08);
+  --ui-shadow-lg:0 24px 70px rgba(17,24,39,.24);
+  --ui-line:color-mix(in srgb, var(--border,#e5e7eb) 86%, transparent);
+}
+
+/* Cleaner overall rhythm */
+body{letter-spacing:-.01em;}
+.app{max-width:760px!important;padding-left:18px!important;padding-right:18px!important;}
+.top h1{font-weight:850;letter-spacing:-.035em;}
+.sub{font-size:14px!important;}
+
+/* Cards */
+.card,.bill,.calendar-wrap,.finance-status,.calculator-card,.settings-section,.week-stat,.summary-stat{
+  border:1px solid var(--ui-line)!important;
+  box-shadow:var(--ui-shadow)!important;
+}
+.card,.bill,.finance-status,.calculator-card{border-radius:var(--ui-radius-lg)!important;}
+.bill{transition:transform .12s ease,box-shadow .12s ease;}
+.bill:active{transform:scale(.992)!important;box-shadow:0 4px 16px rgba(17,24,39,.06)!important;}
+.name{font-weight:820!important;letter-spacing:-.02em;}
+.amount{font-weight:850!important;letter-spacing:-.02em;}
+.label{font-weight:650;}
+.value{letter-spacing:-.025em;}
+
+/* Professional buttons everywhere */
+button{
+  min-height:44px;
+  border-radius:12px!important;
+  padding:0 16px!important;
+  font-size:14px;
+  font-weight:780!important;
+  line-height:1.1;
+  letter-spacing:-.01em;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  transition:transform .1s ease,filter .1s ease,box-shadow .1s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+button:active{transform:scale(.97);}
+button:focus-visible{outline:3px solid color-mix(in srgb,var(--button,#111827) 22%, transparent);outline-offset:2px;}
+.primary{box-shadow:0 6px 16px rgba(17,24,39,.14);}
+.ghost{border:1px solid var(--ui-line)!important;}
+.danger{border:1px solid color-mix(in srgb,var(--danger-text,#991b1b) 18%, transparent)!important;}
+
+/* Inputs */
+input,select,textarea{
+  min-height:46px;
+  border-radius:12px!important;
+  border:1px solid var(--border,#d1d5db)!important;
+  font:inherit;
+  outline:none;
+  transition:border-color .12s ease,box-shadow .12s ease;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:color-mix(in srgb,var(--button,#111827) 48%, var(--border,#d1d5db))!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--button,#111827) 10%, transparent);
+}
+label{font-weight:750!important;}
+
+/* Dialogs */
+dialog{
+  width:min(94%,540px)!important;
+  border:1px solid var(--ui-line)!important;
+  border-radius:24px!important;
+  box-shadow:var(--ui-shadow-lg)!important;
+}
+dialog::backdrop{background:rgba(10,15,24,.62)!important;backdrop-filter:blur(2px);}
+dialog .form{padding-left:24px!important;padding-right:24px!important;}
+dialog .form>h2:first-of-type{
+  font-size:28px;
+  line-height:1.12;
+  font-weight:860;
+  letter-spacing:-.035em;
+  margin-bottom:18px;
+}
+.dialog-close-x{
+  width:40px!important;height:40px!important;top:14px!important;right:14px!important;
+  font-size:23px!important;border:1px solid var(--ui-line)!important;
+  box-shadow:0 6px 18px rgba(17,24,39,.12)!important;
+}
+
+/* Uniform dialog action bars */
+.form-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+}
+.form-actions button{min-width:108px;min-height:46px;}
+
+/* Payment dialog: two clean equal-width rows */
+#billPaymentDlg .form-actions{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:10px!important;
+  width:100%;
+}
+#billPaymentDlg .form-actions button{
+  width:100%!important;
+  min-width:0!important;
+  min-height:48px!important;
+  padding:0 12px!important;
+  white-space:nowrap;
+}
+#billPaymentDlg #billPaymentAmount{
+  font-size:22px!important;
+  font-weight:700;
+  padding:12px 14px!important;
+}
+#billPaymentDlg #billPaymentInfo{line-height:1.45;}
+
+/* Bill-list menu controls */
+.bill-menu-card{padding-right:50px!important;}
+.bill-menu-dots{
+  width:34px!important;height:34px!important;top:12px!important;right:12px!important;
+  min-height:34px!important;padding:0!important;font-size:20px!important;
+  border:1px solid var(--ui-line)!important;box-shadow:none!important;
+}
+.bill-paid-menu-btn{
+  min-width:68px!important;height:40px!important;min-height:40px!important;
+  padding:0 12px!important;border-radius:11px!important;font-size:13px!important;
+}
+.date-bill-title,.main-bill-date{
+  font-size:15px!important;font-weight:830!important;letter-spacing:-.015em;
+  color:var(--text,#111827)!important;
+}
+
+/* Finance tools and calculator */
+.finance-tools{gap:10px!important;}
+.finance-tools button{min-height:44px;font-size:13px!important;}
+.calc-grid{gap:10px!important;}
+.calc-grid button{height:50px!important;min-height:50px!important;border-radius:13px!important;}
+.calc-display{border-radius:14px!important;}
+
+/* Calendar polish */
+.calendar-wrap{border-radius:20px!important;}
+.cal-day{border-radius:12px!important;}
+.calendar-week-tab{min-height:38px!important;padding:0 12px!important;}
+
+/* Settings */
+.settings-section{border-radius:16px!important;padding:16px!important;box-shadow:none!important;}
+.settings-section h3{font-size:17px!important;font-weight:830!important;letter-spacing:-.02em;}
+.settings-row{padding:2px 0;}
+.settings-fab{
+  width:56px!important;height:56px!important;min-height:56px!important;padding:0!important;
+  border:1px solid color-mix(in srgb,var(--button-text,#fff) 15%,transparent)!important;
+  box-shadow:0 12px 30px rgba(17,24,39,.22)!important;
+}
+
+/* Dark theme shadows are subtler */
+body.theme-dark{
+  --ui-shadow:0 8px 28px rgba(0,0,0,.22);
+  --ui-shadow-lg:0 24px 70px rgba(0,0,0,.5);
+}
+
+@media(max-width:520px){
+  .app{padding-left:14px!important;padding-right:14px!important;}
+  dialog{width:calc(100% - 28px)!important;border-radius:22px!important;}
+  dialog .form{padding-left:18px!important;padding-right:18px!important;}
+  dialog .form>h2:first-of-type{font-size:25px;}
+  .form-actions button{min-width:96px;}
+  #billPaymentDlg .form-actions{grid-template-columns:1fr 1fr!important;}
+}
+
+@media(max-width:360px){
+  #billPaymentDlg .form-actions{grid-template-columns:1fr!important;}
+  #billPaymentDlg .form-actions button{width:100%!important;}
+}
+
+/* ===== legacy-style-12 ===== */
+/* v49 — monthly budget tracking */
+.budget-form{padding-bottom:34px!important}
+.budget-progress-card{margin:16px 0;padding:16px;border:1px solid var(--border,#e5e7eb);border-radius:16px;background:var(--surface-2,#f9fafb)}
+.budget-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.budget-stat-row div{display:flex;flex-direction:column;gap:3px}.budget-stat-row span{font-size:12px;color:var(--muted,#6b7280);font-weight:700}.budget-stat-row strong{font-size:21px}.budget-over{color:#b91c1c}
+.budget-progress{height:12px;border-radius:999px;background:var(--border,#e5e7eb);overflow:hidden;margin:14px 0 9px}.budget-progress-fill{height:100%;border-radius:inherit;background:var(--button,#111827);transition:width .2s ease}.budget-progress-fill.over{background:#b91c1c}
+.budget-breakdown{display:flex;flex-wrap:wrap;gap:7px 12px;font-size:11px;color:var(--muted,#6b7280);font-weight:700}
+.budget-expense-box{margin-top:16px;padding:15px;border:1px solid var(--border,#e5e7eb);border-radius:16px}.budget-section-title{font-weight:850;font-size:16px}.budget-expense-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:10px}.budget-add-expense{width:100%;margin-top:12px}.budget-history-title{margin-top:16px;padding-top:14px;border-top:1px solid var(--border,#e5e7eb)}
+.budget-expense-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border,#e5e7eb)}.budget-expense-row:last-child{border-bottom:0}.budget-expense-right{display:flex;align-items:center;gap:9px}.budget-remove{width:34px;height:34px;padding:0!important;border-radius:50%!important;background:var(--ghost,#e5e7eb)!important;color:var(--text,#111827)!important;font-size:20px!important;line-height:1}.budget-empty-spend{margin-top:12px}.budget-actions{position:sticky;bottom:0;background:var(--surface,#fff);padding-top:12px;z-index:4}
+@media(max-width:480px){.budget-expense-grid{grid-template-columns:1fr}.budget-stat-row strong{font-size:18px}}
+
+/* v50 — savings goals, snapshot and autopay polish */
+.autopay-pill{display:inline-block;margin-top:5px;margin-left:5px;padding:3px 7px;border-radius:999px;background:var(--surface-2,#f9fafb);border:1px solid var(--border,#e5e7eb);font-size:11px;font-weight:800}
+.savings-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px}.savings-summary .summary-stat{margin:0}
+.savings-goal{padding:14px;margin:10px 0;border:1px solid var(--border,#e5e7eb);border-radius:16px;background:var(--surface-2,#f9fafb)}
+.savings-goal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.savings-goal-name{font-weight:850;font-size:16px}.savings-goal-amount{font-weight:850;white-space:nowrap}
+.savings-progress{height:10px;border-radius:999px;background:var(--border,#e5e7eb);overflow:hidden;margin:10px 0 7px}.savings-progress-fill{height:100%;background:var(--button,#111827);border-radius:inherit}
+.savings-goal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.savings-goal-actions button{padding:8px 10px!important;font-size:12px!important;min-height:38px!important}
+.snapshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.snapshot-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border,#e5e7eb)}.snapshot-row:last-child{border-bottom:0}.snapshot-total{font-size:18px;font-weight:850}
+@media(max-width:430px){.savings-summary,.snapshot-grid{grid-template-columns:1fr 1fr}}
+
+/* ===== legacy-style-13 ===== */
+.category-picker{position:relative;width:100%}
+.category-picker #category{width:100%;padding-right:58px}
+.category-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:12px;background:transparent;color:var(--text,#111827);font-size:18px;display:flex;align-items:center;justify-content:center;z-index:3;cursor:pointer}
+.category-arrow:active{background:var(--surface-2,#eef0f4)}
+.category-menu{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:9999;background:var(--surface,#fff);border:1px solid var(--border,#d8dce3);border-radius:16px;box-shadow:0 14px 35px rgba(15,23,42,.18);max-height:260px;overflow-y:auto;padding:6px;-webkit-overflow-scrolling:touch}
+.category-menu[hidden]{display:none!important}
+.category-option{width:100%;border:0;background:transparent;color:var(--text,#111827);text-align:left;padding:13px 14px;border-radius:11px;font:inherit;font-weight:650;cursor:pointer}
+.category-option:active,.category-option:hover{background:var(--surface-2,#f1f3f6)}
+
+/* ===== legacy-style-14 ===== */
+/* v61: foreground notification sound/toast support for browser testing */
+.notify-toast-v61{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;width:min(92vw,520px);background:#111827;color:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 18px 48px #0006;font-weight:700;line-height:1.35}
+.notify-toast-v61 .subline{font-size:13px;font-weight:500;opacity:.85;margin-top:3px}
+.notify-toast-v61 button{float:right;margin-left:12px;padding:7px 10px;background:#fff;color:#111827;border-radius:10px}
+
+/* ===== legacy-style-15 ===== */
+/* v62: make Appearance settings visibly functional */
+body.text-small{
+  font-size:14px!important;
+}
+body.text-small h1{font-size:25px!important}
+body.text-small .value{font-size:21px!important}
+body.text-small .name{font-size:15px!important}
+body.text-small .meta,
+body.text-small .label,
+body.text-small .settings-help{font-size:11px!important}
+body.text-small button,
+body.text-small input,
+body.text-small select,
+body.text-small textarea{font-size:14px!important}
+
+body.text-large{
+  font-size:18px!important;
+}
+body.text-large h1{font-size:32px!important}
+body.text-large .value{font-size:28px!important}
+body.text-large .name{font-size:19px!important}
+body.text-large .meta,
+body.text-large .label,
+body.text-large .settings-help{font-size:15px!important}
+body.text-large button,
+body.text-large input,
+body.text-large select,
+body.text-large textarea{font-size:18px!important}
+body.text-large .cal-event,
+body.text-large .cal-hours{font-size:11px!important}
+
+body.compact-cards .card{padding:10px 12px!important;border-radius:14px!important}
+body.compact-cards .cards{gap:7px!important;margin-bottom:12px!important}
+body.compact-cards .bill{padding:9px 11px!important;margin:6px 0!important;gap:9px!important;border-radius:14px!important}
+body.compact-cards .bill .meta{margin-top:1px!important}
+body.compact-cards .health-cell{padding:8px!important;border-radius:12px!important}
+body.compact-cards .quick-actions{margin-top:5px!important;margin-bottom:9px!important}
+body.compact-cards .next{margin-bottom:11px!important}
+
+body:not(.compact-cards) .card{padding:15px!important}
+body:not(.compact-cards) .bill{padding:14px!important;margin:9px 0!important}
+
+/* Financial health cards are independent shortcuts now */
+.health-cell{
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.health-cell:active{transform:scale(.97)}
+.health-cell::after{
+  content:"Tap to open";
+  display:block;
+  margin-top:5px;
+  color:var(--muted,#6b7280);
+  font-size:9px;
+  font-weight:700;
+}
+body.text-large .health-cell::after{font-size:11px}
+.health-cell[data-health-action="income"]::after{content:"Income & checks"}
+.health-cell[data-health-action="bills"]::after{content:"Bill list"}
+.health-cell[data-health-action="spending"]::after{content:"Budget & spending"}
+.health-cell[data-health-action="savings"]::after{content:"Savings goals"}
+.health-cell[data-health-action="left"]::after{content:"Monthly snapshot"}
+
+/* ===== legacy-style-16 ===== */
+/* v66 — consistent, menu-aware controls across the whole app */
+
+/* ---------- Bill cards ---------- */
+/* Keep amount readable and give the bill controls their own fixed lane. */
+.bill-menu-card{
+  padding:14px!important;
+  padding-right:14px!important;
+  gap:10px!important;
+  align-items:center!important;
+  min-height:92px;
+}
+.bill-menu-card .billmain{
+  min-width:0!important;
+}
+.bill-menu-card .amount{
+  margin:0 4px 0 6px!important;
+  font-size:16px!important;
+  flex:0 0 auto;
+}
+/* The last wrapper on bill-list cards is the action lane. */
+.bill-menu-card > div:last-child:not(.billmain):not(.amount){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:7px!important;
+  min-width:64px!important;
+  width:64px!important;
+  flex:0 0 64px!important;
+}
+.bill-menu-dots{
+  position:static!important;
+  order:-1!important;
+  align-self:flex-end!important;
+  width:30px!important;
+  height:30px!important;
+  min-width:30px!important;
+  min-height:30px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  font-size:19px!important;
+  line-height:1!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:var(--ghost,#e5e7eb)!important;
+  border:1px solid var(--ui-line,var(--border,#e5e7eb))!important;
+  box-shadow:none!important;
+}
+.bill-paid-menu-btn{
+  width:64px!important;
+  min-width:64px!important;
+  height:36px!important;
+  min-height:36px!important;
+  padding:0 8px!important;
+  border-radius:11px!important;
+  font-size:12px!important;
+  line-height:1!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* Payment history cards only need the edit menu, so don't reserve a large button lane. */
+#historyDlg .bill-menu-card > .bill-menu-dots,
+#paymentHistoryDlg .bill-menu-card > .bill-menu-dots{
+  margin-left:auto!important;
+}
+
+/* ---------- Dialog buttons ---------- */
+dialog button{
+  min-height:42px;
+}
+dialog .form-actions{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(112px,1fr))!important;
+  gap:10px!important;
+  align-items:stretch!important;
+}
+dialog .form-actions > button{
+  width:100%!important;
+  min-width:0!important;
+  min-height:46px!important;
+  height:auto!important;
+  padding:10px 12px!important;
+  border-radius:13px!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+}
+
+/* Primary action is visually consistent; secondary/danger actions stay distinct. */
+dialog .primary,
+dialog button.primary{
+  font-weight:800!important;
+}
+dialog .ghost,
+dialog button.ghost,
+dialog .danger,
+dialog button.danger{
+  font-weight:750!important;
+}
+
+/* ---------- Hours menus ---------- */
+#hoursWeeksDlg .form-actions,
+#hoursDlg .form-actions{
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))!important;
+}
+#hoursWeeksDlg button,
+#hoursDlg button{
+  min-height:46px!important;
+}
+#hoursSelectedWeek .bill{
+  align-items:center!important;
+}
+#hoursSelectedWeek .bill button{
+  min-width:86px!important;
+  padding:9px 11px!important;
+  border-radius:12px!important;
+}
+#dayDlg .bill button{
+  min-height:40px!important;
+  padding:8px 10px!important;
+  border-radius:11px!important;
+  font-size:12px!important;
+}
+/* Day menu bill controls should be simple: Paid + Edit. */
+#dayDlg .bill > div:last-child{
+  display:flex!important;
+  gap:7px!important;
+  flex-wrap:wrap!important;
+  justify-content:flex-end!important;
+}
+#dayDlg .bill > div:last-child button{
+  min-width:58px!important;
+}
+
+/* ---------- Main quick actions / finance tabs ---------- */
+.quick-actions,
+.finance-tools{
+  align-items:stretch!important;
+}
+.quick-actions button,
+.finance-tools button{
+  min-height:46px!important;
+  height:auto!important;
+  padding:10px 12px!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* Keep close X bubbles the same size everywhere. */
+.dialog-close-x{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  border-radius:50%!important;
+  font-size:20px!important;
+}
+
+/* ---------- Small-phone protection ---------- */
+@media (max-width:430px){
+  .bill-menu-card{
+    gap:8px!important;
+    padding:12px!important;
+  }
+  .bill-menu-card .amount{
+    font-size:15px!important;
+    margin-left:2px!important;
+  }
+  .bill-menu-card > div:last-child:not(.billmain):not(.amount){
+    width:58px!important;
+    min-width:58px!important;
+    flex-basis:58px!important;
+  }
+  .bill-paid-menu-btn{
+    width:58px!important;
+    min-width:58px!important;
+    font-size:11px!important;
+  }
+  .bill-menu-dots{
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    min-height:28px!important;
+    font-size:18px!important;
+  }
+  dialog .form-actions{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media (max-width:350px){
+  .bill-menu-card{
+    grid-template-columns:auto 1fr!important;
+  }
+  dialog .form-actions{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* ===== mb-20-0-146-spending-status-fix ===== */
+/* 20.0.148: Autopay is a status, never a category badge. */
+.autopay-pill{display:none!important}
+/* Spending ledger shows paid bills and manual spending together. */
+.mb146-spend-type{display:inline-block;margin-left:7px;padding:2px 7px;border-radius:999px;border:1px solid var(--mb137-cyan,#00f5ff);color:var(--mb137-cyan,#00f5ff)!important;font-size:10px;font-weight:900;vertical-align:middle}
+.mb146-bill-spend .mb119-ledger-time{color:var(--mb137-muted,#c5d1e2)!important}
+
+/* ===== mb-20-0-147-refunds ===== */
+#mb147AddFunds{
+  background:#fff!important;
+  color:var(--mb137-navy,#0b234b)!important;
+  border:2px solid var(--mb137-cyan,#00f5ff)!important;
+}
+.mb147-refund-type{background:rgba(0,245,255,.10)!important}
+.mb147-refund-amt{color:#7df7c5!important}
+
+/* ===== legacy-style-19 ===== */
+/* v51 — cleaner finance dashboard + non-obstructive settings */
+.top{align-items:flex-start!important;}
+#settingsBtn.settings-header-btn{
+  position:static!important;right:auto!important;bottom:auto!important;
+  width:44px!important;height:44px!important;min-height:44px!important;
+  flex:0 0 44px!important;padding:0!important;border-radius:14px!important;
+  font-size:20px!important;box-shadow:0 6px 18px rgba(17,24,39,.12)!important;
+}
+.finance-status{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;}
+.finance-status:active{transform:scale(.992)}
+.finance-status::after{content:'Tap to open Monthly Budget';display:block;margin-top:8px;font-size:11px;font-weight:800;color:var(--muted,#6b7280)}
+.net-remaining-card{grid-column:1/-1!important;display:flex!important;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}
+.net-remaining-card .value{white-space:nowrap}
+.net-remaining-card .meta{margin-top:3px}
+.settings-utility-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.settings-utility-grid button{width:100%;min-height:46px}
+@media(max-width:390px){.settings-utility-grid{grid-template-columns:1fr}}
+
+/* ===== legacy-style-20 ===== */
+/* v55 — connected finance tools + final consistency pass */
+:root{--radius-card:18px;--radius-control:14px;--shadow-soft:0 8px 28px rgba(15,23,42,.07)}
+dialog .form{padding:24px 22px max(34px,calc(24px + env(safe-area-inset-bottom)))!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+dialog .form h2{position:sticky;top:-24px;z-index:8;background:var(--surface,#fff);padding:8px 62px 14px 0;margin:-8px 0 16px!important}
+dialog button,.finance-tools button,.quick-actions button{min-height:46px!important}
+.form-actions{gap:10px!important;flex-wrap:wrap!important}.form-actions>button{flex:1 1 130px!important}
+.bill-status-pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:850;margin-top:6px;margin-right:5px;background:var(--surface-2,#eef0f4);border:1px solid var(--border,#e5e7eb)}
+.bill-status-pill.overdue{background:#fee2e2;color:#991b1b}.bill-status-pill.today{background:#ffedd5;color:#9a3412}.bill-status-pill.soon{background:#fef3c7;color:#92400e}.bill-status-pill.partial{background:#dbeafe;color:#1e40af}.bill-status-pill.paid{background:#dcfce7;color:#166534}
+.health-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 16px}.health-cell{background:var(--surface,#fff);border:1px solid var(--border,#e5e7eb);border-radius:15px;padding:11px;min-width:0}.health-cell span{display:block;color:var(--muted,#6b7280);font-size:10px;font-weight:800}.health-cell b{display:block;margin-top:4px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.health-cell:last-child{border-color:var(--text,#111827)}
+.planner-assign{display:flex;align-items:center;gap:10px;width:100%;padding:10px 0;border-bottom:1px solid var(--border,#e5e7eb)}.planner-assign:last-child{border-bottom:0}.planner-assign input{width:20px!important;height:20px!important;flex:0 0 20px}.planner-assign-main{flex:1;min-width:0}.planner-assigned-total{margin:14px 0;padding:14px;border-radius:14px;background:var(--surface-2,#f4f5f7);display:flex;justify-content:space-between;gap:12px}
+.payment-extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.payment-extra-grid .full{grid-column:1/-1}.payment-extra-grid select,.payment-extra-grid input{width:100%}
+.category-progress{height:7px;border-radius:99px;background:var(--border,#e5e7eb);overflow:hidden;margin-top:7px}.category-progress>span{display:block;height:100%;background:var(--text,#111827);border-radius:inherit}.category-row-v55{padding:12px 0;border-bottom:1px solid var(--border,#e5e7eb)}.category-row-v55:last-child{border-bottom:0}.category-row-top{display:flex;justify-content:space-between;gap:12px}
+.dashboard-customize-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dashboard-customize-grid label{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border,#e5e7eb);border-radius:12px;margin:0;font-weight:700}.dashboard-customize-grid input{width:18px!important;height:18px!important}
+@media(max-width:520px){.health-strip{grid-template-columns:repeat(2,1fr)}.health-cell:last-child{grid-column:1/-1}.payment-extra-grid{grid-template-columns:1fr}}
+/* reduce tutorial clutter without hiding useful dates/status */
+.cards>.card .meta:not(#currentWeekRange):not(#netRemainingMeta){font-size:11px!important}.finance-status::after{display:none!important}.calendar-help{display:none!important}
+
+/* ===== legacy-style-21 ===== */
+/* v56: keep logged work hours clearly visible on calendar */
+.cal-hours{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  background:#e5e7eb!important;
+  color:#111827!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  line-height:1.2!important;
+  padding:3px 4px!important;
+  margin-top:3px!important;
+  border-radius:6px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+body.theme-dark .cal-hours{background:#343a46!important;color:#f5f7fb!important}
+
+/* ===== legacy-style-22 ===== */
+/* v57 reliability + app memory */
+.calendar-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px;padding:10px;border:1px solid var(--border,#e5e7eb);border-radius:14px;background:var(--surface-2,#f9fafb)}
+.calendar-filter-bar label{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;font-weight:800;padding:7px 9px;border-radius:999px;background:var(--surface,#fff);border:1px solid var(--border,#e5e7eb)}
+.calendar-filter-bar input{width:auto!important;min-width:0!important;margin:0}
+.v57-memory-status{font-size:12px;color:var(--muted,#6b7280);margin-top:8px}
+.v57-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.v57-toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;background:#111827;color:#fff;border-radius:999px;padding:10px 12px;display:none;align-items:center;gap:10px;box-shadow:0 10px 30px #0004;max-width:90vw;font-weight:700;font-size:13px}
+.v57-toast button{padding:7px 10px;border-radius:999px;background:#fff;color:#111827;min-height:0!important}
+.forecast-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--border,#e5e7eb)}
+.forecast-row:last-child{border-bottom:0}.forecast-date{font-size:12px;color:var(--muted,#6b7280);min-width:58px}.forecast-balance{font-weight:900}
+.recurring-series-row{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border,#e5e7eb);border-radius:14px;margin:8px 0;background:var(--surface-2,#f9fafb)}
+.recurring-series-row .billmain{flex:1;min-width:0}.recurring-series-row button{padding:8px 10px;min-height:40px!important}
+.integrity-good{color:#15803d;font-weight:800}.integrity-warn{color:#b45309;font-weight:800}
+
+/* ===== legacy-style-23 ===== */
+/* v58: native-feeling horizontal month swipe navigation */
+#allBillsDlg #allBillsList,
+#calendarGrid{
+  touch-action:pan-y;
+  overscroll-behavior-x:contain;
+}
+.swipe-month-feedback{
+  animation:swipeMonthFeedback .16s ease-out;
+}
+@keyframes swipeMonthFeedback{
+  from{opacity:.55;transform:translateX(var(--swipe-shift,0));}
+  to{opacity:1;transform:translateX(0);}
+}
+
+/* ===== legacy-style-24 ===== */
+/* v60: dashboard month navigation + swipe */
+.top-title-block{flex:1;min-width:0}
+.dashboard-month-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  margin-top:6px;
+  min-height:34px;
+  touch-action:pan-y;
+  overscroll-behavior-x:contain;
+}
+.dashboard-viewing-label{
+  justify-self:start;
+  color:var(--muted,#6b7280);
+  font-size:14px;
+  font-weight:700;
+}
+.dashboard-month-button{
+  justify-self:center;
+  appearance:none;
+  border:0;
+  background:transparent!important;
+  color:var(--text,#111827)!important;
+  padding:4px 8px!important;
+  min-height:30px!important;
+  border-radius:10px!important;
+  font-size:16px!important;
+  font-weight:850!important;
+  line-height:1.15;
+  white-space:nowrap;
+}
+.dashboard-month-button:active{background:var(--surface-2,#eef0f4)!important}
+.dashboard-month-spacer{justify-self:end;width:48px}
+#dashboardCards,
+#dashboardCards + .card{
+  touch-action:pan-y;
+  overscroll-behavior-x:contain;
+}
+.dashboard-swipe-feedback{animation:dashboardSwipeFeedback .17s ease-out}
+@keyframes dashboardSwipeFeedback{
+  from{opacity:.58;transform:translateX(var(--dashboard-swipe-shift,0));}
+  to{opacity:1;transform:translateX(0)}
+}
+@media(max-width:430px){
+  .dashboard-month-row{margin-top:4px}
+  .dashboard-viewing-label{font-size:13px}
+  .dashboard-month-button{font-size:15px!important}
+}
+
+/* ===== legacy-style-25 ===== */
+#netRemainingMeta{line-height:1.35}
+#netRemainingMeta .v63-projection{display:inline-block;margin-top:4px;color:var(--muted,#6b7280)}
+
+/* ===== legacy-style-26 ===== */
+.health-cell[data-health-action="spending"] .v64-budget-hint{
+  display:block;
+  margin-top:4px;
+  color:var(--muted,#6b7280);
+  font-size:9px;
+  font-weight:700;
+}
+body.text-large .health-cell[data-health-action="spending"] .v64-budget-hint{font-size:11px}
+#calendarGrid:empty{
+  min-height:260px;
+}
+
+/* ===== legacy-style-27 ===== */
+.v65-to-date{color:var(--muted,#6b7280);font-weight:700}
+
+/* ===== legacy-style-28 ===== */
+#billViewDeleteBtn{
+  background:#fff!important;
+  color:#b42318!important;
+  border:1px solid #f0b4ae!important;
+}
+
+/* ===== legacy-style-29 ===== */
+/* v72: Net Remaining is the single live balance; remove redundant Left shortcut. */
+.health-cell[data-health-action="left"]{display:none!important}
+.health-strip:has(.health-cell[data-health-action="left"]){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+/* ===== mb-v74-dashboard-cleanup ===== */
+/* Hide the small Budget remaining dashboard shortcut. */
+#mb-v74-hide-budget-card { display:none !important; }
+
+/* ===== legacy-style-31 ===== */
+/* v76 — Net Remaining has its own 3-position swipe view. */
+#netRemainingCard{touch-action:pan-y;user-select:none}
+#netRemainingCard .v76-swipe-dots{display:flex;gap:6px;margin-top:8px;align-items:center}
+#netRemainingCard .v76-swipe-dot{width:7px;height:7px;border-radius:50%;background:#c7cbd3}
+#netRemainingCard .v76-swipe-dot.active{background:#111827}
+#netRemainingCard .v76-mode{font-weight:800}
+
+/* ===== mb-v78-control-polish ===== */
+/* Keep dialog actions reachable above mobile browser/navigation UI. */
+dialog .form-actions{
+  position:relative;
+  z-index:6;
+}
+#hoursDlg .form{
+  padding-bottom:120px!important;
+}
+#hoursDlg #deleteHoursBtn{
+  pointer-events:auto!important;
+  touch-action:manipulation;
+}
+
+/* ===== mb-v79-clean-layout ===== */
+/* The small Budget/Spending shortcut is redundant with Monthly Budget. */
+.health-cell[data-health-action="spending"]{
+  display:none!important;
+}
+/* With Spending + Left removed, Savings naturally moves into the open spot. */
+#healthStrip{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+.health-cell[data-health-action="savings"]{
+  grid-column:auto!important;
+}
+
+/* ===== legacy-style-34 ===== */
+/* v80 — compact Available Now shortcut beside Savings; replaces the large Net Remaining card. */
+#healthStrip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#healthStrip #netRemainingCard{
+  grid-column:auto!important;margin:0!important;padding:11px!important;min-height:0!important;
+  border:1px solid var(--border,#e5e7eb)!important;border-radius:15px!important;
+  box-shadow:none!important;background:var(--surface,#fff)!important;display:block!important;
+  cursor:default!important;touch-action:pan-y!important;
+}
+#healthStrip #netRemainingCard .label{font-size:10px!important;font-weight:800!important;color:var(--muted,#6b7280)!important}
+#healthStrip #netRemainingCard .value{font-size:14px!important;margin-top:4px!important;font-weight:850!important}
+#healthStrip #netRemainingCard .meta{font-size:9px!important;line-height:1.25!important;margin-top:4px!important;color:var(--muted,#6b7280)!important}
+#healthStrip #netRemainingCard .v76-swipe-dots{margin-top:6px!important;gap:5px!important}
+#healthStrip #netRemainingCard .v76-swipe-dot{width:6px!important;height:6px!important}
+body.text-large #healthStrip #netRemainingCard .label{font-size:11px!important}
+body.text-large #healthStrip #netRemainingCard .value{font-size:17px!important}
+body.text-large #healthStrip #netRemainingCard .meta{font-size:10px!important}
+
+/* ===== mb-v92-reliability ===== */
+.cal-day{cursor:pointer!important;touch-action:manipulation!important;-webkit-tap-highlight-color:rgba(17,24,39,.12)!important}
+.cal-day .cal-event,.cal-day .cal-hours,.cal-day .cal-num,.cal-day .cal-count-badge{pointer-events:none!important}
+.cal-day:active{transform:scale(.985)}
+
+/* ===== mb-v93-paid-in-advance-style ===== */
+.paid-advance-pill{
+  display:inline-flex;
+  align-items:center;
+  margin-left:6px;
+  padding:2px 7px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:850;
+  line-height:1.4;
+  background:#dcfce7;
+  color:#166534;
+  border:1px solid #bbf7d0;
+  vertical-align:middle;
+}
+.cal-event.paid-in-advance-event::after{
+  content:" • Paid in advance";
+  font-weight:900;
+}
+
+/* ===== mb-v95-requested-adjustments ===== */
+#budgetExpenseNotes{
+  width:100%;
+  min-height:76px;
+  padding:12px;
+  border:1px solid var(--border,#d1d5db);
+  border-radius:10px;
+  font-size:16px;
+  resize:vertical;
+  background:var(--surface,#fff);
+  color:var(--text,#111827);
+}
+.budget-spending-edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.v5-spending-row{align-items:flex-start!important}
+.budget-expense-main{min-width:0;flex:1}
+.budget-expense-notes{
+  margin-top:6px;
+  padding:7px 9px;
+  border-radius:9px;
+  background:var(--surface-2,#f5f6f8);
+  color:var(--text,#111827);
+  font-size:12px;
+  line-height:1.35;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.budget-expense-buttons{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:6px}
+.budget-edit{padding:7px 10px!important;font-size:12px!important}
+#ytdBreakdown .ytd-month-card:first-child{
+  border-width:2px!important;
+}
+.health-cell[data-health-action="income"]::after{content:"Income & checks"}
+
+/* ===== mb-v99-unified-finance-style ===== */
+.v99-ledger-intro{margin:4px 0 12px}
+.v99-ledger-row{align-items:flex-start!important}
+.v99-ledger-row .budget-expense-main{min-width:0;flex:1}
+.v99-ledger-row .budget-expense-right{flex:0 0 auto}
+.v99-type-pill{
+  display:inline-flex;align-items:center;margin-left:6px;padding:2px 7px;
+  border-radius:999px;font-size:10px;font-weight:850;line-height:1.4;
+  border:1px solid var(--border,#e2e5ea);background:var(--surface-2,#f3f4f6);
+  color:var(--text,#111827);vertical-align:middle
+}
+.v99-type-pill.bill{background:#eef2ff}
+.v99-advance{margin-top:5px;font-size:12px;font-weight:850;color:#166534;line-height:1.35}
+.v99-bill-meta{margin-top:4px;font-size:12px;color:var(--muted,#6b7280);line-height:1.35}
+#ytdBreakdown .ytd-month-card[data-current="1"]{border-width:2px!important}
+
+/* ===== mb-v100-settings-style ===== */
+#settingsBtn{
+  position:fixed!important;
+  right:18px!important;
+  bottom:calc(88px + env(safe-area-inset-bottom))!important;
+  left:auto!important;
+  top:auto!important;
+  z-index:80!important;
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  min-height:58px!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:50%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  font-size:24px!important;
+  line-height:1!important;
+  box-shadow:0 14px 34px rgba(17,24,39,.28)!important;
+  transform:none!important;
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+#settingsBtn:active{transform:scale(.94)!important}
+#settingsBtn.settings-header-btn{
+  position:fixed!important;
+  right:18px!important;
+  bottom:calc(88px + env(safe-area-inset-bottom))!important;
+  width:58px!important;height:58px!important;min-height:58px!important;
+  border-radius:50%!important;
+}
+body.theme-dark #settingsBtn{box-shadow:0 14px 34px rgba(0,0,0,.48)!important}
+
+#settingsDlg .settings-section{
+  scroll-margin-top:72px;
+}
+#settingsDlg .settings-row input[type="checkbox"]{
+  width:22px!important;
+  height:22px!important;
+  min-width:22px!important;
+}
+#settingsDlg .settings-row select,
+#settingsDlg .settings-row input[type="time"]{
+  max-width:180px;
+}
+#settingsDlg .settings-live-note{
+  margin-top:8px;
+  font-size:11px;
+  color:var(--muted,#6b7280);
+}
+@media(max-width:520px){
+  #settingsBtn{
+    right:14px!important;
+    bottom:calc(78px + env(safe-area-inset-bottom))!important;
+    width:56px!important;height:56px!important;min-width:56px!important;min-height:56px!important;
+  }
+  #settingsDlg .settings-row{align-items:center!important}
+}
+
+/* ===== mb-v103-available-style ===== */
+/* Include the two cards that used their own older styling */
+#hoursCard,
+#netRemainingCard,
+#netRemainingCard.health-cell,
+.current-week-hours-card{
+  background:var(--mb-tab-bg)!important;
+  color:var(--mb-tab-text)!important;
+  border:3px solid var(--mb-tab-border)!important;
+  box-shadow:0 3px 12px rgba(17,24,39,.07)!important;
+}
+#hoursCard .label,#hoursCard .meta,
+#netRemainingCard .label,#netRemainingCard .meta,
+#netRemainingCard .health-sub,
+.current-week-hours-card .label,.current-week-hours-card .meta{
+  color:var(--mb-tab-text)!important;
+  opacity:.64!important;
+}
+#hoursCard .value,#netRemainingCard .value,
+#netRemainingValue{
+  color:var(--mb-tab-text)!important;
+}
+#netRemainingCard{
+  touch-action:pan-y!important;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+}
+#netRemainingCard .health-dots span{
+  border:1px solid var(--mb-tab-text)!important;
+  opacity:.22;
+}
+#netRemainingCard .health-dots span.active{
+  background:var(--mb-tab-text)!important;
+  opacity:1;
+}
+
+/* ===== mb-v104-filters-colors-style ===== */
+/* Exact selector for Current Week Hours card */
+.card[onclick="showHoursWeeks()"],
+#netRemainingCard{
+  background:var(--mb-tab-bg)!important;
+  color:var(--mb-tab-text)!important;
+  border:3px solid var(--mb-tab-border)!important;
+  box-shadow:0 3px 12px rgba(17,24,39,.07)!important;
+}
+.card[onclick="showHoursWeeks()"] .label,
+.card[onclick="showHoursWeeks()"] .meta,
+#netRemainingCard .label,
+#netRemainingCard .meta{
+  color:var(--mb-tab-text)!important;
+  opacity:.64!important;
+}
+.card[onclick="showHoursWeeks()"] .value,
+#netRemainingCard .value,
+#netRemainingValue{
+  color:var(--mb-tab-text)!important;
+}
+
+/* Compact filter dropdown */
+#calendarFilterToggleV104{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 0 10px;
+  padding:11px 14px;
+  border:2px solid var(--mb-tab-border)!important;
+  border-radius:14px;
+  background:var(--mb-tab-bg)!important;
+  color:var(--mb-tab-text)!important;
+  font-weight:850;
+  cursor:pointer;
+}
+#calendarFilterToggleV104 .v104-arrow{
+  transition:transform .18s ease;
+  font-size:14px;
+}
+#calendarFilterToggleV104[aria-expanded="true"] .v104-arrow{
+  transform:rotate(180deg);
+}
+#calendarFilterBar{
+  display:none!important;
+  margin-top:0!important;
+  border:2px solid var(--mb-tab-border)!important;
+  background:var(--mb-tab-bg)!important;
+  color:var(--mb-tab-text)!important;
+}
+#calendarFilterBar.v104-open{
+  display:flex!important;
+}
+#calendarFilterBar label{
+  border:2px solid var(--mb-tab-border)!important;
+  background:var(--mb-tab-bg)!important;
+  color:var(--mb-tab-text)!important;
+}
+#calendarFilterBar label span,
+#calendarFilterBar label{
+  color:var(--mb-tab-text)!important;
+}
+@media(max-width:480px){
+  #calendarFilterBar.v104-open{
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* ===== mb-v119-clean-style ===== */
+:root{
+  --mb-bg:#06162f;
+  --mb-bg2:#071a36;
+  --mb-panel:#10295a;
+  --mb-panel2:#172f68;
+  --mb-cyan:#00f5ff;
+  --mb-text:#f8fbff;
+  --mb-muted:#b9c7da;
+  --mb-border:rgba(0,245,255,.62);
+  --mb-soft:rgba(0,245,255,.10);
+}
+html,body{margin:0!important;background:linear-gradient(180deg,var(--mb-bg2),var(--mb-bg))!important;color:var(--mb-text)!important}
+body{overflow-x:hidden}
+.app{max-width:820px!important;margin:0 auto!important;padding-bottom:105px!important;background:transparent!important}
+.top{
+  background:linear-gradient(135deg,#0d326c,#071a36)!important;
+  color:#fff!important;border-bottom:3px solid var(--mb-cyan)!important;
+}
+#mb119Shell{padding:14px 18px 30px}
+.mb119-view{display:none;min-height:calc(100vh - 210px)}
+.mb119-view.active{display:block}
+.mb119-title{margin:4px 0 4px;color:#fff;font-size:27px;font-weight:950}
+.mb119-sub{margin:0 0 18px;color:var(--mb-muted);font-size:13px;font-weight:650}
+.mb119-section{margin:0 0 18px}
+.mb119-section-title{margin:0 0 9px 2px;color:#dce7f6;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.mb119-card{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border:2px solid var(--mb-border)!important;
+  border-radius:22px!important;box-shadow:0 10px 26px rgba(0,0,0,.18)!important;
+}
+#mb119Shell .card,#mb119Shell .panel,#mb119Shell .section-card,#mb119Shell .bill,
+#mb119Shell .calendar-wrap,#mb119Shell .calculator-card,#mb119Shell .empty,
+#mb119Shell .settings-section,#mb119Shell .summary-stat,#mb119Shell .week-stat,
+#mb119Shell .backup-card,#mb119Shell .category-row-v55,#mb119Shell .recurring-series-row{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border-color:var(--mb-border)!important;
+}
+#mb119Shell .card *,#mb119Shell .bill *,#mb119Shell .calendar-wrap *,
+#mb119Shell .calculator-card *{color:inherit}
+#mb119Shell input,#mb119Shell select,#mb119Shell textarea,
+dialog input,dialog select,dialog textarea{
+  background:#0a2047!important;color:#fff!important;
+  border:1px solid rgba(0,245,255,.38)!important;
+}
+#mb119Shell button,dialog button{
+  border-color:rgba(0,245,255,.40)!important;
+}
+dialog,.modal,.sheet,.drawer,.popover{color:#fff!important}
+dialog .box,.modal .box,.sheet-content,.drawer,.popover{
+  background:linear-gradient(145deg,#0a2148,#172554)!important;color:#fff!important;
+  border:2px solid var(--mb-border)!important;
+}
+dialog h1,dialog h2,dialog h3,dialog h4,dialog label,dialog p,dialog span{color:inherit}
+
+/* Force the problem cards to the real theme. */
+#dashboardCards>.card,
+#mb119Home .card[onclick*="showHoursWeeks"],
+#financeStatusCard,
+#availableNowCard,.available-now-card{
+  background:linear-gradient(145deg,var(--mb-panel),var(--mb-panel2))!important;
+  color:#fff!important;border:3px solid var(--mb-cyan)!important;
+}
+#dashboardCards>.card *,#mb119Home .card[onclick*="showHoursWeeks"] *,
+#financeStatusCard *,#availableNowCard *{color:inherit!important}
+
+/* Remove every old/floating Settings control. Bottom nav only. */
+.settings-fab,#settingsBtn,.floating-settings,.floating-gear,#floatingSettings,
+#settingsFab,.settings-float,.fab-settings{display:none!important}
+
+/* Bills */
+#mb119Bills .section-head,#mb119Bills .bill-filter-bar{margin-bottom:12px}
+#mb119Bills .bill{margin-bottom:12px!important}
+#mb119Bills .bill .name,#mb119Bills .bill .amount{color:#fff!important}
+
+/* Spending */
+.mb119-spend-form{padding:14px}
+.mb119-spend-grid{display:grid;grid-template-columns:1fr 150px;gap:10px}
+.mb119-spend-actions{margin-top:10px}
+.mb119-spend-actions button{width:100%;min-height:46px;background:#0b2a59!important;color:#fff!important}
+.mb119-range{display:flex;gap:8px;margin:0 0 12px}
+.mb119-range button.active{border-color:var(--mb-cyan)!important;color:var(--mb-cyan)!important}
+.mb119-ledger{padding:14px}
+.mb119-ledger-item{padding:12px 2px;border-bottom:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr auto;gap:4px 10px}
+.mb119-ledger-item:last-child{border-bottom:0}
+.mb119-ledger-title{font-weight:900;color:#fff}
+.mb119-ledger-amt{font-weight:950;color:#fff}
+.mb119-ledger-time{grid-column:1/-1;color:var(--mb-muted);font-size:12px}
+
+/* Tips */
+#mb119Tips{padding:17px}
+.mb119-tip-kicker{font-size:12px;font-weight:950;color:var(--mb-cyan);text-transform:uppercase;letter-spacing:.08em}
+#mb119Tips h3{margin:8px 0 6px;color:#fff;font-size:19px}
+#mb119Tips p{margin:0;color:#d8e4f2;line-height:1.48}
+.mb119-tip-foot{margin-top:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mb119-tip-foot small{color:var(--mb-muted)}
+.mb119-tip-foot button{background:#0b2a59!important;color:#fff!important;border-radius:12px!important;padding:8px 11px!important}
+
+/* Budget + Settings */
+.mb119-tool-grid,.mb119-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mb119-tool-grid button,.mb119-settings-grid button{
+  min-height:74px;background:linear-gradient(145deg,#0b234b,#172554)!important;
+  color:#fff!important;border:1px solid var(--mb-border)!important;border-radius:16px!important;
+  font-weight:850!important;padding:12px!important;
+}
+#mb119Version{padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#mb119Version b{color:var(--mb-cyan)}
+#mb119Version strong{white-space:nowrap}
+
+/* Bottom navigation */
+#mb119BottomNav{
+  position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  display:grid;grid-template-columns:repeat(6,1fr);gap:5px;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(4,18,40,.98);border-top:2px solid rgba(0,245,255,.55);
+  box-shadow:0 -10px 26px rgba(0,0,0,.28)
+}
+.mb119-nav{
+  min-width:0;padding:9px 3px!important;border:1px solid rgba(0,245,255,.16)!important;
+  border-radius:13px!important;background:#071a36!important;color:#b9c7da!important;
+  font-size:11px!important;font-weight:850!important;display:flex!important;
+  flex-direction:column!important;align-items:center!important;gap:4px!important
+}
+.mb119-nav .ico{font-size:21px;line-height:1}
+.mb119-nav.active{color:var(--mb-cyan)!important;border-color:rgba(0,245,255,.65)!important;background:#0b234b!important}
+
+@media(max-width:560px){
+  #mb119Shell{padding:12px 12px 26px}
+  .mb119-spend-grid,.mb119-tool-grid,.mb119-settings-grid{grid-template-columns:1fr}
+  .mb119-nav{font-size:10px!important;padding-left:1px!important;padding-right:1px!important}
+}
+
+/* ===== mb-20-0-137-reference-theme ===== */
+:root{
+  --mb137-page:#f7f9fc;
+  --mb137-navy:#0b234b;
+  --mb137-navy2:#071a36;
+  --mb137-cyan:#00f5ff;
+  --mb137-white:#ffffff;
+  --mb137-on-navy:#ffffff;
+  --mb137-muted:#c5d1e2;
+  --mb137-ink:#10203a;
+}
+
+/* White/light page BEHIND the interface */
+html,body,#mb119Shell,.mb119-view{
+  background:var(--mb137-page)!important;
+  color:var(--mb137-ink)!important;
+}
+
+/* ACTIVE PAGE reserves room for a truly stationary header. */
+.mb119-view.active{
+  padding-top:calc(108px + env(safe-area-inset-top))!important;
+}
+
+/* REAL STATIONARY HEADER — navy from the instant a tab opens. */
+.mb123-sticky-header{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:2000!important;
+  margin:0!important;
+  padding:calc(18px + env(safe-area-inset-top)) 26px 17px!important;
+  background:linear-gradient(135deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  border-bottom:3px solid var(--mb137-cyan)!important;
+  color:var(--mb137-on-navy)!important;
+  box-shadow:0 6px 18px rgba(7,24,51,.22)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.mb123-sticky-header .mb119-title,
+.mb123-sticky-header h1,
+.mb123-sticky-header h2,
+.mb123-sticky-header h3{
+  color:var(--mb137-on-navy)!important;
+  margin:0!important;
+}
+.mb123-sticky-header .mb119-sub{
+  color:var(--mb137-muted)!important;
+  margin:4px 0 0!important;
+}
+
+/* ALL dashboard cards / interface tabs navy. */
+#mb119HomeMount #dashboardCards>.card,
+#mb119HomeMount>.card,
+#mb119HomeMount #financeStatusCard,
+#mb119HomeMount #availableNowCard,
+#mb119Tips,
+.mb132-budget-card,
+.mb126-budget-card,
+.mb119-tool-grid button,
+.mb119-settings-grid button,
+.quick-actions button,
+.mb119-spend-actions button,
+.mb119-range button,
+#mb132BillColorsBtn,
+#mb126BillColorsBtn{
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:var(--mb137-on-navy)!important;
+  border:2px solid var(--mb137-cyan)!important;
+  box-shadow:0 5px 13px rgba(7,24,51,.11)!important;
+}
+#mb119HomeMount #dashboardCards>.card,
+#mb119HomeMount>.card,
+#mb119HomeMount #financeStatusCard,
+#mb119HomeMount #availableNowCard,
+#mb119Tips{
+  border-width:3px!important;
+}
+#mb119HomeMount #dashboardCards>.card *,
+#mb119HomeMount>.card *,
+#mb119HomeMount #financeStatusCard *,
+#mb119HomeMount #availableNowCard *,
+#mb119Tips *,
+.mb119-tool-grid button *,
+.mb119-settings-grid button *,
+.quick-actions button *,
+.mb119-spend-actions button *{
+  color:var(--mb137-on-navy)!important;
+}
+#mb119HomeMount .label,
+#financeStatusSub,
+#mb119Tips small{
+  color:var(--mb137-muted)!important;
+}
+
+/* Week / Month are also navy — active one gets cyan text. */
+.mb119-range button.active{
+  background:#06162f!important;
+  color:var(--mb137-cyan)!important;
+}
+
+/* SPENDING outer panels are navy, inputs stay white. */
+#mb119Spending .mb119-spend-form,
+#mb119Spending .mb119-ledger{
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+}
+#mb119Spending input,
+#mb119Spending textarea,
+#mb119Spending select{
+  background:#fff!important;
+  color:var(--mb137-ink)!important;
+  border:1px solid #b8c6d5!important;
+}
+#mb119SpendTotal{color:#fff!important}
+#mb119SpendList{
+  display:grid!important;
+  gap:10px!important;
+}
+#mb119SpendList .mb119-ledger-item{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:4px 12px!important;
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+  border-radius:16px!important;
+  padding:13px!important;
+}
+#mb119SpendList .mb119-ledger-title,
+#mb119SpendList .mb119-ledger-amt{color:#fff!important}
+#mb119SpendList .mb119-ledger-time{
+  grid-column:1 / -1!important;
+  color:var(--mb137-muted)!important;
+}
+.mb137-spend-actions{
+  grid-column:1 / -1!important;
+  display:flex!important;
+  gap:8px!important;
+  margin-top:7px!important;
+}
+.mb137-spend-actions button{
+  min-height:36px!important;
+  padding:6px 13px!important;
+  border-radius:10px!important;
+  font-weight:900!important;
+}
+.mb137-edit{
+  background:#06162f!important;
+  color:#fff!important;
+  border:1px solid var(--mb137-cyan)!important;
+}
+.mb137-delete{
+  background:#fff!important;
+  color:#b42318!important;
+  border:1px solid #e1aaa5!important;
+}
+
+/* Bills use the same navy-card language. */
+#mb119BillsMount .bill{
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+}
+#mb119BillsMount .bill .name,
+#mb119BillsMount .bill .amount,
+#mb119BillsMount .bill strong{color:#fff!important}
+#mb119BillsMount .bill .meta,
+#mb119BillsMount .bill small{color:var(--mb137-muted)!important}
+
+/* Calendar dates/inputs are content, so they remain white; calendar controls are navy. */
+#mb119CalendarMount .calendar-wrap{
+  background:#fff!important;
+  color:var(--mb137-ink)!important;
+  border:2px solid var(--mb137-cyan)!important;
+}
+#mb119CalendarMount .cal-day{
+  background:#fff!important;
+  color:var(--mb137-ink)!important;
+}
+#mb119CalendarMount button:not(.cal-day){
+  background:var(--mb137-navy)!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+}
+
+/* BOTTOM NAV EXACTLY follows the reference: navy bar, no white button boxes. */
+#mb119BottomNav{
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  z-index:2100!important;
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:4px!important;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;
+  background:linear-gradient(180deg,#0a2046,#06162f)!important;
+  border-top:3px solid var(--mb137-cyan)!important;
+  box-shadow:0 -8px 22px rgba(6,22,47,.28)!important;
+}
+.mb119-nav{
+  background:transparent!important;
+  color:#c9d4e3!important;
+  border:1px solid transparent!important;
+  border-radius:13px!important;
+  min-width:0!important;
+  padding:8px 2px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+}
+.mb119-nav.active{
+  background:rgba(0,245,255,.07)!important;
+  color:var(--mb137-cyan)!important;
+  border-color:rgba(0,245,255,.42)!important;
+}
+.mb119-nav .ico{
+  width:26px!important;height:26px!important;color:inherit!important;
+}
+.mb119-nav .ico svg{
+  width:100%!important;height:100%!important;display:block!important;
+  stroke:currentColor!important;fill:none!important;stroke-width:2.15!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+
+/* Settings/Budget navigation tabs navy too. */
+#mb119Settings .mb119-settings-grid button,
+#mb119Budget .mb119-tool-grid button,
+#mb119Version{
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+}
+#mb119Version *{color:#fff!important}
+#mb119Version b{color:var(--mb137-cyan)!important}
+
+/* Simple Appearance editor. */
+#mb137Appearance{
+  background:linear-gradient(145deg,var(--mb137-navy),var(--mb137-navy2))!important;
+  color:#fff!important;
+  border:2px solid var(--mb137-cyan)!important;
+  border-radius:18px!important;
+  padding:14px!important;
+}
+#mb137Appearance h3,#mb137Appearance label{color:#fff!important}
+#mb137Appearance p{color:var(--mb137-muted)!important}
+.mb137-color-row{
+  display:grid!important;
+  grid-template-columns:1fr 58px!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:10px 12px!important;
+  margin:8px 0!important;
+  border:1px solid rgba(0,245,255,.35)!important;
+  border-radius:12px!important;
+}
+.mb137-color-row input[type=color]{
+  width:58px!important;height:44px!important;padding:2px!important;
+  background:#fff!important;border:1px solid var(--mb137-cyan)!important;
+}
+.mb137-theme-actions{
+  display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-top:12px!important;
+}
+
+/* Edit Spending modal. */
+#mb137SpendEditor{
+  width:min(92vw,520px)!important;
+  border:0!important;
+  border-radius:22px!important;
+  padding:0!important;
+}
+#mb137SpendEditor::backdrop{background:rgba(5,15,35,.68)!important}
+.mb137-editor{
+  background:#fff!important;color:var(--mb137-ink)!important;padding:18px!important
+}
+.mb137-editor-grid{display:grid!important;gap:10px!important}
+.mb137-editor-grid label{font-weight:900!important}
+.mb137-editor-grid input,.mb137-editor-grid textarea{
+  width:100%!important;box-sizing:border-box!important;
+  padding:10px 12px!important;border:1px solid #b8c6d5!important;border-radius:11px!important;
+  background:#fff!important;color:var(--mb137-ink)!important;font-size:16px!important
+}
+.mb137-editor-buttons{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-top:14px!important}
+#mb137EditorSave{background:var(--mb137-navy)!important;color:#fff!important;border:2px solid var(--mb137-cyan)!important}
+#mb137EditorCancel{background:#fff!important;color:var(--mb137-ink)!important;border:1px solid #b8c6d5!important}
+
+/* ===== mb-20-0-139-shell-fix ===== */
+/*
+  20.0.148 regression fix:
+  the original one-page .app became visible again in 137/138.
+  Its useful nodes are already moved into #mb119Shell by setupContent().
+  Keep only the new tab shell visible.
+*/
+body > .app{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+
+/* The tab shell is the ONLY visible app UI. */
+#mb119Shell{
+  display:block!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+/* Never allow more than the selected tab to paint. */
+#mb119Shell > .mb119-view{
+  display:none!important;
+}
+#mb119Shell > .mb119-view.active{
+  display:block!important;
+}
+
+/* Bottom navigation remains visible independently of the legacy app. */
+#mb119BottomNav{
+  display:grid!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+/* Keep the active tab below the fixed header and above the fixed bottom nav. */
+#mb119Shell > .mb119-view.active{
+  min-height:100vh!important;
+  padding-bottom:calc(150px + env(safe-area-inset-bottom))!important;
+}
+
+/* Fixed navy header remains the only header for each tab. */
+#mb119Shell > .mb119-view > .mb123-sticky-header{
+  display:block!important;
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+}
+
+/* ===== mb-20-0-142-security-settings ===== */
+#mb142SecurityControls{
+  margin-top:14px!important;
+  padding:14px!important;
+  border:1px solid rgba(0,245,255,.38)!important;
+  border-radius:15px!important;
+  background:rgba(4,21,49,.24)!important;
+}
+.mb142-security-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  padding:8px 0!important;
+}
+.mb142-security-copy strong{
+  display:block!important;
+  color:#fff!important;
+  margin-bottom:3px!important;
+}
+.mb142-security-copy small{color:#c5d1e2!important}
+.mb142-switch{
+  position:relative!important;
+  width:58px!important;
+  height:32px!important;
+  flex:0 0 auto!important;
+}
+.mb142-switch input{
+  opacity:0!important;
+  width:0!important;
+  height:0!important;
+}
+.mb142-slider{
+  position:absolute!important;
+  inset:0!important;
+  background:#69778b!important;
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  transition:.18s ease!important;
+}
+.mb142-slider:before{
+  content:""!important;
+  position:absolute!important;
+  width:24px!important;
+  height:24px!important;
+  left:3px!important;
+  top:3px!important;
+  background:#fff!important;
+  border-radius:50%!important;
+  transition:.18s ease!important;
+}
+.mb142-switch input:checked + .mb142-slider{
+  background:#087d86!important;
+  border-color:#00f5ff!important;
+}
+.mb142-switch input:checked + .mb142-slider:before{
+  transform:translateX(26px)!important;
+}
+#mb142LockNow{
+  width:100%!important;
+  margin-top:10px!important;
+  background:#071a36!important;
+  color:#fff!important;
+  border:2px solid #00f5ff!important;
+  border-radius:12px!important;
+  padding:10px 12px!important;
+  font-weight:900!important;
+}
+#mb142SecurityStatus{
+  display:block!important;
+  margin-top:8px!important;
+  color:#c5d1e2!important;
+}
+
+/* 20.0.148 visual/performance polish */
+#mb119HomeMount .current-week-hours-card,
+#mb119HomeMount .card[onclick*="showHoursWeeks"]{
+  background:linear-gradient(145deg,var(--mb137-navy,#0b234b),var(--mb137-navy2,#071a36))!important;
+  color:var(--mb137-on-navy,#fff)!important;
+  border:3px solid var(--mb137-cyan,#00f5ff)!important;
+}
+#mb119HomeMount .current-week-hours-card .label,
+#mb119HomeMount .current-week-hours-card .value,
+#mb119HomeMount .current-week-hours-card .meta,
+#mb119HomeMount .card[onclick*="showHoursWeeks"] .label,
+#mb119HomeMount .card[onclick*="showHoursWeeks"] .value,
+#mb119HomeMount .card[onclick*="showHoursWeeks"] .meta{
+  color:var(--mb137-on-navy,#fff)!important;
+}
+#mb119HomeMount .current-week-hours-card .label,
+#mb119HomeMount .current-week-hours-card .meta{opacity:.72!important}
+
+/* Category pills were inheriting white text while keeping a white background. */
+#mb119BillsMount .bill-category-pill,
+#mb119Shell .bill .bill-category-pill{
+  display:inline-flex!important;
+  align-items:center!important;
+  width:max-content!important;
+  background:#fff!important;
+  color:var(--mb137-navy,#0b234b)!important;
+  border:1px solid rgba(0,245,255,.75)!important;
+  opacity:1!important;
+  font-weight:850!important;
+}
+.category-menu{background:#fff!important;color:var(--mb137-ink,#10203a)!important}
+.category-menu .category-option{color:var(--mb137-ink,#10203a)!important;background:#fff!important}
+.category-menu .category-option:hover,.category-menu .category-option:active{background:#eef6fa!important}
+
+
+/* 20.1.2 — First-run setup and device-security education */
+.mb212-onboarding{
+  width:min(92vw,560px);
+  max-height:88vh;
+  padding:0;
+  border:2px solid var(--mb137-cyan,#00f5ff);
+  border-radius:22px;
+  background:var(--mb137-navy,#0b234b);
+  color:var(--mb137-on-navy,#fff);
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+}
+.mb212-onboarding::backdrop{background:rgba(3,11,24,.78);backdrop-filter:blur(4px)}
+.mb212-wrap{padding:22px}
+.mb212-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:22px}
+.mb212-progress span{height:5px;border-radius:999px;background:rgba(255,255,255,.18)}
+.mb212-progress span.active{background:var(--mb137-cyan,#00f5ff)}
+.mb212-step{display:none}
+.mb212-step.active{display:block}
+.mb212-kicker{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mb137-cyan,#00f5ff);margin-bottom:5px}
+.mb212-step h2{font-size:1.65rem;line-height:1.1;margin:0 0 10px;color:#fff}
+.mb212-step>p{color:#c9d6e8;line-height:1.5;margin:0 0 18px}
+.mb212-label{display:block;font-weight:750;color:#fff;margin:14px 0 0}
+.mb212-label span{font-weight:500;color:#9fb2ca;font-size:.8rem}
+.mb212-label input,.mb212-label select{
+  display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:13px 12px;
+  border-radius:12px;border:1px solid rgba(0,245,255,.55);background:#071a36;color:#fff;
+  font:inherit;outline:none
+}
+.mb212-label input:focus,.mb212-label select:focus{border-color:var(--mb137-cyan,#00f5ff);box-shadow:0 0 0 3px rgba(0,245,255,.12)}
+.mb212-callout,.mb212-tip,.mb212-security-card{
+  border:1px solid rgba(0,245,255,.42);background:rgba(0,245,255,.07);
+  border-radius:14px;padding:14px;margin:16px 0
+}
+.mb212-callout strong,.mb212-callout span{display:block}
+.mb212-callout span{color:#c9d6e8;margin-top:5px;line-height:1.45}
+.mb212-callout.compact{margin-top:18px}
+.mb212-tip{color:#c9d6e8;line-height:1.45}
+.mb212-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.mb212-actions.split{justify-content:space-between}
+.mb212-actions.stack{flex-direction:column}
+.mb212-primary,.mb212-secondary,.mb212-link{
+  min-height:46px;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer
+}
+.mb212-primary{background:var(--mb137-cyan,#00f5ff);color:#06182f;border:1px solid var(--mb137-cyan,#00f5ff)}
+.mb212-secondary{background:#fff;color:#0b234b;border:1px solid #fff}
+.mb212-link{background:transparent;color:#c9d6e8;border:0}
+.mb212-security-card{display:flex;gap:13px;align-items:flex-start}
+.mb212-security-card p{margin:5px 0 0;color:#d6e1ee;line-height:1.48}
+.mb212-shield{
+  width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;
+  background:var(--mb137-cyan,#00f5ff);color:#06182f;font-weight:900
+}
+.mb212-lock-choice{
+  display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:13px;
+  background:#071a36;border:1px solid rgba(255,255,255,.16)
+}
+.mb212-lock-choice input{width:20px;height:20px;margin-top:1px;accent-color:var(--mb137-cyan,#00f5ff)}
+.mb212-lock-choice span,.mb212-lock-choice small{display:block}
+.mb212-lock-choice small{color:#aebfd3;margin-top:3px}
+.mb212-lock-choice.disabled{opacity:.55}
+.mb212-security-tip{
+  position:fixed;left:14px;right:14px;bottom:88px;z-index:100000;
+  max-width:560px;margin:auto;padding:14px 42px 14px 15px;border-radius:14px;
+  background:#071a36;color:#fff;border:1px solid var(--mb137-cyan,#00f5ff);
+  box-shadow:0 14px 40px rgba(0,0,0,.36);transform:translateY(18px);opacity:0;
+  transition:opacity .2s ease,transform .2s ease
+}
+.mb212-security-tip.show{opacity:1;transform:translateY(0)}
+.mb212-security-tip strong,.mb212-security-tip span{display:block}
+.mb212-security-tip span{color:#cbd8e8;margin-top:4px;line-height:1.4}
+.mb212-tip-close{
+  position:absolute;right:7px;top:6px;width:32px;height:32px;border-radius:50%;
+  border:0;background:transparent;color:#fff;font-size:24px;line-height:1
+}
+@media (max-width:420px){
+  .mb212-wrap{padding:18px}
+  .mb212-step h2{font-size:1.45rem}
+}
+
+
+/* ============================================================
+   20.1.3 — Accessibility / popup mobility pass
+   ============================================================ */
+
+/* All native dialogs get enough room to move, scroll, and respect system bars. */
+dialog{
+  box-sizing:border-box;
+  max-width:min(94vw,680px);
+  max-height:calc(100dvh - 32px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable both-edges;
+  margin:auto;
+}
+
+/* Avoid content being trapped behind Android navigation/status areas. */
+dialog > *{
+  box-sizing:border-box;
+}
+
+/* First-run setup: full content can always be reached on short/small screens. */
+.mb212-onboarding{
+  width:min(94vw,620px);
+  max-height:calc(100dvh - 24px);
+  overflow:hidden;
+  margin:auto;
+}
+.mb212-wrap{
+  max-height:calc(100dvh - 28px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding:
+    max(18px,env(safe-area-inset-top))
+    max(18px,env(safe-area-inset-right))
+    max(24px,env(safe-area-inset-bottom))
+    max(18px,env(safe-area-inset-left));
+  scroll-padding-top:20px;
+  scroll-padding-bottom:96px;
+}
+.mb212-step{
+  min-height:min-content;
+}
+.mb212-actions{
+  position:sticky;
+  bottom:-1px;
+  z-index:4;
+  padding:12px 0 max(4px,env(safe-area-inset-bottom));
+  margin-top:20px;
+  background:linear-gradient(to bottom,rgba(11,35,75,0),var(--mb137-navy,#0b234b) 30%);
+}
+.mb212-actions.stack{
+  position:static;
+  background:none;
+  padding-bottom:max(8px,env(safe-area-inset-bottom));
+}
+
+/* Comfortable touch targets for young, older, and motor-impaired users. */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+.mb119-nav{
+  min-height:44px;
+}
+.mb212-primary,
+.mb212-secondary,
+.mb212-link,
+.mb212-tip-close{
+  min-height:48px;
+}
+
+/* Form controls should remain comfortably readable when Android font size is increased. */
+input,
+select,
+textarea,
+button{
+  font-size:max(16px,1em);
+}
+label{
+  line-height:1.35;
+}
+
+/* Generic legacy modal / popup classes used throughout My Bills.
+   This does not change layout unless the element is already acting as an overlay. */
+.modal,
+.popup,
+.dialog,
+.sheet,
+[role="dialog"],
+[aria-modal="true"]{
+  max-height:calc(100dvh - 24px);
+  overscroll-behavior:contain;
+}
+.modal,
+.popup,
+.dialog,
+.sheet{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Give focused controls a strong visible keyboard/accessibility outline. */
+:where(button,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid var(--mb137-cyan,#00f5ff);
+  outline-offset:3px;
+}
+
+/* Respect users who request less motion. */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* Small / short screens: reduce wasted space, never shrink text. */
+@media (max-height:700px){
+  .mb212-wrap{padding-top:14px}
+  .mb212-progress{margin-bottom:14px}
+  .mb212-step h2{margin-bottom:8px}
+  .mb212-step>p{margin-bottom:12px}
+  .mb212-label{margin-top:10px}
+}
+
+@media (max-width:380px){
+  .mb212-onboarding{width:96vw}
+  .mb212-wrap{
+    padding-left:14px;
+    padding-right:14px;
+  }
+  .mb212-actions.split{
+    gap:8px;
+  }
+  .mb212-actions.split > button{
+    flex:1 1 0;
+  }
+}
+
+
+/* 20.1.4 — simplified App Lock explanation */
+.mb214-simple-security strong{
+  font-size:1.08rem;
+}
+.mb214-simple-security p{
+  margin-top:8px;
+}
+.mb214-private-note{
+  color:#9feef3!important;
+  font-weight:700;
+}
+
+
+/* ============================================================
+   20.1.5 — onboarding visibility + simple progress + popup scroll fix
+   ============================================================ */
+
+/* The onboarding dialog itself is the only scroll container.
+   This avoids nested-scroll traps in Android WebView. */
+.mb212-onboarding{
+  width:min(94vw,620px)!important;
+  max-height:92dvh!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  margin:auto!important;
+  scrollbar-gutter:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+.mb212-wrap{
+  max-height:none!important;
+  overflow:visible!important;
+  padding:
+    max(16px,env(safe-area-inset-top))
+    max(18px,env(safe-area-inset-right))
+    max(28px,env(safe-area-inset-bottom))
+    max(18px,env(safe-area-inset-left))!important;
+  scroll-padding-bottom:28px!important;
+}
+
+/* No faux "tabs" at the top. Setup position is now plain text. */
+.mb212-progress{display:none!important}
+
+/* Let action buttons flow naturally so they never cover/cut off content. */
+.mb212-actions,
+.mb212-actions.stack{
+  position:static!important;
+  background:none!important;
+  padding-top:8px!important;
+  padding-bottom:max(8px,env(safe-area-inset-bottom))!important;
+}
+
+/* Keep onboarding readable without giant lines dominating a small phone. */
+.mb212-step h2{
+  font-size:clamp(1.55rem,6vw,2rem)!important;
+  line-height:1.12!important;
+}
+.mb212-step>p,
+.mb212-callout span,
+.mb212-security-card p{
+  font-size:clamp(1rem,4.6vw,1.15rem)!important;
+  line-height:1.45!important;
+}
+.mb212-kicker{
+  font-size:clamp(.85rem,3.8vw,1rem)!important;
+}
+
+/* All dialogs get a little more usable vertical room, while staying scrollable. */
+dialog{
+  max-height:92dvh!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
+
+/* On very short screens, keep spacing compact but never hide text. */
+@media (max-height:700px){
+  .mb212-onboarding{max-height:94dvh!important}
+  .mb212-wrap{padding-top:12px!important;padding-bottom:18px!important}
+  .mb212-callout,.mb212-tip,.mb212-security-card{margin:12px 0!important}
+}
+
+
+/* ============================================================
+   20.1.6 — salary tracking + simplified App Lock setup
+   ============================================================ */
+.mb216-optional{
+  font-size:.7em;
+  font-weight:700;
+  color:#b8c8da;
+}
+.mb216-lock-simple{
+  border:1px solid rgba(0,245,255,.5);
+  background:rgba(0,245,255,.07);
+  border-radius:14px;
+  padding:14px;
+  margin:14px 0;
+}
+.mb216-lock-simple strong,
+.mb216-lock-simple div,
+.mb216-lock-simple small{
+  display:block;
+}
+.mb216-lock-simple strong{
+  font-size:1.05rem;
+  line-height:1.3;
+  margin-bottom:10px;
+}
+.mb216-lock-simple div{
+  font-size:1rem;
+  line-height:1.4;
+  margin:6px 0;
+  color:#fff;
+}
+.mb216-lock-simple small{
+  margin-top:10px;
+  color:#9feef3;
+  font-weight:700;
+  line-height:1.4;
+}
+#mb216SalaryWrap[hidden],
+#mb216HourlyWrap[hidden],
+#checkSalaryWrap[hidden],
+#checkHourlyWrap[hidden]{
+  display:none!important;
+}
+
+
+/* ============================================================
+   20.1.7 — Bills search/filter top-area cleanup
+   ============================================================ */
+#mb119Bills .mb119-bills-tools,
+#mb119Bills .bill-tools,
+#mb119Bills .filters,
+#mb119Bills .filter-wrap,
+#mb119Bills .search-wrap{
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Known legacy wrapper directly surrounding Search bills + category select. */
+#mb119Bills .card:has(#billSearch),
+#mb119Bills .card:has(#billCategoryFilter),
+#mb119Bills .panel:has(#billSearch),
+#mb119Bills .panel:has(#billCategoryFilter){
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Keep the actual inputs styled; only remove the white outer box. */
+#mb119Bills #billSearch,
+#mb119Bills #billCategoryFilter{
+  background:var(--mb137-navy,#0b234b)!important;
+  color:#fff!important;
+  border:1px solid rgba(0,245,255,.45)!important;
+  border-radius:14px!important;
+}
+
+/* If the wrapper is a generic div, flatten only the direct container that holds both controls. */
+#mb119Bills div:has(> #billSearch):has(+ * #billCategoryFilter),
+#mb119Bills div:has(#billSearch):has(#billCategoryFilter){
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+
+/* ============================================================
+   20.2.0 — preservation build layout fixes
+   ============================================================ */
+
+/* Keep all major tab content inside the viewport. */
+.mb119-view,
+#mb119Budget,
+#mb119Budget *,
+#mb119Spending,
+#mb119Spending *,
+#mb119Bills,
+#mb119Bills *{
+  box-sizing:border-box;
+  min-width:0;
+}
+
+/* Budget/work-hour rows should wrap instead of extending past the screen. */
+#mb119Budget .row,
+#mb119Budget .toolbar,
+#mb119Budget .form-row,
+#mb119Budget .input-row,
+#mb119Budget .mb119-row{
+  flex-wrap:wrap!important;
+  max-width:100%!important;
+}
+
+#mb119Budget input,
+#mb119Budget select,
+#mb119Budget textarea,
+#mb119Budget button{
+  max-width:100%!important;
+}
+
+#mb119Budget .item,
+#mb119Budget .card,
+#mb119Budget .panel,
+#mb119Budget .section{
+  width:100%!important;
+  max-width:100%!important;
+  overflow:hidden;
+}
+
+/* Work-hours controls fit on narrow Android screens. */
+#mb119Budget input[type="date"],
+#mb119Budget input[type="number"]{
+  flex:1 1 180px!important;
+  width:auto!important;
+}
+
+#mb119Budget [data-hour-del],
+#mb119Budget .danger{
+  flex:0 0 auto!important;
+  max-width:100%!important;
+}
+
+/* Never allow the app shell to create sideways scrolling. */
+html,body,#mb119Shell{
+  max-width:100%;
+  overflow-x:hidden!important;
+}

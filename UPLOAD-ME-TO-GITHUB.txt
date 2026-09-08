@@ -1,13 +1,3 @@
-My Bills update package instructions
-Version: 20.1.12
-
-For the normal update workflow:
-1. Rename the provided update package to exactly: MyBills_update.zip
-2. Upload MyBills_update.zip to the ROOT of the GitHub MyBills repository.
-3. Commit it to main.
-4. The Apply My Bills Update workflow applies the files.
-5. The release workflow builds both the signed APK and Play Store AAB.
-6. Install the newest APK artifact over the existing app.
-
-Do not upload the full MyBills-main.zip as MyBills_update.zip.
-Keep the full repo ZIP only as the clean master/archive copy.
+My Bills repository package
+Version: 20.0.148
+Upload the contents of this MyBills-main folder to the repository root.
