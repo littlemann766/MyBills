@@ -11,8 +11,8 @@ android {
         applicationId 'com.mybills.app'
         minSdk 26
         targetSdk 36
-        versionCode 205
-        versionName '20.4.20'
+        versionCode 206
+        versionName '20.4.21'
     }
 
     signingConfigs {

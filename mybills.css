@@ -2348,3 +2348,136 @@ html,body,#mb119Shell{
   max-width:100%;
   overflow-x:hidden!important;
 }
+
+
+/* 20.4.21 — prepaint modal theme, no white-to-navy flash */
+body.mb-home-advanced #mb2049QuickSpending,
+body.mb-home-easy #mb2049QuickSpending,
+#mb2049QuickSpending,
+#mb20410SpendAdd{
+  display:none!important;
+}
+
+dialog,
+dialog .form{
+  background:#103462!important;
+  color:#fff!important;
+}
+
+/* Common legacy menu/card classes must be dark BEFORE any JS runs. */
+dialog .card,
+dialog .bill,
+dialog .empty,
+dialog .week-stat,
+dialog .week-row,
+dialog .summary-stat,
+dialog .settings-section,
+dialog .finance-status,
+dialog .budget-progress-card,
+dialog .budget-expense-box,
+dialog .budget-expense-row,
+dialog .savings-goal,
+dialog .snapshot-row,
+dialog .health-cell,
+dialog .planner-assigned-total,
+dialog .planner-assign,
+dialog .recurring-series-row,
+dialog .history-item,
+dialog .payment-history-card,
+dialog .goal-card,
+dialog .income-card,
+dialog .bill-card,
+dialog [class*="summary-card"],
+dialog [class*="history-card"],
+dialog [class*="income-card"],
+dialog [class*="paycheck-card"],
+dialog [class*="week-card"],
+dialog [class*="day-card"]{
+  background:#14376b!important;
+  color:#fff!important;
+  border-color:rgba(31,215,232,.38)!important;
+}
+
+dialog .card *,
+dialog .bill *,
+dialog .empty *,
+dialog .week-stat *,
+dialog .week-row *,
+dialog .summary-stat *,
+dialog .settings-section *,
+dialog .finance-status *,
+dialog .budget-progress-card *,
+dialog .budget-expense-box *,
+dialog .budget-expense-row *,
+dialog .savings-goal *,
+dialog .snapshot-row *,
+dialog .health-cell *,
+dialog .planner-assigned-total *,
+dialog .planner-assign *,
+dialog .recurring-series-row *,
+dialog .history-item *,
+dialog .payment-history-card *,
+dialog .goal-card *,
+dialog .income-card *,
+dialog .bill-card *{
+  color:#fff!important;
+}
+
+dialog .meta,
+dialog .muted,
+dialog small,
+dialog .label,
+dialog .sub,
+dialog .subtitle{
+  color:#d8e1ee!important;
+}
+
+dialog input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
+dialog select,
+dialog textarea{
+  background:#0b2447!important;
+  color:#fff!important;
+  border-color:#168ca0!important;
+}
+
+dialog .ghost,
+dialog button:not(.primary):not(.dialog-close-x){
+  background:#0d2b53!important;
+  color:#fff!important;
+  border-color:#168ca0!important;
+}
+
+dialog .primary{
+  background:#25d4e5!important;
+  color:#071a33!important;
+  border-color:#25d4e5!important;
+}
+
+/* Budget: one Spend button + one Funds button, no duplicate fast button */
+#budgetDlg #mb20410SpendAdd{display:none!important}
+#budgetDlg .budget-spending-edit-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+}
+#budgetDlg #budgetExpenseSaveBtn,
+#budgetDlg #mb20421AddFunds{
+  min-height:50px!important;
+}
+
+/* Meter words live only inside the moving pill */
+#mb20419ScaleLabels{
+  display:none!important;
+}
+#mb20419MeterStage{
+  padding-top:62px!important;
+}
+#mb20419MeterPill{
+  width:auto!important;
+  min-width:94px!important;
+  max-width:156px!important;
+  padding:9px 14px!important;
+  white-space:nowrap!important;
+  font-size:.78rem!important;
+  border-radius:16px!important;
+}
