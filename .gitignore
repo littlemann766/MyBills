@@ -8,3 +8,6 @@ local.properties
 MYBILLS_KEYSTORE_*
 *.log
 .DS_Store
+MyBills-main.zip
+MyBills-main/
+.mybills_update_tmp/

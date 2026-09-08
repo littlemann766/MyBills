@@ -1,4 +1,4 @@
-<!-- 20.3.11 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.3.12 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.3.11 Ease-of-Use Home */
+/* 20.3.12 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.3.11 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.3.12 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.3.11 compact Settings pop-up menus */
+/* 20.3.12 compact Settings pop-up menus */
 #mb123SettingsPanel{display:none}
 #mb123SettingsPanel.mb2034-modal-open{
   display:block!important;
@@ -179,7 +179,7 @@ body.mb2034-settings-open::before{
 }
 </style>
 <style>
-/* 20.3.11 settings modal reliability fixes */
+/* 20.3.12 settings modal reliability fixes */
 #mb2034SettingsClose{display:none}
 body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 #mb123SettingsPanel.mb2034-modal-open{min-height:0!important}
@@ -193,7 +193,7 @@ body.mb2034-settings-open #mb2034SettingsClose{display:block!important}
 }
 </style>
 <style>
-/* 20.3.11 — unified themed dialogs / menus */
+/* 20.3.12 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -310,7 +310,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.11 cleanup */
+/* 20.3.12 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -421,7 +421,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.11 readability cleanup */
+/* 20.3.12 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -500,7 +500,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.3.11 settings modal reopen fix */
+/* 20.3.12 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -529,6 +529,31 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 #mb123SettingsPanel .settings-row:last-child{border-bottom:0!important}
 #mb123SettingsPanel select,#mb123SettingsPanel input[type="time"]{
   max-width:48%!important;
+}
+</style>
+
+
+<style id="mb20312-definitive-settings-css">
+#mb123SettingsPanel .settings-section{
+  margin:0 0 14px!important;
+  padding:16px!important;
+  border:2px solid rgba(22,228,234,.45)!important;
+  border-radius:18px!important;
+  background:#14376b!important;
+}
+#mb123SettingsPanel .settings-section h3{margin:0 0 8px!important}
+#mb123SettingsPanel .settings-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  padding:12px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.10)!important;
+}
+#mb123SettingsPanel .settings-row:last-child{border-bottom:0!important}
+@media(max-width:600px){
+  #mb123SettingsPanel .settings-row{align-items:flex-start!important;flex-direction:column!important}
+  #mb123SettingsPanel select,#mb123SettingsPanel input[type=time]{width:100%!important;max-width:100%!important}
 }
 </style>
 
@@ -8153,7 +8178,7 @@ function openAvailableNowSpendingV88(){
 
 
 
-<!-- 20.3.11 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.3.12 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -8289,7 +8314,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.3.11</strong>
+      <strong>20.3.12</strong>
     </div>
   </section>
 </div>
@@ -8303,10 +8328,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.11';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.3.12';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=180, BUILD_NAME='20.3.11', BUILD_LABEL='20.3.11';
+  const BUILD_CODE=183, BUILD_NAME='20.3.12', BUILD_LABEL='20.3.12';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -8565,7 +8590,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.3.11';
+  const VERSION='20.3.12';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -8755,7 +8780,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.3.11';
+  const VERSION='20.3.12';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -8995,7 +9020,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.3.11';
+  const VERSION='20.3.12';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -9330,7 +9355,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.3.11: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.3.12: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -9707,7 +9732,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.3.11 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.3.12 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -9755,7 +9780,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.3.11 — resumable first-run setup + PIN Lock opt-in */
+/* 20.3.12 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11046,7 +11071,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       if(lockAvailable)lockEnabled=!!AndroidBridge.isAppLockEnabled();
     }catch(e){}
 
-    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.3.11');
+    const version=(typeof BUILD_NAME!=='undefined'?BUILD_NAME:'20.3.12');
 
     p.innerHTML=`
       <h3>Backup & App</h3>
@@ -11122,6 +11147,193 @@ body.mb-high-contrast textarea{border-width:2px!important}
     const x=q('mb2034SettingsClose'); if(x)x.style.display='none';
     document.querySelectorAll('[data-mb123-settings]').forEach(b=>b.classList.remove('active'));
   };
+})();
+</script>
+
+
+<script id="mb20312-definitive-settings-fix">
+(function(){
+  const $ = id => document.getElementById(id);
+  const panel = () => $('mb123SettingsPanel');
+
+  function saveSettingsNow(){
+    try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings)); }catch(e){}
+    try{
+      calendarRange = Math.max(1, Math.min(12, Number(appSettings.calendarRangeDefault)||1));
+      const r=$('rangeSelect'); if(r) r.value=String(calendarRange);
+      if(typeof applyTheme==='function') applyTheme();
+      if(typeof render==='function') render();
+      if(typeof renderCalendar==='function') renderCalendar();
+      if(typeof scheduleNativeNotifications==='function') scheduleNativeNotifications();
+    }catch(e){}
+  }
+
+  function bind(id,key,kind='value'){
+    const el=$(id); if(!el) return;
+    if(kind==='check') el.checked=!!appSettings[key];
+    else el.value=String(appSettings[key]??'');
+    el.onchange=()=>{
+      if(kind==='check') appSettings[key]=!!el.checked;
+      else if(kind==='num') appSettings[key]=Number(el.value)||0;
+      else appSettings[key]=el.value;
+      saveSettingsNow();
+    };
+  }
+
+  function shell(title, body){
+    const p=panel(); if(!p) return;
+    p.innerHTML='';
+    if(typeof mb2034OpenSettingsShell==='function') mb2034OpenSettingsShell();
+    p.innerHTML='<h3>'+title+'</h3>'+body;
+  }
+
+  function done(){
+    return '<div class="form-actions" style="margin-top:16px"><button type="button" class="primary" id="mb20312Done">Done</button></div>';
+  }
+
+  function bills(){
+    shell('Bills & Reminders', `
+      <div class="settings-section">
+        <h3>Default Bill Settings</h3>
+        <div class="settings-help">Defaults used for new bills. Each bill can still be changed individually.</div>
+        <div class="settings-row"><label>Remind me by default</label><input id="m312DefaultNotify" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Default reminder</label>
+          <select id="m312DefaultDays">
+            <option value="0">On due date</option><option value="1">1 day before</option><option value="2">2 days before</option>
+            <option value="3">3 days before</option><option value="7">1 week before</option><option value="14">2 weeks before</option><option value="30">30 days before</option>
+          </select>
+        </div>
+        <div class="settings-row"><label>Default time</label><input id="m312DefaultTime" type="time"></div>
+        <div class="settings-row"><label>Vibrate by default</label><input id="m312DefaultVibrate" class="settings-switch" type="checkbox"></div>
+      </div>
+      <div class="settings-section">
+        <h3>Notifications</h3>
+        <div class="settings-row"><label>Bill notifications</label><input id="m312Notifications" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Reminder notifications</label><input id="m312ReminderNotifications" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Notification time</label><input id="m312NotificationTime" type="time"></div>
+        <div class="settings-row"><label>Vibrate</label><input id="m312NotificationVibrate" class="settings-switch" type="checkbox"></div>
+      </div>
+      ${done()}`);
+    bind('m312DefaultNotify','defaultBillNotify','check');
+    bind('m312DefaultDays','defaultBillDays','num');
+    bind('m312DefaultTime','defaultBillTime');
+    bind('m312DefaultVibrate','defaultBillVibrate','check');
+    bind('m312Notifications','notificationsEnabled','check');
+    bind('m312ReminderNotifications','reminderNotificationsEnabled','check');
+    bind('m312NotificationTime','notificationTime');
+    bind('m312NotificationVibrate','notificationVibrate','check');
+    $('mb20312Done').onclick=close;
+  }
+
+  function calendar(){
+    shell('Calendar & Defaults', `
+      <div class="settings-section">
+        <h3>Calendar Display</h3>
+        <div class="settings-help">Choose what appears on the calendar and how many months open by default.</div>
+        <div class="settings-row"><label>Months shown by default</label>
+          <select id="m312CalendarRange">
+            <option value="1">1 month</option><option value="2">2 months</option><option value="3">3 months</option>
+            <option value="4">4 months</option><option value="6">6 months</option><option value="12">12 months</option>
+          </select>
+        </div>
+        <div class="settings-row"><label>Show paid bills</label><input id="m312ShowPaid" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Show paychecks</label><input id="m312ShowPaychecks" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Show reminders</label><input id="m312ShowReminders" class="settings-switch" type="checkbox"></div>
+      </div>
+      ${done()}`);
+    bind('m312CalendarRange','calendarRangeDefault','num');
+    bind('m312ShowPaid','showCalendarPaid','check');
+    bind('m312ShowPaychecks','showCalendarPaychecks','check');
+    bind('m312ShowReminders','showCalendarReminders','check');
+    $('mb20312Done').onclick=close;
+  }
+
+  function backup(){
+    let lockAvailable=false, lockEnabled=false;
+    try{
+      lockAvailable=!!(window.AndroidBridge && typeof AndroidBridge.isAppLockEnabled==='function');
+      if(lockAvailable) lockEnabled=!!AndroidBridge.isAppLockEnabled();
+    }catch(e){}
+
+    shell('Backup & App', `
+      <div class="settings-section">
+        <h3>Save & Backup</h3>
+        <div class="settings-help">Save your data, download a backup, or restore a previous backup.</div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <button type="button" class="ghost" id="m312Save">Save</button>
+          <button type="button" class="ghost" id="m312Backup">Backup JSON</button>
+          <button type="button" class="ghost" id="m312Restore">Restore JSON</button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>Safety</h3>
+        <div class="settings-row"><label>Confirm before deleting a bill</label><input id="m312ConfirmDelete" class="settings-switch" type="checkbox"></div>
+        <div class="settings-row"><label>Confirm before Clear All</label><input id="m312ConfirmClear" class="settings-switch" type="checkbox"></div>
+      </div>
+      <div class="settings-section">
+        <h3>Android App Security</h3>
+        <div class="settings-help">Use the same PIN or fingerprint you already use to unlock your phone.</div>
+        <div class="settings-row"><label>Require fingerprint / phone lock</label><input id="m312Lock" class="settings-switch" type="checkbox" ${lockAvailable?'':'disabled'}></div>
+        <button type="button" class="ghost" id="m312LockNow" ${lockAvailable?'':'disabled'}>Lock My Bills Now</button>
+      </div>
+      <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
+        <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
+        <strong>20.3.12</strong>
+      </div>
+      ${done()}`);
+
+    bind('m312ConfirmDelete','confirmDelete','check');
+    bind('m312ConfirmClear','confirmClearAll','check');
+    $('m312Save').onclick=()=>{try{manualSave()}catch(e){}};
+    $('m312Backup').onclick=()=>{try{backupBills()}catch(e){}};
+    $('m312Restore').onclick=()=>{try{$('restoreFile')?.click()}catch(e){}};
+    if($('m312Lock')){
+      $('m312Lock').checked=lockEnabled;
+      $('m312Lock').onchange=()=>{try{AndroidBridge.setAppLockEnabled(!!$('m312Lock').checked)}catch(e){}};
+    }
+    if($('m312LockNow')) $('m312LockNow').onclick=()=>{try{AndroidBridge.lockNow()}catch(e){}};
+    $('mb20312Done').onclick=close;
+  }
+
+  function close(){
+    const p=panel();
+    if(p){p.innerHTML='';p.classList.remove('mb2034-modal-open');}
+    document.body.classList.remove('mb2034-settings-open');
+    const x=$('mb2034SettingsClose'); if(x) x.style.display='none';
+    document.querySelectorAll('[data-mb123-settings]').forEach(b=>b.classList.remove('active'));
+  }
+
+  function route(name){
+    if(name==='appearance'){
+      if(typeof showAppearance137==='function') showAppearance137();
+      return;
+    }
+    if(name==='reminders' || name==='bills'){ bills(); return; }
+    if(name==='calendar'){ calendar(); return; }
+    if(name==='backup'){ backup(); return; }
+  }
+
+  // THIS is the key fix: overwrite the actual button onclick handlers created
+  // by the older local setupSettings() function. That old closure was why later
+  // window.openSettingsSection overrides never took effect.
+  function wire(){
+    document.querySelectorAll('[data-mb123-settings]').forEach(btn=>{
+      btn.onclick=function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        route(btn.dataset.mb123Settings);
+      };
+    });
+    window.openSettingsSection=route;
+    window.mb2034CloseSettings=close;
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire);
+  else wire();
+
+  // Re-wire after view changes in case older code resets the handlers.
+  setTimeout(wire,100);
+  setTimeout(wire,500);
 })();
 </script>
 
