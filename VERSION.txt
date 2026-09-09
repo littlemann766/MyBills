@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.28
-Release: Payday Health first, stable popup titles, Payment History repair, Monthly Income icon fix
+Version: 20.4.29
+Release: Cockpit-style Payday Health gauge verification build
