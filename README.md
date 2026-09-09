@@ -1,13 +1,13 @@
-# Pay Pilot 20.1.6
+# My Bills 20.1.6
 
-20.1.6 is the cleanup and security-foundation release. It intentionally keeps the existing Pay Pilot features and local data format while reducing repository baggage and hardening the Android wrapper.
+20.1.6 is the cleanup and security-foundation release. It intentionally keeps the existing My Bills features and local data format while reducing repository baggage and hardening the Android wrapper.
 
 ## Android identity and updates
 
 - Application ID: `com.mybills.app`
 - Permanent release signing alias: `mybills`
 - Current version: `20.1.6` (`versionCode 148`)
-- Existing Pay Pilot app data remains in the same Android application sandbox and the web data/storage keys are unchanged.
+- Existing My Bills app data remains in the same Android application sandbox and the web data/storage keys are unchanged.
 
 ## Required GitHub Actions secrets
 
@@ -20,7 +20,7 @@ Do not commit the keystore, its HEX representation, or its password to this repo
 
 - Android cleartext network traffic is disabled.
 - The Android app no longer requests the INTERNET permission because the production wrapper uses bundled local assets.
-- Android automatic app-data backup is disabled; Pay Pilot uses its explicit user-controlled backup/restore feature instead.
+- Android automatic app-data backup is disabled; My Bills uses its explicit user-controlled backup/restore feature instead.
 - WebView debugging is explicitly disabled.
 - File-URL cross-origin access and universal file access are disabled.
 - Mixed HTTP/HTTPS content is blocked.
@@ -74,7 +74,7 @@ After this cleanup release is installed and tested, move the Android build to AP
 - Setup captures hourly wage, pay frequency, payday, typical check amount, and the starting monthly amount used by Available Now.
 - Setup can immediately open the full Add Bill form for the first bill.
 - Existing users with finance data are automatically treated as already set up and are not forced through onboarding.
-- App Lock education now clearly explains that Pay Pilot uses the phone’s existing PIN/password/pattern or fingerprint; Pay Pilot does not create or store a separate PIN.
+- App Lock education now clearly explains that My Bills uses the phone’s existing PIN/password/pattern or fingerprint; My Bills does not create or store a separate PIN.
 - A small security reminder is shown for the first three Android launches and can be dismissed permanently.
 
 
@@ -94,10 +94,10 @@ After this cleanup release is installed and tested, move the Android build to AP
 ## App Lock explanation — 20.1.6
 
 - The first-run setup explains App Lock before the user can enable it.
-- The wording is intentionally simple: there is no separate Pay Pilot PIN.
+- The wording is intentionally simple: there is no separate My Bills PIN.
 - If Android asks for a PIN, the user enters the same PIN used to unlock the phone.
 - Fingerprint can be used when it is already configured on the phone.
-- The setup and Settings screens state that Pay Pilot does not see or store the PIN or fingerprint.
+- The setup and Settings screens state that My Bills does not see or store the PIN or fingerprint.
 
 
 ## Usability fixes — 20.1.6
@@ -113,7 +113,7 @@ After this cleanup release is installed and tested, move the Android build to AP
 
 ## Income + onboarding improvements — 20.1.6
 
-- App Lock setup is reduced to a short explanation: same phone PIN, same phone fingerprint, no separate Pay Pilot PIN.
+- App Lock setup is reduced to a short explanation: same phone PIN, same phone fingerprint, no separate My Bills PIN.
 - Setup now has one completion action: `Finish & Add My First Bill`.
 - Added Hourly / Salary choice to first-run setup.
 - Salary users can enter annual salary plus an optional typical take-home check.
@@ -128,7 +128,7 @@ After this cleanup release is installed and tested, move the Android build to AP
 
 - PIN Lock is now OFF by default at the native Android layer as well as in setup.
 - Quick app switches no longer force authentication again.
-- PIN Lock only relocks after Pay Pilot has been in the background for 5 minutes.
+- PIN Lock only relocks after My Bills has been in the background for 5 minutes.
 - Returning within 5 minutes keeps the current authenticated session open.
 - Manual `Lock Now` behavior is unchanged and still locks immediately.
 

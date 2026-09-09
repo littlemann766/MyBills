@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setDatabaseEnabled(true); // IndexedDB is used by Pay Pilot.
+        settings.setDatabaseEnabled(true); // IndexedDB is used by My Bills.
         settings.setAllowFileAccess(true);  // Required for file:///android_asset/.
         settings.setAllowContentAccess(true); // Required for user-selected backup files.
         settings.setAllowFileAccessFromFileURLs(false);
@@ -216,7 +216,7 @@ public class MainActivity extends Activity {
         if (nm.getNotificationChannel(id) != null) return;
 
         NotificationChannel channel = new NotificationChannel(
-                id, "Pay Pilot alerts", NotificationManager.IMPORTANCE_DEFAULT);
+                id, "My Bills alerts", NotificationManager.IMPORTANCE_DEFAULT);
         channel.setDescription("Bills and reminder notifications");
         channel.enableVibration(vibrate);
         if (vibrate) channel.setVibrationPattern(new long[]{0, 250, 150, 250});
@@ -311,7 +311,7 @@ public class MainActivity extends Activity {
                 try {
                     requestNotificationPermissionIfNeeded();
                     JSONObject obj = new JSONObject(json);
-                    String title = obj.optString("title", "Pay Pilot test");
+                    String title = obj.optString("title", "My Bills test");
                     String text = obj.optString("text", "Notifications are working.");
                     String sound = obj.optString("sound", "default");
                     boolean vibrate = obj.optBoolean("vibrate", true);
@@ -503,7 +503,7 @@ public class MainActivity extends Activity {
             if (sound == null) sound = "default";
             ensureChannel(context, sound, vibrate);
             showNotification(context,
-                    title != null ? title : "Pay Pilot",
+                    title != null ? title : "My Bills",
                     text != null ? text : "You have an upcoming reminder.",
                     sound, vibrate);
         }
@@ -605,7 +605,7 @@ public class MainActivity extends Activity {
         icon.setGravity(Gravity.CENTER);
 
         TextView title = new TextView(this);
-        title.setText("Pay Pilot Locked");
+        title.setText("My Bills Locked");
         title.setTextColor(Color.WHITE);
         title.setTextSize(26);
         title.setGravity(Gravity.CENTER);
@@ -619,7 +619,7 @@ public class MainActivity extends Activity {
         sub.setPadding(0, 0, 0, 26);
 
         Button unlock = new Button(this);
-        unlock.setText("Unlock Pay Pilot");
+        unlock.setText("Unlock My Bills");
         unlock.setOnClickListener(v -> authenticateUser());
 
         lockView.addView(icon);
@@ -721,7 +721,7 @@ public class MainActivity extends Activity {
         }
 
         Intent intent = km.createConfirmDeviceCredentialIntent(
-                "Unlock Pay Pilot",
+                "Unlock My Bills",
                 "Confirm your phone security to continue."
         );
 
@@ -784,7 +784,7 @@ public class MainActivity extends Activity {
                 unlockAndCreateWebView();
             } else {
                 showLockedScreen();
-                Toast.makeText(this, "Pay Pilot is still locked.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "My Bills is still locked.", Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -816,7 +816,7 @@ public class MainActivity extends Activity {
                         out.write(pendingTextExport.getBytes(StandardCharsets.UTF_8));
                         out.flush();
                         Toast.makeText(this,
-                                "Pay Pilot summary saved.", Toast.LENGTH_SHORT).show();
+                                "My Bills summary saved.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(this,
@@ -840,7 +840,7 @@ public class MainActivity extends Activity {
                         out.write(pendingBackupJson.getBytes(StandardCharsets.UTF_8));
                         out.flush();
                         Toast.makeText(this,
-                                "Pay Pilot backup saved.", Toast.LENGTH_SHORT).show();
+                                "My Bills backup saved.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(this,
@@ -853,7 +853,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        // Pay Pilot is a single-page WebView app. Android's Back button should
+        // My Bills is a single-page WebView app. Android's Back button should
         // close the currently open in-app menu/dialog instead of finishing
         // the Activity and closing the whole app.
         if (webView == null) return;
@@ -884,7 +884,7 @@ public class MainActivity extends Activity {
             }
 
             // At a main tab/root screen, Back intentionally does nothing.
-            // This prevents an accidental press from closing Pay Pilot.
+            // This prevents an accidental press from closing My Bills.
         });
     }
 }

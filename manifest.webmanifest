@@ -1,6 +1,6 @@
 {
-  "name": "Pay Pilot",
-  "short_name": "Pay Pilot",
+  "name": "My Bills",
+  "short_name": "My Bills",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
