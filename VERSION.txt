@@ -1,3 +1,3 @@
 Pay Pilot
-Version: 20.5.13
-Release: Previous Bills Paid summary renamed to Bill Total Amount
+Version: 20.5.14
+Release: Previous Bills Paid summary label corrected to Bills Total Amount
