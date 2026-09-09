@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.24
-Release: Uniform menus plus app-wide Easy and Advanced navigation experiences
+Version: 20.4.25
+Release: Appearance rebuild and Debt Payoff Planner
