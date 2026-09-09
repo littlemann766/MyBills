@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.26
-Release: Home-only Easy/Advanced, first-run Home style choice, App Colors stability, Payday Health first on Advanced Home
+Version: 20.4.27
+Release: Unified popup system, settings cleanup, full theme enforcement, Home dashboard cleanup
