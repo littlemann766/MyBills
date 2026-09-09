@@ -1,8 +1,8 @@
-# My Bills Security Notes
+# Pay Pilot Security Notes
 
 ## Current model
 
-My Bills is local-first. Bills, income, spending, settings, and related finance data are stored in the app's WebView storage on the device. The app does not require the Android INTERNET permission in 20.1.6. User backups are created only through the explicit backup/export flow.
+Pay Pilot is local-first. Bills, income, spending, settings, and related finance data are stored in the app's WebView storage on the device. The app does not require the Android INTERNET permission in 20.1.6. User backups are created only through the explicit backup/export flow.
 
 ## Android protections
 
@@ -36,4 +36,4 @@ The Android build now targets API 36 and produces an Android App Bundle for Play
 
 
 ## 20.1.6 authentication wording
-The onboarding and Settings UI explicitly state that Android device authentication is used. My Bills does not create, receive, or store a separate user PIN, device passcode, or fingerprint template.
+The onboarding and Settings UI explicitly state that Android device authentication is used. Pay Pilot does not create, receive, or store a separate user PIN, device passcode, or fingerprint template.

@@ -1,23 +1,23 @@
-# My Bills Privacy Policy — Draft for Public Release
+# Pay Pilot Privacy Policy — Draft for Public Release
 
 **Last updated:** September 6, 2026
 
-My Bills is a local-first personal budgeting and bill-tracking application.
+Pay Pilot is a local-first personal budgeting and bill-tracking application.
 
 ## Information you enter
-My Bills can store information you choose to enter, such as bill names, due dates, payment amounts, income, spending, refunds, work hours, categories, reminder settings, and other budgeting information.
+Pay Pilot can store information you choose to enter, such as bill names, due dates, payment amounts, income, spending, refunds, work hours, categories, reminder settings, and other budgeting information.
 
 ## Where data is stored
-The current Android release stores this information locally on your device inside the application's private storage. The app does not require Android Internet permission and does not send your budgeting information to a My Bills server.
+The current Android release stores this information locally on your device inside the application's private storage. The app does not require Android Internet permission and does not send your budgeting information to a Pay Pilot server.
 
 ## Backups and exports
 Backup and export files are created only when you choose to save them. You choose where those files are stored through Android's system file picker. Anyone who gains access to an exported backup may be able to read the information inside it, so backups should be kept in a location you trust.
 
 ## Notifications
-My Bills can schedule local bill and reminder notifications on your device. Notification settings and bill/reminder information are processed locally for this purpose.
+Pay Pilot can schedule local bill and reminder notifications on your device. Notification settings and bill/reminder information are processed locally for this purpose.
 
 ## App lock
-If enabled, the optional app lock uses Android device authentication. My Bills does not receive or store your fingerprint image or device passcode.
+If enabled, the optional app lock uses Android device authentication. Pay Pilot does not receive or store your fingerprint image or device passcode.
 
 ## Analytics, advertising, accounts, and sale of data
 The current release does not include advertising SDKs, analytics SDKs, user accounts, cloud synchronization, or sale of personal data.

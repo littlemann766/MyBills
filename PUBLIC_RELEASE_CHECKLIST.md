@@ -1,4 +1,4 @@
-# My Bills — Public Release Checklist
+# Pay Pilot — Public Release Checklist
 
 ## Build and Android
 - [x] Application ID remains `com.mybills.app`.

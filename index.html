@@ -1,17 +1,17 @@
-<!-- 20.5.2 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
+<!-- 20.5.3 JS CLEANUP PHASE 2: observer/background-refresh maintenance. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0b234b">
-<meta name="application-name" content="My Bills">
+<meta name="application-name" content="Pay Pilot">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="My Bills">
-<title>My Bills</title>
+<meta name="apple-mobile-web-app-title" content="Pay Pilot">
+<title>Pay Pilot</title>
 <link rel="icon" type="image/png" sizes="96x96" href="mybills-v126-favicon.png?v=148">
 <link rel="apple-touch-icon" sizes="192x192" href="mybills-v126-192.png?v=148">
 <link rel="manifest" href="manifest.webmanifest?v=148">
@@ -60,7 +60,7 @@
 
 
 <style>
-/* 20.5.2 Ease-of-Use Home */
+/* 20.5.3 Ease-of-Use Home */
 .mb203-home{display:grid;gap:14px;margin-top:12px}
 .mb203-hero,.mb203-safe,.mb203-coming,.mb203-details{background:#0d2a55;border:3px solid #16e4ea;border-radius:24px;padding:20px;color:#fff}
 .mb203-hero{padding:24px}
@@ -100,7 +100,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 }
 </style>
 <style>
-/* 20.5.2 Home mode chooser in the visible Settings > Appearance panel */
+/* 20.5.3 Home mode chooser in the visible Settings > Appearance panel */
 .mb203-mode-card{background:#0d2a55;border:2px solid rgba(22,228,234,.6);border-radius:20px;padding:16px;margin-bottom:16px;color:#fff}
 .mb203-mode-card h4{margin:0 0 5px;font-size:1.08rem}
 .mb203-mode-card p{margin:0 0 12px;color:#d8e0ee;line-height:1.35}
@@ -110,7 +110,7 @@ body.mb-home-advanced #mb119HomeMount{display:block!important}
 .mb203-mode-status{display:block;margin-top:9px;color:#55f4f5;font-weight:800;font-size:.86rem}
 </style>
 <style>
-/* 20.5.2 — unified themed dialogs / menus */
+/* 20.5.3 — unified themed dialogs / menus */
 :root{
   --mb-dialog-bg:#0d2a55;
   --mb-dialog-border:#16e4ea;
@@ -227,7 +227,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.5.2 cleanup */
+/* 20.5.3 cleanup */
 
 /* Backup/App version card */
 #mb123SettingsPanel .mb119-card,
@@ -338,7 +338,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.5.2 readability cleanup */
+/* 20.5.3 readability cleanup */
 
 /* Home summary cards: give label/value more room and stack the meta cleanly */
 .mb203-stat{
@@ -417,7 +417,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 }
 </style>
 <style>
-/* 20.5.2 settings modal reopen fix */
+/* 20.5.3 settings modal reopen fix */
 #mb123SettingsPanel.mb2034-modal-open .settings-section{
   margin:0 0 14px!important;
 }
@@ -476,7 +476,7 @@ dialog .close, dialog .close-btn, dialog [aria-label*="Close"],
 
 
 <style id="mb20313-final-usability-css">
-/* 20.5.2 — final Ease-of-Use cleanup */
+/* 20.5.3 — final Ease-of-Use cleanup */
 
 /* Keep every app dialog on the MyBills theme. */
 dialog > .form,
@@ -585,7 +585,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2041-safe-style-fix">
-/* 20.5.2 — Safe to Spend modal styling + scrolling repair */
+/* 20.5.3 — Safe to Spend modal styling + scrolling repair */
 #mb2040SafeDlg{
   width:min(92vw,680px)!important;
   max-width:680px!important;
@@ -714,7 +714,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2042-afford-css">
-/* 20.5.2 — Can I Afford This? */
+/* 20.5.3 — Can I Afford This? */
 #mb2042AffordCard{
   margin:14px 0;
   width:100%;
@@ -857,7 +857,7 @@ body.mb-high-contrast .settings-section{
 
 
 <style id="mb2047-dialog-planner-fix-css">
-/* 20.5.2 — unified modal/menu theme */
+/* 20.5.3 — unified modal/menu theme */
 dialog{
   background:#0d2a55!important;
   color:#fff!important;
@@ -1046,7 +1046,7 @@ dialog form.form > h2:first-child,
 
 
 <style id="mb2048-advance-bills-css">
-/* 20.5.2 — Paycheck Planner can fund future bills */
+/* 20.5.3 — Paycheck Planner can fund future bills */
 #mb2048FutureBills{
   margin-top:14px!important;
   padding:16px!important;
@@ -1121,7 +1121,7 @@ dialog form.form > h2:first-child,
 
 
 <style id="mb2049-home-menu-cleanup-css">
-/* 20.5.2 — Home cleanup + weekly hours menu fix */
+/* 20.5.3 — Home cleanup + weekly hours menu fix */
 
 /* Weekly Hours: stop light cards/white-on-white text */
 #hoursWeeksDlg{
@@ -1235,7 +1235,7 @@ body.mb-home-advanced #mb2049QuickSpending{
 
 
 <style id="mb20410-connected-money-css">
-/* 20.5.2 — finish modal theme + connect spending, cushion, planner and Home */
+/* 20.5.3 — finish modal theme + connect spending, cushion, planner and Home */
 
 /* Remaining light modal/card surfaces */
 dialog .summary-stat,
@@ -1332,7 +1332,7 @@ body.mb-home-advanced #mb2049QuickSpending{
 
 
 <style id="mb20419-consolidated-money-css">
-/* 20.5.2 — one authoritative Payday Health / Safe to Spend UI */
+/* 20.5.3 — one authoritative Payday Health / Safe to Spend UI */
 
 #mb2040AdvancedSafe,
 #mb2042AffordCard,
@@ -1645,7 +1645,7 @@ dialog textarea{
 
 
 <style id="mb20429-cockpit-gauge-css">
-/* 20.5.2 — cockpit-inspired Payday Health gauge */
+/* 20.5.3 — cockpit-inspired Payday Health gauge */
 #mb20419MeterStage,#mb20419Meter,#mb20419MeterPill,#mb20419ScaleLabels{display:none!important}
 #mb20429GaugeStage{
   position:relative;
@@ -1742,7 +1742,7 @@ dialog textarea{
 <div class="app">
   <div class="top">
     <div class="top-title-block">
-      <h1>My Bills</h1>
+      <h1>Pay Pilot</h1>
       <div class="dashboard-month-row" id="dashboardMonthRow">
         <span class="dashboard-viewing-label">Viewing</span>
         <button type="button" class="dashboard-month-button" id="month" onclick="openMonthPicker()" aria-label="Choose viewed month"></button>
@@ -1837,7 +1837,7 @@ dialog textarea{
   </div>
   <div id="reminderList"></div>
 
-<div class="section-head"><h2>My Bills <span style="font-size:12px;font-weight:500;color:#6b7280">Tap to view • Hold to edit</span></h2><button class="ghost" onclick="clearAll()">Clear All</button></div>
+<div class="section-head"><h2>Pay Pilot <span style="font-size:12px;font-weight:500;color:#6b7280">Tap to view • Hold to edit</span></h2><button class="ghost" onclick="clearAll()">Clear All</button></div>
   <div class="bill-filter-bar">
     <div class="bill-filter-grid">
       <input id="billSearch" type="search" placeholder="Search bills" oninput="enhanceMainBillList()">
@@ -2843,7 +2843,7 @@ function calendarLongPress(iso){
 
 function backupBills(){
   const payload={
-    app:'My Bills',
+    app:'Pay Pilot',
     workHours:workHours,
     hourlyWage:hourlyWage,
     version:2,
@@ -2883,7 +2883,7 @@ function restoreBills(event){
     try{
       const data=JSON.parse(reader.result);
 
-      // v125: Preferred path for full My Bills backups (including v89).
+      // v125: Preferred path for full Pay Pilot backups (including v89).
       // Restore the exact saved localStorage snapshot instead of only rebuilding bills.
       const storage=(data && data.masterState && data.masterState.storage && typeof data.masterState.storage==='object')
         ? data.masterState.storage
@@ -2891,7 +2891,7 @@ function restoreBills(event){
 
       if(storage){
         const keys=Object.keys(storage).filter(k=>typeof k==='string' && k.startsWith('myBills_'));
-        if(!keys.length)throw new Error('No My Bills storage keys');
+        if(!keys.length)throw new Error('No Pay Pilot storage keys');
 
         const billCount=(()=>{
           try{
@@ -2917,10 +2917,10 @@ function restoreBills(event){
           }catch(e){return 0}
         })();
 
-        const message=`Restore this full My Bills backup?\n\n${billCount} bills • ${hourCount} work-hour entries • ${spendingCount} spending entries\n\nThis replaces the current saved My Bills data.`;
+        const message=`Restore this full Pay Pilot backup?\n\n${billCount} bills • ${hourCount} work-hour entries • ${spendingCount} spending entries\n\nThis replaces the current saved Pay Pilot data.`;
         if(!confirm(message))return;
 
-        // Preserve only the runtime build marker; restore every saved My Bills data/settings key exactly.
+        // Preserve only the runtime build marker; restore every saved Pay Pilot data/settings key exactly.
         keys.forEach(key=>{
           const value=storage[key];
           if(value===null || typeof value==='undefined') localStorage.removeItem(key);
@@ -2933,7 +2933,7 @@ function restoreBills(event){
           exportedAt:data.exportedAt || data.masterState?.savedAt || null
         }));
 
-        alert(`Full backup restored.\n\n${billCount} bills, ${hourCount} work-hour entries, and ${spendingCount} spending entries were loaded.\n\nMy Bills will reload now.`);
+        alert(`Full backup restored.\n\n${billCount} bills, ${hourCount} work-hour entries, and ${spendingCount} spending entries were loaded.\n\nPay Pilot will reload now.`);
         location.reload();
         return;
       }
@@ -2988,7 +2988,7 @@ function restoreBills(event){
       });
     }catch(e){
       console.error('Restore failed',e);
-      alert('That file is not a valid My Bills backup, or it could not be restored.');
+      alert('That file is not a valid Pay Pilot backup, or it could not be restored.');
     }
   };
   reader.readAsText(file);
@@ -4260,7 +4260,7 @@ function showForegroundNotification(title,text,sound='default',vibrate=true){
 }
 function testNotification(){
   const payload={
-    title:'My Bills test',
+    title:'Pay Pilot test',
     text:'Notifications are working.',
     vibrate:$('notificationVibrate').checked,
     sound:$('notificationSound').value||'default'
@@ -4602,7 +4602,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 
     <div class="settings-section">
       <h3>Appearance</h3>
-      <div class="settings-help">Choose how My Bills looks. Dark mode automatically changes text and cards for easy visibility.</div>
+      <div class="settings-help">Choose how Pay Pilot looks. Dark mode automatically changes text and cards for easy visibility.</div>
 
       <div class="settings-row mb-home-mode-row">
         <div>
@@ -4707,7 +4707,7 @@ document.addEventListener('DOMContentLoaded',addDialogCloseBubbles);
 
     <div class="settings-section">
       <h3>Android App Security</h3>
-      <div class="settings-help">My Bills uses your phone's lock. If asked for a PIN, enter the same PIN you use to unlock your phone. You can also use your fingerprint if your phone allows it. My Bills does not see or save either one.</div>
+      <div class="settings-help">Pay Pilot uses your phone's lock. If asked for a PIN, enter the same PIN you use to unlock your phone. You can also use your fingerprint if your phone allows it. Pay Pilot does not see or save either one.</div>
     </div>
 
     <div class="settings-section">
@@ -4917,7 +4917,7 @@ function openPaycheckPlanner(){const today=toISO(new Date()),next=nextPaycheckAf
 
 function copyPreviousMonthBills(){const y=calDate.getFullYear(),m=calDate.getMonth(),prev=new Date(y,m-1,1),py=prev.getFullYear(),pm=prev.getMonth();const prevRows=monthBillOccurrencesV47(py,pm,true).filter(x=>!x.b.recurring);const unique=[];const seen=new Set();prevRows.forEach(x=>{if(!seen.has(x.b.id)){seen.add(x.b.id);unique.push(x.b)}});if(!unique.length){alert('There are no non-recurring bills in the previous month to copy.');return}if(!confirm(`Copy ${unique.length} non-recurring bill${unique.length===1?'':'s'} from ${prev.toLocaleDateString('en-US',{month:'long'})} into this month?`))return;let added=0;unique.forEach(b=>{const old=new Date(b.due+'T00:00:00'),day=Math.min(old.getDate(),new Date(y,m+1,0).getDate()),due=toISO(new Date(y,m,day));if(bills.some(x=>!x.recurring&&x.name===b.name&&x.due===due))return;bills.push({...b,id:(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'bill-'+Date.now()+'-'+Math.random(),due,paid:false});added++});persistBills();setUnsaved();render();renderCalendar();alert(`${added} bill${added===1?'':'s'} copied.`)}
 
-function exportMonthlySummary(){const y=calDate.getFullYear(),m=calDate.getMonth(),label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'}),rows=monthBillOccurrencesV47(y,m,true),income=monthlyIncomeFor(y,m),budget=viewedBudget();let text=`My Bills — ${label}\
+function exportMonthlySummary(){const y=calDate.getFullYear(),m=calDate.getMonth(),label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'}),rows=monthBillOccurrencesV47(y,m,true),income=monthlyIncomeFor(y,m),budget=viewedBudget();let text=`Pay Pilot — ${label}\
 \
 Income: ${money(income)}\
 Scheduled bills: ${money(monthlyBillsFor(y,m))}\
@@ -7587,12 +7587,12 @@ function openAvailableNowSpendingV88(){
     }catch(e){ return false; }
   }
 
-  // Upgrade JSON backup: include every My Bills data bucket, not only bills/checks/hours.
+  // Upgrade JSON backup: include every Pay Pilot data bucket, not only bills/checks/hours.
   window.backupBills=function(){
     saveMaster();
     const snap=snapshot();
     const payload={
-      app:'My Bills',
+      app:'Pay Pilot',
       version:89,
       exportedAt:new Date().toISOString(),
       masterState:snap,
@@ -7799,7 +7799,7 @@ function openAvailableNowSpendingV88(){
       const data=JSON.parse(reader.result);
       const imported=Array.isArray(data)?data:(Array.isArray(data.bills)?data.bills:null);
       if(!imported)throw new Error('Invalid backup');
-      if(!confirm(`Restore ${imported.length} bill${imported.length===1?'':'s'} from this backup? This will replace the current My Bills data.`))return;
+      if(!confirm(`Restore ${imported.length} bill${imported.length===1?'':'s'} from this backup? This will replace the current Pay Pilot data.`))return;
       if(data.masterState?.storage&&typeof data.masterState.storage==='object'){
         const keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&(k==='myBills_v1'||k.startsWith('myBills_')))keys.push(k)}keys.forEach(k=>localStorage.removeItem(k));
         Object.entries(data.masterState.storage).forEach(([k,v])=>{if(v!==null&&v!==undefined)localStorage.setItem(k,String(v))});
@@ -7822,7 +7822,7 @@ function openAvailableNowSpendingV88(){
       localStorage.setItem(KEY,JSON.stringify(bills));persistPaychecks();persistPaycheckOverrides();persistBillOverrides();persistWorkHours();persistReminders();
       try{persistBills()}catch(e){}
       setUnsaved();render();renderCalendar();scheduleNativeNotifications();alert('Backup restored successfully.');
-    }catch(err){console.error(err);alert('That file is not a valid My Bills backup.')}};
+    }catch(err){console.error(err);alert('That file is not a valid Pay Pilot backup.')}};
     reader.readAsText(file);
   };
 
@@ -8198,7 +8198,7 @@ function openAvailableNowSpendingV88(){
 
   /*
     Repair missing finance buckets from the saved master snapshot or older
-    My Bills keys. This is especially important when a newly downloaded HTML
+    Pay Pilot keys. This is especially important when a newly downloaded HTML
     opens with bills/checks but loses budget/spending/payment-date metadata.
   */
   function recoverFinanceStateV99(){
@@ -9351,14 +9351,14 @@ function openAvailableNowSpendingV88(){
 </script>
 
 
-<!-- v107: official My Bills theme defaults -->
+<!-- v107: official Pay Pilot theme defaults -->
 
 
 
 
 
 
-<!-- 20.5.2 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
+<!-- 20.5.3 JS CLEANUP PHASE 1: navigation and shell consolidated. -->
 <!-- ============================================================
      v119 CLEAN RESET
      One UI layer only. No stacked v108-v118 layout patches.
@@ -9424,7 +9424,7 @@ function openAvailableNowSpendingV88(){
       <h3 id="mb119TipTitle">Protect your breathing room</h3>
       <p id="mb119TipText">Check upcoming bills before deciding what is safe to spend.</p>
       <div class="mb119-tip-foot">
-        <small>Based on the money already in My Bills</small>
+        <small>Based on the money already in Pay Pilot</small>
         <button id="mb119NextTip" type="button">Another Tip</button>
       </div>
     </section>
@@ -9494,7 +9494,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.2</strong>
+      <strong>20.5.3</strong>
     </div>
   </section>
 </div>
@@ -9508,10 +9508,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.2';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.3';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=217, BUILD_NAME='20.5.2', BUILD_LABEL='20.5.2';
+  const BUILD_CODE=218, BUILD_NAME='20.5.3', BUILD_LABEL='20.5.3';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9547,7 +9547,7 @@ function openAvailableNowSpendingV88(){
     move($('mb119CalendarMount'),$('reminderList'));
 
     // BILLS — the actual searchable/filterable list.
-    move($('mb119BillsMount'),findSectionHead(/^My Bills/i));
+    move($('mb119BillsMount'),findSectionHead(/^Pay Pilot/i));
     move($('mb119BillsMount'),document.querySelector('.bill-filter-bar'));
     move($('mb119BillsMount'),$('list'));
     move($('mb119BillsMount'),document.querySelector('.calculator-card'));
@@ -9719,7 +9719,7 @@ function openAvailableNowSpendingV88(){
     }else if(budget>0 && spending>=budget*.8){
       tips.push(['warning','You are close to the budget limit',`You have used about ${Math.round((spending/budget)*100)}% of the monthly budget in entered spending. Slowing down now can protect the rest of the month.`]);
     }else{
-      tips.push(['tip','Watch monthly spending',spending>0?`You have entered about ${cash(spending)} in spending this month. Checking this number regularly makes small purchases easier to catch.`:'Start entering everyday purchases in Spending so My Bills can give you more useful warnings and tips.']);
+      tips.push(['tip','Watch monthly spending',spending>0?`You have entered about ${cash(spending)} in spending this month. Checking this number regularly makes small purchases easier to catch.`:'Start entering everyday purchases in Spending so Pay Pilot can give you more useful warnings and tips.']);
     }
 
     tips.push(
@@ -9770,7 +9770,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.3';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9901,7 +9901,7 @@ function openAvailableNowSpendingV88(){
       const spending=typeof otherSpendingTotal==='function'?otherSpendingTotal(y,m):0;
       const savings=typeof savingsContributionsFor==='function'?savingsContributionsFor(y,m):0;
       const budget=typeof viewedBudget==='function'?viewedBudget():0;
-      let text=`My Bills — ${label}\n\nIncome: ${money(income)}\nScheduled bills: ${money(scheduled)}\nPaid: ${money(paid)}\nRemaining: ${money(remaining)}\nProjected after bills: ${money(income-scheduled)}\nOther spending: ${money(spending)}\nSavings added: ${money(savings)}\n`;
+      let text=`Pay Pilot — ${label}\n\nIncome: ${money(income)}\nScheduled bills: ${money(scheduled)}\nPaid: ${money(paid)}\nRemaining: ${money(remaining)}\nProjected after bills: ${money(income-scheduled)}\nOther spending: ${money(spending)}\nSavings added: ${money(savings)}\n`;
       if(budget)text+=`Budget: ${money(budget)}\n`;
       text+='\nBills\n';
       rows.forEach(({b,iso})=>{
@@ -9910,7 +9910,7 @@ function openAvailableNowSpendingV88(){
       return {filename:`MyBills_${y}-${String(m+1).padStart(2,'0')}_summary.txt`,text};
     }catch(e){
       console.error(e);
-      return {filename:'MyBills_summary.txt',text:'My Bills summary could not be generated.'};
+      return {filename:'MyBills_summary.txt',text:'Pay Pilot summary could not be generated.'};
     }
   }
 
@@ -9960,7 +9960,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.3';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -9991,7 +9991,7 @@ function openAvailableNowSpendingV88(){
 
     // BILLS
     if(app){
-      const billHead=[...app.children].find(x=>x.classList?.contains('section-head')&&/^My Bills/i.test((x.textContent||'').trim()));
+      const billHead=[...app.children].find(x=>x.classList?.contains('section-head')&&/^Pay Pilot/i.test((x.textContent||'').trim()));
       const filter=[...app.children].find(x=>x.classList?.contains('bill-filter-bar'));
       const calc=[...app.children].find(x=>x.classList?.contains('calculator-card'));
       moveInto('mb119BillsMount',billHead);
@@ -10200,7 +10200,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.3';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -10538,7 +10538,7 @@ function openAvailableNowSpendingV88(){
       });
     });
 
-    /* 20.5.2: navigation refresh is event-driven; no duplicate per-tab handlers. */
+    /* 20.5.3: navigation refresh is event-driven; no duplicate per-tab handlers. */
     setTimeout(()=>{ensureHeaders137();icons137();version137();refreshNet137();forceVisual137();wireSpendActions137()},250);
   }
 
@@ -10557,10 +10557,10 @@ function openAvailableNowSpendingV88(){
     <section class="mb212-step active" data-mb212-step="0">
       <div class="mb212-kicker">Setup 1 of 4</div>
       <h2>Let's get you set up</h2>
-      <p>Answer a few quick questions so My Bills can calculate your income, bills, spending, and what you have available. You can change everything later.</p>
+      <p>Answer a few quick questions so Pay Pilot can calculate your income, bills, spending, and what you have available. You can change everything later.</p>
       <div class="mb212-callout">
         <strong>Your information stays on this device.</strong>
-        <span>My Bills does not need Internet access. Backups are only created when you choose to make one.</span>
+        <span>Pay Pilot does not need Internet access. Backups are only created when you choose to make one.</span>
       </div>
       <div class="mb20426-home-choice">
         <strong>How much detail do you want on your Home screen?</strong>
@@ -10578,7 +10578,7 @@ function openAvailableNowSpendingV88(){
     <section class="mb212-step" data-mb212-step="1">
       <div class="mb212-kicker">Setup 2 of 4</div>
       <h2>Tell us about your income</h2>
-      <p>This gives My Bills a starting point for paycheck projections. If your pay changes, you can edit it anytime.</p>
+      <p>This gives Pay Pilot a starting point for paycheck projections. If your pay changes, you can edit it anytime.</p>
 
       <label class="mb212-label">How are you paid?
         <select id="mb216IncomeType">
@@ -10620,7 +10620,7 @@ function openAvailableNowSpendingV88(){
     <section class="mb212-step" data-mb212-step="2">
       <div class="mb212-kicker">Setup 3 of 4</div>
       <h2>Set your starting monthly amount</h2>
-      <p>This is the amount My Bills uses as the starting point for “Available Now” this month. Paid bills and spending come out of it, while refunds add money back.</p>
+      <p>This is the amount Pay Pilot uses as the starting point for “Available Now” this month. Paid bills and spending come out of it, while refunds add money back.</p>
 
       <label class="mb212-label">Money available this month
         <input id="mb212Budget" type="number" min="0" step="0.01" inputmode="decimal" placeholder="2500.00">
@@ -10644,20 +10644,20 @@ function openAvailableNowSpendingV88(){
         <strong>PIN Lock uses the lock already on your phone.</strong>
         <div><b>PIN:</b> use the same PIN that unlocks your phone.</div>
         <div><b>Fingerprint:</b> use the fingerprint already set up on your phone.</div>
-        <small>My Bills never sees or saves either one.</small>
+        <small>Pay Pilot never sees or saves either one.</small>
       </div>
 
       <label id="mb212LockChoiceRow" class="mb212-lock-choice">
         <input id="mb212EnableLock" type="checkbox">
         <span>
           <strong>Turn on PIN Lock (optional)</strong>
-          <small>You can change this later in Settings. If you briefly switch apps, My Bills stays unlocked for 5 minutes.</small>
+          <small>You can change this later in Settings. If you briefly switch apps, Pay Pilot stays unlocked for 5 minutes.</small>
         </span>
       </label>
 
       <div class="mb212-callout compact">
         <strong>You're ready.</strong>
-        <span>Next, add your first bill so My Bills can start calculating what is due and what you have available.</span>
+        <span>Next, add your first bill so Pay Pilot can start calculating what is due and what you have available.</span>
       </div>
 
       <div class="mb212-actions stack">
@@ -10671,7 +10671,7 @@ function openAvailableNowSpendingV88(){
 <div id="mb212SecurityTip" class="mb212-security-tip" hidden>
   <button type="button" class="mb212-tip-close" aria-label="Dismiss">×</button>
   <strong>Using PIN Lock</strong>
-  <span><b>PIN Lock uses your phone lock.</b> Same phone PIN. Same phone fingerprint. No separate My Bills PIN.</span>
+  <span><b>PIN Lock uses your phone lock.</b> Same phone PIN. Same phone fingerprint. No separate Pay Pilot PIN.</span>
 </div>
 
 <script id="mb-20-0-142-security-settings-script">
@@ -10697,14 +10697,14 @@ function openAvailableNowSpendingV88(){
       <div class="mb142-security-row">
         <div class="mb142-security-copy">
           <strong>Require fingerprint / phone lock</strong>
-          <small>When on, use the same PIN or fingerprint you already use to unlock your phone. My Bills does not have a separate PIN.</small>
+          <small>When on, use the same PIN or fingerprint you already use to unlock your phone. Pay Pilot does not have a separate PIN.</small>
         </div>
         <label class="mb142-switch" aria-label="Require fingerprint or phone lock">
           <input id="mb142AppLockToggle" type="checkbox">
           <span class="mb142-slider"></span>
         </label>
       </div>
-      <button id="mb142LockNow" type="button">Lock My Bills Now</button>
+      <button id="mb142LockNow" type="button">Lock Pay Pilot Now</button>
       <small id="mb142SecurityStatus"></small>`;
 
     security.appendChild(wrap);
@@ -10731,7 +10731,7 @@ function openAvailableNowSpendingV88(){
         AndroidBridge.setAppLockEnabled(!!toggle.checked);
         status.textContent=toggle.checked
           ? 'PIN Lock is on.'
-          : 'PIN Lock is off. My Bills will open without phone authentication.';
+          : 'PIN Lock is off. Pay Pilot will open without phone authentication.';
       }catch(e){
         status.textContent='Could not change PIN Lock.';
       }
@@ -10923,7 +10923,7 @@ function openAvailableNowSpendingV88(){
   function maybeShowOnboarding(){
     if(localStorage.getItem(DONE_KEY)==='1')return;
 
-    // Existing users upgrading to 20.5.2 should not be forced through a first-run wizard.
+    // Existing users upgrading to 20.5.3 should not be forced through a first-run wizard.
     if(hasMeaningfulExistingData()){
       localStorage.setItem(DONE_KEY,'1');
       return;
@@ -10971,7 +10971,7 @@ function openAvailableNowSpendingV88(){
 
 
 <script>
-/* 20.5.2 — resumable first-run setup + PIN Lock opt-in */
+/* 20.5.3 — resumable first-run setup + PIN Lock opt-in */
 (function(){
   const KEY='myBills_setup_progress_v1';
   const DONE='myBills_setup_complete_v1';
@@ -11858,11 +11858,11 @@ body.mb-high-contrast textarea{border-width:2px!important}
         <h3>Android App Security</h3>
         <div class="settings-help">Use the same PIN or fingerprint you already use to unlock your phone.</div>
         <div class="settings-row"><label>Require fingerprint / phone lock</label><input id="m312Lock" class="settings-switch" type="checkbox" ${lockAvailable?'':'disabled'}></div>
-        <button type="button" class="ghost" id="m312LockNow" ${lockAvailable?'':'disabled'}>Lock My Bills Now</button>
+        <button type="button" class="ghost" id="m312LockNow" ${lockAvailable?'':'disabled'}>Lock Pay Pilot Now</button>
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.2</strong>
+        <strong>20.5.3</strong>
       </div>
       ${done()}`);
 
@@ -12091,7 +12091,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
    document.body.appendChild(d);
  }
  function statusText(x){
-   if(!x.next)return 'Add a paycheck schedule so My Bills knows how far ahead to protect your money.';
+   if(!x.next)return 'Add a paycheck schedule so Pay Pilot knows how far ahead to protect your money.';
    if(x.safe<0)return `You are ${cash(Math.abs(x.safe))} short of covering the bills due before payday.`;
    if(x.safe===0)return 'Your available money is fully spoken for by bills due before payday.';
    return `${cash(x.safe)} can be used without dipping into the bills currently due before payday.`;
@@ -12234,7 +12234,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
     let title,msg;
     if(!f.next){
       title='I need your next paycheck first';
-      msg='Add or schedule your next paycheck so My Bills knows how far ahead to protect your money.';
+      msg='Add or schedule your next paycheck so Pay Pilot knows how far ahead to protect your money.';
     }else if(after>=0){
       title='Yes — this fits safely';
       msg=`After this purchase, you would still have ${moneyFmt(after)} safe until payday.`;
@@ -13201,33 +13201,36 @@ body.mb-high-contrast textarea{border-width:2px!important}
     card.id='mb20419HealthCard';
     card.innerHTML=`
       <div id="mb20419HealthHeader">
-        <div class="title">PAYDAY HEALTH</div>
+        <div class="title">PAY PILOT HEALTH</div>
       </div>
 
-      <div id="mb20429GaugeStage" aria-label="Payday Health gauge">
-        <svg id="mb20429GaugeSvg" viewBox="0 0 360 220" role="img" aria-labelledby="mb20429GaugeTitle">
-          <title id="mb20429GaugeTitle">Payday Health</title>
+      <div id="mb20429GaugeStage" aria-label="Pay Pilot financial health gauge">
+        <div class="pp2053-instrument-label">PAY PILOT • FINANCIAL GAUGE</div>
+        <svg id="mb20429GaugeSvg" viewBox="0 0 360 205" role="img" aria-labelledby="mb20429GaugeTitle">
+          <title id="mb20429GaugeTitle">Pay Pilot financial health</title>
           <g id="mb20429GaugeSegments"></g>
           <g class="mb20429GaugeTicks">
-            <line x1="42" y1="180" x2="57" y2="180"></line>
-            <line x1="78" y1="91" x2="90" y2="100"></line>
-            <line x1="180" y1="47" x2="180" y2="63"></line>
-            <line x1="282" y1="91" x2="270" y2="100"></line>
-            <line x1="318" y1="180" x2="303" y2="180"></line>
+            <line x1="42" y1="180" x2="58" y2="180"></line>
+            <line x1="78" y1="91" x2="91" y2="101"></line>
+            <line x1="180" y1="47" x2="180" y2="64"></line>
+            <line x1="282" y1="91" x2="269" y2="101"></line>
+            <line x1="318" y1="180" x2="302" y2="180"></line>
           </g>
           <g id="mb20429NeedleGroup">
-            <line id="mb20429GaugeNeedle" x1="180" y1="180" x2="180" y2="73"></line>
-            <circle cx="180" cy="180" r="17" class="mb20429NeedleHubOuter"></circle>
+            <line id="mb20429GaugeNeedle" x1="180" y1="180" x2="180" y2="79"></line>
+            <circle cx="180" cy="180" r="18" class="mb20429NeedleHubOuter"></circle>
             <circle cx="180" cy="180" r="9" class="mb20429NeedleHubInner"></circle>
           </g>
         </svg>
-        <div id="mb20429GaugeReadout">
-          <div id="mb20429GaugeStatus">CHECKING</div>
-          <div id="mb20429GaugeAmount">$0.00</div>
-          <small>SAFE TO SPEND</small>
-        </div>
         <div id="mb20429GaugeScale">
           <span>TIGHT</span><span>BREATHING</span><span>COMFORTABLE</span><span>STRONG</span>
+        </div>
+        <div id="mb20429GaugeReadout">
+          <div id="mb20429GaugeStatus">CHECKING</div>
+          <div class="pp2053-readout-money">
+            <div id="mb20429GaugeAmount">$0.00</div>
+            <small>SAFE TO SPEND</small>
+          </div>
         </div>
       </div>
 
@@ -14199,131 +14202,117 @@ body.mb-high-contrast textarea{border-width:2px!important}
 
 
 
-<style id="mb2051-uniform-menu-css">
-/* 20.5.2 — FINAL authoritative popup/menu layer. Keep this last in the document. */
+
+<style id="mb2053-paypilot-ui-css">
+/* 20.5.3 — Pay Pilot final popup + gauge system */
+
+/* ===== UNIVERSAL MENU STRUCTURE ===== */
 :root{
-  --pp51-outer:var(--mb137-navy,#0b234b);
-  --pp51-inner:#14376b;
-  --pp51-card:#173f79;
-  --pp51-field:#0b2447;
-  --pp51-accent:var(--mb137-cyan,#00f5ff);
-  --pp51-text:var(--mb137-on-navy,#ffffff);
-  --pp51-muted:#d7e2ef;
+  --pp53-outer:var(--mb137-navy,#0b234b);
+  --pp53-inner:#14376b;
+  --pp53-card:#173f79;
+  --pp53-field:#0b2447;
+  --pp53-accent:var(--mb137-cyan,#19edf5);
+  --pp53-text:var(--mb137-on-navy,#fff);
+  --pp53-muted:#d7e2ef;
 }
 
-/* ===== ALL native dialogs ===== */
-dialog.pp51-menu[open]{
+dialog.pp53-menu[open]{
   display:grid!important;
   grid-template-rows:auto minmax(0,1fr)!important;
-  gap:14px!important;
+  gap:12px!important;
   width:min(94vw,760px)!important;
   max-width:760px!important;
-  max-height:90vh!important;
+  max-height:92vh!important;
   margin:auto!important;
-  padding:14px!important;
+  padding:0!important;
   overflow:hidden!important;
-  box-sizing:border-box!important;
-  background:var(--pp51-outer)!important;
-  color:var(--pp51-text)!important;
-  border:4px solid var(--pp51-accent)!important;
-  border-radius:30px!important;
-  box-shadow:0 22px 70px rgba(0,0,0,.58)!important;
+  background:transparent!important;
+  color:var(--pp53-text)!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
 }
-dialog.pp51-menu::backdrop{
-  background:rgba(0,0,0,.68)!important;
+dialog.pp53-menu::backdrop{
+  background:rgba(0,0,0,.70)!important;
   backdrop-filter:blur(3px)!important;
 }
 
-/* Header NEVER scrolls. */
-dialog.pp51-menu > .pp51-header,
-#mb123SettingsPanel.pp51-settings > .pp51-header{
+/* Separate, non-scrolling header card */
+dialog.pp53-menu > .pp53-header,
+#mb123SettingsPanel.pp53-settings > .pp53-header{
   display:flex!important;
   align-items:flex-start!important;
   justify-content:space-between!important;
-  gap:14px!important;
+  gap:12px!important;
   flex:0 0 auto!important;
   min-width:0!important;
   margin:0!important;
-  padding:8px 8px 4px 14px!important;
-  background:var(--pp51-outer)!important;
-  color:var(--pp51-text)!important;
-  border:0!important;
+  padding:12px 12px 12px 18px!important;
+  background:var(--pp53-outer)!important;
+  color:var(--pp53-text)!important;
+  border:4px solid var(--pp53-accent)!important;
+  border-radius:25px!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
   position:relative!important;
-  inset:auto!important;
   z-index:50!important;
 }
-
-dialog.pp51-menu > .pp51-header > .pp51-title,
-#mb123SettingsPanel.pp51-settings > .pp51-header > .pp51-title{
+.pp53-title{
   display:block!important;
-  position:static!important;
-  inset:auto!important;
   flex:1 1 auto!important;
   min-width:0!important;
   margin:0!important;
   padding:5px 0 0!important;
   background:transparent!important;
-  color:var(--pp51-text)!important;
-  border:0!important;
-  font-size:clamp(1.6rem,5vw,2.15rem)!important;
+  color:#fff!important;
+  font-size:clamp(1.55rem,5vw,2.05rem)!important;
   line-height:1.08!important;
   font-weight:950!important;
-  letter-spacing:-.02em!important;
   overflow-wrap:anywhere!important;
-  visibility:visible!important;
-  opacity:1!important;
 }
-
-dialog.pp51-menu > .pp51-header > .pp51-close,
-#mb123SettingsPanel.pp51-settings > .pp51-header > .pp51-close{
+.pp53-close{
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
   position:static!important;
-  inset:auto!important;
-  flex:0 0 54px!important;
-  width:54px!important;
-  height:54px!important;
-  min-width:54px!important;
-  min-height:54px!important;
+  flex:0 0 52px!important;
+  width:52px!important;
+  height:52px!important;
+  min-width:52px!important;
+  min-height:52px!important;
   margin:0!important;
   padding:0!important;
-  background:var(--pp51-field)!important;
+  background:var(--pp53-field)!important;
   color:#fff!important;
   border:3px solid #168ca0!important;
   border-radius:17px!important;
-  font-size:1.4rem!important;
-  line-height:1!important;
+  font-size:1.35rem!important;
   font-weight:950!important;
-  box-shadow:none!important;
-  z-index:60!important;
 }
 
-/* ONLY this inner box scrolls. */
-dialog.pp51-menu > .pp51-body,
-#mb123SettingsPanel.pp51-settings > .pp51-body{
+/* Separate scrolling menu card */
+dialog.pp53-menu > .pp53-body,
+#mb123SettingsPanel.pp53-settings > .pp53-body{
   display:block!important;
   min-height:0!important;
-  max-height:none!important;
-  margin:0!important;
-  padding:18px 18px 30px!important;
   overflow-y:auto!important;
   overflow-x:hidden!important;
   overscroll-behavior:contain!important;
   -webkit-overflow-scrolling:touch!important;
+  margin:0!important;
+  padding:18px 18px 34px!important;
+  background:var(--pp53-inner)!important;
+  color:var(--pp53-text)!important;
+  border:4px solid var(--pp53-accent)!important;
+  border-radius:25px!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
   box-sizing:border-box!important;
-  background:var(--pp51-inner)!important;
-  color:var(--pp51-text)!important;
-  border:2px solid #168ca0!important;
-  border-radius:22px!important;
-  box-shadow:none!important;
 }
 
-/* Legacy forms become plain contents INSIDE the scroll box. */
-dialog.pp51-menu > .pp51-body > form,
-dialog.pp51-menu > .pp51-body > .form,
-dialog.pp51-menu > .pp51-body form.form{
-  display:block!important;
+/* Legacy form shell becomes content, never another popup */
+dialog.pp53-menu > .pp53-body > form,
+dialog.pp53-menu > .pp53-body > .form,
+dialog.pp53-menu > .pp53-body form.form{
   position:static!important;
   inset:auto!important;
   width:100%!important;
@@ -14334,610 +14323,81 @@ dialog.pp51-menu > .pp51-body form.form{
   padding:0!important;
   overflow:visible!important;
   background:transparent!important;
-  color:var(--pp51-text)!important;
+  color:var(--pp53-text)!important;
   border:0!important;
   border-radius:0!important;
   box-shadow:none!important;
 }
 
-/* A title moved to the fixed header must never be hidden by old rules. */
-dialog.pp51-menu > .pp51-header h1,
-dialog.pp51-menu > .pp51-header h2,
-dialog.pp51-menu > .pp51-header h3{
-  display:block!important;
+/* Theme every common popup card from first paint */
+dialog.pp53-menu .pp53-body .card,
+dialog.pp53-menu .pp53-body .bill,
+dialog.pp53-menu .pp53-body .bill-card,
+dialog.pp53-menu .pp53-body .bill-menu-card,
+dialog.pp53-menu .pp53-body .history-item,
+dialog.pp53-menu .pp53-body .payment-history-card,
+dialog.pp53-menu .pp53-body .week-stat,
+dialog.pp53-menu .pp53-body .week-row,
+dialog.pp53-menu .pp53-body .weekly-day-card,
+dialog.pp53-menu .pp53-body .summary-stat,
+dialog.pp53-menu .pp53-body .summary-card,
+dialog.pp53-menu .pp53-body .budget-progress-card,
+dialog.pp53-menu .pp53-body .budget-expense-box,
+dialog.pp53-menu .pp53-body .settings-section,
+dialog.pp53-menu .pp53-body .planner-card,
+dialog.pp53-menu .pp53-body .debt-card,
+dialog.pp53-menu .pp53-body [class*="card"]{
+  background:var(--pp53-card)!important;
+  color:#fff!important;
+  border-color:rgba(25,237,245,.38)!important;
+}
+dialog.pp53-menu .pp53-body,
+dialog.pp53-menu .pp53-body h1,
+dialog.pp53-menu .pp53-body h2,
+dialog.pp53-menu .pp53-body h3,
+dialog.pp53-menu .pp53-body h4,
+dialog.pp53-menu .pp53-body p,
+dialog.pp53-menu .pp53-body span,
+dialog.pp53-menu .pp53-body label,
+dialog.pp53-menu .pp53-body strong,
+dialog.pp53-menu .pp53-body b,
+dialog.pp53-menu .pp53-body [class*="date"],
+dialog.pp53-menu .pp53-body [class*="group"]{
+  color:#fff!important;
+}
+dialog.pp53-menu .pp53-body .meta,
+dialog.pp53-menu .pp53-body small,
+dialog.pp53-menu .pp53-body .muted{
+  color:var(--pp53-muted)!important;
 }
 
-/* Any leftover duplicate first title in body is hidden. */
-dialog.pp51-menu > .pp51-body > form > h1:first-child,
-dialog.pp51-menu > .pp51-body > form > h2:first-child,
-dialog.pp51-menu > .pp51-body > form > h3:first-child{
-  display:none!important;
-}
-
-/* ===== Theme EVERY popup content area ===== */
-dialog.pp51-menu > .pp51-body,
-dialog.pp51-menu > .pp51-body p,
-dialog.pp51-menu > .pp51-body span,
-dialog.pp51-menu > .pp51-body div,
-dialog.pp51-menu > .pp51-body label,
-dialog.pp51-menu > .pp51-body h1,
-dialog.pp51-menu > .pp51-body h2,
-dialog.pp51-menu > .pp51-body h3,
-dialog.pp51-menu > .pp51-body h4,
-dialog.pp51-menu > .pp51-body h5,
-dialog.pp51-menu > .pp51-body b,
-dialog.pp51-menu > .pp51-body strong,
-dialog.pp51-menu > .pp51-body td,
-dialog.pp51-menu > .pp51-body th{
-  color:var(--pp51-text)!important;
-}
-dialog.pp51-menu > .pp51-body small,
-dialog.pp51-menu > .pp51-body .muted,
-dialog.pp51-menu > .pp51-body .meta,
-dialog.pp51-menu > .pp51-body .subtitle,
-dialog.pp51-menu > .pp51-body .settings-help{
-  color:var(--pp51-muted)!important;
-}
-
-/* Date/group headings were turning black — force them to theme text. */
-dialog.pp51-menu > .pp51-body [class*="date"],
-dialog.pp51-menu > .pp51-body [class*="day"],
-dialog.pp51-menu > .pp51-body [class*="group"],
-dialog.pp51-menu > .pp51-body [class*="section-title"],
-dialog.pp51-menu > .pp51-body [class*="history-title"]{
-  color:var(--pp51-text)!important;
-}
-
-/* Cards/rows stay navy — NO washed gray / NO white cards. */
-dialog.pp51-menu > .pp51-body .card,
-dialog.pp51-menu > .pp51-body .bill,
-dialog.pp51-menu > .pp51-body .bill-card,
-dialog.pp51-menu > .pp51-body .bill-menu-card,
-dialog.pp51-menu > .pp51-body .history-item,
-dialog.pp51-menu > .pp51-body .payment-history-card,
-dialog.pp51-menu > .pp51-body .goal-card,
-dialog.pp51-menu > .pp51-body .savings-goal,
-dialog.pp51-menu > .pp51-body .snapshot-box,
-dialog.pp51-menu > .pp51-body .snapshot-row,
-dialog.pp51-menu > .pp51-body .summary-card,
-dialog.pp51-menu > .pp51-body .summary-stat,
-dialog.pp51-menu > .pp51-body .stat-card,
-dialog.pp51-menu > .pp51-body .week-stat,
-dialog.pp51-menu > .pp51-body .week-row,
-dialog.pp51-menu > .pp51-body .weekly-day-card,
-dialog.pp51-menu > .pp51-body .income-card,
-dialog.pp51-menu > .pp51-body .settings-section,
-dialog.pp51-menu > .pp51-body .planner-card,
-dialog.pp51-menu > .pp51-body .planner-section,
-dialog.pp51-menu > .pp51-body .planner-assign,
-dialog.pp51-menu > .pp51-body .planner-assigned-total,
-dialog.pp51-menu > .pp51-body .debt-card,
-dialog.pp51-menu > .pp51-body article,
-dialog.pp51-menu > .pp51-body section,
-dialog.pp51-menu > .pp51-body [class*="card"],
-dialog.pp51-menu > .pp51-body [class*="row"]{
-  background:var(--pp51-card)!important;
-  color:var(--pp51-text)!important;
-  border-color:rgba(0,245,255,.38)!important;
-}
-
-/* Don't paint simple layout wrappers like giant cards. */
-dialog.pp51-menu > .pp51-body .form-actions,
-dialog.pp51-menu > .pp51-body .budget-actions,
-dialog.pp51-menu > .pp51-body .button-row,
-dialog.pp51-menu > .pp51-body [class*="actions"]{
-  background:transparent!important;
-  border-color:transparent!important;
-}
-
-/* Fields. */
-dialog.pp51-menu > .pp51-body input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
-dialog.pp51-menu > .pp51-body select,
-dialog.pp51-menu > .pp51-body textarea{
-  background:var(--pp51-field)!important;
+dialog.pp53-menu .pp53-body input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
+dialog.pp53-menu .pp53-body select,
+dialog.pp53-menu .pp53-body textarea{
+  background:var(--pp53-field)!important;
   color:#fff!important;
   border-color:#168ca0!important;
 }
-dialog.pp51-menu > .pp51-body input::placeholder,
-dialog.pp51-menu > .pp51-body textarea::placeholder{
-  color:#bfcbd9!important;
-}
+dialog.pp53-menu .pp53-body input::placeholder,
+dialog.pp53-menu .pp53-body textarea::placeholder{color:#bdc9d8!important}
 
-/* Buttons. */
-dialog.pp51-menu > .pp51-body button{
-  color:#fff!important;
-  border-color:#168ca0!important;
-}
-dialog.pp51-menu > .pp51-body button:not(.primary):not([class*="primary"]){
-  background:var(--pp51-field)!important;
-}
-dialog.pp51-menu > .pp51-body button.primary,
-dialog.pp51-menu > .pp51-body [class*="primary"]{
-  background:var(--pp51-accent)!important;
-  color:#071a33!important;
-  border-color:var(--pp51-accent)!important;
-}
-
-/* Footer/action rows scroll naturally; they never cover content. */
-dialog.pp51-menu > .pp51-body .form-actions,
-dialog.pp51-menu > .pp51-body .budget-actions,
-dialog.pp51-menu > .pp51-body [class*="sticky-actions"]{
-  position:static!important;
-  inset:auto!important;
-  margin-top:18px!important;
-  padding:0!important;
-  box-shadow:none!important;
-}
-
-/* ===== Settings category popup uses IDENTICAL shell ===== */
-#mb123SettingsPanel.pp51-settings.mb2034-modal-open{
+/* IMPORTANT: footer/action rows are normal content. No white strip, no overlay. */
+dialog.pp53-menu .pp53-body .form-actions,
+dialog.pp53-menu .pp53-body .budget-actions,
+dialog.pp53-menu .pp53-body .dialog-actions,
+dialog.pp53-menu .pp53-body .modal-actions,
+dialog.pp53-menu .pp53-body [class*="sticky-actions"]{
   display:grid!important;
-  grid-template-rows:auto minmax(0,1fr)!important;
-  gap:14px!important;
-  position:fixed!important;
-  z-index:10050!important;
-  left:14px!important;
-  right:14px!important;
-  top:6vh!important;
-  bottom:84px!important;
-  width:auto!important;
-  max-width:720px!important;
-  margin:0 auto!important;
-  padding:14px!important;
-  overflow:hidden!important;
-  box-sizing:border-box!important;
-  background:var(--pp51-outer)!important;
-  color:var(--pp51-text)!important;
-  border:4px solid var(--pp51-accent)!important;
-  border-radius:30px!important;
-  box-shadow:0 22px 70px rgba(0,0,0,.58)!important;
-}
-body.mb2034-settings-open::before{
-  content:""!important;
-  position:fixed!important;
-  inset:0!important;
-  z-index:10040!important;
-  background:rgba(0,0,0,.68)!important;
-  backdrop-filter:blur(3px)!important;
-}
-
-/* Theme Settings body exactly like dialogs. */
-#mb123SettingsPanel.pp51-settings > .pp51-body,
-#mb123SettingsPanel.pp51-settings > .pp51-body p,
-#mb123SettingsPanel.pp51-settings > .pp51-body div,
-#mb123SettingsPanel.pp51-settings > .pp51-body label,
-#mb123SettingsPanel.pp51-settings > .pp51-body h1,
-#mb123SettingsPanel.pp51-settings > .pp51-body h2,
-#mb123SettingsPanel.pp51-settings > .pp51-body h3,
-#mb123SettingsPanel.pp51-settings > .pp51-body h4,
-#mb123SettingsPanel.pp51-settings > .pp51-body b,
-#mb123SettingsPanel.pp51-settings > .pp51-body strong{
-  color:var(--pp51-text)!important;
-}
-#mb123SettingsPanel.pp51-settings > .pp51-body .settings-section,
-#mb123SettingsPanel.pp51-settings > .pp51-body .card,
-#mb123SettingsPanel.pp51-settings > .pp51-body [class*="card"]{
-  background:var(--pp51-card)!important;
-  color:var(--pp51-text)!important;
-  border-color:rgba(0,245,255,.38)!important;
-}
-#mb123SettingsPanel.pp51-settings input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
-#mb123SettingsPanel.pp51-settings select,
-#mb123SettingsPanel.pp51-settings textarea{
-  background:var(--pp51-field)!important;
-  color:#fff!important;
-  border-color:#168ca0!important;
-}
-
-/* Pre-theme dialogs even before JS wraps them, eliminating white flash. */
-dialog{
-  background:var(--pp51-outer)!important;
-  color:var(--pp51-text)!important;
-}
-dialog form,
-dialog .form{
-  color:var(--pp51-text)!important;
-}
-dialog input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
-dialog select,
-dialog textarea{
-  background:var(--pp51-field)!important;
-  color:#fff!important;
-  border-color:#168ca0!important;
-}
-
-@media(max-width:560px){
-  dialog.pp51-menu[open]{
-    width:calc(100vw - 14px)!important;
-    max-height:92vh!important;
-    padding:11px!important;
-    border-radius:25px!important;
-    gap:11px!important;
-  }
-  dialog.pp51-menu > .pp51-header,
-  #mb123SettingsPanel.pp51-settings > .pp51-header{
-    padding:7px 6px 3px 10px!important;
-  }
-  dialog.pp51-menu > .pp51-body,
-  #mb123SettingsPanel.pp51-settings > .pp51-body{
-    padding:14px 14px 26px!important;
-    border-radius:19px!important;
-  }
-  .pp51-close{
-    flex-basis:50px!important;
-    width:50px!important;
-    height:50px!important;
-    min-width:50px!important;
-    min-height:50px!important;
-  }
-  #mb123SettingsPanel.pp51-settings.mb2034-modal-open{
-    left:7px!important;
-    right:7px!important;
-    top:62px!important;
-    bottom:78px!important;
-    padding:11px!important;
-    border-radius:25px!important;
-  }
-}
-</style>
-
-
-<script id="mb2051-uniform-menu-js">
-(function(){
-  const $=id=>document.getElementById(id);
-
-  function titleNode(dlg){
-    return dlg.querySelector(':scope > h1,:scope > h2,:scope > h3')
-      || dlg.querySelector(':scope > form > h1,:scope > form > h2,:scope > form > h3')
-      || dlg.querySelector(':scope > .form > h1,:scope > .form > h2,:scope > .form > h3')
-      || dlg.querySelector('h1,h2,h3');
-  }
-
-  function closeNode(dlg){
-    const direct=dlg.querySelector(':scope > .dialog-close-x,:scope > button[aria-label*="close" i]');
-    if(direct)return direct;
-    return [...dlg.querySelectorAll('button')].find(b=>{
-      const s=(b.textContent||'').trim();
-      const a=(b.getAttribute('aria-label')||'').toLowerCase();
-      return s==='×'||s==='✕'||s==='✖'||a.includes('close');
-    })||null;
-  }
-
-  function newClose(dlg){
-    const b=document.createElement('button');
-    b.type='button';
-    b.textContent='×';
-    b.setAttribute('aria-label','Close');
-    b.onclick=()=>{try{dlg.close()}catch(e){dlg.removeAttribute('open')}};
-    return b;
-  }
-
-  function unwrapLegacy(dlg){
-    const bodySelectors=[
-      ':scope > .mb20423-menu-box',
-      ':scope > .mb20427-popup-body',
-      ':scope > .pp-menu-body',
-      ':scope > .pp51-body'
-    ];
-    for(const sel of bodySelectors){
-      const box=dlg.querySelector(sel);
-      if(box){
-        while(box.firstChild)dlg.appendChild(box.firstChild);
-        box.remove();
-      }
-    }
-
-    const headerSelectors=[
-      ':scope > .mb20423-header',
-      ':scope > .mb20427-popup-header',
-      ':scope > .pp-menu-header',
-      ':scope > .pp51-header'
-    ];
-    for(const sel of headerSelectors){
-      const head=dlg.querySelector(sel);
-      if(head){
-        while(head.firstChild)dlg.appendChild(head.firstChild);
-        head.remove();
-      }
-    }
-
-    dlg.classList.remove('mb20427-popup','pp-menu');
-  }
-
-  function structureDialog(dlg){
-    if(!dlg || dlg.id==='mb212Onboarding')return;
-    if(dlg.dataset.pp51==='1')return;
-
-    unwrapLegacy(dlg);
-
-    let title=titleNode(dlg);
-    if(!title){
-      title=document.createElement('h2');
-      title.textContent=dlg.getAttribute('aria-label')||'Menu';
-    }
-    // Preserve the ORIGINAL title element/ID because many app functions update it.
-    title.classList.add('pp51-title');
-
-    let close=closeNode(dlg)||newClose(dlg);
-    close.type='button';
-    close.classList.add('pp51-close');
-    close.onclick=()=>{try{dlg.close()}catch(e){dlg.removeAttribute('open')}};
-
-    const header=document.createElement('div');
-    header.className='pp51-header';
-    header.append(title,close);
-
-    const body=document.createElement('div');
-    body.className='pp51-body';
-
-    [...dlg.childNodes].forEach(node=>{
-      if(node!==header && node!==body && node!==title && node!==close){
-        body.appendChild(node);
-      }
-    });
-
-    dlg.prepend(header);
-    dlg.appendChild(body);
-    dlg.classList.add('pp51-menu');
-    dlg.dataset.pp51='1';
-
-    dlg.addEventListener('cancel',e=>{
-      e.preventDefault();
-      try{dlg.close()}catch(_){dlg.removeAttribute('open')}
-    });
-  }
-
-  function structureEveryDialog(){
-    document.querySelectorAll('dialog').forEach(structureDialog);
-  }
-
-  function unwrapSettings(panel){
-    for(const sel of [
-      ':scope > .mb20425-settings-scroll',
-      ':scope > .mb20426-settings-scroll',
-      ':scope > .mb20427-popup-body',
-      ':scope > .pp-menu-body',
-      ':scope > .pp51-body'
-    ]){
-      const box=panel.querySelector(sel);
-      if(box){
-        while(box.firstChild)panel.appendChild(box.firstChild);
-        box.remove();
-      }
-    }
-    for(const sel of [
-      ':scope > .mb20425-settings-header',
-      ':scope > .mb20426-settings-header',
-      ':scope > .mb20427-popup-header',
-      ':scope > .pp-menu-header',
-      ':scope > .pp51-header'
-    ]){
-      panel.querySelector(sel)?.remove();
-    }
-    panel.classList.remove('pp-settings-menu','pp51-settings');
-  }
-
-  function settingsTitle(panel){
-    if(panel.querySelector('#mb137Appearance'))return 'App Colors';
-    const h=panel.querySelector(':scope > h3')||panel.querySelector('h3');
-    return (h?.textContent||'Settings').replace(/\s+/g,' ').trim();
-  }
-
-  function structureSettings(){
-    const panel=$('mb123SettingsPanel');
-    if(!panel || !panel.classList.contains('mb2034-modal-open'))return;
-    if(panel.dataset.pp51==='1')return;
-
-    unwrapSettings(panel);
-
-    const titleText=settingsTitle(panel);
-    const oldTitle=panel.querySelector(':scope > h3');
-    if(oldTitle)oldTitle.remove();
-
-    const header=document.createElement('div');
-    header.className='pp51-header';
-
-    const title=document.createElement('h2');
-    title.className='pp51-title';
-    title.textContent=titleText;
-
-    let close=$('mb2034SettingsClose');
-    if(!close){
-      close=document.createElement('button');
-      close.id='mb2034SettingsClose';
-      close.type='button';
-      close.textContent='×';
-    }
-    close.classList.add('pp51-close');
-    close.setAttribute('aria-label','Close settings');
-    close.onclick=()=>window.mb2034CloseSettings?.();
-
-    header.append(title,close);
-
-    const body=document.createElement('div');
-    body.className='pp51-body';
-    [...panel.childNodes].forEach(node=>{
-      if(node!==header && node!==body && node!==close)body.appendChild(node);
-    });
-
-    panel.prepend(header);
-    panel.appendChild(body);
-    panel.classList.add('pp51-settings');
-    panel.dataset.pp51='1';
-
-    // The fixed header already says App Colors; don't duplicate the inner heading.
-    if(titleText==='App Colors'){
-      body.querySelector('#mb137Appearance > h3')?.remove();
-    }
-  }
-
-  function resetSettingsWhenClosed(){
-    const panel=$('mb123SettingsPanel');
-    if(panel && !panel.classList.contains('mb2034-modal-open')){
-      delete panel.dataset.pp51;
-      panel.classList.remove('pp51-settings');
-    }
-  }
-
-  function wireSettingsButtons(){
-    document.querySelectorAll('[data-mb123-settings]').forEach(btn=>{
-      if(btn.dataset.pp51Wired)return;
-      btn.dataset.pp51Wired='1';
-      btn.addEventListener('click',()=>{
-        const panel=$('mb123SettingsPanel');
-        if(panel){
-          delete panel.dataset.pp51;
-          panel.classList.remove('pp51-settings');
-        }
-        // Let the app render the selected settings section first, then wrap it.
-        setTimeout(structureSettings,80);
-      },true);
-    });
-  }
-
-  /* Dynamic dialogs created after page load get the same component once. */
-  const dialogObserver=new MutationObserver(records=>{
-    for(const rec of records){
-      for(const node of rec.addedNodes){
-        if(!(node instanceof Element))continue;
-        if(node.matches?.('dialog'))structureDialog(node);
-        node.querySelectorAll?.('dialog').forEach(structureDialog);
-      }
-    }
-  });
-
-  /* Android/browser Back closes the top menu before leaving the page. */
-  function closeTopMenu(){
-    const open=[...document.querySelectorAll('dialog[open]')].filter(d=>d.id!=='mb212Onboarding');
-    if(open.length){
-      const dlg=open[open.length-1];
-      try{dlg.close()}catch(e){dlg.removeAttribute('open')}
-      return true;
-    }
-    if(document.body.classList.contains('mb2034-settings-open')){
-      window.mb2034CloseSettings?.();
-      return true;
-    }
-    return false;
-  }
-
-  window.addEventListener('popstate',()=>{
-    if(closeTopMenu()){
-      try{history.pushState({pp51:true},'')}catch(e){}
-    }
-  });
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape' && closeTopMenu()){
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  },true);
-
-  function boot(){
-    structureEveryDialog();
-    wireSettingsButtons();
-
-    dialogObserver.observe(document.body,{childList:true,subtree:true});
-
-    document.addEventListener('click',e=>{
-      if(e.target.closest('[data-mb123-settings]')){
-        setTimeout(structureSettings,100);
-      }
-      queueMicrotask(resetSettingsWhenClosed);
-    },true);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',boot,{once:true});
-  }else{
-    boot();
-  }
-})();
-</script>
-
-
-<style id="mb2052-separated-menu-css">
-/* 20.5.2 — VISIBLY SEPARATE HEADER BOX + MENU BOX */
-dialog.pp51-menu[open]{
-  display:grid!important;
-  grid-template-rows:auto minmax(0,1fr)!important;
-  gap:14px!important;
-  width:min(94vw,760px)!important;
-  max-width:760px!important;
-  max-height:92vh!important;
-  margin:auto!important;
-  padding:0!important;
-  overflow:hidden!important;
-  box-sizing:border-box!important;
-  background:transparent!important;
-  color:var(--pp51-text)!important;
-  border:0!important;
-  border-radius:0!important;
-  box-shadow:none!important;
-}
-
-/* HEADER IS ITS OWN CARD */
-dialog.pp51-menu > .pp51-header,
-#mb123SettingsPanel.pp51-settings > .pp51-header{
-  display:flex!important;
-  align-items:flex-start!important;
-  justify-content:space-between!important;
-  gap:14px!important;
-  min-width:0!important;
-  margin:0!important;
-  padding:14px 14px 14px 18px!important;
-  background:var(--pp51-outer)!important;
-  color:var(--pp51-text)!important;
-  border:4px solid var(--pp51-accent)!important;
-  border-radius:26px!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.30)!important;
-  position:relative!important;
-  z-index:60!important;
-}
-
-/* MENU CONTENT IS A SECOND, COMPLETELY SEPARATE CARD */
-dialog.pp51-menu > .pp51-body,
-#mb123SettingsPanel.pp51-settings > .pp51-body{
-  display:block!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:18px 18px 30px!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  overscroll-behavior:contain!important;
-  -webkit-overflow-scrolling:touch!important;
-  box-sizing:border-box!important;
-  background:var(--pp51-inner)!important;
-  color:var(--pp51-text)!important;
-  border:4px solid var(--pp51-accent)!important;
-  border-radius:26px!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.30)!important;
-}
-
-/* Make the gap between header and menu unmistakable. */
-dialog.pp51-menu > .pp51-header + .pp51-body,
-#mb123SettingsPanel.pp51-settings > .pp51-header + .pp51-body{
-  margin-top:0!important;
-}
-
-/* No legacy footer/action bar may float over the scrolling content. */
-dialog.pp51-menu > .pp51-body .form-actions,
-dialog.pp51-menu > .pp51-body .budget-actions,
-dialog.pp51-menu > .pp51-body .dialog-actions,
-dialog.pp51-menu > .pp51-body .modal-actions,
-dialog.pp51-menu > .pp51-body .footer-actions,
-dialog.pp51-menu > .pp51-body .sticky-footer,
-dialog.pp51-menu > .pp51-body [class*="sticky"],
-dialog.pp51-menu > .pp51-body [class*="footer"],
-dialog.pp51-menu > .pp51-body [class*="actions"]{
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr))!important;
+  gap:10px!important;
   position:static!important;
   inset:auto!important;
   left:auto!important;
   right:auto!important;
   top:auto!important;
   bottom:auto!important;
-  width:auto!important;
-  margin:18px 0 0!important;
+  width:100%!important;
+  margin:22px 0 0!important;
   padding:0!important;
   background:transparent!important;
   border:0!important;
@@ -14945,180 +14405,416 @@ dialog.pp51-menu > .pp51-body [class*="actions"]{
   transform:none!important;
   z-index:auto!important;
 }
-
-/* Common direct children that old code positioned as fixed/sticky. */
-dialog.pp51-menu > .pp51-body > div,
-dialog.pp51-menu > .pp51-body > section,
-dialog.pp51-menu > .pp51-body > form{
-  max-width:100%!important;
-}
-
-/* Ensure bottom buttons remain inside the body instead of appearing as a third box. */
-dialog.pp51-menu > .pp51-body button{
+dialog.pp53-menu .pp53-body .form-actions button,
+dialog.pp53-menu .pp53-body .budget-actions button{
+  width:100%!important;
+  min-height:50px!important;
   position:static!important;
 }
 
-/* Settings outer shell is transparent too so header/body are visibly separate. */
-#mb123SettingsPanel.pp51-settings.mb2034-modal-open{
+/* Bills: guarantee action row has breathing room and no clipping */
+#allBillsDlg .pp53-body,
+#hoursWeeksDlg .pp53-body,
+#budgetDlg .pp53-body{
+  padding-bottom:36px!important;
+}
+#allBillsDlg .form-actions,
+#hoursWeeksDlg .form-actions,
+#budgetDlg .budget-actions{
+  background:transparent!important;
+  margin-bottom:4px!important;
+}
+
+/* Monthly Budget: always start from the top and keep transaction controls readable */
+#budgetDlg .budget-expense-item,
+#budgetDlg [class*="budget-expense"]{
+  color:#fff!important;
+}
+#budgetDlg .budget-expense-item button,
+#budgetDlg #budgetExpenseList button{
+  background:var(--pp53-field)!important;
+  color:#fff!important;
+  border-color:#168ca0!important;
+}
+
+/* Settings submenus use same two-card design */
+#mb123SettingsPanel.pp53-settings.mb2034-modal-open{
   display:grid!important;
   grid-template-rows:auto minmax(0,1fr)!important;
-  gap:14px!important;
+  gap:12px!important;
   position:fixed!important;
   z-index:10050!important;
-  left:14px!important;
-  right:14px!important;
+  left:10px!important;
+  right:10px!important;
   top:6vh!important;
-  bottom:84px!important;
+  bottom:82px!important;
   width:auto!important;
   max-width:720px!important;
   margin:0 auto!important;
   padding:0!important;
   overflow:hidden!important;
   background:transparent!important;
-  color:var(--pp51-text)!important;
   border:0!important;
-  border-radius:0!important;
   box-shadow:none!important;
 }
+body.mb2034-settings-open::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:10040!important;
+  background:rgba(0,0,0,.70)!important;
+  backdrop-filter:blur(3px)!important;
+}
 
-/* Header title spacing so it never jams the border. */
-dialog.pp51-menu > .pp51-header > .pp51-title,
-#mb123SettingsPanel.pp51-settings > .pp51-header > .pp51-title{
-  padding:7px 0 0!important;
+/* ===== PAY PILOT GAUGE ===== */
+#mb20419HealthHeader .title{letter-spacing:.03em!important}
+#mb20429GaugeStage{
+  position:relative!important;
+  width:100%!important;
+  max-width:610px!important;
+  margin:12px auto 8px!important;
+  padding:10px 10px 14px!important;
+  border:2px solid rgba(25,237,245,.25)!important;
+  border-radius:24px!important;
+  background:linear-gradient(180deg,rgba(7,26,51,.28),rgba(7,26,51,.08))!important;
+  box-sizing:border-box!important;
+}
+.pp2053-instrument-label{
+  text-align:center!important;
+  color:#91f8fb!important;
+  font-size:.68rem!important;
+  font-weight:900!important;
+  letter-spacing:.12em!important;
+  margin:0 0 -4px!important;
+}
+#mb20429GaugeSvg{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 5px 12px rgba(0,0,0,.32))!important;
+}
+.mb20429GaugeTicks line{
+  stroke:rgba(255,255,255,.88)!important;
+  stroke-width:4!important;
+  stroke-linecap:round!important;
+}
+#mb20429GaugeNeedle{
+  stroke:#f5f8fb!important;
+  stroke-width:7!important;
+  stroke-linecap:round!important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.55))!important;
+}
+.mb20429NeedleHubOuter{fill:#edf2f7!important;stroke:#0b2447!important;stroke-width:5!important}
+.mb20429NeedleHubInner{fill:#0b2447!important}
+#mb20429GaugeScale{
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:3px!important;
+  margin:-12px 4px 8px!important;
+  color:#dce5f1!important;
+  font-size:.68rem!important;
+  font-weight:900!important;
+}
+#mb20429GaugeScale span:nth-child(1){text-align:left!important}
+#mb20429GaugeScale span:nth-child(2),
+#mb20429GaugeScale span:nth-child(3){text-align:center!important}
+#mb20429GaugeScale span:nth-child(4){text-align:right!important}
+
+/* Readout is BELOW the moving needle now — no overlap. */
+#mb20429GaugeReadout{
+  position:static!important;
+  transform:none!important;
+  width:min(100%,360px)!important;
+  min-width:0!important;
+  margin:10px auto 0!important;
+  padding:12px 14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:14px!important;
+  text-align:left!important;
+  pointer-events:none!important;
+  border:2px solid rgba(25,237,245,.35)!important;
+  border-radius:18px!important;
+  background:#0b2447!important;
+}
+#mb20429GaugeStatus{
+  flex:0 0 auto!important;
+  min-width:100px!important;
+  min-height:36px!important;
+  padding:6px 12px!important;
+  border:2px solid rgba(255,255,255,.90)!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  font-size:.76rem!important;
+  font-weight:950!important;
+  text-align:center!important;
+}
+.pp2053-readout-money{min-width:0!important}
+#mb20429GaugeAmount{
   margin:0!important;
-  line-height:1.06!important;
+  color:#fff!important;
+  font-size:1.65rem!important;
+  line-height:1!important;
+  font-weight:950!important;
 }
+#mb20429GaugeReadout small{
+  display:block!important;
+  margin-top:4px!important;
+  color:#cfd9e6!important;
+  font-size:.64rem!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+}
+#mb20419SafeBig{display:none!important}
+#mb20419HealthSummary{margin-top:14px!important}
 
-/* X stays fully inside header box. */
-dialog.pp51-menu > .pp51-header > .pp51-close,
-#mb123SettingsPanel.pp51-settings > .pp51-header > .pp51-close{
-  margin:0!important;
-  flex:0 0 54px!important;
+/* Pre-theme dialogs to eliminate white flash */
+dialog{
+  background:var(--pp53-outer)!important;
+  color:#fff!important;
 }
-
-/* On short menus, body hugs content instead of looking like one giant outer shell. */
-dialog.pp51-menu.pp52-short[open]{
-  grid-template-rows:auto auto!important;
-}
-dialog.pp51-menu.pp52-short > .pp51-body{
-  max-height:68vh!important;
-}
-
-/* Bills / Weekly Hours screenshots: kill any old white footer strip. */
-dialog.pp51-menu .pp51-body .form-actions::before,
-dialog.pp51-menu .pp51-body .form-actions::after{
-  content:none!important;
-  display:none!important;
-}
-
-/* Stronger theme enforcement for text and separators. */
-dialog.pp51-menu > .pp51-body hr,
-dialog.pp51-menu > .pp51-body [class*="divider"]{
-  border-color:rgba(255,255,255,.45)!important;
-}
-dialog.pp51-menu > .pp51-body [style*="background: white"],
-dialog.pp51-menu > .pp51-body [style*="background:#fff"],
-dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
-  background:var(--pp51-card)!important;
-  color:var(--pp51-text)!important;
+dialog input:not([type="color"]):not([type="checkbox"]):not([type="radio"]),
+dialog select,
+dialog textarea{
+  background:var(--pp53-field)!important;
+  color:#fff!important;
+  border-color:#168ca0!important;
 }
 
 @media(max-width:560px){
-  dialog.pp51-menu[open]{
-    width:calc(100vw - 16px)!important;
-    max-height:92vh!important;
-    gap:12px!important;
-  }
-  dialog.pp51-menu > .pp51-header,
-  #mb123SettingsPanel.pp51-settings > .pp51-header{
-    padding:12px 10px 12px 14px!important;
+  dialog.pp53-menu[open]{width:calc(100vw - 14px)!important;max-height:93vh!important;gap:10px!important}
+  dialog.pp53-menu > .pp53-header,
+  #mb123SettingsPanel.pp53-settings > .pp53-header{
+    padding:10px 9px 10px 14px!important;
     border-radius:22px!important;
   }
-  dialog.pp51-menu > .pp51-body,
-  #mb123SettingsPanel.pp51-settings > .pp51-body{
-    padding:14px 14px 24px!important;
+  dialog.pp53-menu > .pp53-body,
+  #mb123SettingsPanel.pp53-settings > .pp53-body{
+    padding:14px 14px 28px!important;
     border-radius:22px!important;
   }
-  #mb123SettingsPanel.pp51-settings.mb2034-modal-open{
-    left:8px!important;
-    right:8px!important;
-    top:62px!important;
-    bottom:78px!important;
+  .pp53-close{
+    flex-basis:48px!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
   }
+  #mb20429GaugeStage{padding:8px 7px 12px!important;border-radius:20px!important}
+  #mb20429GaugeScale{font-size:.57rem!important;margin-top:-8px!important}
+  #mb20429GaugeReadout{gap:10px!important;padding:10px!important}
+  #mb20429GaugeStatus{min-width:88px!important;font-size:.68rem!important}
+  #mb20429GaugeAmount{font-size:1.4rem!important}
 }
 </style>
 
 
-<script id="mb2052-separated-menu-js">
+<script id="mb2053-paypilot-ui-js">
 (function(){
-  function classify(dlg){
-    if(!dlg || !dlg.classList.contains('pp51-menu')) return;
-    const body=dlg.querySelector(':scope > .pp51-body');
-    if(!body)return;
-    // Short content gets a content-height menu card; long content still scrolls.
-    requestAnimationFrame(()=>{
-      const short=body.scrollHeight < Math.min(window.innerHeight*.62, 620);
-      dlg.classList.toggle('pp52-short',short);
+  const $=id=>document.getElementById(id);
+
+  function findTitle(dlg){
+    return dlg.querySelector(':scope > h1,:scope > h2,:scope > h3')
+      || dlg.querySelector(':scope > form > h1,:scope > form > h2,:scope > form > h3')
+      || dlg.querySelector(':scope > .form > h1,:scope > .form > h2,:scope > .form > h3')
+      || dlg.querySelector('h1,h2,h3');
+  }
+
+  function findClose(dlg){
+    return dlg.querySelector(':scope > .dialog-close-x,:scope > button[aria-label*="close" i]')
+      || [...dlg.querySelectorAll('button')].find(b=>{
+        const txt=(b.textContent||'').trim();
+        const aria=(b.getAttribute('aria-label')||'').toLowerCase();
+        return txt==='×'||txt==='✕'||txt==='✖'||aria.includes('close');
+      })
+      || null;
+  }
+
+  function unwrapOld(dlg){
+    for(const sel of [
+      ':scope > .mb20423-menu-box',':scope > .mb20427-popup-body',
+      ':scope > .pp-menu-body',':scope > .pp51-body',':scope > .pp53-body'
+    ]){
+      const x=dlg.querySelector(sel);
+      if(x){while(x.firstChild)dlg.appendChild(x.firstChild);x.remove()}
+    }
+    for(const sel of [
+      ':scope > .mb20423-header',':scope > .mb20427-popup-header',
+      ':scope > .pp-menu-header',':scope > .pp51-header',':scope > .pp53-header'
+    ]){
+      const x=dlg.querySelector(sel);
+      if(x){while(x.firstChild)dlg.appendChild(x.firstChild);x.remove()}
+    }
+    dlg.classList.remove('mb20427-popup','pp-menu','pp51-menu');
+  }
+
+  function makeClose(dlg){
+    const b=document.createElement('button');
+    b.type='button'; b.textContent='×'; b.setAttribute('aria-label','Close');
+    b.onclick=()=>{try{dlg.close()}catch(e){dlg.removeAttribute('open')}};
+    return b;
+  }
+
+  function structure(dlg){
+    if(!dlg || dlg.id==='mb212Onboarding')return;
+    if(dlg.dataset.pp53==='1')return;
+
+    unwrapOld(dlg);
+
+    let title=findTitle(dlg);
+    if(!title){
+      title=document.createElement('h2');
+      title.textContent=dlg.getAttribute('aria-label')||'Menu';
+    }
+    title.classList.add('pp53-title');
+
+    const close=findClose(dlg)||makeClose(dlg);
+    close.classList.add('pp53-close');
+    close.type='button';
+    close.onclick=()=>{try{dlg.close()}catch(e){dlg.removeAttribute('open')}};
+
+    const header=document.createElement('div');
+    header.className='pp53-header';
+    header.append(title,close);
+
+    const body=document.createElement('div');
+    body.className='pp53-body';
+
+    [...dlg.childNodes].forEach(node=>{
+      if(node!==header && node!==body && node!==title && node!==close)body.appendChild(node);
+    });
+
+    dlg.prepend(header);
+    dlg.appendChild(body);
+    dlg.classList.add('pp53-menu');
+    dlg.dataset.pp53='1';
+
+    dlg.addEventListener('cancel',e=>{
+      e.preventDefault();
+      try{dlg.close()}catch(_){dlg.removeAttribute('open')}
     });
   }
 
-  function moveFloatingActionsInside(dlg){
-    if(!dlg || !dlg.classList.contains('pp51-menu'))return;
-    const body=dlg.querySelector(':scope > .pp51-body');
-    if(!body)return;
+  function allDialogs(){document.querySelectorAll('dialog').forEach(structure)}
 
-    // If legacy code appended a footer/action bar directly to the dialog after
-    // our structure pass, move it into the scrolling body.
-    [...dlg.children].forEach(el=>{
-      if(el.classList.contains('pp51-header') || el.classList.contains('pp51-body'))return;
-      body.appendChild(el);
-    });
-
-    body.querySelectorAll(
-      '.form-actions,.budget-actions,.dialog-actions,.modal-actions,.footer-actions,.sticky-footer,[class*="sticky-actions"]'
-    ).forEach(el=>{
-      el.style.setProperty('position','static','important');
-      el.style.setProperty('bottom','auto','important');
-      el.style.setProperty('left','auto','important');
-      el.style.setProperty('right','auto','important');
-      el.style.setProperty('width','auto','important');
-    });
-
-    classify(dlg);
-  }
-
-  function repairAll(){
-    document.querySelectorAll('dialog.pp51-menu').forEach(moveFloatingActionsInside);
-  }
-
-  // Existing dialogs.
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(repairAll,120),{once:true});
-  }else{
-    setTimeout(repairAll,120);
-  }
-
-  // Dynamic dialog contents or late-added action rows.
-  const mo=new MutationObserver(records=>{
-    const touched=new Set();
+  /* Every time a menu opens, start at TOP — fixes Budget reopening halfway down. */
+  const openObserver=new MutationObserver(records=>{
     for(const rec of records){
-      let el=rec.target instanceof Element ? rec.target : rec.target?.parentElement;
-      const dlg=el?.closest?.('dialog.pp51-menu');
-      if(dlg)touched.add(dlg);
-      for(const node of rec.addedNodes){
-        if(!(node instanceof Element))continue;
-        const d=node.matches?.('dialog.pp51-menu')?node:node.closest?.('dialog.pp51-menu');
-        if(d)touched.add(d);
-        node.querySelectorAll?.('dialog.pp51-menu').forEach(x=>touched.add(x));
+      const dlg=rec.target;
+      if(!(dlg instanceof HTMLDialogElement))continue;
+      if(rec.attributeName==='open' && dlg.open){
+        structure(dlg);
+        requestAnimationFrame(()=>{
+          const body=dlg.querySelector(':scope > .pp53-body');
+          if(body)body.scrollTop=0;
+        });
       }
     }
-    touched.forEach(d=>requestAnimationFrame(()=>moveFloatingActionsInside(d)));
   });
-  mo.observe(document.body,{childList:true,subtree:true});
 
-  document.addEventListener('click',()=>{
-    setTimeout(repairAll,80);
-  },true);
+  function observeDialogs(){
+    document.querySelectorAll('dialog').forEach(d=>openObserver.observe(d,{attributes:true,attributeFilter:['open']}));
+  }
+
+  /* Dynamic dialogs get same system. */
+  const dynamicObserver=new MutationObserver(records=>{
+    for(const rec of records){
+      for(const node of rec.addedNodes){
+        if(!(node instanceof Element))continue;
+        if(node.matches?.('dialog')){
+          structure(node);
+          openObserver.observe(node,{attributes:true,attributeFilter:['open']});
+        }
+        node.querySelectorAll?.('dialog').forEach(d=>{
+          structure(d);
+          openObserver.observe(d,{attributes:true,attributeFilter:['open']});
+        });
+      }
+    }
+  });
+
+  function unwrapSettings(panel){
+    for(const sel of [
+      ':scope > .mb20425-settings-scroll',':scope > .mb20426-settings-scroll',
+      ':scope > .mb20427-popup-body',':scope > .pp-menu-body',
+      ':scope > .pp51-body',':scope > .pp53-body'
+    ]){
+      const x=panel.querySelector(sel);
+      if(x){while(x.firstChild)panel.appendChild(x.firstChild);x.remove()}
+    }
+    for(const sel of [
+      ':scope > .mb20425-settings-header',':scope > .mb20426-settings-header',
+      ':scope > .mb20427-popup-header',':scope > .pp-menu-header',
+      ':scope > .pp51-header',':scope > .pp53-header'
+    ]){
+      panel.querySelector(sel)?.remove();
+    }
+    panel.classList.remove('pp-settings-menu','pp51-settings','pp53-settings');
+  }
+
+  function structureSettings(){
+    const panel=$('mb123SettingsPanel');
+    if(!panel || !panel.classList.contains('mb2034-modal-open') || panel.dataset.pp53==='1')return;
+
+    unwrapSettings(panel);
+    const isColors=!!panel.querySelector('#mb137Appearance');
+    const oldTitle=panel.querySelector(':scope > h3')||panel.querySelector('h3');
+    const titleText=isColors?'App Colors':((oldTitle?.textContent||'Settings').replace(/\s+/g,' ').trim());
+    if(oldTitle)oldTitle.remove();
+
+    const header=document.createElement('div');header.className='pp53-header';
+    const title=document.createElement('h2');title.className='pp53-title';title.textContent=titleText;
+
+    let close=$('mb2034SettingsClose');
+    if(!close){close=document.createElement('button');close.id='mb2034SettingsClose';close.textContent='×'}
+    close.type='button';close.classList.add('pp53-close');close.onclick=()=>window.mb2034CloseSettings?.();
+    header.append(title,close);
+
+    const body=document.createElement('div');body.className='pp53-body';
+    [...panel.childNodes].forEach(node=>{
+      if(node!==header && node!==body && node!==close)body.appendChild(node);
+    });
+
+    panel.prepend(header);panel.appendChild(body);
+    panel.classList.add('pp53-settings');panel.dataset.pp53='1';
+    body.scrollTop=0;
+    if(isColors)body.querySelector('#mb137Appearance > h3')?.remove();
+  }
+
+  function wireSettings(){
+    document.querySelectorAll('[data-mb123-settings]').forEach(btn=>{
+      if(btn.dataset.pp53Wired)return;
+      btn.dataset.pp53Wired='1';
+      btn.addEventListener('click',()=>{
+        const panel=$('mb123SettingsPanel');
+        if(panel){delete panel.dataset.pp53;panel.classList.remove('pp53-settings')}
+        setTimeout(structureSettings,80);
+      },true);
+    });
+  }
+
+  /* Android/back closes top menu first. */
+  window.myBillsHandleAndroidBack=function(){
+    try{
+      const open=[...document.querySelectorAll('dialog[open]')].filter(d=>d.id!=='mb212Onboarding');
+      if(open.length){open[open.length-1].close();return true}
+      if(document.body.classList.contains('mb2034-settings-open')){
+        window.mb2034CloseSettings?.();return true
+      }
+    }catch(e){}
+    return false;
+  };
+
+  function boot(){
+    allDialogs();
+    observeDialogs();
+    wireSettings();
+    dynamicObserver.observe(document.body,{childList:true,subtree:true});
+    document.addEventListener('click',e=>{
+      if(e.target.closest('[data-mb123-settings]'))setTimeout(structureSettings,100);
+    },true);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
+  else boot();
 })();
 </script>
 
