@@ -3329,27 +3329,61 @@ function showRemaining(){
 }
 
 function billHistory(){
-  // Previous Bills Paid is a true all-time history, not just the viewed month.
-  // Use the per-occurrence payment ledger so recurring bill payments remain visible
-  // after the bill advances to its next due date.
+  // Complete all-time history of fully paid bill occurrences.
+  // IMPORTANT: recurring bills reset visually for their next due date, so history
+  // must come from the per-occurrence ledgers rather than the bill's current paid flag.
   const out=[],seen=new Set(),byId=new Map(bills.map(b=>[String(b.id),b]));
-  const add=(b,iso)=>{
+  let paymentMeta={};
+  try{paymentMeta=JSON.parse(localStorage.getItem('myBills_payment_meta_v1')||'{}')||{};}catch(e){paymentMeta={};}
+
+  const splitKey=(key)=>{const cut=String(key).lastIndexOf('|');return cut>0?[String(key).slice(0,cut),String(key).slice(cut+1)]:null;};
+  const addExplicit=(b,iso,paid,fullEvidence=false)=>{
     if(!b||!iso)return;
     const key=billOccurrenceKey(b,iso);
     if(seen.has(key)||billOccurrenceDeleted(b,iso))return;
-    const paid=billPaidAmount(b,iso),due=Math.max(0,Number(b.amount)||0);
-    if(due>0 && paid>=due){seen.add(key);out.push({b,iso,paid});}
+    const due=Math.max(0,Number(b.amount)||0),amt=Math.max(0,Number(paid)||0);
+    if(due>0 && (amt>=due || fullEvidence)){
+      seen.add(key);
+      out.push({b,iso,paid:amt>0?amt:due});
+    }
   };
+
+  // New/current builds: exact amount ledger is authoritative.
   Object.keys(billPaidAmounts||{}).forEach(key=>{
-    const cut=key.lastIndexOf('|'); if(cut<1)return;
-    add(byId.get(key.slice(0,cut)),key.slice(cut+1));
+    const parts=splitKey(key); if(!parts)return;
+    const b=byId.get(parts[0]); if(!b)return;
+    addExplicit(b,parts[1],Number(billPaidAmounts[key])||0,false);
   });
+
+  // Older builds: a per-occurrence override of paid=true means the occurrence
+  // was fully paid even if an amount ledger entry was never created.
   Object.keys(billOverrides||{}).forEach(key=>{
-    const cut=key.lastIndexOf('|'); if(cut<1)return;
-    add(byId.get(key.slice(0,cut)),key.slice(cut+1));
+    const parts=splitKey(key); if(!parts)return;
+    const b=byId.get(parts[0]); if(!b)return;
+    const ov=billOverrides[key];
+    const explicitlyPaid=(ov===true)||(ov&&typeof ov==='object'&&ov.paid===true);
+    if(explicitlyPaid)addExplicit(b,parts[1],Number((billPaidAmounts||{})[key])||Number(b.amount)||0,true);
   });
-  // Compatibility for older one-time bills that were saved simply as paid.
-  bills.forEach(b=>{if(b.paid&&b.due)add(b,b.due);});
+
+  // Compatibility with payment records written by versions that saved payment
+  // metadata but not the newer amount map. A metadata entry is an actual saved
+  // payment occurrence; if no amount survives, old Pay Pilot only supported the
+  // occurrence as paid, so restore it at the bill amount.
+  Object.keys(paymentMeta||{}).forEach(key=>{
+    const parts=splitKey(key); if(!parts)return;
+    const b=byId.get(parts[0]); if(!b)return;
+    const meta=paymentMeta[key];
+    if(meta && typeof meta==='object'){
+      const amt=Number((billPaidAmounts||{})[key])||Number(meta.amount)||0;
+      if(amt>0)addExplicit(b,parts[1],amt,false);
+      else addExplicit(b,parts[1],Number(b.amount)||0,true);
+    }
+  });
+
+  // Very old one-time bills stored only a top-level paid flag. Do NOT apply this
+  // fallback to recurring bills, or every recurrence would incorrectly look paid.
+  bills.forEach(b=>{if(!b.recurring&&b.paid&&b.due)addExplicit(b,b.due,Number(b.amount)||0,true);});
+
   return out.sort((a,b)=>b.iso.localeCompare(a.iso)||String(a.b.name||'').localeCompare(String(b.b.name||'')));
 }
 function showHistory(){
@@ -9517,7 +9551,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.10</strong>
+      <strong>20.5.11</strong>
     </div>
   </section>
 </div>
@@ -9531,10 +9565,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.10';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.11';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=225, BUILD_NAME='20.5.10', BUILD_LABEL='20.5.10';
+  const BUILD_CODE=225, BUILD_NAME='20.5.11', BUILD_LABEL='20.5.11';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9793,7 +9827,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.10';
+  const VERSION='20.5.11';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9983,7 +10017,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.10';
+  const VERSION='20.5.11';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10223,7 +10257,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.10';
+  const VERSION='20.5.11';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11885,7 +11919,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.10</strong>
+        <strong>20.5.11</strong>
       </div>
       ${done()}`);
 
@@ -15147,7 +15181,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.10 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.11 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15239,7 +15273,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 <script id="pp2058-authoritative-sync">
 (function(){
-  const VERSION='20.5.10', BUILD=225;
+  const VERSION='20.5.11', BUILD=225;
   window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
   window.MYBILLS_BUILD_CODE=BUILD;
   window.MYBILLS_BUILD_NAME=VERSION;
@@ -15300,7 +15334,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp2059-gauge-rebuild-css">
-/* Pay Pilot 20.5.10 — one gauge, one set of numbers, two Home actions */
+/* Pay Pilot 20.5.11 — one gauge, one set of numbers, two Home actions */
 
 /* Old semicircle remains as the data engine only; never show it. */
 #mb20429GaugeStage,

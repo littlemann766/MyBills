@@ -1,3 +1,3 @@
 Pay Pilot
-Version: 20.5.10
-Release: Previous Bills Paid now shows all fully paid bill occurrences across all months
+Version: 20.5.11
+Release: Previous Bills Paid reads the complete per-occurrence payment history across current and legacy records
