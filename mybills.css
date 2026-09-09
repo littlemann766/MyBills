@@ -2631,3 +2631,140 @@ dialog.mb20423-structured [class*="sticky-actions"]{
     min-height:52px!important;
   }
 }
+
+
+/* 20.4.24 — Easy / Advanced is now an app-wide experience, not Home-only */
+.mb20424-modebar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:12px 0 16px;
+  padding:10px 12px;
+  border:2px solid rgba(22,228,234,.52);
+  border-radius:18px;
+  background:#0d2a55;
+  color:#fff;
+}
+.mb20424-modebar .mb20424-modecopy{
+  min-width:0;
+}
+.mb20424-modebar .mb20424-modecopy b{
+  display:block;
+  font-size:.92rem;
+}
+.mb20424-modebar .mb20424-modecopy small{
+  display:block;
+  color:#cfd9e7;
+  margin-top:2px;
+}
+.mb20424-modebuttons{
+  flex:0 0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.mb20424-modebuttons button{
+  min-width:76px;
+  min-height:42px;
+  padding:8px 10px;
+  border:2px solid #117b91;
+  border-radius:13px;
+  background:#0b2447;
+  color:#fff;
+  font-weight:900;
+}
+.mb20424-modebuttons button.active{
+  background:#16e4ea;
+  color:#071a33;
+  border-color:#16e4ea;
+}
+
+/* Easy-mode helper panels */
+.mb20424-easy-panel{
+  display:none;
+  margin:0 0 16px;
+  padding:14px;
+  border:2px solid rgba(22,228,234,.46);
+  border-radius:20px;
+  background:#103462;
+  color:#fff;
+}
+.mb20424-easy-panel h3{
+  margin:0 0 4px;
+  font-size:1.15rem;
+}
+.mb20424-easy-panel p{
+  margin:0 0 12px;
+  color:#d8e0ee;
+  line-height:1.35;
+}
+.mb20424-easy-actions{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.mb20424-easy-actions button{
+  min-height:52px;
+  padding:10px;
+  border:2px solid #117b91;
+  border-radius:15px;
+  background:#0b2447;
+  color:#fff;
+  font-weight:900;
+}
+.mb20424-easy-actions button.primary{
+  background:#16e4ea;
+  color:#071a33;
+  border-color:#16e4ea;
+}
+
+body.mb-home-easy .mb20424-easy-panel{display:block!important}
+body.mb-home-advanced .mb20424-easy-panel{display:none!important}
+
+/* CALENDAR — Easy keeps the calendar itself and hides the extra long reminder feed. */
+body.mb-home-easy #mb119Calendar #reminderList,
+body.mb-home-easy #mb119Calendar .section-head{
+  display:none!important;
+}
+
+/* BILLS — Easy keeps the actual bills list but removes power-user search/filter/calculator clutter. */
+body.mb-home-easy #mb119Bills .bill-filter-bar,
+body.mb-home-easy #mb119Bills .calculator-card{
+  display:none!important;
+}
+
+/* SPENDING — Easy focuses on entry + ledger; Advanced keeps the range controls. */
+body.mb-home-easy #mb119Spending .mb119-range{
+  display:none!important;
+}
+
+/* BUDGET — Easy uses a curated tool set; Advanced exposes every planning/report tool. */
+body.mb-home-easy #mb119Budget .mb119-tool-grid{
+  display:none!important;
+}
+
+/* SETTINGS — Easy keeps the familiar basics. */
+body.mb-home-easy #mb119Settings .mb123-settings-nav button[data-mb123-settings="calendar"]{
+  display:none!important;
+}
+
+/* Existing Appearance wording is now app-wide. */
+body.mb-home-easy .mb203-mode-status::before{content:"Easy experience is on";font-size:0}
+body.mb-home-advanced .mb203-mode-status::before{content:"Advanced experience is on";font-size:0}
+
+@media(max-width:520px){
+  .mb20424-modebar{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .mb20424-modebuttons{
+    width:100%;
+  }
+  .mb20424-modebuttons button{
+    min-width:0;
+  }
+  .mb20424-easy-actions{
+    grid-template-columns:1fr 1fr;
+  }
+}
