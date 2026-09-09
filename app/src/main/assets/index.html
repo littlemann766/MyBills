@@ -13204,57 +13204,34 @@ body.mb-high-contrast textarea{border-width:2px!important}
         <div class="title">PAYDAY HEALTH</div>
       </div>
 
-      
-      <div id="mb20429GaugeStage" class="pp2054-gauge" aria-label="Pay Pilot Safe to Spend gauge">
-        <div class="pp2054-gauge-topline">
-          <div>
-            <div class="pp2054-gauge-title">PAY PILOT GAUGE</div>
-            <div class="pp2054-gauge-subtitle">Your financial position at a glance.</div>
-          </div>
-          <button id="pp2054GaugeDetails" type="button" class="pp2054-details-btn">View Details</button>
+      <div id="mb20429GaugeStage" aria-label="Payday Health gauge">
+        <svg id="mb20429GaugeSvg" viewBox="0 0 360 220" role="img" aria-labelledby="mb20429GaugeTitle">
+          <title id="mb20429GaugeTitle">Payday Health</title>
+          <g id="mb20429GaugeSegments"></g>
+          <g class="mb20429GaugeTicks">
+            <line x1="42" y1="180" x2="57" y2="180"></line>
+            <line x1="78" y1="91" x2="90" y2="100"></line>
+            <line x1="180" y1="47" x2="180" y2="63"></line>
+            <line x1="282" y1="91" x2="270" y2="100"></line>
+            <line x1="318" y1="180" x2="303" y2="180"></line>
+          </g>
+          <g id="mb20429NeedleGroup">
+            <line id="mb20429GaugeNeedle" x1="180" y1="180" x2="180" y2="73"></line>
+            <circle cx="180" cy="180" r="17" class="mb20429NeedleHubOuter"></circle>
+            <circle cx="180" cy="180" r="9" class="mb20429NeedleHubInner"></circle>
+          </g>
+        </svg>
+        <div id="mb20429GaugeReadout">
+          <div id="mb20429GaugeStatus">CHECKING</div>
+          <div id="mb20429GaugeAmount">$0.00</div>
+          <small>SAFE TO SPEND</small>
         </div>
-
-        <div class="pp2054-dial-wrap">
-          <svg id="pp2054DialSvg" viewBox="0 0 420 420" role="img" aria-label="Safe to Spend gauge">
-            <defs>
-              <filter id="pp2054Shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".45"/>
-              </filter>
-            </defs>
-
-            <circle cx="210" cy="210" r="185" class="pp2054-rim-outer"/>
-            <circle cx="210" cy="210" r="169" class="pp2054-rim-inner"/>
-
-            <g id="pp2054GaugeWedges"></g>
-            <g id="pp2054GaugeTicks"></g>
-            <g id="pp2054GaugeNumbers"></g>
-
-            <g id="pp2054NeedleGroup" filter="url(#pp2054Shadow)">
-              <line id="pp2054Needle" x1="210" y1="210" x2="210" y2="72" class="pp2054-needle"/>
-              <circle cx="210" cy="210" r="23" class="pp2054-hub-outer"/>
-              <circle cx="210" cy="210" r="12" class="pp2054-hub-inner"/>
-            </g>
-
-            <rect x="132" y="288" width="156" height="72" rx="16" class="pp2054-digital-box"/>
-            <text id="pp2054DigitalAmount" x="210" y="326" text-anchor="middle" class="pp2054-digital-amount">$0.00</text>
-            <text x="210" y="348" text-anchor="middle" class="pp2054-digital-label">SAFE TO SPEND</text>
-          </svg>
-        </div>
-
-        <div class="pp2054-zone-legend">
-          <div><strong>1–2</strong><span>TIGHT</span></div>
-          <div><strong>3–5</strong><span>BREATHING</span></div>
-          <div><strong>6–7</strong><span>COMFORTABLE</span></div>
-          <div><strong>8–10</strong><span>STRONG</span></div>
-        </div>
-
-        <div class="pp2054-gauge-metrics">
-          <div><span>Available now</span><strong id="pp2054Available">$0.00</strong></div>
-          <div><span>Savings</span><strong id="pp2054Savings">$0.00</strong></div>
-          <div><span>Cushion</span><strong id="pp2054Cushion">$0.00</strong></div>
+        <div id="mb20429GaugeScale">
+          <span>TIGHT</span><span>BREATHING</span><span>COMFORTABLE</span><span>STRONG</span>
         </div>
       </div>
-<div id="mb20419HealthSummary">
+
+      <div id="mb20419HealthSummary">
         <div id="mb20419SafeBig">$0.00 safe to spend</div>
         <div id="mb20419HealthLine"></div>
         <div id="mb20419HealthExplain"></div>
@@ -15146,367 +15123,93 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 </script>
 
 
-<style id="mb2054-functional-gauge-css">
-/* 20.5.4 — fully functional Pay Pilot gauge */
-#mb20419HealthCard{
-  overflow:hidden!important;
-}
-#mb20419HealthHeader{
+<style id="mb2055-gauge-fix-css">
+/* 20.5.5 — correct gauge direction + remove duplicate Home projections */
+.pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
+.pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
+.pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
+.pp2054-zone-legend > div:nth-child(4) strong{color:#42d85a!important}
+
+/* Keep only the two Home actions the user wants beneath the gauge. */
+#mb20411Forecast,
+#mb20411OpenForecast{
   display:none!important;
 }
-#mb20429GaugeStage.pp2054-gauge{
-  width:100%!important;
-  max-width:680px!important;
-  margin:0 auto 16px!important;
-  padding:18px!important;
-  box-sizing:border-box!important;
-  border:3px solid var(--mb137-cyan,#19edf5)!important;
-  border-radius:28px!important;
-  background:linear-gradient(180deg,#0d2a55 0%,#0b2348 100%)!important;
-  box-shadow:0 16px 40px rgba(0,0,0,.28)!important;
-}
-.pp2054-gauge-topline{
-  display:flex!important;
-  align-items:flex-start!important;
-  justify-content:space-between!important;
-  gap:14px!important;
-  margin-bottom:8px!important;
-}
-.pp2054-gauge-title{
-  color:#fff!important;
-  font-size:clamp(1.7rem,5vw,2.15rem)!important;
-  line-height:1.05!important;
-  font-weight:950!important;
-}
-.pp2054-gauge-subtitle{
-  margin-top:5px!important;
-  color:#d6e2ef!important;
-  font-size:.95rem!important;
-  line-height:1.25!important;
-}
-.pp2054-details-btn{
-  flex:0 0 auto!important;
-  min-height:48px!important;
-  padding:9px 14px!important;
-  border:2px solid #19edf5!important;
-  border-radius:16px!important;
-  background:#0b2447!important;
-  color:#fff!important;
-  font-weight:900!important;
-}
-.pp2054-dial-wrap{
-  width:100%!important;
-  display:flex!important;
-  justify-content:center!important;
-}
-#pp2054DialSvg{
-  width:min(100%,520px)!important;
-  height:auto!important;
+#mb20411EditCushion,
+#mb20411AddSpending{
   display:block!important;
-}
-.pp2054-rim-outer{
-  fill:#d8dee5!important;
-  stroke:#6e7782!important;
-  stroke-width:8!important;
-}
-.pp2054-rim-inner{
-  fill:#27303a!important;
-  stroke:#aab3bc!important;
-  stroke-width:4!important;
-}
-.pp2054-needle{
-  stroke:#f4f7fb!important;
-  stroke-width:9!important;
-  stroke-linecap:round!important;
-}
-.pp2054-hub-outer{
-  fill:#3d4651!important;
-  stroke:#cbd3db!important;
-  stroke-width:6!important;
-}
-.pp2054-hub-inner{
-  fill:#101722!important;
-}
-.pp2054-digital-box{
-  fill:#071b20!important;
-  stroke:#19edf5!important;
-  stroke-width:4!important;
-}
-.pp2054-digital-amount{
-  fill:#59ff6d!important;
-  font-size:34px!important;
-  font-weight:950!important;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace!important;
-}
-.pp2054-digital-label{
-  fill:#e9f3fb!important;
-  font-size:14px!important;
-  font-weight:900!important;
-  letter-spacing:.08em!important;
-}
-.pp2054-zone-legend{
-  display:grid!important;
-  grid-template-columns:repeat(4,1fr)!important;
-  gap:8px!important;
-  margin:8px 0 14px!important;
-}
-.pp2054-zone-legend > div{
-  text-align:center!important;
-  padding:8px 4px!important;
-  border-left:1px solid rgba(25,237,245,.32)!important;
-}
-.pp2054-zone-legend > div:first-child{border-left:0!important}
-.pp2054-zone-legend strong{
-  display:block!important;
-  font-size:1rem!important;
-}
-.pp2054-zone-legend span{
-  display:block!important;
-  margin-top:2px!important;
-  color:#fff!important;
-  font-size:.74rem!important;
-  font-weight:900!important;
-}
-.pp2054-zone-legend > div:nth-child(1) strong{color:#ff4444!important}
-.pp2054-zone-legend > div:nth-child(2) strong{color:#ffcf29!important}
-.pp2054-zone-legend > div:nth-child(3) strong{color:#ff9b2a!important}
-.pp2054-zone-legend > div:nth-child(4) strong{color:#45e55b!important}
-.pp2054-gauge-metrics{
-  display:grid!important;
-  grid-template-columns:repeat(3,1fr)!important;
-  gap:10px!important;
-  padding:14px!important;
-  border:2px solid rgba(25,237,245,.28)!important;
-  border-radius:18px!important;
-  background:#0b2447!important;
-}
-.pp2054-gauge-metrics > div{
-  min-width:0!important;
-  text-align:center!important;
-  padding:0 8px!important;
-  border-left:1px solid rgba(25,237,245,.28)!important;
-}
-.pp2054-gauge-metrics > div:first-child{border-left:0!important}
-.pp2054-gauge-metrics span{
-  display:block!important;
-  color:#aebed0!important;
-  font-size:.78rem!important;
-  font-weight:800!important;
-}
-.pp2054-gauge-metrics strong{
-  display:block!important;
-  margin-top:4px!important;
-  color:#fff!important;
-  font-size:1.25rem!important;
-  font-weight:950!important;
-}
-
-/* The gauge is the summary now; hide duplicate status/readout below it. */
-#mb20419SafeBig,
-#mb20419HealthSummary{
-  display:none!important;
-}
-
-@media(max-width:560px){
-  #mb20429GaugeStage.pp2054-gauge{
-    padding:14px 12px!important;
-    border-radius:23px!important;
-  }
-  .pp2054-gauge-topline{
-    align-items:center!important;
-  }
-  .pp2054-gauge-title{
-    font-size:1.55rem!important;
-  }
-  .pp2054-gauge-subtitle{
-    font-size:.82rem!important;
-  }
-  .pp2054-details-btn{
-    min-height:44px!important;
-    padding:8px 11px!important;
-    font-size:.82rem!important;
-  }
-  .pp2054-zone-legend{
-    gap:2px!important;
-  }
-  .pp2054-zone-legend span{font-size:.58rem!important}
-  .pp2054-gauge-metrics{
-    gap:4px!important;
-    padding:10px 6px!important;
-  }
-  .pp2054-gauge-metrics strong{font-size:1rem!important}
-  .pp2054-gauge-metrics span{font-size:.65rem!important}
 }
 </style>
 
 
-<script id="mb2054-functional-gauge-js">
+<script id="mb2055-gauge-fix-js">
 (function(){
-  const NS='http://www.w3.org/2000/svg';
-  const $=id=>document.getElementById(id);
+  function recolorGauge(){
+    const wedges=document.getElementById('pp2054GaugeWedges');
+    if(!wedges) return;
+    const paths=[...wedges.querySelectorAll('path')];
+    if(paths.length!==10) return;
 
-  function money(n){
-    try{return (window.money?window.money(n):new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n)||0))}
-    catch(e){return '$'+(Number(n)||0).toFixed(2)}
-  }
+    // Correct financial direction:
+    // 1-2 = RED (tight)
+    // 3-5 = ORANGE/YELLOW (breathing)
+    // 6-7 = YELLOW-GREEN (comfortable)
+    // 8-10 = GREEN (strong)
+    const colors=[
+      '#d92f2f','#ef4b2f',
+      '#f28c28','#f4a62a','#e5cf2b',
+      '#c7d92f','#9bd43a',
+      '#67cc45','#42bd4a','#2eaa45'
+    ];
+    paths.forEach((p,i)=>p.setAttribute('fill',colors[i]));
 
-  function polar(cx,cy,r,deg){
-    const a=(deg-90)*Math.PI/180;
-    return {x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};
-  }
-
-  function arcPath(cx,cy,rOuter,rInner,startDeg,endDeg){
-    const p1=polar(cx,cy,rOuter,startDeg), p2=polar(cx,cy,rOuter,endDeg);
-    const p3=polar(cx,cy,rInner,endDeg), p4=polar(cx,cy,rInner,startDeg);
-    const large=(endDeg-startDeg)>180?1:0;
-    return [
-      `M ${p1.x} ${p1.y}`,
-      `A ${rOuter} ${rOuter} 0 ${large} 1 ${p2.x} ${p2.y}`,
-      `L ${p3.x} ${p3.y}`,
-      `A ${rInner} ${rInner} 0 ${large} 0 ${p4.x} ${p4.y}`,
-      'Z'
-    ].join(' ');
-  }
-
-  function addSvg(tag,attrs,parent){
-    const el=document.createElementNS(NS,tag);
-    Object.entries(attrs||{}).forEach(([k,v])=>el.setAttribute(k,String(v)));
-    parent.appendChild(el);
-    return el;
-  }
-
-  function buildDial(){
-    const wedges=$('pp2054GaugeWedges'), ticks=$('pp2054GaugeTicks'), nums=$('pp2054GaugeNumbers');
-    if(!wedges||wedges.dataset.built==='1')return;
-
-    // 10 bands around ~280 degrees, green on low spendable, red on high score
-    // to visually mirror the user's reference tachometer.
-    const colors=['#2fb44a','#4fc539','#79d326','#b3df28','#f0df24','#ffbf25','#ff9121','#f05f20','#e52b22','#b9141a'];
-    const start=-140, sweep=280, seg=sweep/10;
-    for(let i=0;i<10;i++){
-      const a0=start+i*seg, a1=start+(i+1)*seg;
-      addSvg('path',{
-        d:arcPath(210,210,150,102,a0,a1),
-        fill:colors[i],
-        stroke:'rgba(0,0,0,.08)',
-        'stroke-width':1
-      },wedges);
-
-      // Number labels 1..10
-      const mid=(a0+a1)/2;
-      const p=polar(210,210,125,mid);
-      const tx=addSvg('text',{
-        x:p.x,y:p.y+7,'text-anchor':'middle',
-        fill:'#081018','font-size':23,'font-weight':900
-      },nums);
-      tx.textContent=String(i+1);
-    }
-
-    // 51 tick marks for a proper incremental feel.
-    const tickCount=50;
-    for(let i=0;i<=tickCount;i++){
-      const a=start+(sweep*i/tickCount);
-      const major=(i%5===0);
-      const p1=polar(210,210,156,a);
-      const p2=polar(210,210,major?139:146,a);
-      addSvg('line',{
-        x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,
-        stroke:'#111820','stroke-width':major?4:2,'stroke-linecap':'round'
-      },ticks);
-    }
-    wedges.dataset.built='1';
-  }
-
-  function getState(){
-    // Prefer the app's authoritative moneyState() if present.
-    try{
-      if(typeof window.moneyState==='function'){
-        const s=window.moneyState()||{};
-        return {
-          safe:Math.max(0,Number(s.safe)||0),
-          available:Math.max(0,Number(s.available)||0),
-          savings:Math.max(0,Number(s.savings||s.savingsTotal)||0),
-          cushion:Math.max(0,Number(s.cushion)||0)
-        };
-      }
-    }catch(e){}
-
-    // Fall back to visible forecast values.
-    const parseMoney=id=>{
-      const txt=$(id)?.textContent||'0';
-      return Math.max(0,Number(txt.replace(/[^0-9.-]/g,''))||0);
-    };
-    return {
-      safe:parseMoney('mb20411Safe')||parseMoney('mb20419SafeBig'),
-      available:parseMoney('mb20411Available'),
-      savings:parseMoney('mb20411Savings')||parseMoney('mb20412SavingsReserve'),
-      cushion:parseMoney('mb2043CushionLabel')
-    };
-  }
-
-  function scoreForSafe(safe){
-    // Continuous/incremental scale:
-    // $0-$50 => 1-2
-    // $51-$250 => 2-5
-    // $251-$500 => 5-7
-    // $501-$1000 => 7-9
-    // $1000+ => 9-10
-    safe=Math.max(0,Number(safe)||0);
-    if(safe<=50) return 1 + (safe/50)*1;
-    if(safe<=250) return 2 + ((safe-50)/200)*3;
-    if(safe<=500) return 5 + ((safe-250)/250)*2;
-    if(safe<=1000) return 7 + ((safe-500)/500)*2;
-    return Math.min(10,9 + ((safe-1000)/1000));
-  }
-
-  function render(){
-    buildDial();
-    const s=getState();
-    const score=scoreForSafe(s.safe);
-
-    // Needle travels continuously through the whole scale, not just zone-to-zone.
-    const start=-140, sweep=280;
-    const deg=start+((score-1)/9)*sweep;
-    const needle=$('pp2054Needle');
-    if(needle){
-      needle.setAttribute('transform',`rotate(${deg} 210 210)`);
-      needle.style.transition='transform .45s cubic-bezier(.2,.8,.2,1)';
-    }
-
-    if($('pp2054DigitalAmount')) $('pp2054DigitalAmount').textContent=money(s.safe);
-    if($('pp2054Available')) $('pp2054Available').textContent=money(s.available);
-    if($('pp2054Savings')) $('pp2054Savings').textContent=money(s.savings);
-    if($('pp2054Cushion')) $('pp2054Cushion').textContent=money(s.cushion);
-  }
-
-  function wire(){
-    const details=$('pp2054GaugeDetails');
-    if(details && !details.dataset.wired){
-      details.dataset.wired='1';
-      details.addEventListener('click',()=>{
-        if(typeof window.openSafeToSpend2040==='function') window.openSafeToSpend2040();
-      });
+    // Match legend colors to the corrected direction.
+    const legend=document.querySelector('.pp2054-zone-legend');
+    if(legend){
+      const vals=legend.querySelectorAll('strong');
+      const legendColors=['#ff4a4a','#ffb12b','#cbdc38','#42d85a'];
+      vals.forEach((el,i)=>{ if(legendColors[i]) el.style.setProperty('color',legendColors[i],'important'); });
     }
   }
 
-  function boot(){
-    buildDial();
-    wire();
-    render();
+  function simplifyHome(){
+    // The gauge already shows Available, Savings, Cushion, and Safe to Spend.
+    // Hide the duplicated forecast panel and leave only Edit Cushion + Add Spending controls.
+    const forecast=document.querySelector('#mb20411Forecast') || document.querySelector('.mb20411Forecast');
+    if(forecast) forecast.style.setProperty('display','none','important');
 
-    // Refresh on all normal app changes and visibility events.
-    document.addEventListener('click',()=>setTimeout(render,80),true);
-    document.addEventListener('input',()=>setTimeout(render,80),true);
-    document.addEventListener('change',()=>setTimeout(render,80),true);
-    window.addEventListener('storage',render);
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+    const safeHeading=[...document.querySelectorAll('h2,h3,.title')].find(el=>
+      (el.textContent||'').trim().toUpperCase()==='SAFE TO SPEND FORECAST'
+    );
+    if(safeHeading){
+      const section=safeHeading.closest('section,div');
+      if(section && !section.id?.includes('Health')) section.style.setProperty('display','none','important');
+    }
 
-    // Keep display in sync without rewriting DOM or twitching.
-    setInterval(render,1500);
+    // Hide duplicate View Details button outside the gauge if one exists.
+    document.querySelectorAll('#mb20411OpenForecast').forEach(el=>el.style.setProperty('display','none','important'));
+
+    // Ensure Edit Cushion and + Add Spending remain visible.
+    ['mb20411EditCushion','mb20411AddSpending'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.style.removeProperty('display');
+    });
   }
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
-  else boot();
+  function run(){
+    recolorGauge();
+    simplifyHome();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(run,100),{once:true});
+  }else{
+    setTimeout(run,100);
+  }
+
+  document.addEventListener('click',()=>setTimeout(run,60),true);
+  document.addEventListener('input',()=>setTimeout(run,60),true);
+  document.addEventListener('change',()=>setTimeout(run,60),true);
 })();
 </script>
 
