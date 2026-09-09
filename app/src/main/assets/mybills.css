@@ -2828,3 +2828,26 @@ body.mb-home-advanced #mb203HomeDashboard{display:none!important}
   #mb20426HomeActions button{font-size:.82rem;padding:8px 4px}
   .mb20426-choice-buttons{grid-template-columns:1fr}
 }
+
+
+/* 20.4.28 — final Home/menu stability fixes */
+#mb2049QuickSpending,
+#mb20410SpendAdd{
+  display:none!important;
+}
+
+/* Original title element now lives in the fixed popup header. */
+dialog.mb20427-popup .mb20427-popup-header > .mb20427-popup-title{
+  display:block!important;
+  visibility:visible!important;
+  color:var(--mb27-text)!important;
+  margin:0!important;
+  padding:6px 0 0!important;
+  background:transparent!important;
+}
+
+/* Prevent any older CSS from hiding dynamically updated popup titles. */
+dialog.mb20427-popup .mb20427-popup-body > #paymentHistoryTitle,
+dialog.mb20427-popup .mb20427-popup-body > #hoursWeeksTitle{
+  display:none!important;
+}
