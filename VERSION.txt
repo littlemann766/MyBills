@@ -1,3 +1,3 @@
 My Bills
-Version: 20.4.29
-Release: Cockpit-style Payday Health gauge verification build
+Version: 20.5.0
+Release: New generation — one uniform popup/menu theme across the app
