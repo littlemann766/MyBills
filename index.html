@@ -9551,7 +9551,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.15</strong>
+      <strong>20.5.16</strong>
     </div>
   </section>
 </div>
@@ -9565,10 +9565,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.15';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.16';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=230, BUILD_NAME='20.5.15', BUILD_LABEL='20.5.15';
+  const BUILD_CODE=231, BUILD_NAME='20.5.16', BUILD_LABEL='20.5.16';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9827,7 +9827,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.15';
+  const VERSION='20.5.16';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10017,7 +10017,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.15';
+  const VERSION='20.5.16';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10257,7 +10257,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.15';
+  const VERSION='20.5.16';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11919,7 +11919,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.15</strong>
+        <strong>20.5.16</strong>
       </div>
       ${done()}`);
 
@@ -15181,7 +15181,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.15 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.16 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15273,7 +15273,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 <script id="pp2058-authoritative-sync">
 (function(){
-  const VERSION='20.5.15', BUILD=230;
+  const VERSION='20.5.16', BUILD=231;
   window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
   window.MYBILLS_BUILD_CODE=BUILD;
   window.MYBILLS_BUILD_NAME=VERSION;
@@ -15334,7 +15334,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp2059-gauge-rebuild-css">
-/* Pay Pilot 20.5.15 — one gauge, one set of numbers, two Home actions */
+/* Pay Pilot 20.5.16 — one gauge, one set of numbers, two Home actions */
 
 /* Old semicircle remains as the data engine only; never show it. */
 #mb20429GaugeStage,
@@ -15666,7 +15666,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp20512-paid-history-summary-css">
-/* 20.5.15 — Previous Bills Paid: total + breakdown */
+/* 20.5.16 — Previous Bills Paid: total + breakdown */
 #historyList .pp20512-paid-summary{
   display:grid!important;
   grid-template-columns:1fr auto!important;
@@ -15764,7 +15764,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp20515-bill-tabs-css">
-/* 20.5.15 — Bills Total Amount = viewed-month bill list; Paid = complete paid history */
+/* 20.5.16 — Bills Total Amount = viewed-month bill list; Paid = complete paid history */
 .pp20515-summary{
   display:grid!important;
   grid-template-columns:1fr auto!important;
@@ -15909,6 +15909,202 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
     box.innerHTML=summary+rows;
     dlg.showModal();
   };
+})();
+</script>
+
+
+<style id="pp20516-help-css">
+.pp-help-btn{
+  width:42px;height:42px;border-radius:50%!important;border:2px solid #16e4ea!important;
+  background:#0b2447!important;color:#fff!important;font-size:1.25rem!important;font-weight:950!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 42px;
+  box-shadow:0 0 0 2px rgba(22,228,234,.08) inset;cursor:pointer
+}
+.pp-help-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pp-help-head .mb119-title{margin:0}
+#ppHelpDlg .form{max-width:620px}
+.pp-help-card{padding:14px 16px;margin:10px 0;border:1px solid #117b91;border-radius:16px;background:#14376b}
+.pp-help-card h3{margin:0 0 6px;font-size:1rem}
+.pp-help-card p{margin:0;color:#d8e0ee!important;line-height:1.45}
+.pp-help-setting{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pp-help-setting input{width:28px;height:28px}
+body.pp-help-off .pp-help-btn{display:none!important}
+</style>
+
+
+<script id="pp20516-help-tips-js">
+(function(){
+  const HELP_KEY='paypilot_context_help_v1';
+  const MONEY_KEY='paypilot_money_tips_v1';
+  const $=id=>document.getElementById(id);
+  const enabled=(key,def=true)=>{const v=localStorage.getItem(key);return v===null?def:v!=='false'};
+  const setEnabled=(key,v)=>localStorage.setItem(key,v?'true':'false');
+
+  const help={
+    home:['Home','Your money at a glance. The Pay Pilot Gauge turns Safe to Spend into a 1–10 financial scale.',
+      ['Available Now is money currently available after money already moved.','Cushion is the amount you choose to protect from everyday spending.','Safe to Spend is Available Now minus your protected cushion.','Use Add Spending when money leaves so the gauge stays current.']],
+    calendar:['Calendar','See bills, paychecks and reminders by date.',
+      ['Tap a date to see what is scheduled.','Use the month controls to look ahead or back.','Paid bills can remain visible so you can see what already happened.']],
+    bills:['Bills','Manage what you owe and what you have already paid.',
+      ['Bills Total Amount shows every bill occurrence for the month you are viewing.','Paid shows your paid-bill history.','Remaining focuses on bills that still need money.','Use the ⋮ menu on a bill for its actions.']],
+    spending:['Spending','Track everyday money going out and funds coming back in.',
+      ['Add spending as it happens for the most accurate Available Now.','Refunds or added funds increase the balance instead of reducing it.','Edit an entry if the amount or description was entered incorrectly.']],
+    budget:['Budget','Compare your monthly money coming in with bills and other spending.',
+      ['Use the month you are viewing so totals stay relevant.','Savings and cushion serve different jobs: savings is set aside; cushion protects spending room.','Review recurring expenses periodically for charges you no longer use.']],
+    settings:['Settings','Control how Pay Pilot behaves without changing your financial records.',
+      ['Tips & Tricks controls these ? help buttons.','Money Tips is separate, so you can hide help buttons and still keep rotating money tips on Home.','Appearance and notification choices can be changed independently.']]
+  };
+
+  function ensureDialog(){
+    if($('ppHelpDlg'))return;
+    const d=document.createElement('dialog');d.id='ppHelpDlg';
+    d.innerHTML='<div class="form"><h2 id="ppHelpTitle">Tips & Tricks</h2><div id="ppHelpBody"></div><div class="form-actions"><button class="primary" type="button" onclick="ppHelpDlg.close()">Done</button></div></div>';
+    document.body.appendChild(d);
+  }
+  function openHelp(key){
+    ensureDialog();const x=help[key]||help.home;
+    $('ppHelpTitle').textContent=x[0]+' — Tips & Tricks';
+    $('ppHelpBody').innerHTML='<div class="pp-help-card"><h3>What this tab does</h3><p>'+x[1]+'</p></div>'+
+      x[2].map(t=>'<div class="pp-help-card"><p>• '+t+'</p></div>').join('');
+    $('ppHelpDlg').showModal();
+  }
+  window.ppOpenHelp=openHelp;
+
+  function addHelpButton(view,key){
+    if(!view || view.querySelector('.pp-help-btn'))return;
+    const title=view.querySelector(':scope > .mb119-title');
+    if(!title)return;
+    const head=document.createElement('div');head.className='pp-help-head';
+    title.parentNode.insertBefore(head,title);head.appendChild(title);
+    const b=document.createElement('button');b.type='button';b.className='pp-help-btn';b.textContent='?';
+    b.setAttribute('aria-label','Tips and help for '+key);b.onclick=()=>openHelp(key);head.appendChild(b);
+  }
+  function injectHelp(){
+    [['mb119Home','home'],['mb119Calendar','calendar'],['mb119Bills','bills'],['mb119Spending','spending'],['mb119Budget','budget'],['mb119Settings','settings']]
+      .forEach(([id,k])=>addHelpButton($(id),k));
+    document.body.classList.toggle('pp-help-off',!enabled(HELP_KEY,true));
+  }
+
+  function settingsBlock(){
+    return '<div id="pp20516TipSettings" class="settings-section pp-help-card">'+
+      '<h3>Tips & Help</h3>'+
+      '<div class="settings-row pp-help-setting"><div><strong>Tips & Tricks</strong><div class="settings-help">Show the ? help buttons around Pay Pilot.</div></div><input id="ppTipsToggle" type="checkbox"></div>'+
+      '<div class="settings-row pp-help-setting"><div><strong>Money Tips</strong><div class="settings-help">Keep rotating financial tips on the Home page.</div></div><input id="ppMoneyTipsToggle" type="checkbox"></div>'+
+      '</div>';
+  }
+  function injectSettings(){
+    let host=$('mb123SettingsPanel')?.querySelector('.mb20425-settings-scroll') || $('mb123SettingsPanel') || $('settingsDlg')?.querySelector('.form');
+    if(!host || $('pp20516TipSettings'))return;
+    host.insertAdjacentHTML('beforeend',settingsBlock());
+    const ht=$('ppTipsToggle'),mt=$('ppMoneyTipsToggle');
+    ht.checked=enabled(HELP_KEY,true); mt.checked=enabled(MONEY_KEY,true);
+    ht.onchange=()=>{setEnabled(HELP_KEY,ht.checked);document.body.classList.toggle('pp-help-off',!ht.checked)};
+    mt.onchange=()=>{setEnabled(MONEY_KEY,mt.checked);applyMoneyTipVisibility()};
+  }
+
+  const general=[
+    ['Protect your breathing room','Check upcoming bills before deciding what is truly safe to spend.'],
+    ['Give every payday a job','Decide what must be covered before treating the rest as spending money.'],
+    ['Keep a cushion on purpose','A cushion can keep a small surprise from turning into an overdraft.'],
+    ['Small charges still count','Review subscriptions and automatic charges; several small ones can become a large monthly expense.'],
+    ['Check before payday','Compare Available Now with anything due before your next paycheck.'],
+    ['Plan for irregular bills','Set aside a little each month for expenses that arrive only a few times a year.'],
+    ['Separate wants from due dates','Cover bills due soon before increasing optional spending.'],
+    ['Refunds deserve a plan too','When money comes back, consider restoring your cushion before spending it again.'],
+    ['Watch the little leaks','Frequent convenience purchases can matter more than one occasional larger purchase.'],
+    ['Build consistency first','A smaller savings amount you can repeat is often easier to maintain than an aggressive target.'],
+    ['Look one week ahead','A quick weekly bill check can prevent due dates from sneaking up on you.'],
+    ['Know your true free cash','Account balances alone do not show which dollars already have a job.'],
+    ['Protect essentials first','Housing, utilities, transportation and required payments usually deserve priority in a tight month.'],
+    ['Use categories as clues','A category that keeps growing can show where a small adjustment would have the biggest effect.'],
+    ['Review recurring expenses','Cancel or downgrade subscriptions you no longer use enough to justify.'],
+    ['Keep savings separate mentally','Treat money deliberately moved to savings differently from everyday spending money.'],
+    ['Prepare for annual costs','Registration fees, holidays and yearly subscriptions are easier when planned for gradually.'],
+    ['A sale is still spending','A discount only saves money when the purchase was already useful or planned.'],
+    ['Delay impulse purchases','Waiting a day before an unplanned purchase can make the decision clearer.'],
+    ['Check the total, not just the payment','Low monthly payments can hide a high overall cost.'],
+    ['Track cash spending too','Small cash purchases can make your numbers look better than reality if they are not recorded.'],
+    ['Revisit your cushion','As expenses change, your preferred cushion may need to change too.'],
+    ['Keep due dates visible','Knowing what is due next reduces the chance of spending money that is already committed.'],
+    ['Use extra income intentionally','Before spending a bonus or unusually large check, decide how much goes to goals, bills and fun.'],
+    ['One good habit beats ten complicated ones','A simple weekly money check-in can be more useful than a plan you cannot maintain.'],
+    ['Round up your estimates','When an expense varies, planning slightly high can leave more room for surprises.'],
+    ['Compare month to month','A rising spending pattern is easier to fix when you notice it early.'],
+    ['Avoid double-counting income','Do not spend a future paycheck in your head before it actually arrives.'],
+    ['Keep an eye on fees','Late, overdraft and convenience fees can quietly consume money without adding value.'],
+    ['Plan fun money too','A realistic budget can include guilt-free spending instead of pretending every dollar will be perfect.'],
+    ['Use windfalls to strengthen weak spots','Extra money can refill a cushion, catch up a bill or boost savings before lifestyle spending.'],
+    ['Make minimums visible','For debts, always know the required minimum and due date even when you plan to pay more.'],
+    ['Pay attention to timing','Having enough for the month is different from having enough on the day a bill is due.'],
+    ['Keep a buffer between zero and trouble','The goal of a cushion is to make $0 Safe to Spend happen before your actual balance reaches $0.'],
+    ['Review after a big purchase','Update spending soon after a large expense so your gauge reflects reality.'],
+    ['Treat savings transfers consistently','Recording savings the same way every time makes your monthly picture easier to trust.'],
+    ['Check automatic renewals early','Review annual renewals before they charge, not after.'],
+    ['Use notes for unusual spending','A quick description can help future you remember why a month looked different.'],
+    ['Do not chase a perfect score','The gauge is a planning signal, not a grade. Use it to understand your room to spend.'],
+    ['Keep the next bill in mind','Before an optional purchase, ask what bill comes next and whether it is already protected.'],
+    ['Update changes quickly','If a bill amount changes, update it so future totals are based on the new amount.'],
+    ['A partial payment still matters','Recording partial bill payments keeps Remaining accurate instead of making the bill look untouched.'],
+    ['Check your subscriptions quarterly','A quick subscription review every few months can catch services you forgot about.'],
+    ['Plan groceries before shopping','A short list can reduce repeat trips and unplanned extras.'],
+    ['Notice convenience spending','Delivery fees and small add-ons can change the real price of a purchase.'],
+    ['Leave room for real life','A plan with no flexibility is harder to follow when something unexpected happens.'],
+    ['Use payday as a checkpoint','After income arrives, review bills, cushion and Safe to Spend before making new plans.'],
+    ['Know what changed','When Safe to Spend drops, check recent spending and paid bills before assuming something is wrong.'],
+    ['Keep goals realistic','A goal that fits your actual cash flow is more useful than one that forces constant resets.'],
+    ['Celebrate progress without undoing it','Reaching a money goal can be worth celebrating without spending the entire gain.']
+  ];
+
+  const tight=[
+    ['Protect the cushion first','Safe to Spend is tight right now. Consider delaying optional purchases until more room opens up.'],
+    ['Check the next due date','When spending room is low, make sure the next required bill is covered before anything optional.'],
+    ['Small choices matter more when tight','A few smaller purchases can quickly use the remaining Safe to Spend.'],
+    ['Look for a temporary pause','If needed, pause a nonessential recurring charge rather than letting several small costs stack up.']
+  ];
+  const strong=[
+    ['Use extra breathing room deliberately','When Safe to Spend is healthy, consider whether part of the extra room belongs in savings or a future expense fund.'],
+    ['Plan ahead while things are comfortable','A strong month is a good time to prepare for irregular bills before they arrive.'],
+    ['Strengthen the next month','Extra room now can become next month’s cushion instead of automatically becoming more spending.']
+  ];
+
+  let tipIndex=0, timer=null;
+  function cash(id){const n=Number((($(id)?.textContent)||'').replace(/[^0-9.-]/g,''));return Number.isFinite(n)?n:0}
+  function pool(){
+    const safe=cash('pp2059DigitalAmount')||cash('mb20429GaugeAmount');
+    const cushion=cash('pp2059Cushion');
+    if(safe<=Math.max(25,cushion*.5))return tight.concat(general);
+    if(safe>=Math.max(200,cushion*2))return strong.concat(general);
+    return general;
+  }
+  function showTip(){
+    if(!enabled(MONEY_KEY,true))return;
+    const p=pool(),t=p[tipIndex%p.length];
+    if($('mb142TipKicker'))$('mb142TipKicker').textContent='💡 Smart Money Tip';
+    if($('mb119TipTitle'))$('mb119TipTitle').textContent=t[0];
+    if($('mb119TipText'))$('mb119TipText').textContent=t[1];
+  }
+  function applyMoneyTipVisibility(){
+    const on=enabled(MONEY_KEY,true), card=$('mb119Tips');
+    if(card)card.style.display=on?'':'none';
+    if(on)showTip();
+  }
+  function startTips(){
+    if(window.__mb142TipTimer){clearInterval(window.__mb142TipTimer);window.__mb142TipTimer=null}
+    if(timer)clearInterval(timer);
+    const b=$('mb119NextTip');
+    if(b)b.onclick=e=>{e.preventDefault();e.stopPropagation();tipIndex++;showTip()};
+    applyMoneyTipVisibility();
+    timer=setInterval(()=>{if(document.visibilityState==='visible'&&enabled(MONEY_KEY,true)){tipIndex++;showTip()}},12000);
+  }
+
+  function boot(){
+    ensureDialog();injectHelp();injectSettings();startTips();
+    document.addEventListener('click',()=>setTimeout(()=>{injectSettings();injectHelp()},80),true);
+    document.addEventListener('mybills:viewchange',()=>setTimeout(injectHelp,0));
+    setInterval(injectSettings,1200);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,250),{once:true});
+  else setTimeout(boot,250);
 })();
 </script>
 

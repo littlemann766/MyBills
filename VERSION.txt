@@ -1,3 +1,3 @@
 Pay Pilot
-Version: 20.5.15
-Release: Paid card now contains full paid-bill history; Bills Total Amount lists every bill in the viewed month
+Version: 20.5.16
+Release: contextual Tips & Tricks help, independent help/money-tip controls, expanded rotating money tips
