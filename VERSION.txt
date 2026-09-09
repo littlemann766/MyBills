@@ -1,3 +1,3 @@
 Pay Pilot
-Version: 20.5.12
-Release: Previous Bills Paid now shows Total Bill Amount with a full paid-bill breakdown
+Version: 20.5.13
+Release: Previous Bills Paid summary renamed to Bill Total Amount
