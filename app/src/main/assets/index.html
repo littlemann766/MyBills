@@ -9551,7 +9551,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.14</strong>
+      <strong>20.5.15</strong>
     </div>
   </section>
 </div>
@@ -9565,10 +9565,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.14';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.15';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=229, BUILD_NAME='20.5.14', BUILD_LABEL='20.5.14';
+  const BUILD_CODE=230, BUILD_NAME='20.5.15', BUILD_LABEL='20.5.15';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9827,7 +9827,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.14';
+  const VERSION='20.5.15';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -10017,7 +10017,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.14';
+  const VERSION='20.5.15';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10257,7 +10257,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.14';
+  const VERSION='20.5.15';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11919,7 +11919,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.14</strong>
+        <strong>20.5.15</strong>
       </div>
       ${done()}`);
 
@@ -15181,7 +15181,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.14 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.15 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15273,7 +15273,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 <script id="pp2058-authoritative-sync">
 (function(){
-  const VERSION='20.5.14', BUILD=229;
+  const VERSION='20.5.15', BUILD=230;
   window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
   window.MYBILLS_BUILD_CODE=BUILD;
   window.MYBILLS_BUILD_NAME=VERSION;
@@ -15334,7 +15334,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp2059-gauge-rebuild-css">
-/* Pay Pilot 20.5.14 — one gauge, one set of numbers, two Home actions */
+/* Pay Pilot 20.5.15 — one gauge, one set of numbers, two Home actions */
 
 /* Old semicircle remains as the data engine only; never show it. */
 #mb20429GaugeStage,
@@ -15666,7 +15666,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp20512-paid-history-summary-css">
-/* 20.5.14 — Previous Bills Paid: total + breakdown */
+/* 20.5.15 — Previous Bills Paid: total + breakdown */
 #historyList .pp20512-paid-summary{
   display:grid!important;
   grid-template-columns:1fr auto!important;
@@ -15759,6 +15759,156 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
   // Replace only this tab's renderer. Other payment-history screens stay untouched.
   window.showHistory=renderPaidHistoryWithTotal;
+})();
+</script>
+
+
+<style id="pp20515-bill-tabs-css">
+/* 20.5.15 — Bills Total Amount = viewed-month bill list; Paid = complete paid history */
+.pp20515-summary{
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  align-items:center!important;
+  gap:10px 14px!important;
+  margin:0 0 16px!important;
+  padding:16px 18px!important;
+  border:2px solid rgba(25,237,245,.46)!important;
+  border-radius:18px!important;
+  background:#0b2447!important;
+}
+.pp20515-summary .label{
+  color:#cbd8e7!important;
+  font-size:.9rem!important;
+  font-weight:850!important;
+}
+.pp20515-summary .value{
+  color:#fff!important;
+  font-size:1.75rem!important;
+  font-weight:950!important;
+  text-align:right!important;
+}
+.pp20515-summary .sub{
+  grid-column:1/-1!important;
+  color:#aebed0!important;
+  font-size:.8rem!important;
+}
+.pp20515-breakdown{
+  margin:2px 0 8px!important;
+  color:#fff!important;
+  font-size:1.05rem!important;
+  font-weight:950!important;
+}
+</style>
+
+
+<script id="pp20515-bill-tabs-js">
+(function(){
+  function fmtMoney(n){
+    try{
+      if(typeof window.money==='function') return window.money(Number(n)||0);
+    }catch(e){}
+    return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n)||0);
+  }
+
+  // Bills Total Amount card:
+  // show EVERY bill occurrence in the month being viewed, paid or unpaid.
+  window.showHistory=function(){
+    const y=calDate.getFullYear(), m=calDate.getMonth();
+    const all=typeof billOccurrencesInMonth==='function' ? billOccurrencesInMonth(y,m) : [];
+    const box=document.getElementById('historyList');
+    const dlg=document.getElementById('historyDlg');
+    if(!box || !dlg) return;
+
+    const monthTitle=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    const heading=dlg.querySelector('h2');
+    if(heading) heading.textContent=`Bills Total Amount — ${monthTitle}`;
+
+    const total=all.reduce((sum,x)=>sum+(Number(x?.bill?.amount)||0),0);
+
+    const summary=`
+      <div class="pp20515-summary">
+        <div class="label">Bills Total Amount</div>
+        <div class="value">${fmtMoney(total)}</div>
+        <div class="sub">${all.length} bill occurrence${all.length===1?'':'s'} in ${monthTitle}</div>
+      </div>
+      <div class="pp20515-breakdown">Breakdown</div>`;
+
+    if(!all.length){
+      box.innerHTML=summary+`<div class="empty">No bills due in ${monthTitle}.</div>`;
+      dlg.showModal();
+      return;
+    }
+
+    const rows=groupedBillHTML(
+      all,
+      x=>x.date,
+      x=>{
+        const b=x.bill;
+        const paid=Number(billPaidAmount(b,x.date))||0;
+        const remaining=Math.max(0,(Number(b.amount)||0)-paid);
+        const status=typeof billStatus==='function' ? billStatus(b,x.date) : '';
+        return `<div class="bill bill-menu-card ${status==='paid'?'done':status==='partial'?'partial':''}" style="margin:8px 0">
+          <div class="dot" style="background:${b.color||defaultColor(b.name)}"></div>
+          <div class="billmain">
+            <div class="name">${esc(b.name)}</div>
+            <div class="meta">Bill ${fmtMoney(b.amount)} • Paid ${fmtMoney(paid)} • Remaining ${fmtMoney(remaining)}${b.recurring?' • Recurring':''}</div>
+          </div>
+          <div class="amount">${fmtMoney(b.amount)}</div>
+          <button type="button" class="bill-menu-dots" aria-label="Edit bill" title="Edit bill"
+            onclick="historyDlg.close();editBillOccurrence('${b.id}','${x.date}')">⋮</button>
+        </div>`;
+      }
+    );
+
+    box.innerHTML=summary+rows;
+    dlg.showModal();
+  };
+
+  // Paid card:
+  // move the old Previous Bills Paid history here so Paid Bills contains
+  // the complete saved history of fully-paid bill occurrences.
+  window.showPaidBreakdown=function(){
+    const paid=typeof billHistory==='function' ? billHistory() : [];
+    const box=document.getElementById('paidList');
+    const dlg=document.getElementById('paidDlg');
+    if(!box || !dlg) return;
+
+    const heading=dlg.querySelector('h2');
+    if(heading) heading.textContent='Paid Bills';
+
+    const totalPaid=paid.reduce((sum,x)=>sum+(Number(x.paid)||0),0);
+    const summary=`
+      <div class="pp20515-summary">
+        <div class="label">Total Paid</div>
+        <div class="value">${fmtMoney(totalPaid)}</div>
+        <div class="sub">${paid.length} paid bill occurrence${paid.length===1?'':'s'} in your history</div>
+      </div>
+      <div class="pp20515-breakdown">Paid Bill History</div>`;
+
+    if(!paid.length){
+      box.innerHTML=summary+'<div class="empty">No paid bills yet.</div>';
+      dlg.showModal();
+      return;
+    }
+
+    const rows=groupedBillHTML(
+      paid,
+      x=>x.iso,
+      x=>`<div class="bill bill-menu-card" style="margin:8px 0;cursor:pointer" onclick="editPaidOccurrence('${x.b.id}','${x.iso}')">
+        <div class="dot" style="background:${x.b.color||defaultColor(x.b.name)}"></div>
+        <div class="billmain">
+          <div class="name">${esc(x.b.name)}</div>
+          <div class="meta">Bill ${fmtMoney(x.b.amount)} • Paid ${fmtMoney(x.paid)} • Remaining ${fmtMoney(Math.max(0,(Number(x.b.amount)||0)-Number(x.paid||0)))}</div>
+        </div>
+        <div class="amount">${fmtMoney(x.paid)}</div>
+        <button type="button" class="bill-menu-dots" aria-label="Edit bill" title="Edit bill"
+          onclick="event.stopPropagation();editPaidOccurrence('${x.b.id}','${x.iso}')">⋮</button>
+      </div>`
+    );
+
+    box.innerHTML=summary+rows;
+    dlg.showModal();
+  };
 })();
 </script>
 
