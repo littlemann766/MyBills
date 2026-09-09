@@ -12,10 +12,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Pay Pilot">
 <title>Pay Pilot</title>
-<link rel="icon" type="image/png" sizes="96x96" href="mybills-v126-favicon.png?v=148">
-<link rel="apple-touch-icon" sizes="192x192" href="mybills-v126-192.png?v=148">
-<link rel="manifest" href="manifest.webmanifest?v=148">
-<link rel="stylesheet" href="mybills.css?v=148">
+<link rel="icon" type="image/png" sizes="96x96" href="mybills-v126-favicon.png?v=223">
+<link rel="apple-touch-icon" sizes="192x192" href="mybills-v126-192.png?v=223">
+<link rel="manifest" href="manifest.webmanifest?v=223">
+<link rel="stylesheet" href="mybills.css?v=223">
 
 
 
@@ -9494,7 +9494,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.6</strong>
+      <strong>20.5.9</strong>
     </div>
   </section>
 </div>
@@ -9508,10 +9508,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.2';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.9';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=221, BUILD_NAME='20.5.2', BUILD_LABEL='20.5.2';
+  const BUILD_CODE=224, BUILD_NAME='20.5.9', BUILD_LABEL='20.5.9';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9770,7 +9770,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.9';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9960,7 +9960,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.9';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10200,7 +10200,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.2';
+  const VERSION='20.5.9';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11862,7 +11862,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.2</strong>
+        <strong>20.5.9</strong>
       </div>
       ${done()}`);
 
@@ -15124,7 +15124,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.6 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.9 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15214,28 +15214,396 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 </script>
 
 
-<script id="pp2056-version-sync">
+<script id="pp2058-authoritative-sync">
 (function(){
-  const APP_VERSION='20.5.6';
-  const APP_BUILD=221;
-  window.PAY_PILOT_VERSION=APP_VERSION;
-  window.PAY_PILOT_BUILD=APP_BUILD;
+  const VERSION='20.5.9', BUILD=224;
+  window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
+  window.MYBILLS_BUILD_CODE=BUILD;
+  window.MYBILLS_BUILD_NAME=VERSION;
+  window.MYBILLS_BUILD_VERSION=VERSION;
+  window.PAY_PILOT_VERSION=VERSION;
 
-  function syncVersionLabels(){
-    const card=document.getElementById('mb119Version');
-    const strong=card?.querySelector('strong');
-    if(strong) strong.textContent=APP_VERSION;
-
-    document.querySelectorAll('[data-app-version]').forEach(el=>{
-      el.textContent=APP_VERSION;
+  function syncVersion(root=document){
+    root.querySelectorAll?.('#mb119Version strong,.mb2034-version-copy strong,[data-app-version]').forEach(el=>{
+      el.textContent=VERSION;
+    });
+    root.querySelectorAll?.('strong').forEach(el=>{
+      const parent=(el.parentElement?.textContent||'');
+      if(/App Version/i.test(parent)) el.textContent=VERSION;
     });
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',syncVersionLabels,{once:true});
-  }else{
-    syncVersionLabels();
+  function removeLegacySecurity(root=document){
+    const panel=root.querySelector?.('#mb123SettingsPanel') || root;
+    panel.querySelectorAll?.('input[type="checkbox"]').forEach(cb=>{
+      const txt=(cb.parentElement?.textContent||'') + ' ' + (cb.previousElementSibling?.textContent||'');
+      if(/Require fingerprint\s*\/\s*phone lock/i.test(txt)){
+        const card=cb.closest('.settings-section,.settings-row,.mb119-card,.card');
+        if(card && !card.querySelector('.settings-switch')) card.remove();
+      }
+    });
+    panel.querySelectorAll?.('button').forEach(btn=>{
+      if((btn.textContent||'').trim()==='Lock Pay Pilot Now'){
+        const styled=btn.closest('.settings-section,.settings-row,.mb119-card,.card');
+        if(!styled || !styled.querySelector('.settings-switch')){
+          const parent=btn.parentElement;
+          if(parent && !parent.querySelector('.settings-switch')) btn.remove();
+        }
+      }
+    });
   }
+
+  function run(root=document){
+    syncVersion(root);
+    removeLegacySecurity(root);
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>run(),{once:true});
+  } else run();
+
+  const mo=new MutationObserver(records=>{
+    for(const rec of records){
+      for(const node of rec.addedNodes){
+        if(node instanceof Element) run(node);
+      }
+    }
+  });
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+
+  document.addEventListener('click',()=>setTimeout(()=>run(),60),true);
+})();
+</script>
+
+
+<style id="pp2059-gauge-rebuild-css">
+/* Pay Pilot 20.5.9 — one gauge, one set of numbers, two Home actions */
+
+/* Old semicircle remains as the data engine only; never show it. */
+#mb20429GaugeStage,
+#mb20419HealthSummary,
+#mb20419ForecastTitle,
+#mb20419ForecastGrid,
+#mb20419SavingsToggleRow,
+#mb20419FormulaNote{
+  display:none!important;
+}
+
+/* Forecast shell now only holds the two actions. */
+#mb20419Forecast{
+  margin:14px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+#mb20419Actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:12px!important;
+  margin:0!important;
+  padding:0!important;
+}
+#mb20419Actions button{
+  min-height:58px!important;
+  border-radius:18px!important;
+  font-weight:900!important;
+}
+
+/* New single Pay Pilot dial */
+#pp2059Gauge{
+  width:100%!important;
+  max-width:640px!important;
+  margin:0 auto!important;
+  padding:18px 14px 16px!important;
+  box-sizing:border-box!important;
+  border:3px solid var(--mb137-cyan,#19edf5)!important;
+  border-radius:28px!important;
+  background:linear-gradient(180deg,#0d2c59 0%,#0a2348 100%)!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.28)!important;
+}
+#pp2059GaugeTitle{
+  margin:0 0 2px!important;
+  color:#fff!important;
+  font-size:clamp(1.7rem,5vw,2.15rem)!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  letter-spacing:.02em!important;
+}
+#pp2059GaugeSub{
+  margin:0 0 8px!important;
+  color:#c8d5e5!important;
+  font-size:.92rem!important;
+}
+#pp2059Dial{
+  display:block!important;
+  width:min(100%,520px)!important;
+  height:auto!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+}
+.pp2059-rim1{fill:#d5dce4;stroke:#67717c;stroke-width:8}
+.pp2059-rim2{fill:#222b35;stroke:#aeb8c2;stroke-width:5}
+.pp2059-face{fill:#24303d}
+.pp2059-needle{
+  stroke:#f7f9fb!important;
+  stroke-width:9!important;
+  stroke-linecap:round!important;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.55))!important;
+}
+.pp2059-hub1{fill:#cdd5dd;stroke:#111a24;stroke-width:6}
+.pp2059-hub2{fill:#0b1826}
+#pp2059DigitalBox{fill:#071b20;stroke:#19edf5;stroke-width:4}
+#pp2059DigitalAmount{
+  fill:#5cff72!important;
+  font-size:34px!important;
+  font-weight:950!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace!important;
+}
+#pp2059DigitalLabel{
+  fill:#e9f3fb!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  letter-spacing:.09em!important;
+}
+#pp2059ZoneLabel{
+  fill:#fff!important;
+  font-size:19px!important;
+  font-weight:950!important;
+}
+#pp2059ScoreLabel{
+  fill:#b9c9db!important;
+  font-size:12px!important;
+  font-weight:800!important;
+}
+
+#pp2059GaugeMetrics{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:0!important;
+  margin:8px 0 0!important;
+  padding:12px 4px!important;
+  border:2px solid rgba(25,237,245,.34)!important;
+  border-radius:18px!important;
+  background:#0b2447!important;
+}
+#pp2059GaugeMetrics > div{
+  min-width:0!important;
+  text-align:center!important;
+  padding:0 7px!important;
+  border-left:1px solid rgba(25,237,245,.26)!important;
+}
+#pp2059GaugeMetrics > div:first-child{border-left:0!important}
+#pp2059GaugeMetrics span{
+  display:block!important;
+  color:#aebdd0!important;
+  font-size:.72rem!important;
+  font-weight:800!important;
+}
+#pp2059GaugeMetrics strong{
+  display:block!important;
+  margin-top:3px!important;
+  color:#fff!important;
+  font-size:1.1rem!important;
+  font-weight:950!important;
+}
+
+@media(max-width:560px){
+  #pp2059Gauge{padding:14px 10px 13px!important;border-radius:24px!important}
+  #pp2059GaugeTitle{font-size:1.6rem!important}
+  #pp2059GaugeSub{font-size:.8rem!important}
+  #pp2059GaugeMetrics strong{font-size:.98rem!important}
+  #pp2059GaugeMetrics span{font-size:.63rem!important}
+  #mb20419Actions{gap:9px!important}
+}
+</style>
+
+
+<script id="pp2059-gauge-rebuild-js">
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const $=id=>document.getElementById(id);
+
+  function cash(n){
+    try{
+      if(typeof window.money==='function') return window.money(Number(n)||0);
+    }catch(e){}
+    return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n)||0);
+  }
+  function parseCash(txt){
+    return Math.max(0,Number(String(txt||'').replace(/[^0-9.-]/g,''))||0);
+  }
+  function settings(){
+    const base={redMax:50,orangeMax:250,yellowMax:500,greenMax:1000};
+    try{
+      const s=JSON.parse(localStorage.getItem('mybills_money_settings_v20419')||'{}')||{};
+      ['redMax','orangeMax','yellowMax','greenMax'].forEach(k=>{
+        if(Number.isFinite(Number(s[k])) && Number(s[k])>0) base[k]=Number(s[k]);
+      });
+    }catch(e){}
+    return base;
+  }
+  function scoreFor(safe,s){
+    safe=Math.max(0,Number(safe)||0);
+    const lerp=(a,b,x0,x1,y0,y1)=>{
+      if(x1<=x0) return y0;
+      return y0+((a-x0)/(x1-x0))*(y1-y0);
+    };
+    if(safe<=s.redMax) return 1+(safe/s.redMax);                    // 1 → 2
+    if(safe<=s.orangeMax) return 2+((safe-s.redMax)/(s.orangeMax-s.redMax))*3; // 2 → 5
+    if(safe<=s.yellowMax) return 5+((safe-s.orangeMax)/(s.yellowMax-s.orangeMax))*2; // 5 → 7
+    if(safe<=s.greenMax) return 7+((safe-s.yellowMax)/(s.greenMax-s.yellowMax))*3; // 7 → 10
+    return 10;
+  }
+  function zoneFor(safe,s){
+    if(safe<s.redMax) return {name:'TIGHT',color:'#e83a2f'};
+    if(safe<=s.orangeMax) return {name:'BREATHING',color:'#f49a25'};
+    if(safe<=s.yellowMax) return {name:'COMFORTABLE',color:'#d9cf2f'};
+    return {name:'STRONG',color:'#38b84f'};
+  }
+  function polar(cx,cy,r,deg){
+    const a=(deg-90)*Math.PI/180;
+    return {x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};
+  }
+  function arcPath(cx,cy,ro,ri,a0,a1){
+    const p1=polar(cx,cy,ro,a0), p2=polar(cx,cy,ro,a1);
+    const p3=polar(cx,cy,ri,a1), p4=polar(cx,cy,ri,a0);
+    const large=(a1-a0)>180?1:0;
+    return `M ${p1.x} ${p1.y} A ${ro} ${ro} 0 ${large} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${ri} ${ri} 0 ${large} 0 ${p4.x} ${p4.y} Z`;
+  }
+  function svgEl(tag,attrs,parent){
+    const el=document.createElementNS(NS,tag);
+    Object.entries(attrs||{}).forEach(([k,v])=>el.setAttribute(k,String(v)));
+    parent.appendChild(el);
+    return el;
+  }
+
+  function buildGauge(){
+    const card=$('mb20419HealthCard');
+    if(!card || $('pp2059Gauge')) return;
+
+    const gauge=document.createElement('div');
+    gauge.id='pp2059Gauge';
+    gauge.innerHTML=`
+      <div id="pp2059GaugeTitle">PAY PILOT GAUGE</div>
+      <div id="pp2059GaugeSub">Safe to Spend shown on a 1–10 financial scale.</div>
+      <svg id="pp2059Dial" viewBox="0 0 420 420" role="img" aria-label="Pay Pilot Safe to Spend gauge">
+        <circle cx="210" cy="210" r="190" class="pp2059-rim1"/>
+        <circle cx="210" cy="210" r="174" class="pp2059-rim2"/>
+        <circle cx="210" cy="210" r="153" class="pp2059-face"/>
+        <g id="pp2059Wedges"></g>
+        <g id="pp2059Ticks"></g>
+        <g id="pp2059Numbers"></g>
+        <g id="pp2059NeedleGroup">
+          <line id="pp2059Needle" x1="210" y1="210" x2="210" y2="73" class="pp2059-needle"/>
+          <circle cx="210" cy="210" r="24" class="pp2059-hub1"/>
+          <circle cx="210" cy="210" r="12" class="pp2059-hub2"/>
+        </g>
+        <text id="pp2059ZoneLabel" x="210" y="250" text-anchor="middle">TIGHT</text>
+        <text id="pp2059ScoreLabel" x="210" y="270" text-anchor="middle">1.0 / 10</text>
+        <rect id="pp2059DigitalBox" x="127" y="292" width="166" height="72" rx="16"/>
+        <text id="pp2059DigitalAmount" x="210" y="329" text-anchor="middle">$0.00</text>
+        <text id="pp2059DigitalLabel" x="210" y="351" text-anchor="middle">SAFE TO SPEND</text>
+      </svg>
+      <div id="pp2059GaugeMetrics">
+        <div><span>Available now</span><strong id="pp2059Available">$0.00</strong></div>
+        <div><span>Savings</span><strong id="pp2059Savings">$0.00</strong></div>
+        <div><span>Cushion</span><strong id="pp2059Cushion">$0.00</strong></div>
+      </div>`;
+
+    const forecast=$('mb20419Forecast');
+    if(forecast) card.insertBefore(gauge,forecast);
+    else card.prepend(gauge);
+
+    const wedges=$('pp2059Wedges'), ticks=$('pp2059Ticks'), nums=$('pp2059Numbers');
+    const colors=[
+      '#d92f2f','#ef4b2f',      // 1-2 tight
+      '#f28c28','#f3a52b','#e1c72b', // 3-5 breathing
+      '#d7d933','#a7d83a',      // 6-7 comfortable
+      '#6dcc43','#48bf49','#2daa49' // 8-10 strong
+    ];
+    const start=-140, sweep=280, seg=sweep/10;
+
+    for(let i=0;i<10;i++){
+      const a0=start+i*seg, a1=start+(i+1)*seg;
+      svgEl('path',{
+        d:arcPath(210,210,151,104,a0,a1),
+        fill:colors[i],
+        stroke:'rgba(0,0,0,.08)',
+        'stroke-width':'1'
+      },wedges);
+
+      const mid=(a0+a1)/2;
+      const p=polar(210,210,126,mid);
+      const text=svgEl('text',{
+        x:p.x,y:p.y+7,'text-anchor':'middle',
+        fill:'#07121d','font-size':'23','font-weight':'950'
+      },nums);
+      text.textContent=String(i+1);
+    }
+
+    for(let i=0;i<=50;i++){
+      const a=start+(sweep*i/50);
+      const major=i%5===0;
+      const p1=polar(210,210,158,a);
+      const p2=polar(210,210,major?139:147,a);
+      svgEl('line',{
+        x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,
+        stroke:'#101820','stroke-width':major?'4':'2','stroke-linecap':'round'
+      },ticks);
+    }
+  }
+
+  function currentValues(){
+    const safe=parseCash($('mb20419Safe')?.textContent || $('mb20419SafeBig')?.textContent);
+    const available=parseCash($('mb20419Available')?.textContent);
+    const savings=parseCash($('mb20419Savings')?.textContent);
+
+    let cushion=0;
+    const line=$('mb20419HealthLine')?.textContent||'';
+    const m=line.match(/\$([0-9,]+(?:\.\d{1,2})?)\s*cushion/i);
+    if(m) cushion=parseCash(m[1]);
+
+    return {safe,available,savings,cushion};
+  }
+
+  function render(){
+    buildGauge();
+    if(!$('pp2059Gauge')) return;
+
+    const v=currentValues(), s=settings(), score=scoreFor(v.safe,s), zone=zoneFor(v.safe,s);
+    const start=-140, sweep=280;
+    const deg=start+((score-1)/9)*sweep;
+
+    const needle=$('pp2059Needle');
+    if(needle){
+      needle.style.transformOrigin='210px 210px';
+      needle.style.transform=`rotate(${deg}deg)`;
+      needle.style.transition='transform .45s cubic-bezier(.2,.8,.2,1)';
+    }
+
+    $('pp2059DigitalAmount').textContent=cash(v.safe);
+    $('pp2059ZoneLabel').textContent=zone.name;
+    $('pp2059ZoneLabel').setAttribute('fill',zone.color);
+    $('pp2059ScoreLabel').textContent=`${score.toFixed(1)} / 10`;
+    $('pp2059Available').textContent=cash(v.available);
+    $('pp2059Savings').textContent=cash(v.savings);
+    $('pp2059Cushion').textContent=cash(v.cushion);
+    $('pp2059Dial').setAttribute('aria-label',`${zone.name}, ${cash(v.safe)} safe to spend`);
+  }
+
+  function boot(){
+    buildGauge();
+    render();
+
+    // Existing money card renders independently. Read its values after it updates.
+    setInterval(render,500);
+    document.addEventListener('click',()=>setTimeout(render,80),true);
+    document.addEventListener('input',()=>setTimeout(render,80),true);
+    document.addEventListener('change',()=>setTimeout(render,80),true);
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
+  else boot();
 })();
 </script>
 
