@@ -9494,7 +9494,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.2</strong>
+      <strong>20.5.6</strong>
     </div>
   </section>
 </div>
@@ -9511,7 +9511,7 @@ function openAvailableNowSpendingV88(){
 <script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.2';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=217, BUILD_NAME='20.5.2', BUILD_LABEL='20.5.2';
+  const BUILD_CODE=221, BUILD_NAME='20.5.2', BUILD_LABEL='20.5.2';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -15124,7 +15124,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.5 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.6 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15210,6 +15210,32 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
   document.addEventListener('click',()=>setTimeout(run,60),true);
   document.addEventListener('input',()=>setTimeout(run,60),true);
   document.addEventListener('change',()=>setTimeout(run,60),true);
+})();
+</script>
+
+
+<script id="pp2056-version-sync">
+(function(){
+  const APP_VERSION='20.5.6';
+  const APP_BUILD=221;
+  window.PAY_PILOT_VERSION=APP_VERSION;
+  window.PAY_PILOT_BUILD=APP_BUILD;
+
+  function syncVersionLabels(){
+    const card=document.getElementById('mb119Version');
+    const strong=card?.querySelector('strong');
+    if(strong) strong.textContent=APP_VERSION;
+
+    document.querySelectorAll('[data-app-version]').forEach(el=>{
+      el.textContent=APP_VERSION;
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',syncVersionLabels,{once:true});
+  }else{
+    syncVersionLabels();
+  }
 })();
 </script>
 
