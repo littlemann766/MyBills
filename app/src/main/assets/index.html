@@ -3328,7 +3328,30 @@ function showRemaining(){
   remainingDlg.showModal();
 }
 
-function billHistory(){const y=calDate.getFullYear(),m=calDate.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0),out=[];for(let d=new Date(first);d<=last;d.setDate(d.getDate()+1)){const iso=toISO(d);bills.forEach(b=>{if(isRecurringOnDate(b,d)){const paid=billPaidAmount(b,iso);if(paid>0)out.push({b,iso,paid})}})}return out.sort((a,b)=>b.iso.localeCompare(a.iso))}
+function billHistory(){
+  // Previous Bills Paid is a true all-time history, not just the viewed month.
+  // Use the per-occurrence payment ledger so recurring bill payments remain visible
+  // after the bill advances to its next due date.
+  const out=[],seen=new Set(),byId=new Map(bills.map(b=>[String(b.id),b]));
+  const add=(b,iso)=>{
+    if(!b||!iso)return;
+    const key=billOccurrenceKey(b,iso);
+    if(seen.has(key)||billOccurrenceDeleted(b,iso))return;
+    const paid=billPaidAmount(b,iso),due=Math.max(0,Number(b.amount)||0);
+    if(due>0 && paid>=due){seen.add(key);out.push({b,iso,paid});}
+  };
+  Object.keys(billPaidAmounts||{}).forEach(key=>{
+    const cut=key.lastIndexOf('|'); if(cut<1)return;
+    add(byId.get(key.slice(0,cut)),key.slice(cut+1));
+  });
+  Object.keys(billOverrides||{}).forEach(key=>{
+    const cut=key.lastIndexOf('|'); if(cut<1)return;
+    add(byId.get(key.slice(0,cut)),key.slice(cut+1));
+  });
+  // Compatibility for older one-time bills that were saved simply as paid.
+  bills.forEach(b=>{if(b.paid&&b.due)add(b,b.due);});
+  return out.sort((a,b)=>b.iso.localeCompare(a.iso)||String(a.b.name||'').localeCompare(String(b.b.name||'')));
+}
 function showHistory(){
   const paid=billHistory(),box=$('historyList');
   box.innerHTML=paid.length
@@ -9494,7 +9517,7 @@ function openAvailableNowSpendingV88(){
     <div id="mb123SettingsPanel" class="mb123-settings-panel"></div>
     <div id="mb119Version" class="mb119-card" style="margin-top:14px">
       <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Use this to confirm the newest build is actually running.</div></div>
-      <strong>20.5.9</strong>
+      <strong>20.5.10</strong>
     </div>
   </section>
 </div>
@@ -9508,10 +9531,10 @@ function openAvailableNowSpendingV88(){
   <button class="mb119-nav" data-view="settings"><span class="ico">⚙</span><span>Settings</span></button>
 </nav>
 
-<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.9';</script>
+<script>window.MYBILLS_ANDROID_BUILD_EXPECTED='20.5.10';</script>
 <script id="mb-v119-clean-script">
 (function(){
-  const BUILD_CODE=224, BUILD_NAME='20.5.9', BUILD_LABEL='20.5.9';
+  const BUILD_CODE=225, BUILD_NAME='20.5.10', BUILD_LABEL='20.5.10';
   window.MYBILLS_BUILD_CODE=BUILD_CODE;
   window.MYBILLS_BUILD_NAME=BUILD_NAME;
   window.MYBILLS_BUILD_VERSION=BUILD_LABEL;
@@ -9770,7 +9793,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v123-script">
 (function(){
-  const VERSION='20.5.9';
+  const VERSION='20.5.10';
 
   function wrapStickyHeaders(){
     document.querySelectorAll('.mb119-view').forEach(view=>{
@@ -9960,7 +9983,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-v124-structure-lock-script">
 (function(){
-  const VERSION='20.5.9';
+  const VERSION='20.5.10';
 
   function moveInto(mountId,node){
     const mount=document.getElementById(mountId);
@@ -10200,7 +10223,7 @@ function openAvailableNowSpendingV88(){
 
 <script id="mb-20-0-137-reference-script">
 (function(){
-  const VERSION='20.5.9';
+  const VERSION='20.5.10';
   const THEME_KEY='myBills_theme_simple_137';
   const SPEND_KEY='myBills_budget_spending_v1';
   const PAYMENT_META_KEY='myBills_payment_meta_v1';
@@ -11862,7 +11885,7 @@ body.mb-high-contrast textarea{border-width:2px!important}
       </div>
       <div class="mb2034-version-copy" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px">
         <div><b>App Version</b><div style="color:#b9c7da;font-size:12px;margin-top:3px">Confirm the newest build is running.</div></div>
-        <strong>20.5.9</strong>
+        <strong>20.5.10</strong>
       </div>
       ${done()}`);
 
@@ -15124,7 +15147,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="mb2055-gauge-fix-css">
-/* 20.5.9 — correct gauge direction + remove duplicate Home projections */
+/* 20.5.10 — correct gauge direction + remove duplicate Home projections */
 .pp2054-zone-legend > div:nth-child(1) strong{color:#ff4a4a!important}
 .pp2054-zone-legend > div:nth-child(2) strong{color:#ffb12b!important}
 .pp2054-zone-legend > div:nth-child(3) strong{color:#cbdc38!important}
@@ -15216,7 +15239,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 <script id="pp2058-authoritative-sync">
 (function(){
-  const VERSION='20.5.9', BUILD=224;
+  const VERSION='20.5.10', BUILD=225;
   window.MYBILLS_ANDROID_BUILD_EXPECTED=VERSION;
   window.MYBILLS_BUILD_CODE=BUILD;
   window.MYBILLS_BUILD_NAME=VERSION;
@@ -15277,7 +15300,7 @@ dialog.pp51-menu > .pp51-body [style*="background: #fff"]{
 
 
 <style id="pp2059-gauge-rebuild-css">
-/* Pay Pilot 20.5.9 — one gauge, one set of numbers, two Home actions */
+/* Pay Pilot 20.5.10 — one gauge, one set of numbers, two Home actions */
 
 /* Old semicircle remains as the data engine only; never show it. */
 #mb20429GaugeStage,
